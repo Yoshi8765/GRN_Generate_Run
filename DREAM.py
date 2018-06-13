@@ -14,40 +14,40 @@ model *subchallenge2_missing_connections()
 
   // Compartments and Species:
   compartment compartment_;
-  species $X in compartment_, $__src__ in compartment_, $__waste__ in compartment_;
+  species $X in compartment_, $src in compartment_, $waste in compartment_;
   species p1 in compartment_, p2 in compartment_, p3 in compartment_, p4 in compartment_;
   species p5 in compartment_, p6 in compartment_, p11 in compartment_, p7 in compartment_;
   species p8 in compartment_, p9 in compartment_, p10 in compartment_;
 
   // Reactions:
   _J0: $X => p1; (p1_synthesis_rate*(X/r1_Kd)^r1_h)/(1 + (X/r1_Kd)^r1_h);
-  _J1: p1 => $__waste__; p1_degradation_rate*p1;
-  _J2: $__src__ => p2; (p2_synthesis_rate*(p1/r2_Kd)^r2_h)/(1 + (p1/r2_Kd)^r2_h)/(1 + (p6/r5_Kd)^r5_h);
-  _J3: p2 => $__waste__; p2_degradation_rate*p2;
-  _J4: $__src__ => p3; (p3_synthesis_rate_1*(p2/r4_Kd)^r4_h)/(1 + (p2/r4_Kd)^r4_h) + (p3_synthesis_rate_2*(p1/r3_Kd)^r3_h)/(1 + (p1/r3_Kd)^r3_h);
-  _J5: p3 => $__waste__; p3_degradation_rate*p3;
+  _J1: p1 => $waste; p1_degradation_rate*p1;
+  _J2: $src => p2; (p2_synthesis_rate*(p1/r2_Kd)^r2_h)/(1 + (p1/r2_Kd)^r2_h)/(1 + (p6/r5_Kd)^r5_h);
+  _J3: p2 => $waste; p2_degradation_rate*p2;
+  _J4: $src => p3; (p3_synthesis_rate_1*(p2/r4_Kd)^r4_h)/(1 + (p2/r4_Kd)^r4_h) + (p3_synthesis_rate_2*(p1/r3_Kd)^r3_h)/(1 + (p1/r3_Kd)^r3_h);
+  _J5: p3 => $waste; p3_degradation_rate*p3;
   _J6: p3 => p4; p4_synthesis_rate_1*p3;
-  _J7: $__src__ => p4; p4_synthesis_rate_2/(1 + (p7/r8_Kd)^r8_h);
-  _J8: p4 => $__waste__; p4_degradation_rate*p4;
-  _J9: $__src__ => p5; r6_basal + (p5_synthesis_rate_1*(p4/r6_Kd)^r6_h)/(1 + (p4/r6_Kd)^r6_h) + (p5_synthesis_rate_3*(p5/r7_Kd)^r7_h)/(1 + (p5/r7_Kd)^r7_h) + p5_synthesis_rate_2;
-  _J10: p5 => $__waste__; p5_degradation_rate*p5;
-  _J11: $__src__ => p6; p6_synthesis_rate;
-  _J12: p6 => $__waste__; p6_degradation_rate*p6;
-  _J13: $__src__ => p11; r11_basal + (p11_synthesis_rate_1*(p5/r11_Kd)^r11_h)/(1 + (p5/r11_Kd)^r11_h);
-  _J14: p11 => $__waste__; p11_degradation_rate*p11;
-  _J15: $__src__ => p7; p7_synthesis_rate*(r11_basal + (p11_synthesis_rate_1*(p5/r11_Kd)^r11_h)/(1 + (p5/r11_Kd)^r11_h));
-  _J16: p7 => $__waste__; p7_degradation_rate*p7;
-  _J17: $__src__ => p8; p8_synthesis_rate/(1 + (p7/r14_Kd)^r14_h);
-  _J18: p8 => $__waste__; p8_degradation_rate*p8;
-  _J19: $__src__ => p9; (p9_synthesis_rate*(p8/r15_Kd)^r15_h)/(1 + (p8/r15_Kd)^r15_h);
-  _J20: p9 => $__waste__; p9_degradation_rate*p9;
-  _J21: $__src__ => p10; p10_synthesis_rate/(1 + (p9/r16_Kd)^r16_h)/(1 + (p7/r13_Kd)^r13_h);
-  _J22: p10 => $__waste__; p10_degradation_rate*p10;
+  _J7: $src => p4; p4_synthesis_rate_2/(1 + (p7/r8_Kd)^r8_h);
+  _J8: p4 => $waste; p4_degradation_rate*p4;
+  _J9: $src => p5; r6_basal + (p5_synthesis_rate_1*(p4/r6_Kd)^r6_h)/(1 + (p4/r6_Kd)^r6_h) + (p5_synthesis_rate_3*(p5/r7_Kd)^r7_h)/(1 + (p5/r7_Kd)^r7_h) + p5_synthesis_rate_2;
+  _J10: p5 => $waste; p5_degradation_rate*p5;
+  _J11: $src => p6; p6_synthesis_rate;
+  _J12: p6 => $waste; p6_degradation_rate*p6;
+  _J13: $src => p11; r11_basal + (p11_synthesis_rate_1*(p5/r11_Kd)^r11_h)/(1 + (p5/r11_Kd)^r11_h);
+  _J14: p11 => $waste; p11_degradation_rate*p11;
+  _J15: $src => p7; p7_synthesis_rate*(r11_basal + (p11_synthesis_rate_1*(p5/r11_Kd)^r11_h)/(1 + (p5/r11_Kd)^r11_h));
+  _J16: p7 => $waste; p7_degradation_rate*p7;
+  _J17: $src => p8; p8_synthesis_rate/(1 + (p7/r14_Kd)^r14_h);
+  _J18: p8 => $waste; p8_degradation_rate*p8;
+  _J19: $src => p9; (p9_synthesis_rate*(p8/r15_Kd)^r15_h)/(1 + (p8/r15_Kd)^r15_h);
+  _J20: p9 => $waste; p9_degradation_rate*p9;
+  _J21: $src => p10; p10_synthesis_rate/(1 + (p9/r16_Kd)^r16_h)/(1 + (p7/r13_Kd)^r13_h);
+  _J22: p10 => $waste; p10_degradation_rate*p10;
 
   // Species initializations:
   X = 1;
-  __src__ = 1;
-  __waste__ = 1;
+  src = 1;
+  waste = 1;
   p1 = 1;
   p2 = 1;
   p3 = 1;
