@@ -1,0 +1,243 @@
+// Created by libAntimony v2.9.4
+function function_4__J17_2(compartment_, p7, p8_synthesis_rate, r14_Kd, r14_h)
+  p8_synthesis_rate/(1 + (p7/r14_Kd)^r14_h)/compartment_;
+end
+
+function function_4__J10_2(compartment_, p5, p5_degradation_rate)
+  p5_degradation_rate*p5/compartment_;
+end
+
+function function_4__J2_2(compartment_, p1, p2_synthesis_rate, p6, r2_Kd, r2_h, r5_Kd, r5_h)
+  p2_synthesis_rate*(p1/r2_Kd)^r2_h/(1 + (p1/r2_Kd)^r2_h)/(1 + (p6/r5_Kd)^r5_h)/compartment_;
+end
+
+function function_4__J18_2(compartment_, p8, p8_degradation_rate)
+  p8_degradation_rate*p8/compartment_;
+end
+
+function function_4__J3_2(compartment_, p2, p2_degradation_rate)
+  p2_degradation_rate*p2/compartment_;
+end
+
+function function_4__J0_2(X, compartment_, p1_synthesis_rate, r1_Kd, r1_h)
+  p1_synthesis_rate*(X/r1_Kd)^r1_h/(1 + (X/r1_Kd)^r1_h)/compartment_;
+end
+
+function function_4__J7_2(compartment_, p4_synthesis_rate_2, p7, r8_Kd, r8_h)
+  p4_synthesis_rate_2/(1 + (p7/r8_Kd)^r8_h)/compartment_;
+end
+
+function function_4__J9_2(compartment_, p4, p5, p5_synthesis_rate_1, p5_synthesis_rate_2, p5_synthesis_rate_3, r6_Kd, r6_basal, r6_h, r7_Kd, r7_h)
+  (r6_basal + p5_synthesis_rate_1*(p4/r6_Kd)^r6_h/(1 + (p4/r6_Kd)^r6_h) + p5_synthesis_rate_3*(p5/r7_Kd)^r7_h/(1 + (p5/r7_Kd)^r7_h) + p5_synthesis_rate_2)/compartment_;
+end
+
+function function_4__J4_2(compartment_, p1, p2, p3_synthesis_rate_1, p3_synthesis_rate_2, r3_Kd, r3_h, r4_Kd, r4_h)
+  (p3_synthesis_rate_1*(p2/r4_Kd)^r4_h/(1 + (p2/r4_Kd)^r4_h) + p3_synthesis_rate_2*(p1/r3_Kd)^r3_h/(1 + (p1/r3_Kd)^r3_h))/compartment_;
+end
+
+function function_4__J5_2(compartment_, p3, p3_degradation_rate)
+  p3_degradation_rate*p3/compartment_;
+end
+
+function function_4__J8_2(compartment_, p4, p4_degradation_rate)
+  p4_degradation_rate*p4/compartment_;
+end
+
+function function_4__J6_2(compartment_, p3, p4_synthesis_rate_1)
+  p4_synthesis_rate_1*p3/compartment_;
+end
+
+function function_4__J1_2(compartment_, p1, p1_degradation_rate)
+  p1_degradation_rate*p1/compartment_;
+end
+
+function function_4__J11_2(compartment_, p6_synthesis_rate)
+  p6_synthesis_rate/compartment_;
+end
+
+function function_4__J12_2(compartment_, p6, p6_degradation_rate)
+  p6_degradation_rate*p6/compartment_;
+end
+
+function function_4__J14_2(compartment_, p11, p11_degradation_rate)
+  p11_degradation_rate*p11/compartment_;
+end
+
+function function_4__J13_2(compartment_, p11_synthesis_rate_1, p5, r11_Kd, r11_basal, r11_h)
+  (r11_basal + p11_synthesis_rate_1*(p5/r11_Kd)^r11_h/(1 + (p5/r11_Kd)^r11_h))/compartment_;
+end
+
+function function_4__J15_2(compartment_, p11_synthesis_rate_1, p5, p7_synthesis_rate, r11_Kd, r11_basal, r11_h)
+  p7_synthesis_rate*(r11_basal + p11_synthesis_rate_1*(p5/r11_Kd)^r11_h/(1 + (p5/r11_Kd)^r11_h))/compartment_;
+end
+
+function function_4__J16_2(compartment_, p7, p7_degradation_rate)
+  p7_degradation_rate*p7/compartment_;
+end
+
+function function_4__J19_2(compartment_, p8, p9_synthesis_rate, r15_Kd, r15_h)
+  p9_synthesis_rate*(p8/r15_Kd)^r15_h/(1 + (p8/r15_Kd)^r15_h)/compartment_;
+end
+
+function function_4__J20_2(compartment_, p9, p9_degradation_rate)
+  p9_degradation_rate*p9/compartment_;
+end
+
+function function_4__J21_2(compartment_, p10_synthesis_rate, p7, p9, r13_Kd, r13_h, r16_Kd, r16_h)
+  p10_synthesis_rate/(1 + (p9/r16_Kd)^r16_h)/(1 + (p7/r13_Kd)^r13_h)/compartment_;
+end
+
+function function_4__J22_2(compartment_, p10, p10_degradation_rate)
+  p10_degradation_rate*p10/compartment_;
+end
+
+
+model *subchallenge2_missing_connections()
+
+  // Compartments and Species:
+  compartment compartment_;
+  species $X in compartment_, $__src__ in compartment_, $__waste__ in compartment_;
+  species p1 in compartment_, p2 in compartment_, p3 in compartment_, p4 in compartment_;
+  species p5 in compartment_, p6 in compartment_, p11 in compartment_, p7 in compartment_;
+  species p8 in compartment_, p9 in compartment_, p10 in compartment_;
+
+  // Reactions:
+  _J0: $X => p1; compartment_*function_4__J0_2(X, compartment_, p1_synthesis_rate, r1_Kd, r1_h);
+  _J1: p1 => $__waste__; compartment_*function_4__J1_2(compartment_, p1, p1_degradation_rate);
+  _J2: $__src__ => p2; compartment_*function_4__J2_2(compartment_, p1, p2_synthesis_rate, p6, r2_Kd, r2_h, r5_Kd, r5_h);
+  _J3: p2 => $__waste__; compartment_*function_4__J3_2(compartment_, p2, p2_degradation_rate);
+  _J4: $__src__ => p3; compartment_*function_4__J4_2(compartment_, p1, p2, p3_synthesis_rate_1, p3_synthesis_rate_2, r3_Kd, r3_h, r4_Kd, r4_h);
+  _J5: p3 => $__waste__; compartment_*function_4__J5_2(compartment_, p3, p3_degradation_rate);
+  _J6: p3 => p4; compartment_*function_4__J6_2(compartment_, p3, p4_synthesis_rate_1);
+  _J7: $__src__ => p4; compartment_*function_4__J7_2(compartment_, p4_synthesis_rate_2, p7, r8_Kd, r8_h);
+  _J8: p4 => $__waste__; compartment_*function_4__J8_2(compartment_, p4, p4_degradation_rate);
+  _J9: $__src__ => p5; compartment_*function_4__J9_2(compartment_, p4, p5, p5_synthesis_rate_1, p5_synthesis_rate_2, p5_synthesis_rate_3, r6_Kd, r6_basal, r6_h, r7_Kd, r7_h);
+  _J10: p5 => $__waste__; compartment_*function_4__J10_2(compartment_, p5, p5_degradation_rate);
+  _J11: $__src__ => p6; compartment_*function_4__J11_2(compartment_, p6_synthesis_rate);
+  _J12: p6 => $__waste__; compartment_*function_4__J12_2(compartment_, p6, p6_degradation_rate);
+  _J13: $__src__ => p11; compartment_*function_4__J13_2(compartment_, p11_synthesis_rate_1, p5, r11_Kd, r11_basal, r11_h);
+  _J14: p11 => $__waste__; compartment_*function_4__J14_2(compartment_, p11, p11_degradation_rate);
+  _J15: $__src__ => p7; compartment_*function_4__J15_2(compartment_, p11_synthesis_rate_1, p5, p7_synthesis_rate, r11_Kd, r11_basal, r11_h);
+  _J16: p7 => $__waste__; compartment_*function_4__J16_2(compartment_, p7, p7_degradation_rate);
+  _J17: $__src__ => p8; compartment_*function_4__J17_2(compartment_, p7, p8_synthesis_rate, r14_Kd, r14_h);
+  _J18: p8 => $__waste__; compartment_*function_4__J18_2(compartment_, p8, p8_degradation_rate);
+  _J19: $__src__ => p9; compartment_*function_4__J19_2(compartment_, p8, p9_synthesis_rate, r15_Kd, r15_h);
+  _J20: p9 => $__waste__; compartment_*function_4__J20_2(compartment_, p9, p9_degradation_rate);
+  _J21: $__src__ => p10; compartment_*function_4__J21_2(compartment_, p10_synthesis_rate, p7, p9, r13_Kd, r13_h, r16_Kd, r16_h);
+  _J22: p10 => $__waste__; compartment_*function_4__J22_2(compartment_, p10, p10_degradation_rate);
+
+  // Species initializations:
+  X = 1;
+  X has substance_per_volume;
+  __src__ = 1;
+  __src__ has substance_per_volume;
+  __waste__ = 1;
+  __waste__ has substance_per_volume;
+  p1 = 1;
+  p1 has substance_per_volume;
+  p2 = 1;
+  p2 has substance_per_volume;
+  p3 = 1;
+  p3 has substance_per_volume;
+  p4 = 1;
+  p4 has substance_per_volume;
+  p5 = 1;
+  p5 has substance_per_volume;
+  p6 = 1;
+  p6 has substance_per_volume;
+  p11 = 1;
+  p11 has substance_per_volume;
+  p7 = 1;
+  p7 has substance_per_volume;
+  p8 = 1;
+  p8 has substance_per_volume;
+  p9 = 1;
+  p9 has substance_per_volume;
+  p10 = 1;
+  p10 has substance_per_volume;
+
+  // Compartment initializations:
+  compartment_ = 1;
+  compartment_ has volume;
+
+  // Variable initializations:
+  p1_synthesis_rate = 1;
+  r1_Kd = 1;
+  r1_h = 1;
+  p1_degradation_rate = 1;
+  p2_synthesis_rate = 1;
+  r2_Kd = 1;
+  r2_h = 1;
+  r5_Kd = 1;
+  r5_h = 1;
+  p2_degradation_rate = 1;
+  p3_synthesis_rate_1 = 1;
+  r4_Kd = 1;
+  r4_h = 1;
+  p3_synthesis_rate_2 = 1;
+  r3_Kd = 1;
+  r3_h = 1;
+  p3_degradation_rate = 1;
+  p4_synthesis_rate_1 = 1;
+  p4_synthesis_rate_2 = 1;
+  r8_Kd = 1;
+  r8_h = 1;
+  p4_degradation_rate = 1;
+  r6_basal = 1;
+  p5_synthesis_rate_1 = 1;
+  r6_Kd = 1;
+  r6_h = 1;
+  p5_synthesis_rate_3 = 1;
+  r7_Kd = 1;
+  r7_h = 1;
+  p5_synthesis_rate_2 = 1;
+  p5_degradation_rate = 1;
+  p6_synthesis_rate = 1;
+  p6_degradation_rate = 1;
+  r11_basal = 1;
+  p11_synthesis_rate_1 = 1;
+  r11_Kd = 1;
+  r11_h = 1;
+  p11_degradation_rate = 1;
+  p7_synthesis_rate = 1;
+  p7_degradation_rate = 1;
+  p8_synthesis_rate = 1;
+  r14_Kd = 1;
+  r14_h = 1;
+  p8_degradation_rate = 1;
+  p9_synthesis_rate = 1;
+  r15_Kd = 1;
+  r15_h = 1;
+  p9_degradation_rate = 1;
+  p10_synthesis_rate = 1;
+  r16_Kd = 1;
+  r16_h = 1;
+  r13_Kd = 1;
+  r13_h = 1;
+  p10_degradation_rate = 1;
+
+  // Other declarations:
+  const compartment_, p1_synthesis_rate, r1_Kd, r1_h, p1_degradation_rate;
+  const p2_synthesis_rate, r2_Kd, r2_h, r5_Kd, r5_h, p2_degradation_rate;
+  const p3_synthesis_rate_1, r4_Kd, r4_h, p3_synthesis_rate_2, r3_Kd, r3_h;
+  const p3_degradation_rate, p4_synthesis_rate_1, p4_synthesis_rate_2, r8_Kd;
+  const r8_h, p4_degradation_rate, r6_basal, p5_synthesis_rate_1, r6_Kd, r6_h;
+  const p5_synthesis_rate_3, r7_Kd, r7_h, p5_synthesis_rate_2, p5_degradation_rate;
+  const p6_synthesis_rate, p6_degradation_rate, r11_basal, p11_synthesis_rate_1;
+  const r11_Kd, r11_h, p11_degradation_rate, p7_synthesis_rate, p7_degradation_rate;
+  const p8_synthesis_rate, r14_Kd, r14_h, p8_degradation_rate, p9_synthesis_rate;
+  const r15_Kd, r15_h, p9_degradation_rate, p10_synthesis_rate, r16_Kd, r16_h;
+  const r13_Kd, r13_h, p10_degradation_rate;
+
+  // Unit definitions:
+  unit length = metre;
+  unit area = metre^2;
+  unit volume = litre;
+  unit time_unit = time_unit;
+  unit substance = mole;
+  unit extent = substance;
+  unit substance_per_volume = mole / litre;
+
+  // Display Names:
+  time_unit is "time";
+end

@@ -1,0 +1,2581 @@
+[PathwayDesignerFormat  # This is a comment;
+
+  [PD_Header
+    QFormatVersion = "1.0"
+  ]
+
+  [model
+    id = "mymodel"
+    note = ""
+  ]
+
+  [graphicsHeader
+  ]
+
+  #------------Start of Parameters Block ------------;
+  [listOfParameters
+    [parameter
+      id = "p1_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r1_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r1_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p1_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p2_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r2_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r2_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r5_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r5_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p2_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p3_synthesis_rate_1"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r4_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r4_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p3_synthesis_rate_2"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r3_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r3_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p3_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p4_synthesis_rate_1"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p4_synthesis_rate_2"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r8_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r8_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p4_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r6_basal"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p5_synthesis_rate_1"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r6_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r6_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p5_synthesis_rate_3"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r7_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r7_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p5_synthesis_rate_2"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p5_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p6_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p6_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r11_basal"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p11_synthesis_rate_1"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r11_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r11_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p11_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p7_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p7_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p8_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r14_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r14_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p8_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p9_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r15_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r15_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p9_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p10_synthesis_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r16_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r16_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r13_Kd"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "r13_h"
+      value = 1.000000000E+000
+      note = ""
+    ]
+    [parameter
+      id = "p10_degradation_rate"
+      value = 1.000000000E+000
+      note = ""
+    ]
+  ]
+
+  #------------Start of Compartment Block ------------;
+  [listOfCompartments
+    [compartment
+      id = "compartment"
+      volume = 1.000000000E+000
+      visible = false
+      note = ""
+      membraneThickness = 12.000
+      membraneColor = "FF00A5FF"
+      interiorColor = "FFEEEEFF"
+      [boundingBox x = 0.000  y = 0.000  w = 0.000  h = 0.000 ]
+      [textValue
+        value = "compartment"
+        visible = false
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+      ]
+    ]
+  ]
+
+  #------------Start of Species Block ------------;
+  [listOfSpecies
+    [species
+      id = "p1"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 223.943 y = 814.430]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p1"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p1"
+          displayValue = "p1"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p2"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 538.927 y = 252.921]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p2"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p2"
+          displayValue = "p2"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p3"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 357.023 y = 43.876]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p3"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p3"
+          displayValue = "p3"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p4"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 207.911 y = 171.179]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p4"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p4"
+          displayValue = "p4"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p5"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 770.245 y = 414.918]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p5"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p5"
+          displayValue = "p5"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p6"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 634.764 y = 344.715]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p6"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p6"
+          displayValue = "p6"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p11"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 113.478 y = 354.294]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p11"
+        #----- Width and Height for the entire node;
+        w = 49.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p11"
+          displayValue = "p11"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 49.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p7"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 687.070 y = 744.737]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p7"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p7"
+          displayValue = "p7"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p8"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 1283.442 y = 685.176]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p8"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p8"
+          displayValue = "p8"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p9"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 885.458 y = 535.013]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p9"
+        #----- Width and Height for the entire node;
+        w = 41.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p9"
+          displayValue = "p9"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 41.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "p10"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = false
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 1112.126 y = 820.349]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "p10"
+        #----- Width and Height for the entire node;
+        w = 49.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "p10"
+          displayValue = "p10"
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 49.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "X"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = true
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 50.142 y = 806.717]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "X"
+        #----- Width and Height for the entire node;
+        w = 33.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "X"
+          displayValue = ""
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 33.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "__src__"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = true
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 994.463 y = 85.699]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "__src__"
+        #----- Width and Height for the entire node;
+        w = 81.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "__src__"
+          displayValue = ""
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 81.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+    [species
+      id = "__waste__"
+      initialConcentration = 1.000000000E+000
+      compartment = "compartment"
+      boundary = true
+      note = ""
+      visible = true
+      positionLocked = false
+      sizeLocked = false
+      #------- Top left corner of node --------;
+      [position x = 469.383 y = 573.193]
+      [displayValue
+        visible = false
+        displayStatus = "dvInitialValue"
+        [position rx = 0.000  ry = 0.000 ]
+        [font fontName = "Arial" fontSize = 8.000  fontStyle = "" fontColor = "FF000000"]
+      ]
+      [complex
+        id = "__waste__"
+        #----- Width and Height for the entire node;
+        w = 97.000
+        h = 25.000
+        boundarySpeciesStyle = "bsBox"
+        boundaryStyleColor = "FF0000FF"
+        aliasBoundaryColor = "FFFF0000"
+        aliasBoundaryThickness = 3.000
+        [mainCaption
+          idValue = "__waste__"
+          displayValue = ""
+          visible = true
+          useDisplayValue = false
+          position = "npQCenter"
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+        [subunit
+          shape = "suRoundSquare"
+          # subunit x, y, coordiantes are relative to the absolute node coordinates;
+          [boundingBox x = 0.000  y = 0.000  w = 97.000 h = 25.000]
+          [textValue
+            value = ""
+            visible = false
+            [position rx = 0.000  ry = 0.000 ]
+            [font fontName = "" fontSize = 0.000  fontStyle = "" fontColor = "FF000000"]
+          ]
+          [interiorStyle scheme = "gtNone" startColor = "FFFAFAD2" endColor = "FF000000"]
+          [outlineStyle color = "FFFF8C00" thickness = 2.000  strokeType = "dsSolid"]
+        ]
+      ]
+    ]
+  ]
+
+  #------------Start of Reactions Block ------------;
+  [listOfReactions
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J0"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p1_synthesis_rate*pow(X/r1_Kd,r1_h)/(1+pow(X/r1_Kd,r1_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "X"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p1"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=66.642 y=819.217  type="substrate" speciesRef="X"]            [endPoint x=244.443 y=826.930  type="product" speciesRef="p1"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J1"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p1_degradation_rate*p1"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p1"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=244.443 y=826.930  type="substrate" speciesRef="p1"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J2"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p2_synthesis_rate*pow(p1/r2_Kd,r2_h)/(1+pow(p1/r2_Kd,r2_h))/(1+pow(p6/r5_Kd,r5_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p2"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=559.427 y=265.421  type="product" speciesRef="p2"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J3"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p2_degradation_rate*p2"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p2"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=559.427 y=265.421  type="substrate" speciesRef="p2"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J4"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p3_synthesis_rate_1*pow(p2/r4_Kd,r4_h)/(1+pow(p2/r4_Kd,r4_h))+p3_synthesis_rate_2*pow(p1/r3_Kd,r3_h)/(1+pow(p1/r3_Kd,r3_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p3"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=377.523 y=56.376  type="product" speciesRef="p3"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J5"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p3_degradation_rate*p3"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p3"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=377.523 y=56.376  type="substrate" speciesRef="p3"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J6"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p4_synthesis_rate_1*p3"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p3"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p4"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=377.523 y=56.376  type="substrate" speciesRef="p3"]            [endPoint x=228.411 y=183.679  type="product" speciesRef="p4"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J7"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p4_synthesis_rate_2/(1+pow(p7/r8_Kd,r8_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p4"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=228.411 y=183.679  type="product" speciesRef="p4"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J8"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p4_degradation_rate*p4"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p4"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=228.411 y=183.679  type="substrate" speciesRef="p4"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J9"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "r6_basal+p5_synthesis_rate_1*pow(p4/r6_Kd,r6_h)/(1+pow(p4/r6_Kd,r6_h))+p5_synthesis_rate_3*pow(p5/r7_Kd,r7_h)/(1+pow(p5/r7_Kd,r7_h))+p5_synthesis_rate_2"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p5"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=790.745 y=427.418  type="product" speciesRef="p5"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J10"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p5_degradation_rate*p5"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p5"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=790.745 y=427.418  type="substrate" speciesRef="p5"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J11"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p6_synthesis_rate"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p6"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=655.264 y=357.215  type="product" speciesRef="p6"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J12"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p6_degradation_rate*p6"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p6"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=655.264 y=357.215  type="substrate" speciesRef="p6"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J13"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "r11_basal+p11_synthesis_rate_1*pow(p5/r11_Kd,r11_h)/(1+pow(p5/r11_Kd,r11_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p11"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=137.978 y=366.794  type="product" speciesRef="p11"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J14"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p11_degradation_rate*p11"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p11"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=137.978 y=366.794  type="substrate" speciesRef="p11"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J15"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p7_synthesis_rate*(r11_basal+p11_synthesis_rate_1*pow(p5/r11_Kd,r11_h)/(1+pow(p5/r11_Kd,r11_h)))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p7"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=707.570 y=757.237  type="product" speciesRef="p7"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J16"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p7_degradation_rate*p7"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p7"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=707.570 y=757.237  type="substrate" speciesRef="p7"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J17"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p8_synthesis_rate/(1+pow(p7/r14_Kd,r14_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p8"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=1303.942 y=697.676  type="product" speciesRef="p8"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J18"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p8_degradation_rate*p8"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p8"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1303.942 y=697.676  type="substrate" speciesRef="p8"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J19"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p9_synthesis_rate*pow(p8/r15_Kd,r15_h)/(1+pow(p8/r15_Kd,r15_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p9"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=905.958 y=547.513  type="product" speciesRef="p9"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J20"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p9_degradation_rate*p9"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p9"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=905.958 y=547.513  type="substrate" speciesRef="p9"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J21"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p10_synthesis_rate/(1+pow(p9/r16_Kd,r16_h))/(1+pow(p7/r13_Kd,r13_h))"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "__src__"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "p10"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1034.963 y=98.199  type="substrate" speciesRef="__src__"]            [endPoint x=1136.626 y=832.849  type="product" speciesRef="p10"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+
+    #------------Reaction------------#;
+    [reaction
+      id = "_J22"
+      reactionType = "UniUni"
+      reversible = false
+      note = ""
+      [kineticLaw
+        type = "explicit"
+        expression = "p10_degradation_rate*p10"
+        # Parameter values are stored in the global list of parameters block;
+        [listOfParameters
+        ]
+      ]
+      [listOfReactants
+        [reactant
+          id = "p10"
+          stoichiometry = 1
+        ]
+      ]
+      [listOfProducts
+        [product
+          id = "__waste__"
+          stoichiometry = 1
+        ]
+      ]
+      [display
+        lineColor = "FF000000"
+        lineThickness = 2.000000000E+000
+        selectedLineColor = "FFFF0000"
+        selectedLineThickness = 0.000000000E+000
+        lineType = "ltLine"
+        [listOfReactionArcs
+          [reactionArc
+            [startPoint x=1136.626 y=832.849  type="substrate" speciesRef="p10"]            [endPoint x=517.883 y=585.693  type="product" speciesRef="__waste__"]          ]
+        ]
+        [arrowTip
+          visible = true
+          fillColor = "FFFFA500"
+          outLineColor = "FFFFA500"
+          displacement = 6.000
+          [vertices
+            numberOfVertices = 4
+            [pt x= 0.000 y=14.000 ]
+            [pt x= 3.000 y=7.000  ]
+            [pt x= 0.000 y=0.000  ]
+            [pt x=14.000 y=7.000  ]
+          ]
+        ]
+        [reactionLabel
+          visible = false
+          displayValue = false
+          [position rx = 0.000  ry = 0.000 ]
+          [font fontName = "Arial" fontSize = 10.000 fontStyle = "" fontColor = "FF000000"]
+        ]
+      ]
+    ]
+  ]
+
+  #------------Start of Regulator Block ------------;
+  [listOfRegulatorEdges
+    [regulator
+      visible = true
+      sourceSpecies = "p1"
+      [destinationReaction
+        id = "_J2"
+        regulatorType = "rtPositive"
+        relativePosition = 0.712
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p1"]
+          [endPoint x=692.335 y=228.605 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p6"
+      [destinationReaction
+        id = "_J2"
+        regulatorType = "rtPositive"
+        relativePosition = 0.685
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p6"]
+          [endPoint x=705.434 y=223.999 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p2"
+      [destinationReaction
+        id = "_J4"
+        regulatorType = "rtPositive"
+        relativePosition = 0.699
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p2"]
+          [endPoint x=574.903 y=80.957 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p1"
+      [destinationReaction
+        id = "_J4"
+        regulatorType = "rtPositive"
+        relativePosition = 0.800
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p1"]
+          [endPoint x=508.249 y=76.717 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p7"
+      [destinationReaction
+        id = "_J7"
+        regulatorType = "rtPositive"
+        relativePosition = 0.300
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p7"]
+          [endPoint x=791.733 y=135.776 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p4"
+      [destinationReaction
+        id = "_J9"
+        regulatorType = "rtPositive"
+        relativePosition = 0.691
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p4"]
+          [endPoint x=856.639 y=318.447 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p5"
+      [destinationReaction
+        id = "_J13"
+        regulatorType = "rtPositive"
+        relativePosition = 0.700
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p5"]
+          [endPoint x=410.516 y=297.711 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p5"
+      [destinationReaction
+        id = "_J15"
+        regulatorType = "rtPositive"
+        relativePosition = 0.600
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p5"]
+          [endPoint x=827.781 y=488.283 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p7"
+      [destinationReaction
+        id = "_J17"
+        regulatorType = "rtPositive"
+        relativePosition = 0.585
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p7"]
+          [endPoint x=1181.436 y=453.957 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p8"
+      [destinationReaction
+        id = "_J19"
+        regulatorType = "rtPositive"
+        relativePosition = 0.718
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p8"]
+          [endPoint x=953.841 y=424.225 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p9"
+      [destinationReaction
+        id = "_J21"
+        regulatorType = "rtPositive"
+        relativePosition = 0.663
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p9"]
+          [endPoint x=1090.508 y=583.834 ]
+        ]
+      ]
+    ]
+    [regulator
+      visible = true
+      sourceSpecies = "p7"
+      [destinationReaction
+        id = "_J21"
+        regulatorType = "rtPositive"
+        relativePosition = 0.641
+        destinationArcId = 0
+        destinationLineSegmentId = 0
+      ]
+      [display
+        lineThichness = 2.000
+        lineColor = "FF0000FF"
+        lineStyle = "dsSolid"
+        endMarkerStyle = "rmEmptyCircle"
+        [lineType
+          type = "ltLine"
+          [startPoint x= 0.000 y=0.000  type="modifier" speciesRef="p7"]
+          [endPoint x=1088.198 y=570.434 ]
+        ]
+      ]
+    ]
+  ]
+]
