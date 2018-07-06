@@ -1,5 +1,5 @@
 // Created by libAntimony v2.9.4
-model *_model_9_genes_tic()
+model model1()
 
   // Compartments and Species:
   compartment DefaultCompartment;
