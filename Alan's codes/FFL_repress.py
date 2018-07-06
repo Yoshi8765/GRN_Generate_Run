@@ -12,6 +12,7 @@ import numpy as np
 #   Activation    a2 + (P1/k2)/(1+P1/k2)^H2
 #   Repression    a3 + 1/(1+ (P1/k3)^H3)
 r=te.loada("""
+    model FFL_repress()
     R0: => M1   ; L1 + TM1 - dm1*M1
     R2: => M2   ; L2 + TM2 * 1/(1+(P1/k2)^H2) - dm2*M2
     R3: => M3   ; L3 + TM3 * 1/(1+ (P1/k3)^H3)* (P2/k3)^H3/(1+(P2/k3)^H3) - dm3*M3
@@ -28,6 +29,7 @@ r=te.loada("""
     TM1 = 10;    TM2 = 10;    TM3 = 10;
     Tr1 = .5;    Tr2 = .5;    Tr3 = .5;
      H1 =  1;     H2 =  1;     H3 =  2;
+    end
 """)
 result = r.simulate(0, 50, 200,)
 plt.figure()
