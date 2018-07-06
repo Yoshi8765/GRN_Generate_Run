@@ -31,6 +31,27 @@ r=te.loada("""
      
     end
 """)
+Weights = [0, 0, .01, .65, .5, .5, 10, .5, 2]
+
+
+
+genes = 3
+
+Params = ["M", "P", "L", "k", "dm", "dp", "TM",  "Tr", "H"]
+Genes = range(genes)
+
+for i in Genes:
+    for n in range(len(Params)):
+        var = Params[n] + str(Genes[i]+1)
+        param = 0
+        while param <= 0:
+            param = np.random.normal(Weights[n],.25)
+            if n ==0 or n==1:
+                param = round(param,0)
+            else:
+                param = round(param,4)
+                
+        setattr(r, var,param)
 tmax=200
 result = r.simulate(0, tmax, 200,)
 plt.figure()
