@@ -283,6 +283,7 @@ def Output(data, Name,r,rSeed,result,NoisyResult, fileName, antStr):
 # adding noise to the simulated dataset. Figures containing Protein and mRNA Vs time plots are created and saved for regular and noisy simulations.
 # Finally all the Outputs sub-routine is called which w
 def RunModel(genes,tmax,InitProb,Percent,modelName,DataOut,rSeed, Steps, filePath):
+    
     if rSeed != 0:
         np.random.seed (rSeed)
     Percent /= 100
@@ -297,15 +298,20 @@ def RunModel(genes,tmax,InitProb,Percent,modelName,DataOut,rSeed, Steps, filePat
             NoisyResult = np.zeros([len(result[:,0]), len(result[0,:])])
             for k in range(len(result[:,0])):
                 for i in range(len(result[0])):
-                    CurrVal = -1
-                    while CurrVal < 0:
-                        CurrVal = result[k,i] + np.random.normal(0,Percent*result[k,i])
-                    NoisyResult[k,i] = CurrVal
+                    if i == 0:
+                        NoisyResult[k,i] = result[k,i]
+                    else:    
+                        CurrVal = -1
+                        while CurrVal < 0:
+                            CurrVal = result[k,i] + np.random.normal(0,Percent*result[k,i])
+                        NoisyResult[k,i] = CurrVal
             vars = {'P':[],'M':[]}
             for e in vars.keys():
                 plt.figure(1)    
                 for k in np.arange(1,genes+1):
                     vars[e].append(e + str(k))
+                    tStep = int(math.ceil(tmax)/20)
+                    tRange = np.arange(0,(int(math.ceil(tmax)))+ tStep,tStep)
                     
 #                    for i in range(len((result[0,:]-1)/2)):
                     if e=='P':
@@ -314,24 +320,32 @@ def RunModel(genes,tmax,InitProb,Percent,modelName,DataOut,rSeed, Steps, filePat
                         plt.grid(color='k', linestyle='-', linewidth=.4)
 #                        plt.xlabel('time(s)')
                         plt.ylabel('count',fontsize=6)
-                        plt.xlim(0,tmax)
-                        plt.xticks(range(0,tmax), fontsize=6)
                         plt.yticks(fontsize=6)
                         plt.plot (result[:,0],result[:,(k-1)+1], label = vars[e][k-1])
                         plt.yscale('log')
-                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=8)
+                        if tmax > 5000: 
+                            plt.xscale('log')
+                            plt.xticks(fontsize=6)
+                        else:
+                            plt.xticks(tRange, fontsize=6) 
+                        plt.xlim(0,tmax)
+                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=6)
                     else:
                        plt.subplot(2,1,2) 
                        plt.title('mRNA Count Vs. Time', fontsize=8)
                        plt.grid(color='k', linestyle='-', linewidth=.4)
                        plt.xlabel('time(s)',fontsize=6)
                        plt.ylabel('count',fontsize=6)
-                       plt.xlim(0,tmax)
-                       plt.xticks(range(0,tmax), fontsize=6)
                        plt.yticks(fontsize=6)
                        plt.plot (result[:,0],result[:,(k-1)+genes+1], label = vars[e][k-1])
                        plt.yscale('log')
-                       plt.legend(vars[e],loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=8)
+                       if tmax > 5000: 
+                            plt.xscale('log')
+                            plt.xticks(fontsize=6)
+                       else:
+                           plt.xticks(tRange, fontsize=6) 
+                       plt.xlim(0,tmax)
+                       plt.legend(vars[e],loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=6)
             manager = plt.get_current_fig_manager()
             manager.window.showMaximized()
             plt.savefig(filePath + modelName + '_Simulation Plot.png', dpi=400)             
@@ -347,25 +361,33 @@ def RunModel(genes,tmax,InitProb,Percent,modelName,DataOut,rSeed, Steps, filePat
                         plt.grid(color='k', linestyle='-', linewidth=.4)
                         plt.ylabel('count',fontsize=6)
                         plt.xlim(0,tmax)
-                        plt.xticks(range(0,tmax), fontsize=6)
                         plt.yticks(fontsize=6)
                         plt.plot (NoisyResult[:,0],NoisyResult[:,(k-1)+1], label = vars[e][k-1])
                         plt.legend(vars[e])
                         plt.yscale('log')
-                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=8)
+                        if tmax > 5000: 
+                            plt.xscale('log')
+                            plt.xticks(fontsize=6)
+                        else:
+                           plt.xticks(tRange, fontsize=6) 
+                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=6)
                     else:
                         plt.subplot(2,1,2)
                         plt.title('mRNA Count Vs. Time (Noisy)', fontsize=8)
                         plt.grid(color='k', linestyle='-', linewidth=.4)
                         plt.xlim(0,tmax)
-                        plt.xticks(range(0,tmax), fontsize=6)
                         plt.yticks(fontsize=6)
                         plt.xlabel('time(s)',fontsize=6)
                         plt.ylabel('count',fontsize=6)
                         plt.plot (NoisyResult[:,0],NoisyResult[:,(k-1)+genes+1], label = vars[e][k-1])
                         plt.legend(vars[e])
                         plt.yscale('log')
-                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.35), fontsize=8)
+                        if tmax > 5000: 
+                            plt.xscale('log')
+                            plt.xticks(fontsize=6)
+                        else:
+                            plt.xticks(tRange, fontsize=6)  
+                        plt.legend(loc='upper right', bbox_to_anchor=(1.13, 1.035), fontsize=6)
             manager = plt.get_current_fig_manager()
             manager.window.showMaximized()
             plt.savefig(filePath + modelName + '_Noisy Simulation Plot.png', dpi=400)  
@@ -413,16 +435,16 @@ try:
 #            
     elif os.path.exists(filePath) == False: 
         os.mkdir(filePath)  
-    genes = int(raw_input("Please enter the number of genes in your network(3<int<15): "))
-    if genes < 2:
-        print('You seem to have entered  zero, or less genes.\n')
+    genes = int(raw_input("Please enter the number of genes in your network(2<int<16): "))
+    if genes <= 2:
+        print('You seem to have entered two, or less genes.\n')
         genes = int(raw_input("Please enter the number of genes in your network(int): "))
-        if genes <= 0:
-            print('The number of genes must be a positive integer greater than 1.\n')
+        if genes <= 2:
+            print('The number of genes must larger than two.\n')
             int('i')
     if genes > 15:
-        print('You seem to have entered  larger nuumber of genes than the program can handle.\n')
-        genes = int(raw_input("Please enter the number of genes in your network(0<int<15): "))
+        print('You seem to have entered a larger number of genes than the program can handle.\n')
+        genes = int(raw_input("Please enter the number of genes in your network(2<int<15): "))
         if genes > 15:
             int('i')
 #    elif genes
@@ -433,20 +455,41 @@ try:
     print('The probabilty of Counter regulation will be ' + str(CountProb) + '\n' )
     InitProb.append(CountProb)
     while any(i<0 for i in InitProb) == True or np.sum(InitProb) !=1.0:
-         print("Sorry, the sum of the probabilities must equal 1 or at least one is negative.")
-         InitProb[0] = float(raw_input("Please enter the probability (<1) of having single regulated gene (float): "))
-         InitProb[1] = float(raw_input("Please enter the probability (<1) of double regulation.(float): "))
-         CountProb = round(1-np.sum(InitProb[0:2]),3)
-         InitProb[2] = CountProb
-         print('Your new probabilty of counter regulation will be ' + str(CountProb) + '\n' )
-    tMax = float(raw_input("Please enter how long you'd like to simulate the network for: "))
+        tries = 0
+        while tries < 3:
+             try:
+                 print("Sorry, the sum of the probabilities must equal 1 or at least one is negative.")
+                 InitProb[0] = float(raw_input("Please enter the probability (<1) of having single regulated gene (float): "))
+                 InitProb[1] = float(raw_input("Please enter the probability (<1) of double regulation.(float): "))
+                 CountProb = round(1-np.sum(InitProb[0:2]),3)
+                 InitProb[2] = CountProb
+                 print('\n Your new probabilty of counter regulation is ' + str(CountProb) + '\n' )
+                 break
+             except:
+                 tries = tries + 1
+                 print('Check the documentation for proper porbability formatting')
+#        break
+   
+    tMax = float(raw_input("Please enter how long you'd like to simulate the network for(float): "))
+    if tMax <=0:
+        tMax = float(raw_input('Your simulation time must be positive, please enter a positive value.'))
+        if tMax <=0:
+            int('i')
     Steps = int(raw_input("Please enter number of steps to generate for your simulation output (int): "))
+    if Steps <= 0 or Steps >=50:
+        Steps = int(raw_input("You entered a number of steps that is outside of the allowable range, please enter an integer between 0 and 50: "))
+        if Steps <= 0 or Steps >=50:
+            int('i')
     NLevel = float(raw_input("Please enter the percentage of the noise level (float): "))
+    if NLevel < 0 or NLevel >100:
+        NLevel = float(raw_input("You entered a number of steps that is outside of the allowable range, please enter a number between 0 and 100: "))
+        if NLevel < 0 or NLevel >100:
+            int('i')
     DataOut = []
     DataOut.append(str(raw_input("Would you like simulated data exported(y/n): ")))
     if DataOut[0] != 'n' and DataOut[0]!='y':
             DataOut[0] = str(raw_input('Your response must be a y or n. Please try again.(y/n)'))
-            if response != 'n' and response!='y':
+            if DataOut[0] != 'n' and DataOut[0]!='y':
                 int('i')
     if NLevel < 0.01:
         DataOut.append ('n')
@@ -454,19 +497,21 @@ try:
         DataOut.append(str(raw_input("Would you like noisy simulated data exported(y/n): ")))
         if DataOut[0] != 'n' and DataOut[0]!='y':
             DataOut[0] = str(raw_input('Your response must be a y or n. Please try again.(y/n)'))
-            if response != 'n' and response!='y':
+            if DataOut[0] != 'n' and DataOut[0]!='y':
                 int('i')    
-    rSeed = int (raw_input ('Please enter an optional random seed (0 for no seed): '))
-    #RunModel(genes,tMax,InitProb,NLevel,Name,DataOut,rSeed)
-    
+    rSeed = int (raw_input ('Please enter an optional random seed (enter 0 for no seed): '))
+    if rSeed <0 or rSeed > 2**32 - 1:
+        rSeed = int (raw_input ('Your response was outside of the allowable range, please enter an integer between 0 and 2**32 - 1: '))
+        if rSeed <0 or rSeed > 2**32 - 1:
+            int('i')
     RunModel(genes,tMax,InitProb,NLevel,modelName,DataOut,rSeed, Steps, filePath)
 
 except WindowsError:
     print('folder error') 
-       
+        
 except ValueError:
-    print("There was an issue with your last entry.")
+    print("There was an issue with your last entry, check your formatting.")
 except:
     print ("Somethng bad happenned")
     
-#RunModel(6,40,[.4,.4,.2], 10.0,'foo',['y','y'],15,400,'c:\\GRN generator output\\foo\\'  )
+#RunModel(15,5000.0,[.4,.4,.2], 10.0,'foo',['y','y'],15,400,'c:\\GRN generator output\\foo\\'  )
