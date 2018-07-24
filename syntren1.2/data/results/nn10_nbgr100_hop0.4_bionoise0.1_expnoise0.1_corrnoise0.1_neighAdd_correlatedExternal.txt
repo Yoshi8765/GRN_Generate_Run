@@ -1,0 +1,1 @@
+node cspA correlated with node fnr

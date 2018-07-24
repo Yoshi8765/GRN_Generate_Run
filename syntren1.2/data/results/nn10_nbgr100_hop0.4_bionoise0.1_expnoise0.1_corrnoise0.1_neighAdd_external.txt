@@ -1,0 +1,4 @@
+Regulator
+fnr
+cspA
+nlpD_rpoS
