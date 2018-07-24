@@ -13,37 +13,37 @@ model *FFL2_rep()
   R6:  => p_output; Tr3*M3 - dp_output*p_output;
 
   // Species initializations:
-  M1 = 0;
-  M2 = 0;
-  M3 = 0;
-  p_input = 0;
-  P2 = 0;
-  p_output = 0;
+  M1 = 30.02;
+  M2 = 0.655800456472123;
+  M3 = 0.0270914371416772;
+  p_input = 30.02;
+  P2 = 0.655800456472123;
+  p_output = 0.0270914371416772;
 
   // Variable initializations:
   L1 = 0.01;
-  L2 = 0.01;
-  L3 = 0.01;
-  k1 = 0.65;
-  k2 = 0.65;
-  k3 = 0.65;
-  dm1 = 0.5;
-  dm2 = 0.5;
-  dm3 = 0.5;
-  dp_input = 0.5;
-  dp2 = 0.5;
-  dp_output = 0.5;
   TM1 = 15;
+  dm1 = 0.5;
+  L2 = 0.01;
   TM2 = 15;
-  TM3 = 15;
-  Tr1 = 0.5;
-  Tr2 = 0.5;
-  Tr3 = 0.5;
-  H1 = 1;
+  k2 = 0.65;
   H2 = 1;
+  dm2 = 0.5;
+  L3 = 0.01;
+  TM3 = 15;
+  k3 = 0.65;
   H3 = 2;
+  dm3 = 0.5;
+  Tr1 = 0.5;
+  dp_input = 0.5;
+  Tr2 = 0.5;
+  dp2 = 0.5;
+  Tr3 = 0.5;
+  dp_output = 0.5;
+  k1 = 0.65;
+  H1 = 1;
 
   // Other declarations:
-  const L1, L2, L3, k1, k2, k3, dm1, dm2, dm3, dp_input, dp2, dp_output, TM1;
-  const TM2, TM3, Tr1, Tr2, Tr3, H1, H2, H3;
+  const L1, TM1, dm1, L2, TM2, k2, H2, dm2, L3, TM3, k3, H3, dm3, Tr1, dp_input;
+  const Tr2, dp2, Tr3, dp_output, k1, H1;
 end

@@ -21,14 +21,15 @@ r=te.loada("""
     dp1 = .5;    dp2 = .5;    dp3 = .5;
     TM1 = 15;    TM2 = 15;    TM3 = 15;
     Tr1 = .5;    Tr2 = .5;    Tr3 = .5;
-     H1 =  1;     H2 =  1;     H3 =  2;R0: => M1   ; L1 + TM1 - dm1*M1
+     H1 =  1;     H2 =  1;     H3 =  2;
+
+    R0: => M1   ; L1 + TM1 - dm1*M1
     R2: => M2   ; L2 + TM2 * 1/(1+(P1/k2)^H2) - dm2*M2
     R3: => M3   ; L3 + TM3 * 1/(1+ (P1/k3)^H3)* (P2/k3)^H3/(1+(P2/k3)^H3) - dm3*M3
     R4: => P1   ; Tr1*M1 - dp1*P1
     R5: => P2   ; Tr2*M2 - dp2*P2
     R6: => P3   ; Tr3*M3 - dp3*P3
-
-     
+  
     end
 """)
 tmax=200
