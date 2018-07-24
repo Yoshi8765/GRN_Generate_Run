@@ -1,0 +1,143 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul 11 14:50:51 2018
+
+@author: Yoshi
+"""
+import tellurium as te
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.set_printoptions(linewidth=160)
+
+#%%
+# generalized_hill := Vm_A*( (K_A*p^H) / (K_A + p^H) ) #Activation# + 
+#                     Vm_R*( K_R / (K_R + p^H) ) #Repression# ;
+#                     To turn either/or off, set Vm_A or Vm_R to 0.
+
+r=te.loada('''
+model *template()
+
+  // Compartments and Species:
+  const g1, g2, g3; //must specify how many genes for randomizer code to work!
+  species m1, m2, m3;
+  species p_input, p2, p_output;
+  
+  // Assignment Rules:
+  var generalized_hill1 := Vm_A1*( (K_A1*p_input^H1) / (K_A1 + p_input^H1) ) + Vm_R1*( K_R1 / (K_R1 + p_input^H1) ) ;
+  var generalized_hill2 := Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) ;
+  var generalized_hill3 := Vm_A1*( (K_A1*p_input^H1) / (K_A1 + p_input^H1) ) + Vm_R1*( K_R1 / (K_R1 + p_input^H1) ) ;  
+  
+  // Reactions:
+  ts1: g1 => m1   ; L1 + a_m1 - d_m1*m1
+  ts2: g2 => m2   ; L2 + generalized_hill1 - d_m2*m2
+  ts3: g3 => m3   ; L3 + generalized_hill2 * generalized_hill3 - d_m3*m3
+  tl1: m1 => m1 + p_input   ; a_p1*m1 - d_p1*p_input
+  tl2: p_input + m2 => p_input + m2 + p2   ; a_p2*m2 - d_p2*p2
+  tl3: p_input + p2 + m3 => p_input + p2 + m3 + p_output   ; a_p3*m3 - d_p3*p_output  
+  // Species initializations:
+  g1 = 1;
+  g2 = 1;
+  g3 = 1;
+  m1 = 0;
+  m2 = 0;
+  m3 = 0;
+  p_input = 0;
+  p2 = 0;
+  p_output = 0;
+  
+  // Parameter initializations:
+     L1 = .01;    L2 = .01;    L3 = .01;
+   K_A1 = .65;  K_A2 = .65; 
+   K_R1 = .65;  K_R2 = .65; 
+  Vm_A1 =  15; Vm_A2 =  15; 
+  Vm_R1 =  15; Vm_R2 =  15;    
+    d_m1 = .5;   d_m2 = .5;   d_m3 = .5;
+    d_p1 = .5;   d_p2 = .5;   d_p3 = .5;
+    a_m1 = 15; 
+    a_p1 = .5;   a_p2 = .5;   a_p3 = .5;
+      H1 =  1;     H2 =  1;  
+end
+''')
+
+Genes = r.getBoundarySpeciesIds()
+Params = r.getGlobalParameterIds()[:-r.getNumBoundarySpecies()] 
+# we don't need to randomize var objects (hill expressions) so take that out for Params
+
+# Relative abundance of FFL types in yeast + e. coli. 
+# Numbers totaled together between the two organisms.
+# From Mangan & Alon (2003,PNAS), Table 1+2.
+
+#X->Y , Y->Z, X->Z : Total abundance = 98
+FFL_types = {
+        #coherent types
+        "+++": 54/98.0,
+        "--+": 1/98.0,
+        "-+-": 7/98.0,
+        "+--": 4/98.0,
+        #incoherent types
+        "+-+": 26/98.0,
+        "-++": 1/98.0,
+        "++-": 2/98.0,
+        "---": 3/98.0,
+        }
+types = FFL_types.keys()
+freq = np.array(FFL_types.values())
+
+picks = np.random.choice(types,1,p=freq)
+
+##Check if picks is working
+#a = []
+#import collections
+#for n in np.arange(10000):
+#    a.extend(np.random.choice(types,1,p=freq))
+#typesFreq = collections.Counter(a)
+
+counter = 0
+for n in range(len(Params)):
+    param = Params[n]
+    randVal = 0
+    while randVal <= 0:
+        val = r.getValue(param)
+        randVal = np.random.normal(val,val*.25)
+        if picks[counter]=='+':
+            if param[0:3]=='Vm_A':
+                randVal = 1
+            if param[0:3]=='Vm_R':
+                randVal = 0
+            counter += 1
+        if picks[counter]=='-':
+            if param[0:3]=='Vm_A':
+                randVal = 0
+            if param[0:3]=='Vm_R':
+                randVal = 1
+            counter += 1            
+        else:
+            randVal = round(randVal,4)
+                
+        setattr(r, param,randVal)
+
+tmax=200
+
+result = r.simulate(0, tmax, tmax*2,)
+
+plt.figure()
+plt.grid(color='k', linestyle='-', linewidth=.4)
+plt.ylim(0,np.max(result[:,4:7])*1.1)
+plt.xlim(0,tmax)
+plt.yticks(np.arange(0,np.max(result[:,4:7])*1.1,np.max(result[:,4:7])/12))
+#M1 , = plt.plot (result[:,0],result[:,1], label = 'M1')
+#M2 , = plt.plot (result[:,0],result[:,3], label = 'M2')
+#M2 , = plt.plot (result[:,0],result[:,6], label = 'M3')
+p_input , = plt.plot (result[:,0],result[:,4], label = 'p_input')
+P2 , = plt.plot (result[:,0],result[:,5], label = 'P2')
+p_output , = plt.plot (result[:,0],result[:,6], label = 'p_output')
+plt.legend([p_input, P2, p_output], ['p_input', 'P2', 'p_output'])
+    
+r.reset()
+#plt.close("all")
+#res = r.simulate(0,50,1000)
+#r.plot()
+#r.draw()
+#r.reset()
+r.exportToAntimony('FFL.txt') #export as antimony

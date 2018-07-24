@@ -12,7 +12,7 @@ import numpy as np
 #   Activation    a2 + (P1/k2)/(1+P1/k2)^H2
 #   Repression    a3 + 1/(1+ (P1/k3)^H3)
 r=te.loada("""
-    model FFL_repress()
+    model FFL_gen()
      M1 = 0;      M2 = 0;      M3 = 0;
      P1 = 0;      P2 = 0;      P3 = 0;
      L1 = .01;    L2 = .01;    L3 = .01;
@@ -68,4 +68,5 @@ P2 , = plt.plot (result[:,0],result[:,5], label = 'P2')
 P3 , = plt.plot (result[:,0],result[:,6], label = 'P3')
 plt.legend([P1, P2, P3], ['P1', 'P2', 'P3'])
 
-#plt.legend([M1, M2, M3, P1, P2, P3], ['M1', 'M2', 'M3', 'P1', 'P2', 'P3'])
+r.reset()
+r.exportToAntimony('FFL.txt') #export as antimony

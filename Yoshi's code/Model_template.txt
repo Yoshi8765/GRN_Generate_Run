@@ -1,0 +1,48 @@
+import tellurium as te
+import numpy as np
+
+np.set_printoptions(linewidth=160)
+
+#%%
+
+r=te.loada('''
+model *template()
+
+  // Compartments and Species:
+  species $gene, mRNA, protein ;
+
+  // Assignment Rules:
+  v1 := expression with h1 , Vm1 , K_d1 ;
+
+  // Reactions:
+  transcription      : $gene => mRNA          ; a_mRNA * v1 * gene + leak;
+  transc_degradation : mRNA =>                ; d_mRNA * mRNA;
+  translation        : mRNA => mRNA + protein ; a_protein * mRNA;
+  transl_degradation : protein =>             ; d_protein * protein;
+  
+  // Species initializations:
+  gene    = 1;
+  mRNA    = 0;
+  protein = 0;
+  
+  // Variable initializations:
+  h1     = 0;
+  K_d    = 0;
+  Vm1    = 0;
+  a_mRNA = 0;
+  leak   = 0;
+  d_mRNA = 0;
+
+  // Other declarations:
+  var v1 ;
+  const h1, K_d1, Vm1, leak, a_mRNA, d_mRNA, a_protein, d_protein;
+end
+''')
+
+r.reset()
+#plt.close("all")
+#res = r.simulate(0,50,1000)
+#r.plot()
+#r.draw()
+#r.reset()
+r.exportToAntimony('[].txt') #export as antimony
