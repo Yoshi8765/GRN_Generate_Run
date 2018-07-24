@@ -454,10 +454,9 @@ try:
     CountProb = round(1-np.sum(InitProb),3)
     print('The probabilty of Counter regulation will be ' + str(CountProb) + '\n' )
     InitProb.append(CountProb)
-    while any(i<0 for i in InitProb) == True or np.sum(InitProb) !=1.0:
-        tries = 0
-        while tries < 3:
-             try:
+    tries = 0
+    while any(i<0 for i in InitProb) == True or np.sum(InitProb) !=1.0 or tries < 3:
+        try:
                  print("Sorry, the sum of the probabilities must equal 1 or at least one is negative.")
                  InitProb[0] = float(raw_input("Please enter the probability (<1) of having single regulated gene (float): "))
                  InitProb[1] = float(raw_input("Please enter the probability (<1) of double regulation.(float): "))
@@ -465,10 +464,10 @@ try:
                  InitProb[2] = CountProb
                  print('\n Your new probabilty of counter regulation is ' + str(CountProb) + '\n' )
                  break
-             except:
-                 tries = tries + 1
-                 print('Check the documentation for proper porbability formatting')
-#        break
+        except:
+            tries = tries + 1
+            print('Check the documentation for proper porbability formatting')
+        break
    
     tMax = float(raw_input("Please enter how long you'd like to simulate the network for(float): "))
     if tMax <=0:
