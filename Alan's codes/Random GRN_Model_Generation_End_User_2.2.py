@@ -395,11 +395,15 @@ def RunModel(genes,tmax,InitProb,Percent,modelName,DataOut,rSeed, Steps, filePat
         except:
              tries = tries + 1
              print "Failed to solve Model"
+             if tries ==10:
+                 print('Sorry you network was not able to be simulated, please try again, or read the documentation')
     
     Output(DataOut, modelName, r, rSeed, result, NoisyResult, filePath, antStr)
 
 
 try:
+    initPath = os.getcwd()
+    print('Your current directory is ' + initPath)
     folderName = str(raw_input('Please choose a folder for saving your generated data(press enter for default): '))
     #    folderPath = 'c:\\' + str(raw_input('Please choose a folder for saving your generated data(press enter for default): ')) + '\\' 
     forbiddenChar = ['<','>',':','"','/','\'','|','?','*']
@@ -407,9 +411,9 @@ try:
           folderName = str(raw_input('You seem to have included a "forbidden" character in your folder name, please try another, or simply press enter for the default: '))      
           if any(i in folderName for i in forbiddenChar):
               int('i')
-    folderPath = 'c:\\' + folderName + '\\' 
+    folderPath = initPath + folderName + '\\' 
     if folderName == '':
-        folderPath = 'c:\\GRN generator output\\'
+        folderPath = initPath + '\\' + 'GRN generator output\\'
         if os.path.exists(folderPath) == False:
             os.mkdir(folderPath)
     else:
@@ -447,7 +451,7 @@ try:
         genes = int(raw_input("Please enter the number of genes in your network(2<int<15): "))
         if genes > 15:
             int('i')
-#    elif genes
+#    elif genes:
     InitProb=[]
     InitProb.append(float(raw_input("Please enter the probability of Single regulation.(float): ")))
     InitProb.append(float(raw_input("Please enter the probability of Double regulation.(float): ")))
@@ -455,20 +459,17 @@ try:
     print('The probabilty of Counter regulation will be ' + str(CountProb) + '\n' )
     InitProb.append(CountProb)
     tries = 0
-    while any(i<0 for i in InitProb) == True or np.sum(InitProb) !=1.0 or tries < 3:
-        try:
-                 print("Sorry, the sum of the probabilities must equal 1 or at least one is negative.")
-                 InitProb[0] = float(raw_input("Please enter the probability (<1) of having single regulated gene (float): "))
-                 InitProb[1] = float(raw_input("Please enter the probability (<1) of double regulation.(float): "))
-                 CountProb = round(1-np.sum(InitProb[0:2]),3)
-                 InitProb[2] = CountProb
-                 print('\n Your new probabilty of counter regulation is ' + str(CountProb) + '\n' )
-                 break
-        except:
+    while any(i<0 for i in InitProb) == True or round(np.sum(InitProb),3) !=1.0:
+        if tries==2:
+            int('i')
+        else:   
+            print("Sorry, the sum of the probabilities must equal 1 or at least one is negative.")
+            InitProb[0] = float(raw_input("Please enter the probability (<1) of having single regulated gene (float): "))
+            InitProb[1] = float(raw_input("Please enter the probability (<1) of double regulation.(float): "))
+            CountProb = round(1-np.sum(InitProb[0:2]),3)
+            InitProb[2] = CountProb
+            print('\n Your new probabilty of counter regulation is ' + str(CountProb) + '\n' )
             tries = tries + 1
-            print('Check the documentation for proper porbability formatting')
-        break
-   
     tMax = float(raw_input("Please enter how long you'd like to simulate the network for(float): "))
     if tMax <=0:
         tMax = float(raw_input('Your simulation time must be positive, please enter a positive value.'))
