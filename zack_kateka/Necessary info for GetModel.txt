@@ -24,3 +24,11 @@ where:
 K# = association constant (Ka).
 Note: Ka = 1/Kd (dissociation constant).
 Vm# = Maximal rate of gene expression. This often serves as the replacement of a_mRNA while `eq` serves as some decimal that Vm# is multiplied by.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+InitParams = 
+[0.5 ,   0.9 , 0.8 ,  30  ,  30   , 0.5 ,  1]
+'d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H'
+
+The 'ideal' values that the parameters are generated from. See `ValueGeneration` method for a way to generate the random values.

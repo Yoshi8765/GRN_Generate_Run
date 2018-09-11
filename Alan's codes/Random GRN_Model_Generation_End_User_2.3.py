@@ -62,9 +62,9 @@ def GetModel(tries,numGenes,regProb, InitParams, Name):
     print 'Model simulation tries = ' + str(tries)
     #Set Lists and Empty Dictionaries
     Interactions = ["SingleAct", "SingleRep", "and", "or", "Nand", "Nor", "Counter"]
-    GRN = {'Rate': [], 'mRNA':[], 'Prot': [],'PDeg':[],'mDeg': [],'Leak': [],'TRa':[], 'TRb':[], 'DualDissoc':[], 'Dissoc':[], 'HillCoeff': []}
+    GRN = {'Rate': [], 'mRNA':[], 'Prot': [],'PDeg':[],'mDeg': [],'Leak': [],'Vm':[], 'a_p':[], 'DualDissoc':[], 'Dissoc':[], 'HillCoeff': []}
     GRNInt = {'TF':[],'TFs':[]}
-    #Perturbation = {'Tra1':[10]}
+    #Perturbation = {'TRa1':[10]}
     StringList=[]
     tries = 0
     while tries < 9:
@@ -110,12 +110,12 @@ def ModelInitNames(GRN):
         num = str(k+1)
         GRN['Leak'].append("L" + num)
         GRN['Rate'].append('R' + num +' := ')
-        GRN['mDeg'].append('Dm' + num)
-        GRN['PDeg'].append('Dp' + num)
+        GRN['mDeg'].append('d_m' + num)
+        GRN['PDeg'].append('d_p' + num)
         GRN['mRNA'].append('M' + num)
         GRN['Prot'].append('P' + num)
-        GRN['TRa'].append('TRa' + num)
-        GRN['TRb'].append('TRb' + num)
+        GRN['Vm'].append('Vm' + num)
+        GRN['a_p'].append('a_p' + num)
         GRN['HillCoeff'].append('H' + num)
         GRN['Dissoc'].append('K' + num)
         GRN['DualDissoc'].append('Kd' + num)
@@ -141,6 +141,7 @@ def AssignProteins(numGenes,GRN,GRNInt):
             #GRNInt.remove(['activators'][m]) Fix this with a correct command
             AssignProteins(numGenes,GRN,GRNInt)
     return
+
 
     #Generates a N set of interactions
     #Correct number and type are randomly assigned.
@@ -215,8 +216,7 @@ def GetReactionRates(GRN,GRNInt):
 #                hillEq = '(' + frac + '/(1 + ' + frac + ')**' + HCoeff + ')'
 #            else:
 #                hillEq = '(1 /(1 + ' + frac + ')**' + HCoeff + ')'
-            WorkingString = GRN['Leak'][i] + ' + ' + GRN['TRa'][i] + '- ' + GRN['mRNA'][i] + '*' + GRN['mDeg'][i] + ';\n'
-
+            WorkingString = GRN['Leak'][i] + ' + ' + GRN['Vm'][i] + '- ' + GRN['mRNA'][i] + '*' + GRN['mDeg'][i] + ';\n'
         elif len(GRNInt['TFs'][i]) >1 :
             TF2 = GRNInt['TFs'][i][1] - 1
 
@@ -244,7 +244,7 @@ def GetReactionRates(GRN,GRNInt):
                     eq = '(' + num  + '/' + denom + ')'
                 else:
                     eq =  '(1' + '/' +  denom + ')'
-            WorkingString = GRN['Leak'][i] + ' + ' + GRN['TRa'][i] + '*' + eq + ' - ' + GRN['mRNA'][i] + '*' + GRN['mDeg'][i]+ ';\n'
+            WorkingString = GRN['Leak'][i] + ' + ' + GRN['Vm'][i] + '*' + eq + ' - ' + GRN['mRNA'][i] + '*' + GRN['mDeg'][i]+ ';\n'
         ReactionRates.append(WorkingString)
         #print 'ReactionRates ' + str(i) + ' :'+ str(ReactionRates)
         #print 'Reg ' + str(i) + ' :'+ str(Reg)
@@ -262,14 +262,14 @@ def GetReactions(GRN,StringList,Rates):
         M = GRN['mRNA'][i-1]
         P = GRN['Prot'][i-1]
         ReactionM += 'Rm' + str(i) + ':' + NUCLEOTIDE_SOURCE + '=> ' + M + ';' + Rates[i-1]
-        ReactionP += 'Rp' + str(i) + ':' + AMINO_ACID_SOURCE + '=> ' + P + ';' + GRN['TRb'][i-1] + '*' + M + ' - ' + P + '*' + GRN['PDeg'][i-1] + ';\n'
+        ReactionP += 'Rp' + str(i) + ':' + AMINO_ACID_SOURCE + '=> ' + P + ';' + GRN['a_p'][i-1] + '*' + M + ' - ' + P + '*' + GRN['PDeg'][i-1] + ';\n'
     ReactionSumString += ReactionM +ReactionP
     StringList.append(ReactionSumString)
 
     #Generates a random number close to a given value for parameters and initial conditions
 def ValueGeneration(InitParams,StringList):
     Species=''
-    Values = {'M':[InitParams[0]], 'P':[InitParams[1]],'Dp':[InitParams[2]],'Dm':[InitParams[3]],'L':[InitParams[4]],'TRa':[InitParams[5]], 'TRb':[InitParams[6]],'Kd':[InitParams[7]], 'K':[InitParams[8]], 'H': [InitParams[9]]}
+    Values = {'M':[InitParams[0]], 'P':[InitParams[1]],'d_p':[InitParams[2]],'d_m':[InitParams[3]],'L':[InitParams[4]],'Vm':[InitParams[5]], 'a_p':[InitParams[6]],'Kd':[InitParams[7]], 'K':[InitParams[8]], 'H': [InitParams[9]]}
     Keys = Values.keys()
     for i in Keys:
         for n in np.arange(1, numGenes+1):
@@ -780,10 +780,10 @@ sys.excepthook = global_exception_handling
 #%%% Automatic block
 #Running code without asking user for input (put in all the following lines into the console after runnning rest of script once). Or, comment out the main method and run.
 
-regProb=[.4,.3,.3]
+regProb=[.3,.5,.2]
 NLevel=float(10)
 modelName = 'test'
-numGenes=7
+numGenes=8
 InitParams = [0,0,0.5,0.9,0.8,30,30,0.2,0.5,1] # Initial values the parameters should be generated around as a median on a normal distribution
 tmax = 30
 seed = 0
