@@ -1,21 +1,26 @@
 SA: 
-num = '(' + K1 + '*' + P1 + ')'
-denom = '(1 +' + K1 + '*' + P1 + ')'
+num = '(' + K1 + '*' + P1 + '**' + H1 + ')'
+denom = '(1 +' + K1 + '*' + P1 + '**' + H1 + ')'
 
 SR:
 num = ' 1 '
-denom = '(1 +' + K1 + '*' + P1 + ')'
+denom = '(1 +' + K1 + '*' + P1 + '**' + H1 + ')'
 
 DA:
-num = '(' + K1 + '*' + P1 + ' + ' + K2 + '*' + P2 + ' + ' K1 + '*' + K3 + '*' + P1 + '*' + P2 + ')'
-denom = '(1 + ' + K1 + '*' + P1 + ' + ' + K2 + '*' + P2 + ' + ' K1 + '*' + K3 + '*' + P1 + '*' + P2 + ')'
+num = '(' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
+denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
 
 DR:
 num = ' 1 '
-denom = '(1 + ' + K1 + '*' + P1 + ' + ' + K2 + '*' + P2 + ' + ' K1 + '*' + K3 + '*' + P1 + '*' + P2 + ')'
+denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
 
 CR:
-num = '(' + K1 + '*' + P1 + ')'
-denom = '(1 + ' + K1 + '*' + P1 + ' + ' + K2 + '*' + P2 + ' + ' K1 + '*' + K2 + '*' + P1 + '*' + P2 + ')'
+num = '(' + K1 + '*' + P1 + '**' + H1 + ')'
+denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' K1 + '*' + K2 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
 
-eq = '(' + num  + '/' + denom + ')'
+eq = Vm1 + '*(' + num  + '/' + denom + ')'
+
+where:
+K# = association constant (Ka).
+Note: Ka = 1/Kd (dissociation constant).
+Vm# = Maximal rate of gene expression. This often serves as the replacement of a_mRNA while `eq` serves as some decimal that Vm# is multiplied by.

@@ -1,44 +1,41 @@
-import tellurium as te
-import numpy as np
-
-np.set_printoptions(linewidth=160)
-
-#%%
-
-r=te.loada('''
+antStr = ('''
 model *template()
 
   // Compartments and Species:
-  species $gene, mRNA, protein ;
+  species mRNA, protein ;
 
   // Assignment Rules:
-  v1 := expression with h1 , Vm1 , K_d1 ;
+  v1 := expression with H1 , Vm1 , K1, P1, P2, etc ;
 
   // Reactions:
-  transcription      : $gene => mRNA          ; a_mRNA * v1 * gene + leak;
-  transc_degradation : mRNA =>                ; d_mRNA * mRNA;
-  translation        : mRNA => mRNA + protein ; a_protein * mRNA;
-  transl_degradation : protein =>             ; d_protein * protein;
+  transcription : => mRNA    ; L1 + v1 - d_mRNA * mRNA;
+  translation   : => protein ; a_protein * mRNA - d_protein * protein;
   
   // Species initializations:
-  gene    = 1;
   mRNA    = 0;
   protein = 0;
   
   // Variable initializations:
-  h1     = 0;
-  K_d    = 0;
+  H1     = 0;
+  K1     = 0;
   Vm1    = 0;
-  a_mRNA = 0;
-  leak   = 0;
+  L1     = 0;
   d_mRNA = 0;
 
   // Other declarations:
   var v1 ;
-  const h1, K_d1, Vm1, leak, a_mRNA, d_mRNA, a_protein, d_protein;
+  const H1, K1, Vm1, L1, d_mRNA, a_protein, d_protein;
 end
 ''')
 
+
+### Optional things to run a simulation. ###
+import tellurium as te
+import numpy as np
+
+np.set_printoptions(linewidth=160)
+#%%
+r=te.loada(antStr)
 r.reset()
 #plt.close("all")
 #res = r.simulate(0,50,1000)
