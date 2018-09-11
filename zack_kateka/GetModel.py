@@ -4,10 +4,10 @@ import random
 import time
 
 
-## need to include initial parameters
 
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2]):
-    #TO DO: Implement parameter for initial parameter values (rate constants etc)
+# init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="model", init_params = [0.5 ,   0.9 , 0.8 ,  30  ,  30   , 0.5 ,  1]):
+
 
     if not len(reg_probs) == 5:
         raise ValueError("There are 5 gene types, but " + str(len(reg_probs)) + " probabilities were given")
@@ -50,9 +50,13 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2]):
 
     assign_connections(all_genes, gene_sets)
 
-    # TESTING: assignment protocol
-    for gene in all_genes:
-        print (str(gene.reg_type) + "(" + str(gene.protein_name) + "): " + str(gene.in_connections))
+    # TESTING: assignment protocol seems to work and generate no orphans
+    # Notes:
+    #for gene in all_genes:
+    #    print (str(gene.reg_type) + "(" + str(gene.protein_name) + "): " + str(gene.in_connections))
+
+
+    print convert_to_antimony(all_genes, model_name, init_params)
 
     print "done!"
 
@@ -96,9 +100,93 @@ def assign_connections(all_genes, gene_sets):
 
 
 
-def convert_to_antimony(all_genes):
+def convert_to_antimony(all_genes, model_name, init_params):
     # protein/mRNA start at zero concentration
-    return "not implemented"
+
+    ant_str = "\'\'\'\n"
+    ant_str += "model *" + model_name + "()\n\n"
+    ant_str += "\t// Compartments and Species:\n"
+
+    species = "".join([gene.protein_name + ", " + "mRNA" + str(i+1) + ", " for i, gene in enumerate(all_genes)])
+    ant_str += "\tspecies INPUT, " + species[:-2] + ";\n\n"
+
+    ant_str += "\t// Assignment Rules:\n"
+    for i,gene in enumerate(all_genes):
+        type = gene.reg_type
+        inputs = gene.in_connections
+        P1 = inputs[0].protein_name
+        P2 = ""
+        if len(inputs) == 2:
+            P2 = inputs[1].protein_name
+
+        # TO DO: incorporate variable initial parameters
+
+        #Ki_j corresponds to rate constant i for protein j
+        K1 = "K1_" + str(i+1)
+        K2 = "K2_" + str(i + 1)
+        K3 = "K3_" + str(i + 1)
+        H1 = "H" + str(i + 1)
+
+        num = ""
+        denom = ""
+        if type == "SA":
+            num = '(' + K1 + '*' + P1 + '**' + H1 + ')'
+            denom = '(1 +' + K1 + '*' + P1 + '**' + H1 + ')'
+
+        elif type == "SR":
+            num = ' 1 '
+            denom = '(1 +' + K1 + '*' + P1 + '**' + H1 + ')'
+
+        elif type == "DA":
+            num = '(' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + '+ K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
+            denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' + K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
+
+        elif type == "DR":
+            num = ' 1 '
+            denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + ' + K1 + '*' + K3 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
+
+        elif type == "SA+SR":
+            num = '(' + K1 + '*' + P1 + '**' + H1 + ')'
+            denom = '(1 + ' + K1 + '*' + P1 + '**' + H1 + ' + ' + K2 + '*' + P2 + '**' + H1 + ' + '+ K1 + '*' + K2 + '*' + P1 + '**' + H1 + '*' + P2 + '**' + H1 + ')'
+
+        else:
+            raise ValueError("gene type does not match any of the 5 standard varieties")
+
+        expression = "Vm1" + '*(' + num  + '/' + denom + ')'
+        ant_str += "\tv" + str(i+1) + " := " + expression +  ";\n"
+
+    ant_str += "\n\t// Reactions:\n"
+    for i in range(len(all_genes)):
+        ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + v"+ str(i+1) + " - d_mRNA"+ str(i+1) + " * mRNA" + str(i+1) + ";\n"
+        ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein"+ str(i+1) + " * mRNA" + str(i+1) + " - d_protein " + str(i+1) + " *protein" + str(i+1) + ";\n"
+
+
+
+    ant_str += "\n\t// Species initializations:\n"
+    for i in range(len(all_genes)):
+        ant_str += "\tmRNA" + str(i+1) + " = 0;\n"
+        ant_str += "\tP" + str(i + 1) + " = 0;\n"
+
+
+    ant_str += "\n\t// Variable initializations:\n"
+    var_names = ["H", "K1_", "K2_", "K3_", "Vm", "L", "d_mRNA", "a_protein", "d_protein"]
+    for i in range(len(all_genes)):
+        for var in var_names:
+            ant_str += "\t" + var + str(i+1) + " = 0;\n"
+
+    ant_str += "\n\t// Other declarations:\n"
+
+    variables = "".join(["v" + str(i+1) + ", " for i in range(len(all_genes))])
+    ant_str += "\tvar " + variables[:-2] + ";\n"
+    ant_str += "\tconst "
+    for i in range(len(all_genes)):
+        for var in var_names:
+            ant_str += var + str(i+1) + ", "
+    ant_str = ant_str[:-2] + ";\n"
+
+
+    ant_str += "\n\nend\n\'\'\'"
+    return ant_str
 
 
 
@@ -203,4 +291,4 @@ class DisjointSet():
 
 
 
-get_model(10)
+get_model(3)
