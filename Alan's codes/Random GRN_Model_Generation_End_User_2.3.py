@@ -777,8 +777,7 @@ def global_exception_handling(exctype, value, TB):
 
 sys.excepthook = global_exception_handling
 
-#%%
-
+#%%% Automatic block
 #Running code without asking user for input (put in all the following lines into the console after runnning rest of script once). Or, comment out the main method and run.
 
 regProb=[.4,.3,.3]
