@@ -1,0 +1,70 @@
+// Created by libAntimony v2.9.4
+model *BiFanMotif()
+
+  // Compartments and Species:
+  species $N, $AA, m1, m2, m3, m4, p_i, p2, p3, p_o;
+
+  // Assignment Rules:
+  generalized_hill1 := Vm_A1*(K_A1*p_i^H1/(K_A1 + p_i^H1)) + Vm_R1*(K_R1/(K_R1 + p_i^H1));
+  generalized_hill2 := Vm_A2*(K_A2*p2^H2/(K_A2 + p2^H2)) + Vm_R2*(K_R2/(K_R2 + p2^H2));
+  generalized_hill3 := Vm_A2*(K_A2*p2^H2/(K_A2 + p2^H2)) + Vm_R2*(K_R2/(K_R2 + p2^H2));
+  generalized_hill4 := Vm_A2*(K_A2*p2^H2/(K_A2 + p2^H2)) + Vm_R2*(K_R2/(K_R2 + p2^H2));
+
+  // Reactions:
+  ts1: $N => m1; L1 + a_m1 - d_m1*m1;
+  ts2: $N => m2; L2 + a_m2 - d_m2*m2;
+  ts3: $N => m3; L3 + generalized_hill1*generalized_hill2 - d_m3*m3;
+  ts4: $N => m4; L4 + generalized_hill3*generalized_hill4 - d_m4*m4;
+  tl1: $AA => p_i; a_p1*m1 - d_p1*p_i;
+  tl2: $AA => p2; a_p2*m2 - d_p2*p2;
+  tl3: $AA => p3; a_p3*m3 - d_p3*p3;
+  tl4: $AA => p_o; a_p4*m4 - d_p4*p_o;
+
+  // Species initializations:
+  N = 1;
+  AA = 1;
+  m1 = 0;
+  m2 = 0;
+  m3 = 0;
+  m4 = 0;
+  p_i = 0;
+  p2 = 0;
+  p3 = 0;
+  p_o = 0;
+
+  // Variable initializations:
+  Vm_A1 = 12.7757;
+  K_A1 = 0.3313;
+  H1 = 1.1119;
+  Vm_R1 = 21.4321;
+  K_R1 = 0.5088;
+  Vm_A2 = 18.2488;
+  K_A2 = 0.3496;
+  H2 = 1.2349;
+  Vm_R2 = 13.7369;
+  K_R2 = 0.8939;
+  L1 = 0.0073;
+  a_m1 = 23.9354;
+  d_m1 = 0.5287;
+  L2 = 0.0113;
+  a_m2 = 12.3209;
+  d_m2 = 0.2961;
+  L3 = 0.0137;
+  d_m3 = 0.3883;
+  L4 = 0.009;
+  d_m4 = 0.6838;
+  a_p1 = 0.6353;
+  d_p1 = 0.7655;
+  a_p2 = 0.5475;
+  d_p2 = 0.4819;
+  a_p3 = 0.3963;
+  d_p3 = 0.6718;
+  a_p4 = 0.578;
+  d_p4 = 0.5089;
+
+  // Other declarations:
+  var generalized_hill1, generalized_hill2, generalized_hill3, generalized_hill4;
+  const Vm_A1, K_A1, H1, Vm_R1, K_R1, Vm_A2, K_A2, H2, Vm_R2, K_R2, L1, a_m1;
+  const d_m1, L2, a_m2, d_m2, L3, d_m3, L4, d_m4, a_p1, d_p1, a_p2, d_p2;
+  const a_p3, d_p3, a_p4, d_p4;
+end

@@ -17,11 +17,14 @@ import os
         
 def RandomGRN(genes,Probabilities, InitVals, Perturbation):
     
-    
+    #Set Lists and Empty Dictionaries
     Interactions = ["SingleAct", "SingleRep", "and", "or", "Nand", "Nor", "Counter"]
     GRN = {'Rate': [], 'mRNA':[], 'Prot': [],'PDeg':[],'mDeg': [],'Leak': [],'TRa':[], 'TRb':[], 'DualDissoc':[], 'Dissoc':[], 'HillCoeff': []}
     GRNInt = {'TF':[],'TFs':[]}
     StringList=[]
+    
+    #Functions
+    
     def ModelInitNames():
         for k in range(genes):
             num = str(k+1)
@@ -37,6 +40,7 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
             GRN['Dissoc'].append('K' + num)
             GRN['DualDissoc'].append('Kd' + num)
         return
+    
     def AssignProteins():
         nums =[int(math.ceil(float(genes)/2)), int(math.floor(float(genes)/2))]
         RanAct = np.random.choice(GRN['Prot'], nums[np.random.randint(2)])
@@ -52,6 +56,7 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
             if ActivatorCur in Activators1 or ActivatorCur in Activators2:
                 AssignProteins()
         return
+    
     def DetermineInteractors():
         Proteins = []
         ProbabilityMatrix = []
@@ -90,13 +95,12 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
                     GRNInt['TF'].append([reg, [Tps[TypeR][0][0],Tps[TypeR][0][1]]])
                 else:
                     GRNInt['TF'].append([reg, [Tps[TypeA][0][0],Tps[TypeR][0][1]]] )
-        return 
+        return
+    
     def ValueGeneration():
         Species=''
         Values = {'M':[InitVals[0]], 'P':[InitVals[1]],'Dp':[InitVals[2]],'Dm':[InitVals[3]],'L':[InitVals[4]],'TRa':[InitVals[5]], 'TRb':[InitVals[6]],'Kd':[InitVals[7]], 'K':[InitVals[8]], 'H': [InitVals[9]]}
         Keys = Values.keys()
-                    
-            
         for i in Keys:
             for n in np.arange(1, genes+1):
                 val = 0
@@ -125,8 +129,6 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
             GRNInt['TFs'].append(TF)
     #print(GRNInt['TFs'])
         return
-    
-    
     #%%Generate Rxn Rates
     def GetReactionRates():
         ReactionRates=[]
@@ -178,7 +180,6 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
                     else:
                         eq =  '(1' + '/' +  denom + ')'
                 WorkingString = GRN['Leak'][i] + '+' + GRN['TRa'][i] + '*' + eq + '-' + GRN['mRNA'][i] + '*' + GRN['mDeg'][i]+ '\n' 
-        
             ReactionRates.append(WorkingString)
         return ReactionRates
     #%%Events-- attempt to perturb a user defined genes trancription at the associated time
@@ -206,16 +207,14 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
             ReactionP += 'Rp' + str(i) + ':' + '$A' + '=> ' + P + ';' + GRN['TRb'][i-1] + '*' + M + '-' + P + '*' + GRN['PDeg'][i-1] + '\n'
         ReactionSumString += ReactionM +ReactionP
         StringList.append(ReactionSumString)
-          
-        
-    
+
     def GetModelString():
         antStr = ''
         for i in StringList:
             antStr += i
         antStr += 'end'
         return antStr 
-    #%%
+    
     ModelInitNames()
     AssignProteins()
     DetermineInteractors()
@@ -226,6 +225,7 @@ def RandomGRN(genes,Probabilities, InitVals, Perturbation):
 #    GetEvents()
     antStr = GetModelString()
     return antStr
+
 #%%
 def GetModel(genes,Probabilities, InitVals, Name):
     tries = 0
@@ -477,7 +477,7 @@ try:
             int('i')
     Steps = int(raw_input("Please enter number of steps to generate for your simulation output (int): "))
     if Steps <= 0 or Steps >=50:
-        Steps = int(raw_input("You entered a number of steps that is outside of the allowable range, please enter an integer between 0 and 50: "))
+        Steps = int(raw_input("You entered a number of steps that is outside of the allowable range, please enter an integer between 0 and 50 (Exclusive): "))
         if Steps <= 0 or Steps >=50:
             int('i')
     NLevel = float(raw_input("Please enter the percentage of the noise level (float): "))
@@ -504,14 +504,15 @@ try:
         rSeed = int (raw_input ('Your response was outside of the allowable range, please enter an integer between 0 and 2**32 - 1: '))
         if rSeed <0 or rSeed > 2**32 - 1:
             int('i')
+
     RunModel(genes,tMax,InitProb,NLevel,modelName,DataOut,rSeed, Steps, filePath)
 
 except WindowsError:
-    print('folder error') 
+    print('Folder Error.') 
         
 except ValueError:
     print("There was an issue with your last entry, check your formatting.")
 except:
-    print ("Somethng bad happenned")
+    print ("Somethng bad happened")
     
 #RunModel(15,5000.0,[.4,.4,.2], 10.0,'foo',['y','y'],15,400,'c:\\GRN generator output\\foo\\'  )

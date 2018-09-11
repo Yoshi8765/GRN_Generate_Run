@@ -1,0 +1,47 @@
+input-output-test;
+switch(if `motifSource` is) {
+  case y:
+    call motifsFromSource;
+    break
+  case n:
+    call motifsFromScratch;
+}
+call chooseDupMotif;
+call combineMotifs;
+call flattenMotif;
+call testCombMotif;
+call drawoutput;
+call exportToAntimony;
+
+function chooseDupMotif{
+  call dupMotif;
+}
+
+function dupMotif{
+  do foo;
+  do bar;
+}
+
+function motifsFromSource{
+  motifs1:
+  switch(motifList){
+    case empty:
+      ImportError;
+      loop motifs1;
+  }
+}
+
+function motifsFromScratch{
+  motifs2:
+  switch(motifListDir){
+    case empty:
+      ImportError;
+      loop motifs2;
+    case not empty:
+     call motifInc; 
+  }
+}
+
+function motifInc{
+  
+}

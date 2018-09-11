@@ -1,0 +1,1937 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by libAntimony version v2.9.4 with libSBML version 5.15.0. -->
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" level="3" version="1">
+  <model id="Random_GRN" name="Random_GRN">
+    <listOfCompartments>
+      <compartment sboTerm="SBO:0000410" id="default_compartment" spatialDimensions="3" size="1" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="N" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="M1" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P12" compartment="default_compartment" initialConcentration="0.072" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P13" compartment="default_compartment" initialConcentration="0.21" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M2" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P7" compartment="default_compartment" initialConcentration="0.581" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P18" compartment="default_compartment" initialConcentration="0.259" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M3" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P19" compartment="default_compartment" initialConcentration="0.25" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P20" compartment="default_compartment" initialConcentration="0.084" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M4" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P16" compartment="default_compartment" initialConcentration="0.062" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M5" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P8" compartment="default_compartment" initialConcentration="0.142" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M6" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M7" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P6" compartment="default_compartment" initialConcentration="0.158" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M8" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P15" compartment="default_compartment" initialConcentration="0.298" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M9" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M10" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M11" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M12" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M13" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P10" compartment="default_compartment" initialConcentration="0.098" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M14" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M15" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M16" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M17" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M18" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M19" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="M20" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="A" compartment="default_compartment" hasOnlySubstanceUnits="false" boundaryCondition="true" constant="false"/>
+      <species id="P1" compartment="default_compartment" initialConcentration="0.091" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P2" compartment="default_compartment" initialConcentration="0.003" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P3" compartment="default_compartment" initialConcentration="0.307" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P4" compartment="default_compartment" initialConcentration="0.153" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P5" compartment="default_compartment" initialConcentration="0.018" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P9" compartment="default_compartment" initialConcentration="0.329" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P11" compartment="default_compartment" initialConcentration="0.085" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P14" compartment="default_compartment" initialConcentration="0.071" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P17" compartment="default_compartment" initialConcentration="0.145" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="L1" value="0.867" constant="true"/>
+      <parameter id="TRa1" value="30.052" constant="true"/>
+      <parameter id="K12" value="0.611" constant="true"/>
+      <parameter id="K13" value="0.292" constant="true"/>
+      <parameter id="Kd13" value="0.578" constant="true"/>
+      <parameter id="Dm1" value="0.71" constant="true"/>
+      <parameter id="L2" value="0.956" constant="true"/>
+      <parameter id="TRa2" value="30.191" constant="true"/>
+      <parameter id="K7" value="0.284" constant="true"/>
+      <parameter id="K18" value="0.539" constant="true"/>
+      <parameter id="Dm2" value="0.398" constant="true"/>
+      <parameter id="L3" value="0.793" constant="true"/>
+      <parameter id="TRa3" value="30.266" constant="true"/>
+      <parameter id="K19" value="0.766" constant="true"/>
+      <parameter id="K20" value="0.339" constant="true"/>
+      <parameter id="Dm3" value="0.971" constant="true"/>
+      <parameter id="L4" value="0.439" constant="true"/>
+      <parameter id="TRa4" value="29.93" constant="true"/>
+      <parameter id="K16" value="0.338" constant="true"/>
+      <parameter id="Dm4" value="0.466" constant="true"/>
+      <parameter id="L5" value="0.732" constant="true"/>
+      <parameter id="TRa5" value="29.753" constant="true"/>
+      <parameter id="K8" value="0.857" constant="true"/>
+      <parameter id="Dm5" value="0.783" constant="true"/>
+      <parameter id="L6" value="0.893" constant="true"/>
+      <parameter id="TRa6" value="30.133" constant="true"/>
+      <parameter id="Dm6" value="0.273" constant="true"/>
+      <parameter id="L7" value="0.69" constant="true"/>
+      <parameter id="TRa7" value="30.147" constant="true"/>
+      <parameter id="K6" value="0.956" constant="true"/>
+      <parameter id="Dm7" value="0.645" constant="true"/>
+      <parameter id="L8" value="0.855" constant="true"/>
+      <parameter id="TRa8" value="29.911" constant="true"/>
+      <parameter id="K15" value="0.191" constant="true"/>
+      <parameter id="Dm8" value="0.783" constant="true"/>
+      <parameter id="L9" value="0.629" constant="true"/>
+      <parameter id="TRa9" value="30.041" constant="true"/>
+      <parameter id="Kd15" value="0.134" constant="true"/>
+      <parameter id="Dm9" value="0.898" constant="true"/>
+      <parameter id="L10" value="1.136" constant="true"/>
+      <parameter id="TRa10" value="30.089" constant="true"/>
+      <parameter id="Dm10" value="0.765" constant="true"/>
+      <parameter id="L11" value="0.901" constant="true"/>
+      <parameter id="TRa11" value="30.219" constant="true"/>
+      <parameter id="Dm11" value="0.669" constant="true"/>
+      <parameter id="L12" value="0.835" constant="true"/>
+      <parameter id="TRa12" value="30.017" constant="true"/>
+      <parameter id="Dm12" value="0.675" constant="true"/>
+      <parameter id="L13" value="0.989" constant="true"/>
+      <parameter id="TRa13" value="30.121" constant="true"/>
+      <parameter id="K10" value="0.547" constant="true"/>
+      <parameter id="Dm13" value="1.283" constant="true"/>
+      <parameter id="L14" value="0.991" constant="true"/>
+      <parameter id="TRa14" value="30.044" constant="true"/>
+      <parameter id="Dm14" value="0.782" constant="true"/>
+      <parameter id="L15" value="0.823" constant="true"/>
+      <parameter id="TRa15" value="29.758" constant="true"/>
+      <parameter id="Dm15" value="0.876" constant="true"/>
+      <parameter id="L16" value="1.05" constant="true"/>
+      <parameter id="TRa16" value="30.176" constant="true"/>
+      <parameter id="Dm16" value="1.371" constant="true"/>
+      <parameter id="L17" value="0.964" constant="true"/>
+      <parameter id="TRa17" value="30.025" constant="true"/>
+      <parameter id="Kd7" value="0.405" constant="true"/>
+      <parameter id="Dm17" value="0.464" constant="true"/>
+      <parameter id="L18" value="0.854" constant="true"/>
+      <parameter id="TRa18" value="30.263" constant="true"/>
+      <parameter id="Kd8" value="0.147" constant="true"/>
+      <parameter id="Dm18" value="0.383" constant="true"/>
+      <parameter id="L19" value="0.801" constant="true"/>
+      <parameter id="TRa19" value="29.703" constant="true"/>
+      <parameter id="Dm19" value="0.644" constant="true"/>
+      <parameter id="L20" value="0.523" constant="true"/>
+      <parameter id="TRa20" value="29.824" constant="true"/>
+      <parameter id="Kd18" value="0.501" constant="true"/>
+      <parameter id="Dm20" value="0.801" constant="true"/>
+      <parameter id="TRb1" value="30.115" constant="true"/>
+      <parameter id="Dp1" value="0.548" constant="true"/>
+      <parameter id="TRb2" value="29.467" constant="true"/>
+      <parameter id="Dp2" value="0.544" constant="true"/>
+      <parameter id="TRb3" value="29.732" constant="true"/>
+      <parameter id="Dp3" value="0.292" constant="true"/>
+      <parameter id="TRb4" value="30.134" constant="true"/>
+      <parameter id="Dp4" value="0.84" constant="true"/>
+      <parameter id="TRb5" value="30.239" constant="true"/>
+      <parameter id="Dp5" value="0.499" constant="true"/>
+      <parameter id="TRb6" value="30.236" constant="true"/>
+      <parameter id="Dp6" value="0.232" constant="true"/>
+      <parameter id="TRb7" value="30.267" constant="true"/>
+      <parameter id="Dp7" value="0.396" constant="true"/>
+      <parameter id="TRb8" value="29.59" constant="true"/>
+      <parameter id="Dp8" value="0.489" constant="true"/>
+      <parameter id="TRb9" value="29.87" constant="true"/>
+      <parameter id="Dp9" value="0.491" constant="true"/>
+      <parameter id="TRb10" value="29.355" constant="true"/>
+      <parameter id="Dp10" value="0.305" constant="true"/>
+      <parameter id="TRb11" value="29.961" constant="true"/>
+      <parameter id="Dp11" value="0.509" constant="true"/>
+      <parameter id="TRb12" value="30.059" constant="true"/>
+      <parameter id="Dp12" value="0.136" constant="true"/>
+      <parameter id="TRb13" value="29.915" constant="true"/>
+      <parameter id="Dp13" value="0.393" constant="true"/>
+      <parameter id="TRb14" value="29.768" constant="true"/>
+      <parameter id="Dp14" value="0.609" constant="true"/>
+      <parameter id="TRb15" value="30.107" constant="true"/>
+      <parameter id="Dp15" value="0.332" constant="true"/>
+      <parameter id="TRb16" value="30.133" constant="true"/>
+      <parameter id="Dp16" value="0.662" constant="true"/>
+      <parameter id="TRb17" value="30.033" constant="true"/>
+      <parameter id="Dp17" value="0.7" constant="true"/>
+      <parameter id="TRb18" value="29.849" constant="true"/>
+      <parameter id="Dp18" value="0.351" constant="true"/>
+      <parameter id="TRb19" value="30.011" constant="true"/>
+      <parameter id="Dp19" value="0.72" constant="true"/>
+      <parameter id="TRb20" value="30.021" constant="true"/>
+      <parameter id="Dp20" value="0.837" constant="true"/>
+      <parameter id="Kd1" value="0.189" constant="true"/>
+      <parameter id="Kd2" value="0.178" constant="true"/>
+      <parameter id="Kd3" value="0.24" constant="true"/>
+      <parameter id="Kd4" value="0.375" constant="true"/>
+      <parameter id="Kd5" value="0.255" constant="true"/>
+      <parameter id="Kd6" value="0.747" constant="true"/>
+      <parameter id="Kd9" value="0.284" constant="true"/>
+      <parameter id="Kd10" value="0.235" constant="true"/>
+      <parameter id="Kd11" value="0.013" constant="true"/>
+      <parameter id="Kd12" value="0.473" constant="true"/>
+      <parameter id="Kd14" value="0.082" constant="true"/>
+      <parameter id="Kd16" value="0.077" constant="true"/>
+      <parameter id="Kd17" value="0.451" constant="true"/>
+      <parameter id="Kd19" value="0.113" constant="true"/>
+      <parameter id="Kd20" value="0.064" constant="true"/>
+      <parameter id="H1" value="1.081" constant="true"/>
+      <parameter id="H2" value="0.571" constant="true"/>
+      <parameter id="H3" value="0.967" constant="true"/>
+      <parameter id="H4" value="0.888" constant="true"/>
+      <parameter id="H5" value="0.896" constant="true"/>
+      <parameter id="H6" value="0.937" constant="true"/>
+      <parameter id="H7" value="0.443" constant="true"/>
+      <parameter id="H8" value="1.01" constant="true"/>
+      <parameter id="H9" value="1.019" constant="true"/>
+      <parameter id="H10" value="1.262" constant="true"/>
+      <parameter id="H11" value="1.361" constant="true"/>
+      <parameter id="H12" value="1.089" constant="true"/>
+      <parameter id="H13" value="1.231" constant="true"/>
+      <parameter id="H14" value="0.402" constant="true"/>
+      <parameter id="H15" value="1.137" constant="true"/>
+      <parameter id="H16" value="1.276" constant="true"/>
+      <parameter id="H17" value="1.218" constant="true"/>
+      <parameter id="H18" value="1.059" constant="true"/>
+      <parameter id="H19" value="0.911" constant="true"/>
+      <parameter id="H20" value="0.909" constant="true"/>
+      <parameter id="K1" value="0.506" constant="true"/>
+      <parameter id="K2" value="0.607" constant="true"/>
+      <parameter id="K3" value="0.643" constant="true"/>
+      <parameter id="K4" value="0.476" constant="true"/>
+      <parameter id="K5" value="0.186" constant="true"/>
+      <parameter id="K9" value="0.753" constant="true"/>
+      <parameter id="K11" value="0.743" constant="true"/>
+      <parameter id="K14" value="0.529" constant="true"/>
+      <parameter id="K17" value="0.283" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="Rm1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P12"/>
+          <modifierSpeciesReference species="P13"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L1 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K13 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K13 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Kd13 </ci>
+                        <ci> P12 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M1 </ci>
+                <ci> Dm1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P7"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L2 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> K7 </ci>
+                        <ci> P7 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K7 </ci>
+                        <ci> P7 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M2 </ci>
+                <ci> Dm2 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P19"/>
+          <modifierSpeciesReference species="P20"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L3 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa3 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K19 </ci>
+                      <ci> K20 </ci>
+                      <ci> P19 </ci>
+                      <ci> P20 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K19 </ci>
+                        <ci> P19 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K20 </ci>
+                        <ci> P20 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K19 </ci>
+                        <ci> K20 </ci>
+                        <ci> P19 </ci>
+                        <ci> P20 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M3 </ci>
+                <ci> Dm3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm4" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M4" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P16"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L4 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa4 </ci>
+                  <apply>
+                    <divide/>
+                    <cn type="integer"> 1 </cn>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P16 </ci>
+                        <ci> K16 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M4 </ci>
+                <ci> Dm4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm5" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M5" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P8"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L5 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa5 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P8 </ci>
+                      <ci> K8 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P8 </ci>
+                        <ci> K8 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M5 </ci>
+                <ci> Dm5 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm6" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M6" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P8"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L6 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa6 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P8 </ci>
+                      <ci> K8 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P8 </ci>
+                        <ci> K8 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M6 </ci>
+                <ci> Dm6 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm7" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M7" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P6"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L7 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa7 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K6 </ci>
+                      <ci> K18 </ci>
+                      <ci> P6 </ci>
+                      <ci> P18 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K6 </ci>
+                        <ci> P6 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K6 </ci>
+                        <ci> K18 </ci>
+                        <ci> P6 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M7 </ci>
+                <ci> Dm7 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm8" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M8" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P20"/>
+          <modifierSpeciesReference species="P15"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L8 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa8 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K20 </ci>
+                      <ci> K15 </ci>
+                      <ci> P20 </ci>
+                      <ci> P15 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K20 </ci>
+                        <ci> P20 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K15 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K20 </ci>
+                        <ci> K15 </ci>
+                        <ci> P20 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M8 </ci>
+                <ci> Dm8 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm9" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M9" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P8"/>
+          <modifierSpeciesReference species="P15"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L9 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa9 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K8 </ci>
+                        <ci> P8 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K15 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K8 </ci>
+                        <ci> P8 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K15 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Kd15 </ci>
+                        <ci> P8 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M9 </ci>
+                <ci> Dm9 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm10" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M10" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P12"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L10 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa10 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M10 </ci>
+                <ci> Dm10 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm11" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M11" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P12"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L11 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa11 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K12 </ci>
+                      <ci> K18 </ci>
+                      <ci> P12 </ci>
+                      <ci> P18 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> K18 </ci>
+                        <ci> P12 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M11 </ci>
+                <ci> Dm11 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm12" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M12" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L12 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa12 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P18 </ci>
+                      <ci> K18 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P18 </ci>
+                        <ci> K18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M12 </ci>
+                <ci> Dm12 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm13" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M13" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P6"/>
+          <modifierSpeciesReference species="P10"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L13 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa13 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K10 </ci>
+                      <ci> K6 </ci>
+                      <ci> P10 </ci>
+                      <ci> P6 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K10 </ci>
+                        <ci> P10 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K6 </ci>
+                        <ci> P6 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K10 </ci>
+                        <ci> K6 </ci>
+                        <ci> P10 </ci>
+                        <ci> P6 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M13 </ci>
+                <ci> Dm13 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm14" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M14" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P12"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L14 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa14 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K12 </ci>
+                        <ci> P12 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M14 </ci>
+                <ci> Dm14 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm15" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M15" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P19"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L15 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa15 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P19 </ci>
+                      <ci> K19 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P19 </ci>
+                        <ci> K19 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M15 </ci>
+                <ci> Dm15 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm16" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M16" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P7"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L16 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa16 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P7 </ci>
+                      <ci> K7 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P7 </ci>
+                        <ci> K7 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M16 </ci>
+                <ci> Dm16 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm17" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M17" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P13"/>
+          <modifierSpeciesReference species="P7"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L17 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa17 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K13 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K7 </ci>
+                        <ci> P7 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K13 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K7 </ci>
+                        <ci> P7 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Kd7 </ci>
+                        <ci> P13 </ci>
+                        <ci> P7 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M17 </ci>
+                <ci> Dm17 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm18" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M18" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P13"/>
+          <modifierSpeciesReference species="P8"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L18 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa18 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K13 </ci>
+                      <ci> P13 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K13 </ci>
+                        <ci> P13 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K8 </ci>
+                        <ci> P8 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Kd8 </ci>
+                        <ci> P13 </ci>
+                        <ci> P8 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M18 </ci>
+                <ci> Dm18 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm19" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M19" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P20"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L19 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa19 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> P20 </ci>
+                      <ci> K20 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> P20 </ci>
+                        <ci> K20 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M19 </ci>
+                <ci> Dm19 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rm20" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="N" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M20" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="P18"/>
+          <modifierSpeciesReference species="P15"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> L20 </ci>
+                <apply>
+                  <times/>
+                  <ci> TRa20 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> K15 </ci>
+                      <ci> P15 </ci>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <cn type="integer"> 1 </cn>
+                      <apply>
+                        <times/>
+                        <ci> K15 </ci>
+                        <ci> P15 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K18 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> Kd18 </ci>
+                        <ci> P15 </ci>
+                        <ci> P18 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> M20 </ci>
+                <ci> Dm20 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp1" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P1" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M1"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb1 </ci>
+                <ci> M1 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P1 </ci>
+                <ci> Dp1 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp2" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P2" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb2 </ci>
+                <ci> M2 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P2 </ci>
+                <ci> Dp2 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp3" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P3" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M3"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb3 </ci>
+                <ci> M3 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P3 </ci>
+                <ci> Dp3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp4" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P4" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M4"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb4 </ci>
+                <ci> M4 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P4 </ci>
+                <ci> Dp4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp5" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P5" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M5"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb5 </ci>
+                <ci> M5 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P5 </ci>
+                <ci> Dp5 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp6" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P6" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M6"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb6 </ci>
+                <ci> M6 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P6 </ci>
+                <ci> Dp6 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp7" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P7" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M7"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb7 </ci>
+                <ci> M7 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P7 </ci>
+                <ci> Dp7 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp8" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P8" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M8"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb8 </ci>
+                <ci> M8 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P8 </ci>
+                <ci> Dp8 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp9" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P9" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M9"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb9 </ci>
+                <ci> M9 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P9 </ci>
+                <ci> Dp9 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp10" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P10" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M10"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb10 </ci>
+                <ci> M10 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P10 </ci>
+                <ci> Dp10 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp11" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P11" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M11"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb11 </ci>
+                <ci> M11 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P11 </ci>
+                <ci> Dp11 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp12" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P12" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M12"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb12 </ci>
+                <ci> M12 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P12 </ci>
+                <ci> Dp12 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp13" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P13" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M13"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb13 </ci>
+                <ci> M13 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P13 </ci>
+                <ci> Dp13 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp14" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P14" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M14"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb14 </ci>
+                <ci> M14 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P14 </ci>
+                <ci> Dp14 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp15" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P15" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M15"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb15 </ci>
+                <ci> M15 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P15 </ci>
+                <ci> Dp15 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp16" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P16" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M16"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb16 </ci>
+                <ci> M16 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P16 </ci>
+                <ci> Dp16 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp17" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P17" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M17"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb17 </ci>
+                <ci> M17 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P17 </ci>
+                <ci> Dp17 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp18" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P18" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M18"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb18 </ci>
+                <ci> M18 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P18 </ci>
+                <ci> Dp18 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp19" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P19" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M19"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb19 </ci>
+                <ci> M19 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P19 </ci>
+                <ci> Dp19 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="Rp20" reversible="false" fast="false">
+        <listOfReactants>
+          <speciesReference species="A" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="P20" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="M20"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> TRb20 </ci>
+                <ci> M20 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> P20 </ci>
+                <ci> Dp20 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
