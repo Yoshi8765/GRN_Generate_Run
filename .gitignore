@@ -100,5 +100,10 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# mypy
+# mighty
 .mypy_cache/
+
+#mac
+zack_kateka/.idea/workspace.xml
+zack_kateka/.DS_Store
+
