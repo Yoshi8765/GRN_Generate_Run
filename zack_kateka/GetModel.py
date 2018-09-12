@@ -62,7 +62,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
 
-    f = open(model_name + "_antimony.txt", 'w')
+    f = open("antimony_outputs/" + model_name + "_antimony.txt", 'w')
     f.write(ant_str)
     f.close()
 
@@ -262,8 +262,6 @@ class Gene():
     def __repr__(self):
         return str(self.protein_name)
         #return (str(self.reg_type) + " (" + str(self.protein_name) + "): " + str(self.remaining_connections) + " connection(s) remaining")
-
-
 
 
 
