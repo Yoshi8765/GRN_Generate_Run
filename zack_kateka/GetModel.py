@@ -89,10 +89,12 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
 
-    print (ant_str)
+    #print (ant_str)
+
     f = open(model_name + "_antimony.txt", 'w')
     f.write(ant_str)
     f.close()
+
     print ("done!")
 
     return ant_str
@@ -193,7 +195,7 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
         expression = "Vm" + str(i+1) + '*(' + num  + '/' + denom + ')'
         rules["v" + str(i+1)] = expression
-        ant_str += "\t// transcription" + str(i+1) + " uses production rate := " + expression +  ";\n"
+        ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
 
     ant_str += "\n\t// Reactions:\n"
     for i in range(len(all_genes)):
@@ -345,4 +347,4 @@ class DisjointSet():
 
 
 
-get_model(10)
+get_model(2)
