@@ -7,6 +7,7 @@ Created on Wed Sep 12 11:42:03 2018
 
 import tellurium as te
 import roadrunner
+import structural
 
 from GetModel import get_model
 
@@ -21,6 +22,18 @@ r = te.loada(antimony_str)
 #print s4
 
 s5 = get_model(5)
+
+
+#%% Running the model to see if it works
+r=te.loada(s5)
+r.reset()
+#plt.close("all")
+res = r.simulate(0,50,1000)
+#r.plot()
+
+r.draw(layout='fdp')
+#r.reset()
+
 
 print ("\n\n\ndone!")
 

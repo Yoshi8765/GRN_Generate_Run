@@ -8,9 +8,11 @@ import time
 
 # init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
 # reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
-
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1],seed = 0):
+    """Docstring for help command: Demonstrate docstrings and does nothing really."""
     # Invalid parameter handling
+
+    #catch for illegal file names
     forbiddenChar = ['<','>',':','"','/','\'','|','?','*']
     try:
         assert list(set(model_name).intersection(forbiddenChar))==[]
@@ -42,7 +44,13 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
 
-    #np.random.seed(123) # for reproducibility (remove after testing)
+    if seed!=0:
+        np.random.seed(seed)
+    try:
+        assert seed >= 0 and seed < 0xffffffff
+    except AssertionError:
+        raise AssertionError("Please use a 32-bit unsigned integer or 0.")
+
 
     # chooses a random collection of gene types of the required size with the given probabilities
     random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
