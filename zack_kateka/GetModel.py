@@ -349,4 +349,4 @@ class DisjointSet():
 
 
 
-get_model(2)
+get_model(10)
