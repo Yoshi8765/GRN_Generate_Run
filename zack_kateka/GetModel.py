@@ -402,6 +402,3 @@ class DisjointSets():
     # toString mostly used for debugging purposes
     def __repr__(self):
         return str(self.pointers) + str(self.converter)
-
-
-help(get_model)
