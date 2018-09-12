@@ -4,14 +4,14 @@ model *model()
 	// Compartments and Species:
 	species INPUT, P1, mRNA1, P2, mRNA2;
 
-	// Assignment Rules:
-	v1 := Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1));
-	v2 := Vm1*( 1 /(1 +K1_2*P2**H2));
+	// Assignment Rules (production rates used in reactions):
+	// v1 := Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1));
+	// v2 := Vm2*( 1 /(1 +K1_2*P2**H2));
 
 	// Reactions:
-	transcription1: => mRNA1 ; L1 + v1 - d_mRNA1 * mRNA1;
+	transcription1: => mRNA1 ; L1 + Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1)) - d_mRNA1 * mRNA1;
 	translation1: => P1 ; a_protein1 * mRNA1 - d_protein 1 * protein1;
-	transcription2: => mRNA2 ; L2 + v2 - d_mRNA2 * mRNA2;
+	transcription2: => mRNA2 ; L2 + Vm2*( 1 /(1 +K1_2*P2**H2)) - d_mRNA2 * mRNA2;
 	translation2: => P2 ; a_protein2 * mRNA2 - d_protein 2 * protein2;
 
 	// Species initializations:
