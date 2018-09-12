@@ -10,6 +10,7 @@ import roadrunner
 
 from GetModel import get_model
 
-ant_str = get_model(5)
-r = te.loada(ant_str)
+antimony_str = get_model(5, reg_probs = [1])
+r = te.loada(antimony_str)
 
+r.draw()

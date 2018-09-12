@@ -128,7 +128,8 @@ def assign_connections(all_genes, gene_sets):
 def convert_to_antimony(all_genes, model_name, init_params):
     # add variation to parameters around their mean found in init_params
     std_dev_perc = 0.25
-
+    
+    ant_str = ""
     ant_str += "model *" + model_name + "()\n\n"
     ant_str += "\t// Compartments and Species:\n"
 
