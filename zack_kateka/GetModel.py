@@ -11,6 +11,12 @@ import time
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
 
     # Invalid parameter handling
+    forbiddenChar = ['<','>',':','"','/','\'','|','?','*']
+    try:
+        assert list(set(model_name).intersection(forbiddenChar))==[]
+    except AssertionError:
+        raise AssertionError('You used an illegal character in your model name!')
+
     if not type(num_genes) == int or num_genes < 2:
         raise ValueError("num_genes is invalid: it must be a single integer greater than 1")
 
@@ -131,7 +137,7 @@ def assign_connections(all_genes, gene_sets):
 def convert_to_antimony(all_genes, model_name, init_params):
     # add variation to parameters around their mean found in init_params
     std_dev_perc = 0.25
-    
+
     ant_str = ""
     ant_str += "model *" + model_name + "()\n\n"
     ant_str += "\t// Compartments and Species:\n"

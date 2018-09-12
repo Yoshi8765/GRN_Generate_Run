@@ -28,6 +28,7 @@ import matplotlib.pyplot as plt
 import os
 import sys
 import traceback
+from collections import Counter
 import logging
 from time import sleep
 
@@ -66,14 +67,14 @@ def GetModel(tries,numGenes,regProb, InitParams, Name):
     GRNInt = {'TF':[],'TFs':[]}
     #Perturbation = {'TRa1':[10]}
     StringList=[]
-    tries = 0
-    while tries < 9:
+    modelCreationTries = 0
+    while modelCreationTries < 3:
         try:
             ModelInitNames(GRN)
             print 'ModelInitNames done.'
-            AssignProteins(numGenes,GRN,GRNInt)
-            print 'AssignProteins done.'
-            DetermineInteractors(GRN,GRNInt,regProb,Interactions)
+            AssignRegulation(numGenes,GRN,GRNInt,Interactions)
+            print 'AssignRegulation done.'
+            DetermineInteractors(GRN,GRNInt,regProb)
             print 'DetermineInteractors done.'
             ChooseProtein(GRNInt)
             print 'ChooseProtein done.'
@@ -96,7 +97,7 @@ def GetModel(tries,numGenes,regProb, InitParams, Name):
             print('Success!')
             break
         except:
-            tries = tries + 1
+            modelCreationTries = modelCreationTries + 1
             print "Failed to load model code into Antimony."
             if antStr == '':
                 return(0,StringList.join('This is a pre-loaded string into Antimony that failed.\n'),GRN)
@@ -123,47 +124,98 @@ def ModelInitNames(GRN):
 
     #identifies activators among N genes in model. where N = # of numGenes
     #The remainder are set as repressors.
-def AssignProteins(numGenes,GRN,GRNInt):
+    # ISSUE: Currently any gene is set to either being an activator or a repressor, for any regulation.
+def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
+    # Creating a list of activator proteins, numbering about half the number of genes.
     nums =[int(math.ceil(float(numGenes)/2)), int(math.floor(float(numGenes)/2))]
     RanAct = np.random.choice(GRN['Prot'], nums[np.random.randint(2)])
     print "Randomly generated Activators: " + str(RanAct)
     GRNInt.update({'activators': RanAct})
     scannedActivators = []
-    for i in (GRNInt['activators']):
-        ActivatorCur =i
-        if ActivatorCur not in scannedActivators:
-            scannedActivators.append(ActivatorCur)
+    for i in (range(len(GRNInt['activators']))):
+        ActivatorCur =GRNInt['activators'][i]
+        if ActivatorCur in scannedActivators:
+            i -= 1
+            continue
+        scannedActivators.append(ActivatorCur)
+        i += 1
     GRNInt.update({'activators': scannedActivators})
     print "Activators: " + str(GRNInt['activators'])
+
+    #All proteins not turned into activators will be set as a repressor
+    repressors = GRN['Prot']
+    for s in GRNInt['activators']:
+        if s in repressors:
+            repressors.remove(s)
+        GRNInt.update({'repressors': repressors})
+    print "Repressors: " + str(GRNInt['repressors'])
+
+    #Creating a list of regulation types, not assigned to proteins yet.
+    ProbabilityMatrix = []
+    ProbSing = regProb[0]/2
+    ProbDub = regProb[1]/4
+    ProbCounter = regProb[2]
+    ProbabilityMatrix = [ProbSing, ProbSing, ProbDub, ProbDub, ProbDub, ProbDub, ProbCounter]
+    pickedInteractions = np.random.choice(Interactions,numGenes,True,ProbabilityMatrix)
+    interactionCounts = Counter(pickedInteractions)
+
+    if interactionCounts['SingleRep'] > len(GRNInt['repressors']):
+        numChangeInteractions = interactionCounts['SingleRep'] - len(GRNInt['repressors'])
+        print 'number of SingleRep behavior we have above capacity.: ' + str(numChangeInteractions)
+        counter = 0
+        singleRepCounter = 0
+        for x in pickedInteractions: #when pickedInteraction == singlerep
+            if numChangeInteractions == singleRepCounter:
+                break
+            if x == 'SingleRep':
+                singleRepCounter += 1
+            while x == 'SingleRep':
+                x = np.random.choice(Interactions,1,True,ProbabilityMatrix)
+                pickedInteractions.put(counter,x)
+            counter += 1
+
+    if interactionCounts['SingleAct'] > len(GRNInt['activators']):
+        numChangeInteractions = interactionCounts['SingleAct'] - len(GRNInt['activators'])
+        print 'number of SingleAct behavior we have above capacity.: ' + str(numChangeInteractions)
+        counter = 0
+        singleActCounter = 0
+        for x in pickedInteractions: #when pickedInteraction == singlerep
+            if numChangeInteractions == singleActCounter:
+                break
+            if x == 'SingleAct':
+                singleActCounter += 1
+            while x == 'SingleAct':
+                x = np.random.choice(Interactions,1,True,ProbabilityMatrix)
+                pickedInteractions.put(counter,x)
+            counter += 1
+
+    GRNInt.update({'interactions': pickedInteractions})
+    print "Regulation types: " + str(GRNInt['interactions'])
     return
 
 
     #Generates a N set of interactions
     #Correct number and type are randomly assigned.
     #Assignments prevent dual regulation.
-def DetermineInteractors(GRN,GRNInt,regProb,Interactions):
-    Proteins = []
-    ProbabilityMatrix = []
-    ProbSingle = regProb[0]
-    ProbDouble = regProb[1]
-    ProbCounter = regProb[2]
-    for p in range(len(GRN['Prot'])):
-        Proteins.append(GRN['Prot'][p])
-    for s in GRNInt['activators']:#Issue generates too many interactions when activators has multiple regulatory interactions per gene
-        if s in Proteins:
-            Proteins.remove(s)
-        GRNInt.update({'repressors': Proteins})
-    Psing = ProbSingle/2
-    Pdub = ProbDouble/4
-    ProbabilityMatrix = [Psing, Psing, Pdub, Pdub, Pdub, Pdub, ProbCounter]
-    GRNInt.update({'interactions': np.random.choice(Interactions,numGenes,True,ProbabilityMatrix)})
+def DetermineInteractors(GRN,GRNInt,regProb):
     for Inter in range(len(GRNInt['interactions'])):
         reg = GRNInt['interactions'][Inter]
         RegType = 'repressors'
         if 'Single' in reg :
             if 'Act' in reg:
                 RegType = 'activators'
-            GRNInt['TF'].append([reg, [GRNInt[RegType][np.random.randint(len(GRNInt[RegType]))]]])
+            pickedProt = np.random.randint(len(GRNInt[RegType]))
+            currTF = [reg, [GRNInt[RegType][pickedProt]] ]
+            testcounter = 0
+            while currTF in GRNInt['TF']:
+                testcounter += 1
+                pickedProt = np.random.randint(len(GRNInt[RegType]))
+                currTF = [reg, [GRNInt[RegType][pickedProt]] ]
+                if testcounter == 30:
+                    continue
+                if testcounter == 40:
+                    continue
+            GRNInt['TF'].append(currTF)
         else:
             Tps={'activators':[], 'repressors':[]}
             for m in Tps.keys():
@@ -256,6 +308,7 @@ def GetReactions(GRN,StringList,Rates):
     for i in np.arange(1, numGenes+1):
         M = GRN['mRNA'][i-1]
         P = GRN['Prot'][i-1]
+        # TODO: Error above
         ReactionM += 'Rm' + str(i) + ':' + NUCLEOTIDE_SOURCE + '=> ' + M + ';' + Rates[i-1]
         ReactionP += 'Rp' + str(i) + ':' + AMINO_ACID_SOURCE + '=> ' + P + ';' + GRN['a_p'][i-1] + '*' + M + ' - ' + P + '*' + GRN['PDeg'][i-1] + ';\n'
     ReactionSumString += ReactionM +ReactionP
@@ -303,18 +356,19 @@ def GetModelString(StringList):
 #%%
 
     #This function tries to run the constructed model
-def RunModel(tries,model,antStr,tmax,regProb,Percent,modelName,DataOut,seed, filePath):
-    if tries <= 10:
+def RunModel(runAttempts,tries,model,antStr,tmax,regProb,Percent,modelName,DataOut,seed, filePath):
+    if tries <= runAttempts:
         try:
             plt.close('all')
             model.reset()
             tStep = int(math.ceil(tmax)*5)
             result = model.simulate(0,tmax, tStep)
+            tries = tries + 1
         except:
              tries = tries + 1
              print "Failed to solve Model"
              model,antStr,GRNInt = GetModel(tries,numGenes,regProb, InitParams, modelName)
-             RunModel(tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, filePath)
+             RunModel(runAttempts,tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, filePath)
         else:
             NoisyResult = np.zeros([len(result[:,0]), len(result[0,:])])
             for k in range(len(result[:,0])):
@@ -328,7 +382,7 @@ def RunModel(tries,model,antStr,tmax,regProb,Percent,modelName,DataOut,seed, fil
                         NoisyResult[k,i] = CurrVal
             return(DataOut, model, antStr,NoisyResult, result)
     else:
-        raise ValueError('Could not create working model more than 10 times!')
+        raise ValueError('Could not create working model more than ' + str(runAttempts+1) + ' times!')
     return()
 
     #This function makes two time-course plots: One based strictly on the model (non-noisy) and one with noise artificially added in (noisy)
@@ -772,7 +826,10 @@ def global_exception_handling(exctype, value, TB):
 
 sys.excepthook = global_exception_handling
 
-#%%% Automatic block
+#########################################
+#%%% Automatic block ####################
+#########################################
+
 #Running code without asking user for input (put in all the following lines into the console after runnning rest of script once). Or, comment out the main method and run.
 
 regProb=[.3,.4,.3]
@@ -786,8 +843,10 @@ seed = 3
 if seed != 0:
     np.random.seed (seed)
 NLevel /= 100
-tries = 0
+runAttempts = 2
 filePath = 'C:\\Users\\Yoshi\\Documents\\GitHub\\DREAM-work\\Alan\'s codes'
+
+
 initPath = os.getcwd() +'\\'
 folderPath = initPath + 'GRN generator output\\'
 modelPath = folderPath + modelName + '\\'
@@ -799,10 +858,11 @@ if os.path.exists(modelPath) == False:
     print('\nFolder created: ' + modelPath)
 DataOut = ['y','y']
 print 'finish dataout'
+tries = 1
 model,antStr,GRNInt = GetModel(tries,numGenes,regProb, InitParams, modelName)
-print 'finish getmodel'
+print 'finish GetModel'
 try:
-    DataOut, model, antStr, NoisyResult, result = RunModel(tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, modelPath)
+    DataOut, model, antStr, NoisyResult, result = RunModel(runAttempts-1,tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, modelPath)
 except ValueError as error:
     ErrorPrinting(error)
     print('Writing: ' + modelPath + modelName + '_Antimony.txt for debugging.')
@@ -812,4 +872,4 @@ else:
     makePlots(tmax,result,NoisyResult)
     Output(DataOut, modelName, model, seed, result, NoisyResult, modelPath, antStr)
 
-model.draw(layout='fdp')
+#model.draw(layout='fdp')

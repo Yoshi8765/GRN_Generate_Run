@@ -20,7 +20,7 @@ r = te.loada(antimony_str)
 #s4 = get_model(50, reg_probs=[0.5, 0.5, 0, 0, 0])
 #print s4
 
-s5 = get_model(5, init_params=["hi"])
+s5 = get_model(5)
 
 print ("\n\n\ndone!")
 

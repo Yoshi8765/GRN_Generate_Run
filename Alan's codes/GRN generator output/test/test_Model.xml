@@ -8,86 +8,86 @@
     <listOfSpecies>
       <species id="M1" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M2" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P4" compartment="default_compartment" initialConcentration="0.142" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P2" compartment="default_compartment" initialConcentration="0.188" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P4" compartment="default_compartment" initialConcentration="0.219" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P2" compartment="default_compartment" initialConcentration="0.186" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M3" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P1" compartment="default_compartment" initialConcentration="0.396" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P1" compartment="default_compartment" initialConcentration="0.19" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M4" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M5" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M6" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M7" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="M8" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P3" compartment="default_compartment" initialConcentration="0.079" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P5" compartment="default_compartment" initialConcentration="0.255" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P6" compartment="default_compartment" initialConcentration="0.342" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P7" compartment="default_compartment" initialConcentration="0.157" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="P8" compartment="default_compartment" initialConcentration="0.158" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P3" compartment="default_compartment" initialConcentration="0.326" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P5" compartment="default_compartment" initialConcentration="0.615" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P6" compartment="default_compartment" initialConcentration="0.057" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P7" compartment="default_compartment" initialConcentration="0.03" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="P8" compartment="default_compartment" initialConcentration="0.075" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="L1" value="0.959" constant="true"/>
-      <parameter id="Vm1" value="30.695" constant="true"/>
-      <parameter id="d_m1" value="0.771" constant="true"/>
-      <parameter id="L2" value="0.631" constant="true"/>
-      <parameter id="Vm2" value="30.031" constant="true"/>
-      <parameter id="K4" value="0.825" constant="true"/>
-      <parameter id="K2" value="0.297" constant="true"/>
-      <parameter id="Kd2" value="0.346" constant="true"/>
-      <parameter id="d_m2" value="1.361" constant="true"/>
-      <parameter id="L3" value="0.945" constant="true"/>
-      <parameter id="Vm3" value="30.279" constant="true"/>
-      <parameter id="K1" value="1.262" constant="true"/>
-      <parameter id="d_m3" value="0.966" constant="true"/>
-      <parameter id="L4" value="0.869" constant="true"/>
-      <parameter id="Vm4" value="29.598" constant="true"/>
-      <parameter id="d_m4" value="0.337" constant="true"/>
-      <parameter id="L5" value="0.666" constant="true"/>
-      <parameter id="Vm5" value="29.782" constant="true"/>
-      <parameter id="d_m5" value="1.241" constant="true"/>
-      <parameter id="L6" value="0.582" constant="true"/>
-      <parameter id="Vm6" value="29.763" constant="true"/>
-      <parameter id="d_m6" value="0.853" constant="true"/>
-      <parameter id="L7" value="0.938" constant="true"/>
-      <parameter id="Vm7" value="30.108" constant="true"/>
-      <parameter id="d_m7" value="1.12" constant="true"/>
-      <parameter id="L8" value="0.717" constant="true"/>
-      <parameter id="Vm8" value="29.933" constant="true"/>
-      <parameter id="Kd1" value="0.558" constant="true"/>
-      <parameter id="d_m8" value="0.782" constant="true"/>
-      <parameter id="a_p1" value="30.282" constant="true"/>
-      <parameter id="d_p1" value="0.191" constant="true"/>
-      <parameter id="a_p2" value="30.081" constant="true"/>
-      <parameter id="d_p2" value="0.801" constant="true"/>
-      <parameter id="a_p3" value="30.055" constant="true"/>
-      <parameter id="d_p3" value="0.604" constant="true"/>
-      <parameter id="a_p4" value="29.826" constant="true"/>
-      <parameter id="d_p4" value="0.815" constant="true"/>
-      <parameter id="a_p5" value="30.23" constant="true"/>
-      <parameter id="d_p5" value="0.426" constant="true"/>
-      <parameter id="a_p6" value="30.03" constant="true"/>
-      <parameter id="d_p6" value="0.748" constant="true"/>
-      <parameter id="a_p7" value="30.254" constant="true"/>
-      <parameter id="d_p7" value="0.546" constant="true"/>
-      <parameter id="a_p8" value="29.871" constant="true"/>
-      <parameter id="d_p8" value="0.359" constant="true"/>
-      <parameter id="Kd3" value="0.41" constant="true"/>
-      <parameter id="Kd4" value="0.292" constant="true"/>
-      <parameter id="Kd5" value="0.082" constant="true"/>
-      <parameter id="Kd6" value="0.493" constant="true"/>
-      <parameter id="Kd7" value="0.215" constant="true"/>
-      <parameter id="Kd8" value="0.176" constant="true"/>
-      <parameter id="K3" value="0.522" constant="true"/>
-      <parameter id="K5" value="0.391" constant="true"/>
-      <parameter id="K6" value="0.303" constant="true"/>
-      <parameter id="K7" value="0.352" constant="true"/>
-      <parameter id="K8" value="0.751" constant="true"/>
-      <parameter id="H1" value="0.996" constant="true"/>
-      <parameter id="H2" value="0.897" constant="true"/>
-      <parameter id="H3" value="1.001" constant="true"/>
-      <parameter id="H4" value="0.884" constant="true"/>
-      <parameter id="H5" value="0.954" constant="true"/>
-      <parameter id="H6" value="1.088" constant="true"/>
-      <parameter id="H7" value="1.268" constant="true"/>
-      <parameter id="H8" value="1.205" constant="true"/>
+      <parameter id="L1" value="0.921" constant="true"/>
+      <parameter id="Vm1" value="30.249" constant="true"/>
+      <parameter id="d_m1" value="1.101" constant="true"/>
+      <parameter id="L2" value="0.588" constant="true"/>
+      <parameter id="Vm2" value="29.947" constant="true"/>
+      <parameter id="K4" value="0.523" constant="true"/>
+      <parameter id="K2" value="0.675" constant="true"/>
+      <parameter id="Kd2" value="0.29" constant="true"/>
+      <parameter id="d_m2" value="1.206" constant="true"/>
+      <parameter id="L3" value="0.923" constant="true"/>
+      <parameter id="Vm3" value="29.699" constant="true"/>
+      <parameter id="K1" value="0.721" constant="true"/>
+      <parameter id="d_m3" value="0.957" constant="true"/>
+      <parameter id="L4" value="0.985" constant="true"/>
+      <parameter id="Vm4" value="29.865" constant="true"/>
+      <parameter id="d_m4" value="1.078" constant="true"/>
+      <parameter id="L5" value="1.136" constant="true"/>
+      <parameter id="Vm5" value="30.166" constant="true"/>
+      <parameter id="d_m5" value="1.105" constant="true"/>
+      <parameter id="L6" value="0.591" constant="true"/>
+      <parameter id="Vm6" value="29.869" constant="true"/>
+      <parameter id="d_m6" value="0.381" constant="true"/>
+      <parameter id="L7" value="0.695" constant="true"/>
+      <parameter id="Vm7" value="29.541" constant="true"/>
+      <parameter id="d_m7" value="0.764" constant="true"/>
+      <parameter id="L8" value="0.597" constant="true"/>
+      <parameter id="Vm8" value="29.962" constant="true"/>
+      <parameter id="Kd1" value="0.655" constant="true"/>
+      <parameter id="d_m8" value="0.766" constant="true"/>
+      <parameter id="a_p1" value="29.916" constant="true"/>
+      <parameter id="d_p1" value="0.057" constant="true"/>
+      <parameter id="a_p2" value="30.086" constant="true"/>
+      <parameter id="d_p2" value="0.459" constant="true"/>
+      <parameter id="a_p3" value="30.218" constant="true"/>
+      <parameter id="d_p3" value="0.593" constant="true"/>
+      <parameter id="a_p4" value="29.728" constant="true"/>
+      <parameter id="d_p4" value="0.531" constant="true"/>
+      <parameter id="a_p5" value="29.925" constant="true"/>
+      <parameter id="d_p5" value="0.315" constant="true"/>
+      <parameter id="a_p6" value="30.185" constant="true"/>
+      <parameter id="d_p6" value="0.472" constant="true"/>
+      <parameter id="a_p7" value="30.253" constant="true"/>
+      <parameter id="d_p7" value="0.512" constant="true"/>
+      <parameter id="a_p8" value="29.78" constant="true"/>
+      <parameter id="d_p8" value="0.641" constant="true"/>
+      <parameter id="Kd3" value="0.269" constant="true"/>
+      <parameter id="Kd4" value="0.162" constant="true"/>
+      <parameter id="Kd5" value="0.325" constant="true"/>
+      <parameter id="Kd6" value="0.388" constant="true"/>
+      <parameter id="Kd7" value="0.507" constant="true"/>
+      <parameter id="Kd8" value="0.182" constant="true"/>
+      <parameter id="K3" value="0.282" constant="true"/>
+      <parameter id="K5" value="0.697" constant="true"/>
+      <parameter id="K6" value="0.495" constant="true"/>
+      <parameter id="K7" value="0.481" constant="true"/>
+      <parameter id="K8" value="0.871" constant="true"/>
+      <parameter id="H1" value="0.63" constant="true"/>
+      <parameter id="H2" value="0.941" constant="true"/>
+      <parameter id="H3" value="1.072" constant="true"/>
+      <parameter id="H4" value="1.201" constant="true"/>
+      <parameter id="H5" value="0.935" constant="true"/>
+      <parameter id="H6" value="0.73" constant="true"/>
+      <parameter id="H7" value="1.211" constant="true"/>
+      <parameter id="H8" value="1.323" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="Rm1" reversible="false" fast="false">
@@ -330,7 +330,7 @@
           <speciesReference species="M8" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P4"/>
+          <modifierSpeciesReference species="P2"/>
           <modifierSpeciesReference species="P1"/>
         </listOfModifiers>
         <kineticLaw>
@@ -351,8 +351,8 @@
                       <cn type="integer"> 1 </cn>
                       <apply>
                         <times/>
-                        <ci> K4 </ci>
-                        <ci> P4 </ci>
+                        <ci> K2 </ci>
+                        <ci> P2 </ci>
                       </apply>
                       <apply>
                         <times/>
@@ -362,7 +362,7 @@
                       <apply>
                         <times/>
                         <ci> Kd1 </ci>
-                        <ci> P4 </ci>
+                        <ci> P2 </ci>
                         <ci> P1 </ci>
                       </apply>
                     </apply>
