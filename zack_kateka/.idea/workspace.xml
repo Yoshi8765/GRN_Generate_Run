@@ -10,15 +10,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/zack_kateka$GetModel.coverage" NAME="GetModel Coverage Results" MODIFIED="1536773847192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/zack_kateka$GetModel.coverage" NAME="GetModel Coverage Results" MODIFIED="1536774132280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="GetModel.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GetModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="181" column="55" selection-start-line="181" selection-start-column="55" selection-end-line="181" selection-end-column="55" />
+            <state relative-caret-position="248">
+              <caret line="205" lean-forward="true" selection-start-line="205" selection-end-line="205" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -151,14 +151,14 @@
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" weight="0.32980132" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.20397352" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20397352" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1223176" />
       <window_info anchor="right" id="R Packages" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="right" id="R Graphics" />
       <window_info anchor="right" id="Database" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32980132" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.009271523" />
       <window_info anchor="right" id="SciView" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" side_tool="true" />
@@ -180,8 +180,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/GetModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="181" column="55" selection-start-line="181" selection-start-column="55" selection-end-line="181" selection-end-column="55" />
+        <state relative-caret-position="248">
+          <caret line="205" lean-forward="true" selection-start-line="205" selection-end-line="205" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
