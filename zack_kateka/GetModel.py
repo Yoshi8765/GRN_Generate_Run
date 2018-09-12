@@ -2,14 +2,20 @@ import numpy as np
 import time
 
 
-# Generates and returns an antimony string for a random biological pathway involving num_genes genes.
-# The pathway is fully connected, and contains no orphans. Also, saves a plain text file
-# containing the antimony string to a plain text file.
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1],seed = 0, reachability=0.9):
+    """
+    Generates and returns an antimony string for a random biological pathway involving num_genes genes.
+    The pathway is fully connected, and contains no orphans. Also, saves a plain text file
+    containing the antimony string to a plain text file.
 
-# init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
-# reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1],seed = 0):
-    """Docstring for help command: Demonstrate docstrings and does nothing really."""
+    num_genes = number of genes included in the network (an INPUT is also included, but not counted as part of num_genes)
+    reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
+    model_name = file with antimony string will be created with name "model_name_antimony.txt" in working directory
+    init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
+    seed = controls seed for randomly generated portions of this method
+    reachability = lower bound for proportion of network that should be reachable by INPUT (allows filtering out of less active networks)
+
+    """
     # Invalid parameter handling
 
     #catch for illegal file names
@@ -30,6 +36,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     if not type(model_name) == str or model_name == None or len(model_name) == 0:
         raise ValueError("model name is invalid: must be a valid string with no illegal characters")
+
+    if not (type(reachability) == int or type(reachability) == float) or reachability < 0 or reachability > 1:
+        raise ValueError("reachability must be a number between 0 and 1")
 
     # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
@@ -74,7 +83,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
     # of double input genes (DA, DR, SA+SR) is low
-    if (not gene_sets.get_set_count() == 1):
+    if (not gene_sets.get_set_count() == 1 or check_input_quality(all_genes) < reachability):
         ant_str = get_model(num_genes, reg_probs, model_name, init_params)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
@@ -89,12 +98,12 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
 # Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
 # params
-#  ** all genes = a list of all the genes in the network
-#  ** gene_sets = a collection of disjoint sets, keeping track of which genes are already connected
+#   all_genes = a list of all the genes in the network
+#   gene_sets = a collection of disjoint sets, keeping track of which genes are already connected
 
 # Assumptions:
-# ** a protein cannot be connected to same gene more than once
-# ** connections should not be formed if they result in the formation of an orphan
+#   * a protein cannot be connected to same gene more than once
+#   * connections should not be formed if they result in the formation of an orphan
 def assign_connections(all_genes, gene_sets):
 
     # randomly choose a gene to have INPUT as one of its regulators
@@ -243,6 +252,33 @@ def convert_to_antimony(all_genes, model_name, init_params):
     ant_str += "\n\nend"
     return ant_str
 
+# Checks how many genes can be activated directly or indirectly by INPUT
+# As input is the only source of stimulus, this determines how much of the network
+# can be activated. Returns proportion of genes that can be reached
+def check_input_quality(all_genes):
+    out_connections = {"INPUT":[]} # {protein_name : out connects [P1, P2, ...]}
+    for gene in all_genes:
+        out_connections[gene.protein_name] = []
+
+    for gene in all_genes:
+        for in_connect in gene.in_connections:
+            out_connections[in_connect.protein_name].append(gene.protein_name)
+
+    #TESTING: seems to properly generate out connections
+    #print (out_connections)
+
+    reachable_genes = 0
+    to_vist = ["INPUT"]
+    genes_counted = []
+    while (not len(to_vist) == 0):
+        curr_gene = to_vist.pop()
+        for adjacent_gene in out_connections[curr_gene]:
+            if adjacent_gene not in genes_counted:
+                reachable_genes += 1
+                to_vist.append(adjacent_gene)
+                genes_counted.append(adjacent_gene)
+
+    return 1.0*reachable_genes/len(all_genes)
 
 
 # Keeps track of the gene regulatory type, the protein name associated to this gene,
@@ -367,5 +403,4 @@ class DisjointSets():
         return str(self.pointers) + str(self.converter)
 
 
-
-get_model(10)
+help(get_model)
