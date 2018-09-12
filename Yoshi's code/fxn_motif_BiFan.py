@@ -31,20 +31,16 @@ def BiFanGenerator():
       //hill2: Regulation of p2 to p3
       //hill3: Regulation of p_i to p_o
       //hill4: Regulation of p2 to p_o
-      var generalized_hill1 := Vm_A1*( (K_A1*p_i^H1) / (K_A1 + p_i^H1) ) + Vm_R1*( K_R1 / (K_R1 + p_i^H1) ) ;
-      var generalized_hill2 := Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) ;
-      var generalized_hill3 := Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) ;
-      var generalized_hill4 := Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) ;
       
       // Reactions:
-      ts1: $N => m1        ; L1 + a_m1 - d_m1*m1
-      ts2: $N => m2        ; L2 + a_m2 - d_m2*m2
-      ts3: $N => m3        ; L3 + generalized_hill1 * generalized_hill2 - d_m3*m3
-      ts4: $N => m4        ; L4 + generalized_hill3 * generalized_hill4 - d_m4*m4
-      tl1: $AA => p_i  ; a_p1*m1 - d_p1*p_i
-      tl2: $AA => p2       ; a_p2*m2 - d_p2*p2
-      tl3: $AA => p3       ; a_p3*m3 - d_p3*p3
-      tl4: $AA => p_o ; a_p4*m4 - d_p4*p_o
+      ts1: => m1        ; L1 + a_m1 - d_m1*m1
+      ts2: => m2        ; L2 + a_m2 - d_m2*m2
+      ts3: => m3        ; L3 + Vm_A1*( (K_A1*p_i^H1) / (K_A1 + p_i^H1) ) + Vm_R1*( K_R1 / (K_R1 + p_i^H1) ) * Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) - d_m3*m3
+      ts4: => m4        ; L4 + Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) * Vm_A2*( (K_A2*p2^H2) / (K_A2 + p2^H2) ) + Vm_R2*( K_R2 / (K_R2 + p2^H2) ) - d_m4*m4
+      tl1: => p_i  ; a_p1*m1 - d_p1*p_i
+      tl2: => p2       ; a_p2*m2 - d_p2*p2
+      tl3: => p3       ; a_p3*m3 - d_p3*p3
+      tl4: => p_o ; a_p4*m4 - d_p4*p_o
       // Species initializations:
       N = 1;
       AA = 1;
