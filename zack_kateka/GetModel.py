@@ -83,11 +83,14 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
     # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
-    # of double input genes (DA, DR, SA+SR) is low
-    if (not gene_sets.get_set_count() == 1 or check_input_quality(all_genes) < reachability):
+    # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
+    # is poorly reachable from INPUT (leading to a low activity network
+    quality = check_input_quality(all_genes)
+    if (not gene_sets.get_set_count() == 1 or quality < reachability):
         ant_str = get_model(num_genes, reg_probs, model_name, init_params)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
+        print("\n\nThe reachability of this network from INPUT is " + str(quality) + "\n")
 
     f = open(model_name + "_antimony.txt", 'w')
     f.write(ant_str)
