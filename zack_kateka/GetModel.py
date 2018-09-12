@@ -16,7 +16,7 @@ import time
 
 
 # init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="model", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
     # cases/errors to handle:
     #     probs dont add to 1
     #     probs are all >= 0
