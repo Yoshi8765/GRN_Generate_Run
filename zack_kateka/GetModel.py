@@ -203,16 +203,24 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
 
     ant_str += "\n\t// Species initializations:\n"
+    ant_str += "\tINPUT = 1;\n"
     for i in range(len(all_genes)):
         ant_str += "\tmRNA" + str(i+1) + " = 0;\n"
         ant_str += "\tP" + str(i + 1) + " = 0;\n"
 
 
     ant_str += "\n\t// Variable initializations:\n"
-    var_names = ["H", "K1_", "K2_", "K3_", "Vm", "L", "d_mRNA", "a_protein", "d_protein"]
+    var_names = ["H", "Vm", "L", "d_mRNA", "a_protein", "d_protein", "K1_", "K2_", "K3_"]
     for i in range(len(all_genes)):
-        for var in var_names:
-            ant_str += "\t" + var + str(i+1) + " = 0;\n"
+        for k, var in enumerate(var_names):
+            mean = 0
+            if k <= 5:
+                mean = init_params[k]
+            else:
+                mean = init_params[6]
+            std = mean * std_dev_perc
+            value = np.random.normal(loc=mean, scale=std)
+            ant_str += "\t" + var + str(i+1) + " = " + str(value) + ";\n"
 
     ant_str += "\n\t// Other declarations:\n"
 
