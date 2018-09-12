@@ -1,28 +1,9 @@
-import math
 import numpy as np
-import random
 import time
-
-# TO DO:
-# **Decide how to fix issue with INPUT interfering with algorithm
-#       could just count how many disjoint sets there are and re run algorithm if it happens to
-#       fail due to this issue. Failure should be uncommon. I.E. add these lines at bottom of method
-#       if (# disjointSets > 1) {
-#           return get_model(num_genes, reg_probs, model_name, init_params)
-#       }
-# **Adjust sentinal values in DisjointSet to be -(total connections remaining + 1)
-#   so that we avoid the issue of the sentinal values reaching 0 at the end. This will allow us
-#   to easily count # of disjoint sets at end (simply count negative values in disjointSet array)
 
 
 # init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
-    # cases/errors to handle:
-    #     probs dont add to 1
-    #     probs are all >= 0
-    #     init_params has length not == 6
-    #     num genes is > 1
-    #     init_params are all greater than 0
 
     # Invalid parameter handling
     while num_genes < 2:
@@ -39,106 +20,111 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     while model_name == None:
         model_name = input("Please enter a model name")
 
-    # Strategy: look through each gene. Based on its type, assign other proteins/genes
+    # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
     # will create an orphan (within each disjoint set, keep track of how many inputs are
     # left between all genes within the set; if the previous action connects two genes within
-    # a set AND the # inputs remaining is only 1, do not connect the two)
-
-    # watch out: if you add two elements from different sets, you add their remaining
-    # inputs and then remove one input, but if they are in the same set already you only
-    # remove one input (NO ADDING)
+    # a set AND the # inputs remaining is only 1, do not connect the two). The INPUT messes with
+    # this algorithm because it acts as a gene with no in-connections. Thus, if it initially connects
+    # to a single-regulation type (SA or SR) it may create an orphan, as there is no guarantee
+    # this SA/SR will connect to other genes, and since it used up its only in connection with
+    # INPUT, it might not be connected at all. This is likely only an issue if the proportion of
+    # the double input genes (DA, DR, SA+SR) is significantly low
 
     gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
 
     #np.random.seed(123) # for reproducibility (remove after testing)
 
-    # TESTING: sampling works
+    # chooses a random collection of gene types of the required size with the given probabilities
     random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
 
-    # TESTING: gene creation works
+    # assigns genes their names and regulation types
     all_genes = []
     for i, reg_type in enumerate(random_reg_types):
         protein_name = "P" + str(i+1)
         all_genes.append(Gene(protein_name, reg_type))
 
-    gene_sets = DisjointSet()
+    # DisjointSets helps keeps track of which genes are connected, directly or indirectly.
+    # Used to prevent the formation of "orphans"
+    gene_sets = DisjointSets()
     for gene in all_genes:
         gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
 
-    # TESTING: Disjoint set appears to work
-    #print (gene_sets)
-    #print (gene_sets.find_set("P3"))
-    #gene_sets.union("P1", "P4")
-    #print (gene_sets)
-    #gene_sets.decrement_value("P1")
-    #print(gene_sets)
-
-
     assign_connections(all_genes, gene_sets)
 
-    # TESTING: assignment protocol seems to work and generate no orphans
-    # Notes:
     #for gene in all_genes:
     #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
-    # Handles the case where INPUT cases algorithm to fail; this is only likely when the proportion
+    # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
     # of double input genes (DA, DR, SA+SR) is low
     if (not gene_sets.get_set_count() == 1):
         ant_str = get_model(num_genes, reg_probs, model_name, init_params)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
 
-    #print (ant_str)
-
     f = open(model_name + "_antimony.txt", 'w')
     f.write(ant_str)
     f.close()
-
-    print ("done!")
 
     return ant_str
 
 
 
+# Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
+# params
+#  ** all genes = a list of all the genes in the network
+#  ** gene_sets = a collection of disjoint sets, keeping track of which genes are already connected
 
-# Notes: a protein cannot be connected to same gene more than once
+# Assumptions:
+# ** a protein cannot be connected to same gene more than once
+# ** connections should not be formed if they result in the formation of an orphan
 def assign_connections(all_genes, gene_sets):
-    # randomly choose a gene to have INPUT
+
+    # randomly choose a gene to have INPUT as one of its regulators
     input_gene = np.random.choice(all_genes)
     input_gene.add_in_connection(Gene("INPUT"))
     gene_sets.decrement_value(input_gene.protein_name)
 
     total_connections_left = sum([gene.remaining_connections for gene in all_genes])
 
+    # go gene to gene and fill in any empty regulatory sites
     for gene in all_genes:
+
+        # while the gene still has unoccupied/unassigned regulatory sites
         while (gene.remaining_connections > 0):
+
+            # to avoid connecting same protein to both regulatory sites on a gene, do not consider
+            # genes whose proteins are already acting as a regulator for this current gene
             available_genes = list(set(all_genes) - set(gene.in_connections))
             gene_to_add = np.random.choice(available_genes)
 
-            # check if new connection is valid
+            # check if new connection is valid (does not result in orphan)
             name1 = gene.protein_name
             name2 = gene_to_add.protein_name
 
             set1 = gene_sets.find_set(name1)
             set2 = gene_sets.find_set(name2)
+
+            # If the two genes are not already connected, connect them
             if not set1 == set2:
                 gene_sets.union(name1, name2)
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
-            # else genes are part of same set, but is there still enough connections remaining to form
-            # another without creating an orphan?
+
+            # else genes are part of same set (already connected), but is there
+            # still enough connections remaining to form another without creating an orphan?
 
             # Second condition handles edge case where final connection is trying to be made.
-            # In this case, the situation is similar to when an orphan is being formed. However,
-            # in this case the "orphan" is the entire, complete network
+            # In this case, the situation is similar to when an orphan is being formed. You are
+            # connecting two genes in same network, and only one connection remains. However,
+            # the "orphan" is the entire, complete network
             elif gene_sets.get_total_connections(set1) > 1 or total_connections_left == 1:
                 gene_sets.decrement_value(name1)
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
 
 
-
+# converts the generated network to an antimony string
 def convert_to_antimony(all_genes, model_name, init_params):
     # add variation to parameters around their mean found in init_params
     std_dev_perc = 0.25
@@ -242,6 +228,8 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
 
 
+# Keeps track of the gene regulatory type, the protein name associated to this gene,
+# the other genes this gene has already been connected to, and the remaining connections to be made
 class Gene():
 
     def __init__(self, protein_name, reg_type = None):
@@ -260,6 +248,7 @@ class Gene():
         else:
             self.remaining_connections = 2
 
+    # connect another gene to this one (add another regulator)
     def add_in_connection(self, other):
         if self.remaining_connections <= 0:
             raise ValueError("Too many connections have been added to a gene of this type")
@@ -277,22 +266,33 @@ class Gene():
 
 
 
-# TO DO: provide link to CSE 373 page for explanation of disjoint set
-class DisjointSet():
+
+# DisjointSets keeps a collection of disjoint sets. In this code, these sets represent collections of
+# genes that are connected, directly or indirectly, to each other (when the network is considered as an
+# undirected graph). Helps keep track of conditions important for avoiding the creation of orphans.
+
+# The following link gives some more information on disjoint sets (pg 32-57)
+# https://courses.cs.washington.edu/courses/cse373/18su/files/slides/lecture-19.pdf
+class DisjointSets():
 
     def __init__(self):
-        # stores values that point towards head of disjoint set, or stores a sentinal value representing
+        # stores values that point towards index of head of disjoint set, or stores a sentinel value representing
         # total # of remaining connections within that set if that element is the head of a disjoint set
         self.pointers = []
 
-        # allows us to find index in array that stores value associated to given gene
+        # allows us to find index in array that stores value associated to given gene (keys are protein names)
         self.converter = {}
 
         # number of total elements in all disjoint sets
         self.size = 0
+
+        # count of the number of disjoint sets in the collection
         self.set_count = 0
 
+    # makes a new set of a single element, and stores the given value as a sentinel value
     def make_set(self, item, value):
+        if (value >= 0):
+            raise ValueError("The sentinel value must be less than zero")
         if (self.contains(item)):
             raise ValueError("This item is already present in the DisjointSet")
 
@@ -305,14 +305,16 @@ class DisjointSet():
     def get_total_connections(self, head_index):
         return -1 * self.pointers[head_index]
 
+    # returns the # of sets in the collection
     def get_set_count(self):
         return self.set_count
 
+    # returns the index (in self.pointers) of the representative element of the disjoint
+    # set that the given protein_name is in
     def find_set(self, protein_name):
         index = self.converter.get(protein_name)
         return self.find_helper(index)
 
-    # returns index of representative element of disjoint set
     def find_helper(self, index):
         if (self.pointers[index] < 0):
             return index
@@ -321,10 +323,11 @@ class DisjointSet():
             self.pointers[index] = representative_index
             return representative_index
 
+    # returns true if any disjoint set in the collection contains the given item
     def contains(self, item):
         return item in self.converter.keys()
 
-    # combines the two sets of item1 and item2; item1 becomes the new head
+    # combines the two sets of item1 and item2; item1 becomes the new head (arbitrary in this case)
     def union(self, item1, item2):
         if not self.contains(item1) or not self.contains(item2):
             raise ValueError("One of those items given is not part of this disjoint set collection")
@@ -337,13 +340,14 @@ class DisjointSet():
         self.pointers[head2] = head1
         self.set_count -= 1
 
-    # used for the case where we want to form a connection between two genes that are already part of the same
-    # network, but that still has some total connections remaining to avoid forming an orphan
+    # used for the case where we want to form a connection between two genes that are already indirectly
+    # connected. This will not create an orphan as long as that set has some remaining unassigned connections
     def decrement_value(self, item):
         # reduces total # of connections remaining in this set (uses +1 vs -1 as sentinal values are negative)
         head = self.find_set(item)
         self.pointers[head] += 1
 
+    # toString mostly used for debugging purposes
     def __repr__(self):
         return str(self.pointers) + str(self.converter)
 
