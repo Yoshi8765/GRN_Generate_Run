@@ -7,7 +7,6 @@ Created on Wed Sep 12 11:42:03 2018
 
 import tellurium as te
 import roadrunner
-import structural
 
 from GetModel import get_model
 
@@ -31,9 +30,7 @@ r.reset()
 res = r.simulate(0,50,1000)
 #r.plot()
 
-r.draw(layout='fdp')
-#r.reset()
-
+#r.draw(layout='fdp')
 
 print ("\n\n\ndone!")
 
