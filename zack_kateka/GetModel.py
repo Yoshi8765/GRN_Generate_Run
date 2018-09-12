@@ -22,10 +22,22 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
     #     probs are all >= 0
     #     init_params has length not == 6
     #     num genes is > 1
-    #     init_params are all greater than 1
+    #     init_params are all greater than 0
 
-    if not len(reg_probs) == 5:
-        raise ValueError("There are 5 gene types, but " + str(len(reg_probs)) + " probabilities were given")
+    # Invalid parameter handling
+    while num_genes < 2:
+        num_genes = int(input("the number of genes cannot be negative, and zero genes or only one gene is not very fun. \n Please input a new integer: "))
+
+    while not sum(reg_probs) == 1 or not len(reg_probs) == 5 or any(x < 0 for x in reg_probs):
+        answer = input("The probabilities must sum to 1, and 5 positive probabilities must be given.\n Please enter 5 decimals separated only by spaces that add to 1: ")
+        reg_probs = [int(s) for s in answer.split()]
+
+    while not len(init_params) == 7 or any(x < 0 for x in init_params):
+        answer = input("The initial parameter means must all be greater than zero, and there must be seven of them.\n Please enter 7 numbers separated only by spaces: ")
+        init_params = [int(s) for s in answer.split()]
+
+    while model_name == None:
+        model_name = input("Please enter a model name")
 
     # Strategy: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
@@ -39,7 +51,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
 
     gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
 
-    np.random.seed(123) # for reproducibility (remove after testing)
+    #np.random.seed(123) # for reproducibility (remove after testing)
 
     # TESTING: sampling works
     random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
@@ -52,7 +64,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
 
     gene_sets = DisjointSet()
     for gene in all_genes:
-        gene_sets.make_set(gene.protein_name, -1*gene.remaining_connections)
+        gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
 
     # TESTING: Disjoint set appears to work
     #print (gene_sets)
@@ -70,12 +82,20 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
     #for gene in all_genes:
     #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
-    ant_str = convert_to_antimony(all_genes, model_name, init_params)
+    # Handles the case where INPUT cases algorithm to fail; this is only likely when the proportion
+    # of double input genes (DA, DR, SA+SR) is low
+    if (not gene_sets.get_set_count() == 1):
+        ant_str = get_model(num_genes, reg_probs, model_name, init_params)
+    else:
+        ant_str = convert_to_antimony(all_genes, model_name, init_params)
+
     print (ant_str)
     f = open(model_name + "_antimony.txt", 'w')
     f.write(ant_str)
     f.close()
     print ("done!")
+
+    return ant_str
 
 
 
@@ -110,7 +130,7 @@ def assign_connections(all_genes, gene_sets):
             # Second condition handles edge case where final connection is trying to be made.
             # In this case, the situation is similar to when an orphan is being formed. However,
             # in this case the "orphan" is the entire, complete network
-            elif gene_sets.get_size(set1) > 1 or total_connections_left == 1:
+            elif gene_sets.get_total_connections(set1) > 1 or total_connections_left == 1:
                 gene_sets.decrement_value(name1)
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
@@ -196,8 +216,8 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
     ant_str += "\n\t// Other declarations:\n"
 
-    variables = "".join(["v" + str(i+1) + ", " for i in range(len(all_genes))])
-    ant_str += "\tvar " + variables[:-2] + ";\n"
+    #variables = "".join(["v" + str(i+1) + ", " for i in range(len(all_genes))])
+    #ant_str += "\tvar " + variables[:-2] + ";\n"
     ant_str += "\tconst "
     for i in range(len(all_genes)):
         for var in var_names:
@@ -258,6 +278,7 @@ class DisjointSet():
 
         # number of total elements in all disjoint sets
         self.size = 0
+        self.set_count = 0
 
     def make_set(self, item, value):
         if (self.contains(item)):
@@ -266,10 +287,14 @@ class DisjointSet():
         self.pointers.append(value)
         self.converter[item] = self.size
         self.size += 1
+        self.set_count += 1
 
     # returns total # of connections remaining in set whose head is at the given index set_head
-    def get_size(self, head_index):
+    def get_total_connections(self, head_index):
         return -1 * self.pointers[head_index]
+
+    def get_set_count(self):
+        return self.set_count
 
     def find_set(self, protein_name):
         index = self.converter.get(protein_name)
@@ -298,6 +323,7 @@ class DisjointSet():
 
         self.pointers[head1] += self.pointers[head2] + 1 # +1 is due to 1 connection lost as new connection forms
         self.pointers[head2] = head1
+        self.set_count -= 1
 
     # used for the case where we want to form a connection between two genes that are already part of the same
     # network, but that still has some total connections remaining to avoid forming an orphan
@@ -311,4 +337,4 @@ class DisjointSet():
 
 
 
-get_model(2)
+get_model(10)
