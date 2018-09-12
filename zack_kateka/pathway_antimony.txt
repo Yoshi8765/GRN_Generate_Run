@@ -5,14 +5,14 @@ model *pathway()
 	species INPUT, P1, mRNA1, P2, mRNA2;
 
 	// Assignment Rules (production rates used in reactions):
-	// transcription1(SA+SR : in connections = [INPUT, P1]) uses production rate := Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P1**H1 + K1_1*K2_1*INPUT**H1*P1**H1));
-	// transcription2(DR : in connections = [P1, P2]) uses production rate := Vm2*( 1 /(1 + K1_2*P1**H2 + K2_2*P2**H2 + K1_2*K3_2*P1**H2*P2**H2));
+	// transcription1(DR : in connections = [INPUT, P1]) uses production rate := Vm1*( 1 /(1 + K1_1*INPUT^H1 + K2_1*P1^H1 + K1_1*K3_1*INPUT^H1*P1^H1));
+	// transcription2(DA : in connections = [P1, P2]) uses production rate := Vm2*((K1_2*P1^H2 + K2_2*P2^H2 + K1_2*K3_2*P1^H2*P2^H2)/(1 + K1_2*P1^H2 + K2_2*P2^H2 + K1_2*K3_2*P1^H2*P2^H2));
 
 	// Reactions:
-	transcription1: => mRNA1 ; L1 + Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P1**H1 + K1_1*K2_1*INPUT**H1*P1**H1)) - d_mRNA1 * mRNA1;
-	translation1: => P1 ; a_protein1 * mRNA1 - d_protein 1 * protein1;
-	transcription2: => mRNA2 ; L2 + Vm2*( 1 /(1 + K1_2*P1**H2 + K2_2*P2**H2 + K1_2*K3_2*P1**H2*P2**H2)) - d_mRNA2 * mRNA2;
-	translation2: => P2 ; a_protein2 * mRNA2 - d_protein 2 * protein2;
+	transcription1: => mRNA1 ; L1 + Vm1*( 1 /(1 + K1_1*INPUT^H1 + K2_1*P1^H1 + K1_1*K3_1*INPUT^H1*P1^H1)) - d_mRNA1 * mRNA1;
+	translation1: => P1 ; a_protein1 * mRNA1 - d_protein1 * P1;
+	transcription2: => mRNA2 ; L2 + Vm2*((K1_2*P1^H2 + K2_2*P2^H2 + K1_2*K3_2*P1^H2*P2^H2)/(1 + K1_2*P1^H2 + K2_2*P2^H2 + K1_2*K3_2*P1^H2*P2^H2)) - d_mRNA2 * mRNA2;
+	translation2: => P2 ; a_protein2 * mRNA2 - d_protein2 * P2;
 
 	// Species initializations:
 	INPUT = 1;
@@ -22,24 +22,24 @@ model *pathway()
 	P2 = 0;
 
 	// Variable initializations:
-	H1 = 0.63011912143;
-	Vm1 = 0.708199026371;
-	L1 = 0.633454445202;
-	d_mRNA1 = 14.7344196844;
-	a_protein1 = 28.7139981523;
-	d_protein1 = 0.206933122107;
-	K1_1 = 0.866000168182;
-	K2_1 = 1.02096910954;
-	K3_1 = 0.565129887475;
-	H2 = 0.236055940665;
-	Vm2 = 1.13911884827;
-	L2 = 0.870972342645;
-	d_mRNA2 = 29.7616623148;
-	a_protein2 = 18.9622749705;
-	d_protein2 = 0.513433693864;
-	K1_2 = 0.971983021739;
-	K2_2 = 0.887492806316;
-	K3_2 = 1.73049024381;
+	H1 = 0.480764962307;
+	Vm1 = 1.35445327516;
+	L1 = 0.690699073946;
+	d_mRNA1 = 35.1048669797;
+	a_protein1 = 17.2976795559;
+	d_protein1 = 0.58181514582;
+	K1_1 = 1.27785753715;
+	K2_1 = 0.562876308514;
+	K3_1 = 0.664162263695;
+	H2 = 0.564314076185;
+	Vm2 = 0.802267500388;
+	L2 = 0.903232102023;
+	d_mRNA2 = 42.2824508595;
+	a_protein2 = 19.315252725;
+	d_protein2 = 0.370092849724;
+	K1_2 = 0.911568779195;
+	K2_2 = 1.32846039897;
+	K3_2 = 1.07938679954;
 
 	// Other declarations:
 	const H1, Vm1, L1, d_mRNA1, a_protein1, d_protein1, K1_1, K2_1, K3_1, H2, Vm2, L2, d_mRNA2, a_protein2, d_protein2, K1_2, K2_2, K3_2;

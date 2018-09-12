@@ -199,8 +199,8 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
     ant_str += "\n\t// Reactions:\n"
     for i in range(len(all_genes)):
-        ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + "+ rules["v" + str(i+1)] + " - d_mRNA"+ str(i+1) + " * mRNA" + str(i+1) + ";\n"
-        ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein"+ str(i+1) + " * mRNA" + str(i+1) + " - d_protein " + str(i+1) + " * protein" + str(i+1) + ";\n"
+        ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + "+ rules["v" + str(i+1)] + " - d_mRNA" + str(i+1) + " * mRNA" + str(i+1) + ";\n"
+        ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein" + str(i+1) + " * mRNA" + str(i+1) + " - d_protein" + str(i+1) + " * P" + str(i+1) + ";\n"
 
 
 
