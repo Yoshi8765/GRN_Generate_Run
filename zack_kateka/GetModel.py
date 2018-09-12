@@ -2,23 +2,41 @@ import numpy as np
 import time
 
 
+# Generates and returns an antimony string for a random biological pathway involving num_genes genes.
+# The pathway is fully connected, and contains no orphans. Also, saves a plain text file
+# containing the antimony string to a plain text file.
+
 # init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
+# reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
 
     # Invalid parameter handling
-    while num_genes < 2:
-        num_genes = int(input("the number of genes cannot be negative, and zero genes or only one gene is not very fun. \n Please input a new integer: "))
+    while not type(num_genes) == int or num_genes < 2:
+        try:
+            print ("That is not a valid input for num_genes.\n")
+            num_genes = input("The number of genes cannot be negative, and zero genes or only one gene is not very fun.\nPlease input a new integer:\n")
+        except SyntaxError:
+            print("")
 
-    while not sum(reg_probs) == 1 or not len(reg_probs) == 5 or any(x < 0 for x in reg_probs):
-        answer = input("The probabilities must sum to 1, and 5 positive probabilities must be given.\n Please enter 5 decimals separated only by spaces that add to 1: ")
-        reg_probs = [int(s) for s in answer.split()]
+    while not type(reg_probs) == list or any([not (type(x) == int or type(x) == float) for x in reg_probs]) or not sum(reg_probs) == 1 or not len(reg_probs) == 5 or any(x < 0 for x in reg_probs):
+        try:
+            print ("That is not a valid input for reg_probs\n")
+            reg_probs = input("The probabilities must sum to 1, and 5 positive probabilities must be given.\nPlease enter 5 decimals that add to 1 in a list (i.e. [0.1, 0.2, 0.3, 0.4, 0]:\n")
+        except SyntaxError:
+            print ("")
 
-    while not len(init_params) == 7 or any(x < 0 for x in init_params):
-        answer = input("The initial parameter means must all be greater than zero, and there must be seven of them.\n Please enter 7 numbers separated only by spaces: ")
-        init_params = [int(s) for s in answer.split()]
+    while not type(init_params) == list or any([not (type(x) == int or type(x) == float) for x in init_params]) or not len(init_params) == 7 or any(x < 0 for x in init_params):
+        try:
+            print("That is not a valid input for init_params\n")
+            init_params = input("The initial parameter means must all be greater than zero, and there must be seven of them.\n Please enter 7 positive numbers in a list:\n")
+        except SyntaxError:
+            print("")
 
-    while model_name == None:
-        model_name = input("Please enter a model name")
+    while model_name == None or len(model_name) == 0:
+        try:
+            model_name = str(input("Please enter a model name"))
+        except SyntaxError:
+            print("")
 
     # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
@@ -62,7 +80,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
 
-    f = open("antimony_outputs/" + model_name + "_antimony.txt", 'w')
+    f = open(model_name + "_antimony.txt", 'w')
     f.write(ant_str)
     f.close()
 
