@@ -1,1 +1,1 @@
-Random Seed not chosen.
+Random Seed = 3

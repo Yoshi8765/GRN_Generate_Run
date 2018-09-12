@@ -86,11 +86,11 @@ def GetModel(tries,numGenes,regProb, InitParams, Name):
             print 'ValueGeneration done.'
             antStr = GetModelString(StringList)
             print('Loading model into Antimony...\n')
-            print StringList
+            #print StringList
         except Exception as error:
             print "Something went wrong when constructing Model (GetModel method)!"
             ErrorPrinting(error)
-            return(0,0)
+            return(0,0,0)
         try:
             model = te.loadAntimonyModel(antStr)
             print('Success!')
@@ -99,9 +99,9 @@ def GetModel(tries,numGenes,regProb, InitParams, Name):
             tries = tries + 1
             print "Failed to load model code into Antimony."
             if antStr == '':
-                return(0,StringList.join('This is a pre-loaded string into Antimony that failed.\n'))
-            return(0,antStr)
-    return ((model, antStr))
+                return(0,StringList.join('This is a pre-loaded string into Antimony that failed.\n'),GRN)
+            return(0,antStr,GRNInt)
+    return (model, antStr,GRNInt)
 
 #%%
     #Create species names in model
@@ -126,20 +126,15 @@ def ModelInitNames(GRN):
 def AssignProteins(numGenes,GRN,GRNInt):
     nums =[int(math.ceil(float(numGenes)/2)), int(math.floor(float(numGenes)/2))]
     RanAct = np.random.choice(GRN['Prot'], nums[np.random.randint(2)])
-    print "RanAct: " + str(RanAct)
+    print "Randomly generated Activators: " + str(RanAct)
     GRNInt.update({'activators': RanAct})
-    index1 = np.arange(len(GRNInt['activators']))
-    index2 = np.sort(-index1)
-    print "index2: " + str(index2)
-    for m in range(len(index1)):
-        ActivatorCur =GRNInt['activators'][m]
-        Activators1 = GRNInt['activators'][index2[m]:]
-        Activators2 =  GRNInt['activators'][:index1[m]]
-        if m > len(index1)-2:
-            Activators1 = []
-        if ActivatorCur in Activators1 or ActivatorCur in Activators2:
-            #GRNInt.remove(['activators'][m]) Fix this with a correct command
-            AssignProteins(numGenes,GRN,GRNInt)
+    scannedActivators = []
+    for i in (GRNInt['activators']):
+        ActivatorCur =i
+        if ActivatorCur not in scannedActivators:
+            scannedActivators.append(ActivatorCur)
+    GRNInt.update({'activators': scannedActivators})
+    print "Activators: " + str(GRNInt['activators'])
     return
 
 
@@ -318,7 +313,7 @@ def RunModel(tries,model,antStr,tmax,regProb,Percent,modelName,DataOut,seed, fil
         except:
              tries = tries + 1
              print "Failed to solve Model"
-             model,antStr = GetModel(tries,numGenes,regProb, InitParams, modelName)
+             model,antStr,GRNInt = GetModel(tries,numGenes,regProb, InitParams, modelName)
              RunModel(tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, filePath)
         else:
             NoisyResult = np.zeros([len(result[:,0]), len(result[0,:])])
@@ -763,7 +758,7 @@ def global_exception_handling(exctype, value, TB):
 #NLevel /= 100
 #InitParams = [0,0,0.5,0.9,0.8,30,30,0.2,0.5,1]
 #
-#model,antStr = GetModel(tries,numGenes,regProb, InitParams, modelName)
+#model,antStr,GRNInt = GetModel(tries,numGenes,regProb, InitParams, modelName)
 #
 #tries = 0
 #DataOut, model, antStr, NoisyResult, result = RunModel(tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, modelPath)
@@ -780,13 +775,14 @@ sys.excepthook = global_exception_handling
 #%%% Automatic block
 #Running code without asking user for input (put in all the following lines into the console after runnning rest of script once). Or, comment out the main method and run.
 
-regProb=[.3,.5,.2]
+regProb=[.3,.4,.3]
 NLevel=float(10)
 modelName = 'test'
+print 'Name of model: ' + str(modelName)
 numGenes=8
 InitParams = [0,0,0.5,0.9,0.8,30,30,0.2,0.5,1] # Initial values the parameters should be generated around as a median on a normal distribution
 tmax = 30
-seed = 0
+seed = 3
 if seed != 0:
     np.random.seed (seed)
 NLevel /= 100
@@ -803,7 +799,7 @@ if os.path.exists(modelPath) == False:
     print('\nFolder created: ' + modelPath)
 DataOut = ['y','y']
 print 'finish dataout'
-model,antStr = GetModel(tries,numGenes,regProb, InitParams, modelName)
+model,antStr,GRNInt = GetModel(tries,numGenes,regProb, InitParams, modelName)
 print 'finish getmodel'
 try:
     DataOut, model, antStr, NoisyResult, result = RunModel(tries,model,antStr,tmax,regProb,NLevel,modelName,DataOut,seed, modelPath)
@@ -815,3 +811,5 @@ except ValueError as error:
 else:
     makePlots(tmax,result,NoisyResult)
     Output(DataOut, modelName, model, seed, result, NoisyResult, modelPath, antStr)
+
+model.draw(layout='fdp')

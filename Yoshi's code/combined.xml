@@ -1,1822 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created by libAntimony version v2.7.0 on 2018-07-27 16:20 with libSBML version 5.11.3. -->
+<!-- Created by libAntimony version v2.7.0 on 2018-09-11 17:03 with libSBML version 5.11.3. -->
 <sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
   <model id="combined" name="combined">
     <listOfCompartments>
       <compartment sboTerm="SBO:0000410" id="default_compartment" size="1"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="A_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="A_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="A_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="A_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="A_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="A_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="A_p_output" compartment="default_compartment" initialConcentration="0"/>
-      <species id="B_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="B_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="B_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="B_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="B_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="B_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="C_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="C_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="C_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="C_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="C_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="C_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="D_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="D_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="D_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="D_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="D_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c4" compartment="default_compartment" initialConcentration="0"/>
-      <species id="D_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="E_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="E_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="E_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="E_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="E_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c5" compartment="default_compartment" initialConcentration="0"/>
-      <species id="E_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="F_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="F_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="F_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="F_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="F_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c6" compartment="default_compartment" initialConcentration="0"/>
-      <species id="F_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="G_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="G_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="G_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="G_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="G_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c7" compartment="default_compartment" initialConcentration="0"/>
-      <species id="G_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="H_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="H_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="H_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="H_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="H_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c8" compartment="default_compartment" initialConcentration="0"/>
-      <species id="H_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="I_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="I_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="I_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="I_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="I_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="p_c9" compartment="default_compartment" initialConcentration="0"/>
-      <species id="I_p2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="J_N" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="J_AA" compartment="default_compartment" initialConcentration="1" boundaryCondition="true"/>
-      <species id="J_m1" compartment="default_compartment" initialConcentration="0"/>
-      <species id="J_m2" compartment="default_compartment" initialConcentration="0"/>
-      <species id="J_m3" compartment="default_compartment" initialConcentration="0"/>
-      <species id="J_p_input" compartment="default_compartment" initialConcentration="0"/>
-      <species id="J_p2" compartment="default_compartment" initialConcentration="0"/>
+      <species id="A_m1" compartment="default_compartment" initialConcentration="31.4168626741451"/>
+      <species id="A_m2" compartment="default_compartment" initialConcentration="12.0968986948955"/>
+      <species id="A_m3" compartment="default_compartment" initialConcentration="36.5220809356402"/>
+      <species id="p_c1" compartment="default_compartment" initialConcentration="28.0391401750424"/>
+      <species id="A_p2" compartment="default_compartment" initialConcentration="16.662268262349"/>
+      <species id="A_p_o" compartment="default_compartment" initialConcentration="36.5220809356402"/>
+      <species id="B_m1" compartment="default_compartment" initialConcentration="34.7160521582734"/>
+      <species id="B_m2" compartment="default_compartment" initialConcentration="21.4789378790362"/>
+      <species id="B_m3" compartment="default_compartment" initialConcentration="22.9439120087222"/>
+      <species id="B_m4" compartment="default_compartment" initialConcentration="18.5440911778912"/>
+      <species id="p_c2" compartment="default_compartment" initialConcentration="31.5979089027723"/>
+      <species id="B_p2" compartment="default_compartment" initialConcentration="47.1597196692"/>
+      <species id="B_p3" compartment="default_compartment" initialConcentration="22.9439120087222"/>
+      <species id="C_m1" compartment="default_compartment" initialConcentration="31.4168626741451"/>
+      <species id="C_m2" compartment="default_compartment" initialConcentration="12.0838683397941"/>
+      <species id="C_m3" compartment="default_compartment" initialConcentration="36.5367942237196"/>
+      <species id="C_p_i" compartment="default_compartment" initialConcentration="40.0734228076801"/>
+      <species id="C_p2" compartment="default_compartment" initialConcentration="16.6443202512324"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="A_generalized_hill1" constant="false"/>
-      <parameter id="A_Vm_A1" value="10.9863"/>
-      <parameter id="A_K_A1" value="0.6264"/>
-      <parameter id="A_H1" value="1.3631"/>
-      <parameter id="A_Vm_R1" value="17.1312"/>
-      <parameter id="A_K_R1" value="0.4485"/>
-      <parameter id="A_generalized_hill2" constant="false"/>
-      <parameter id="A_Vm_A2" value="8.8587"/>
-      <parameter id="A_K_A2" value="0.6309"/>
-      <parameter id="A_H2" value="1.0111"/>
-      <parameter id="A_Vm_R2" value="22.5492"/>
-      <parameter id="A_K_R2" value="0.8575"/>
-      <parameter id="A_generalized_hill3" constant="false"/>
-      <parameter id="B_generalized_hill1" constant="false"/>
-      <parameter id="B_Vm_A1" value="10.9863"/>
-      <parameter id="B_K_A1" value="0.6264"/>
-      <parameter id="B_H1" value="1.3631"/>
-      <parameter id="B_Vm_R1" value="17.1312"/>
-      <parameter id="B_K_R1" value="0.4485"/>
-      <parameter id="B_generalized_hill2" constant="false"/>
-      <parameter id="B_Vm_A2" value="8.8587"/>
-      <parameter id="B_K_A2" value="0.6309"/>
-      <parameter id="B_H2" value="1.0111"/>
-      <parameter id="B_Vm_R2" value="22.5492"/>
-      <parameter id="B_K_R2" value="0.8575"/>
-      <parameter id="B_generalized_hill3" constant="false"/>
-      <parameter id="C_generalized_hill1" constant="false"/>
-      <parameter id="C_Vm_A1" value="10.9863"/>
-      <parameter id="C_K_A1" value="0.6264"/>
-      <parameter id="C_H1" value="1.3631"/>
-      <parameter id="C_Vm_R1" value="17.1312"/>
-      <parameter id="C_K_R1" value="0.4485"/>
-      <parameter id="C_generalized_hill2" constant="false"/>
-      <parameter id="C_Vm_A2" value="8.8587"/>
-      <parameter id="C_K_A2" value="0.6309"/>
-      <parameter id="C_H2" value="1.0111"/>
-      <parameter id="C_Vm_R2" value="22.5492"/>
-      <parameter id="C_K_R2" value="0.8575"/>
-      <parameter id="C_generalized_hill3" constant="false"/>
-      <parameter id="D_generalized_hill1" constant="false"/>
-      <parameter id="D_Vm_A1" value="10.9863"/>
-      <parameter id="D_K_A1" value="0.6264"/>
-      <parameter id="D_H1" value="1.3631"/>
-      <parameter id="D_Vm_R1" value="17.1312"/>
-      <parameter id="D_K_R1" value="0.4485"/>
-      <parameter id="D_generalized_hill2" constant="false"/>
-      <parameter id="D_Vm_A2" value="8.8587"/>
-      <parameter id="D_K_A2" value="0.6309"/>
-      <parameter id="D_H2" value="1.0111"/>
-      <parameter id="D_Vm_R2" value="22.5492"/>
-      <parameter id="D_K_R2" value="0.8575"/>
-      <parameter id="D_generalized_hill3" constant="false"/>
-      <parameter id="E_generalized_hill1" constant="false"/>
-      <parameter id="E_Vm_A1" value="10.9863"/>
-      <parameter id="E_K_A1" value="0.6264"/>
-      <parameter id="E_H1" value="1.3631"/>
-      <parameter id="E_Vm_R1" value="17.1312"/>
-      <parameter id="E_K_R1" value="0.4485"/>
-      <parameter id="E_generalized_hill2" constant="false"/>
-      <parameter id="E_Vm_A2" value="8.8587"/>
-      <parameter id="E_K_A2" value="0.6309"/>
-      <parameter id="E_H2" value="1.0111"/>
-      <parameter id="E_Vm_R2" value="22.5492"/>
-      <parameter id="E_K_R2" value="0.8575"/>
-      <parameter id="E_generalized_hill3" constant="false"/>
-      <parameter id="F_generalized_hill1" constant="false"/>
-      <parameter id="F_Vm_A1" value="10.9863"/>
-      <parameter id="F_K_A1" value="0.6264"/>
-      <parameter id="F_H1" value="1.3631"/>
-      <parameter id="F_Vm_R1" value="17.1312"/>
-      <parameter id="F_K_R1" value="0.4485"/>
-      <parameter id="F_generalized_hill2" constant="false"/>
-      <parameter id="F_Vm_A2" value="8.8587"/>
-      <parameter id="F_K_A2" value="0.6309"/>
-      <parameter id="F_H2" value="1.0111"/>
-      <parameter id="F_Vm_R2" value="22.5492"/>
-      <parameter id="F_K_R2" value="0.8575"/>
-      <parameter id="F_generalized_hill3" constant="false"/>
-      <parameter id="G_generalized_hill1" constant="false"/>
-      <parameter id="G_Vm_A1" value="10.9863"/>
-      <parameter id="G_K_A1" value="0.6264"/>
-      <parameter id="G_H1" value="1.3631"/>
-      <parameter id="G_Vm_R1" value="17.1312"/>
-      <parameter id="G_K_R1" value="0.4485"/>
-      <parameter id="G_generalized_hill2" constant="false"/>
-      <parameter id="G_Vm_A2" value="8.8587"/>
-      <parameter id="G_K_A2" value="0.6309"/>
-      <parameter id="G_H2" value="1.0111"/>
-      <parameter id="G_Vm_R2" value="22.5492"/>
-      <parameter id="G_K_R2" value="0.8575"/>
-      <parameter id="G_generalized_hill3" constant="false"/>
-      <parameter id="H_generalized_hill1" constant="false"/>
-      <parameter id="H_Vm_A1" value="10.9863"/>
-      <parameter id="H_K_A1" value="0.6264"/>
-      <parameter id="H_H1" value="1.3631"/>
-      <parameter id="H_Vm_R1" value="17.1312"/>
-      <parameter id="H_K_R1" value="0.4485"/>
-      <parameter id="H_generalized_hill2" constant="false"/>
-      <parameter id="H_Vm_A2" value="8.8587"/>
-      <parameter id="H_K_A2" value="0.6309"/>
-      <parameter id="H_H2" value="1.0111"/>
-      <parameter id="H_Vm_R2" value="22.5492"/>
-      <parameter id="H_K_R2" value="0.8575"/>
-      <parameter id="H_generalized_hill3" constant="false"/>
-      <parameter id="I_generalized_hill1" constant="false"/>
-      <parameter id="I_Vm_A1" value="10.9863"/>
-      <parameter id="I_K_A1" value="0.6264"/>
-      <parameter id="I_H1" value="1.3631"/>
-      <parameter id="I_Vm_R1" value="17.1312"/>
-      <parameter id="I_K_R1" value="0.4485"/>
-      <parameter id="I_generalized_hill2" constant="false"/>
-      <parameter id="I_Vm_A2" value="8.8587"/>
-      <parameter id="I_K_A2" value="0.6309"/>
-      <parameter id="I_H2" value="1.0111"/>
-      <parameter id="I_Vm_R2" value="22.5492"/>
-      <parameter id="I_K_R2" value="0.8575"/>
-      <parameter id="I_generalized_hill3" constant="false"/>
-      <parameter id="J_generalized_hill1" constant="false"/>
-      <parameter id="J_Vm_A1" value="10.9863"/>
-      <parameter id="J_K_A1" value="0.6264"/>
-      <parameter id="J_H1" value="1.3631"/>
-      <parameter id="J_Vm_R1" value="17.1312"/>
-      <parameter id="J_K_R1" value="0.4485"/>
-      <parameter id="J_generalized_hill2" constant="false"/>
-      <parameter id="J_Vm_A2" value="8.8587"/>
-      <parameter id="J_K_A2" value="0.6309"/>
-      <parameter id="J_H2" value="1.0111"/>
-      <parameter id="J_Vm_R2" value="22.5492"/>
-      <parameter id="J_K_R2" value="0.8575"/>
-      <parameter id="J_generalized_hill3" constant="false"/>
-      <parameter id="A_L1" value="0.0113"/>
-      <parameter id="A_a_m1" value="17.1621"/>
-      <parameter id="A_d_m1" value="0.1456"/>
-      <parameter id="A_L2" value="0.0084"/>
-      <parameter id="A_d_m2" value="0.4408"/>
-      <parameter id="A_L3" value="0.0085"/>
-      <parameter id="A_d_m3" value="0.5637"/>
-      <parameter id="A_a_p1" value="0.6188"/>
-      <parameter id="A_d_p1" value="0.4167"/>
-      <parameter id="A_a_p2" value="0.4375"/>
-      <parameter id="A_d_p2" value="0.3257"/>
-      <parameter id="A_a_p3" value="0.5914"/>
-      <parameter id="A_d_p3" value="0.738"/>
-      <parameter id="B_L1" value="0.0113"/>
-      <parameter id="B_a_m1" value="17.1621"/>
-      <parameter id="B_d_m1" value="0.1456"/>
-      <parameter id="B_L2" value="0.0084"/>
-      <parameter id="B_d_m2" value="0.4408"/>
-      <parameter id="B_L3" value="0.0085"/>
-      <parameter id="B_d_m3" value="0.5637"/>
-      <parameter id="B_a_p1" value="0.6188"/>
-      <parameter id="B_d_p1" value="0.4167"/>
-      <parameter id="B_a_p2" value="0.4375"/>
-      <parameter id="B_d_p2" value="0.3257"/>
-      <parameter id="B_a_p3" value="0.5914"/>
-      <parameter id="B_d_p3" value="0.738"/>
-      <parameter id="C_L1" value="0.0113"/>
-      <parameter id="C_a_m1" value="17.1621"/>
-      <parameter id="C_d_m1" value="0.1456"/>
-      <parameter id="C_L2" value="0.0084"/>
-      <parameter id="C_d_m2" value="0.4408"/>
-      <parameter id="C_L3" value="0.0085"/>
-      <parameter id="C_d_m3" value="0.5637"/>
-      <parameter id="C_a_p1" value="0.6188"/>
-      <parameter id="C_d_p1" value="0.4167"/>
-      <parameter id="C_a_p2" value="0.4375"/>
-      <parameter id="C_d_p2" value="0.3257"/>
-      <parameter id="C_a_p3" value="0.5914"/>
-      <parameter id="C_d_p3" value="0.738"/>
-      <parameter id="D_L1" value="0.0113"/>
-      <parameter id="D_a_m1" value="17.1621"/>
-      <parameter id="D_d_m1" value="0.1456"/>
-      <parameter id="D_L2" value="0.0084"/>
-      <parameter id="D_d_m2" value="0.4408"/>
-      <parameter id="D_L3" value="0.0085"/>
-      <parameter id="D_d_m3" value="0.5637"/>
-      <parameter id="D_a_p1" value="0.6188"/>
-      <parameter id="D_d_p1" value="0.4167"/>
-      <parameter id="D_a_p2" value="0.4375"/>
-      <parameter id="D_d_p2" value="0.3257"/>
-      <parameter id="D_a_p3" value="0.5914"/>
-      <parameter id="D_d_p3" value="0.738"/>
-      <parameter id="E_L1" value="0.0113"/>
-      <parameter id="E_a_m1" value="17.1621"/>
-      <parameter id="E_d_m1" value="0.1456"/>
-      <parameter id="E_L2" value="0.0084"/>
-      <parameter id="E_d_m2" value="0.4408"/>
-      <parameter id="E_L3" value="0.0085"/>
-      <parameter id="E_d_m3" value="0.5637"/>
-      <parameter id="E_a_p1" value="0.6188"/>
-      <parameter id="E_d_p1" value="0.4167"/>
-      <parameter id="E_a_p2" value="0.4375"/>
-      <parameter id="E_d_p2" value="0.3257"/>
-      <parameter id="E_a_p3" value="0.5914"/>
-      <parameter id="E_d_p3" value="0.738"/>
-      <parameter id="F_L1" value="0.0113"/>
-      <parameter id="F_a_m1" value="17.1621"/>
-      <parameter id="F_d_m1" value="0.1456"/>
-      <parameter id="F_L2" value="0.0084"/>
-      <parameter id="F_d_m2" value="0.4408"/>
-      <parameter id="F_L3" value="0.0085"/>
-      <parameter id="F_d_m3" value="0.5637"/>
-      <parameter id="F_a_p1" value="0.6188"/>
-      <parameter id="F_d_p1" value="0.4167"/>
-      <parameter id="F_a_p2" value="0.4375"/>
-      <parameter id="F_d_p2" value="0.3257"/>
-      <parameter id="F_a_p3" value="0.5914"/>
-      <parameter id="F_d_p3" value="0.738"/>
-      <parameter id="G_L1" value="0.0113"/>
-      <parameter id="G_a_m1" value="17.1621"/>
-      <parameter id="G_d_m1" value="0.1456"/>
-      <parameter id="G_L2" value="0.0084"/>
-      <parameter id="G_d_m2" value="0.4408"/>
-      <parameter id="G_L3" value="0.0085"/>
-      <parameter id="G_d_m3" value="0.5637"/>
-      <parameter id="G_a_p1" value="0.6188"/>
-      <parameter id="G_d_p1" value="0.4167"/>
-      <parameter id="G_a_p2" value="0.4375"/>
-      <parameter id="G_d_p2" value="0.3257"/>
-      <parameter id="G_a_p3" value="0.5914"/>
-      <parameter id="G_d_p3" value="0.738"/>
-      <parameter id="H_L1" value="0.0113"/>
-      <parameter id="H_a_m1" value="17.1621"/>
-      <parameter id="H_d_m1" value="0.1456"/>
-      <parameter id="H_L2" value="0.0084"/>
-      <parameter id="H_d_m2" value="0.4408"/>
-      <parameter id="H_L3" value="0.0085"/>
-      <parameter id="H_d_m3" value="0.5637"/>
-      <parameter id="H_a_p1" value="0.6188"/>
-      <parameter id="H_d_p1" value="0.4167"/>
-      <parameter id="H_a_p2" value="0.4375"/>
-      <parameter id="H_d_p2" value="0.3257"/>
-      <parameter id="H_a_p3" value="0.5914"/>
-      <parameter id="H_d_p3" value="0.738"/>
-      <parameter id="I_L1" value="0.0113"/>
-      <parameter id="I_a_m1" value="17.1621"/>
-      <parameter id="I_d_m1" value="0.1456"/>
-      <parameter id="I_L2" value="0.0084"/>
-      <parameter id="I_d_m2" value="0.4408"/>
-      <parameter id="I_L3" value="0.0085"/>
-      <parameter id="I_d_m3" value="0.5637"/>
-      <parameter id="I_a_p1" value="0.6188"/>
-      <parameter id="I_d_p1" value="0.4167"/>
-      <parameter id="I_a_p2" value="0.4375"/>
-      <parameter id="I_d_p2" value="0.3257"/>
-      <parameter id="I_a_p3" value="0.5914"/>
-      <parameter id="I_d_p3" value="0.738"/>
-      <parameter id="J_L1" value="0.0113"/>
-      <parameter id="J_a_m1" value="17.1621"/>
-      <parameter id="J_d_m1" value="0.1456"/>
-      <parameter id="J_L2" value="0.0084"/>
-      <parameter id="J_d_m2" value="0.4408"/>
-      <parameter id="J_L3" value="0.0085"/>
-      <parameter id="J_d_m3" value="0.5637"/>
-      <parameter id="J_a_p1" value="0.6188"/>
-      <parameter id="J_d_p1" value="0.4167"/>
-      <parameter id="J_a_p2" value="0.4375"/>
-      <parameter id="J_d_p2" value="0.3257"/>
-      <parameter id="J_a_p3" value="0.5914"/>
-      <parameter id="J_d_p3" value="0.738"/>
+      <parameter id="A_L1" value="0.0137"/>
+      <parameter id="A_a_m1" value="17.3504"/>
+      <parameter id="A_d_m1" value="0.5527"/>
+      <parameter id="A_L2" value="0.0138"/>
+      <parameter id="A_Vm_A1" value="16.4465"/>
+      <parameter id="A_K_A1" value="0.5672"/>
+      <parameter id="A_H1" value="1.6066"/>
+      <parameter id="A_Vm_R1" value="13.7617"/>
+      <parameter id="A_K_R1" value="0.7426"/>
+      <parameter id="A_d_m2" value="0.7742"/>
+      <parameter id="A_L3" value="0.0103"/>
+      <parameter id="A_Vm_A2" value="10.7736"/>
+      <parameter id="A_K_A2" value="0.7782"/>
+      <parameter id="A_H2" value="0.75"/>
+      <parameter id="A_Vm_R2" value="16.6646"/>
+      <parameter id="A_K_R2" value="0.9843"/>
+      <parameter id="A_d_m3" value="0.664"/>
+      <parameter id="A_a_p1" value="0.5032"/>
+      <parameter id="A_d_p1" value="0.3945"/>
+      <parameter id="A_a_p2" value="0.6887"/>
+      <parameter id="A_d_p2" value="0.5"/>
+      <parameter id="A_a_p3" value="0.5"/>
+      <parameter id="A_d_p3" value="0.5"/>
+      <parameter id="B_L1" value="0.0108"/>
+      <parameter id="B_a_m1" value="15.4309"/>
+      <parameter id="B_d_m1" value="0.4448"/>
+      <parameter id="B_L2" value="0.0086"/>
+      <parameter id="B_a_m2" value="13.0957"/>
+      <parameter id="B_d_m2" value="0.6101"/>
+      <parameter id="B_L3" value="0.014"/>
+      <parameter id="B_Vm_A1" value="12.3714"/>
+      <parameter id="B_K_A1" value="0.7134"/>
+      <parameter id="B_H1" value="0.9345"/>
+      <parameter id="B_Vm_R1" value="7.7666"/>
+      <parameter id="B_K_R1" value="0.6126"/>
+      <parameter id="B_Vm_A2" value="14.0722"/>
+      <parameter id="B_K_A2" value="0.5974"/>
+      <parameter id="B_H2" value="1.1507"/>
+      <parameter id="B_Vm_R2" value="19.3097"/>
+      <parameter id="B_K_R2" value="0.1662"/>
+      <parameter id="B_d_m3" value="0.4434"/>
+      <parameter id="B_L4" value="0.0111"/>
+      <parameter id="B_d_m4" value="0.4699"/>
+      <parameter id="B_a_p1" value="0.343"/>
+      <parameter id="B_d_p1" value="0.455"/>
+      <parameter id="B_a_p2" value="0.5522"/>
+      <parameter id="B_d_p2" value="0.2515"/>
+      <parameter id="B_a_p3" value="0.5"/>
+      <parameter id="B_d_p3" value="0.5"/>
+      <parameter id="B_a_p4" value="0.5"/>
+      <parameter id="B_d_p4" value="0.5"/>
+      <parameter id="C_L1" value="0.0137"/>
+      <parameter id="C_a_m1" value="17.3504"/>
+      <parameter id="C_d_m1" value="0.5527"/>
+      <parameter id="C_L2" value="0.0138"/>
+      <parameter id="C_Vm_A1" value="16.4465"/>
+      <parameter id="C_K_A1" value="0.5672"/>
+      <parameter id="C_H1" value="1.6066"/>
+      <parameter id="C_Vm_R1" value="13.7617"/>
+      <parameter id="C_K_R1" value="0.7426"/>
+      <parameter id="C_d_m2" value="0.7742"/>
+      <parameter id="C_L3" value="0.0103"/>
+      <parameter id="C_Vm_A2" value="10.7736"/>
+      <parameter id="C_K_A2" value="0.7782"/>
+      <parameter id="C_H2" value="0.75"/>
+      <parameter id="C_Vm_R2" value="16.6646"/>
+      <parameter id="C_K_R2" value="0.9843"/>
+      <parameter id="C_d_m3" value="0.664"/>
+      <parameter id="C_a_p1" value="0.5032"/>
+      <parameter id="C_d_p1" value="0.3945"/>
+      <parameter id="C_a_p2" value="0.6887"/>
+      <parameter id="C_d_p2" value="0.5"/>
+      <parameter id="C_a_p3" value="0.5"/>
+      <parameter id="C_d_p3" value="0.5"/>
+      <parameter id="A_N" value="0.5875"/>
+      <parameter id="A_AA" value="0.9965"/>
+      <parameter id="B_N" value="0.9655"/>
+      <parameter id="B_AA" value="1.3902"/>
+      <parameter id="C_N" value="0.5875"/>
+      <parameter id="C_AA" value="0.9965"/>
     </listOfParameters>
-    <listOfRules>
-      <assignmentRule variable="A_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> A_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> A_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> A_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> A_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> A_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> A_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="A_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> A_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> A_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> A_p2 </ci>
-                    <ci> A_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> A_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> A_p2 </ci>
-                    <ci> A_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> A_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> A_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> A_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> A_p2 </ci>
-                    <ci> A_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="A_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> A_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> A_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> A_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> A_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> A_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> A_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c1 </ci>
-                    <ci> A_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="B_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> B_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> B_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> B_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> B_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> B_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> B_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="B_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> B_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> B_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> B_p2 </ci>
-                    <ci> B_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> B_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> B_p2 </ci>
-                    <ci> B_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> B_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> B_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> B_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> B_p2 </ci>
-                    <ci> B_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="B_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> B_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> B_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> B_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> B_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> B_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> B_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c2 </ci>
-                    <ci> B_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="C_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> C_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> C_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> C_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> C_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> C_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> C_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="C_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> C_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> C_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> C_p2 </ci>
-                    <ci> C_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> C_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> C_p2 </ci>
-                    <ci> C_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> C_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> C_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> C_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> C_p2 </ci>
-                    <ci> C_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="C_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> C_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> C_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> C_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> C_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> C_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> C_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c3 </ci>
-                    <ci> C_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="D_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> D_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> D_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> D_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> D_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> D_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> D_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="D_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> D_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> D_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> D_p2 </ci>
-                    <ci> D_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> D_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> D_p2 </ci>
-                    <ci> D_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> D_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> D_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> D_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> D_p2 </ci>
-                    <ci> D_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="D_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> D_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> D_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> D_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> D_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> D_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> D_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c4 </ci>
-                    <ci> D_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="E_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> E_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> E_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> E_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> E_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> E_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> E_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="E_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> E_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> E_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> E_p2 </ci>
-                    <ci> E_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> E_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> E_p2 </ci>
-                    <ci> E_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> E_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> E_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> E_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> E_p2 </ci>
-                    <ci> E_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="E_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> E_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> E_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> E_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> E_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> E_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> E_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c5 </ci>
-                    <ci> E_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="F_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> F_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> F_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> F_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> F_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> F_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> F_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="F_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> F_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> F_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> F_p2 </ci>
-                    <ci> F_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> F_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> F_p2 </ci>
-                    <ci> F_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> F_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> F_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> F_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> F_p2 </ci>
-                    <ci> F_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="F_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> F_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> F_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> F_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> F_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> F_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> F_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c6 </ci>
-                    <ci> F_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="G_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> G_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> G_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> G_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> G_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> G_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> G_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="G_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> G_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> G_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> G_p2 </ci>
-                    <ci> G_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> G_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> G_p2 </ci>
-                    <ci> G_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> G_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> G_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> G_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> G_p2 </ci>
-                    <ci> G_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="G_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> G_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> G_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> G_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> G_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> G_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> G_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c7 </ci>
-                    <ci> G_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="H_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> H_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> H_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> H_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> H_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> H_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> H_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="H_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> H_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> H_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> H_p2 </ci>
-                    <ci> H_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> H_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> H_p2 </ci>
-                    <ci> H_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> H_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> H_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> H_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> H_p2 </ci>
-                    <ci> H_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="H_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> H_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> H_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> H_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> H_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> H_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> H_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c8 </ci>
-                    <ci> H_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="I_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> I_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> I_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> I_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> I_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> I_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> I_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="I_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> I_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> I_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> I_p2 </ci>
-                    <ci> I_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> I_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> I_p2 </ci>
-                    <ci> I_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> I_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> I_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> I_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> I_p2 </ci>
-                    <ci> I_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="I_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> I_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> I_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> I_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> I_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> I_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> I_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> p_c9 </ci>
-                    <ci> I_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="J_generalized_hill1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> J_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> J_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> J_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> J_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> J_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> J_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="J_generalized_hill2">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> J_Vm_A2 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> J_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p2 </ci>
-                    <ci> J_H2 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> J_K_A2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p2 </ci>
-                    <ci> J_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> J_Vm_R2 </ci>
-              <apply>
-                <divide/>
-                <ci> J_K_R2 </ci>
-                <apply>
-                  <plus/>
-                  <ci> J_K_R2 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p2 </ci>
-                    <ci> J_H2 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule variable="J_generalized_hill3">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <plus/>
-            <apply>
-              <times/>
-              <ci> J_Vm_A1 </ci>
-              <apply>
-                <divide/>
-                <apply>
-                  <times/>
-                  <ci> J_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-                <apply>
-                  <plus/>
-                  <ci> J_K_A1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-            <apply>
-              <times/>
-              <ci> J_Vm_R1 </ci>
-              <apply>
-                <divide/>
-                <ci> J_K_R1 </ci>
-                <apply>
-                  <plus/>
-                  <ci> J_K_R1 </ci>
-                  <apply>
-                    <power/>
-                    <ci> J_p_input </ci>
-                    <ci> J_H1 </ci>
-                  </apply>
-                </apply>
-              </apply>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-    </listOfRules>
     <listOfReactions>
       <reaction id="A_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="A_m1"/>
         </listOfProducts>
@@ -1839,12 +131,12 @@
         </kineticLaw>
       </reaction>
       <reaction id="A_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="A_m2"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="p_c1"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -1852,7 +144,48 @@
               <apply>
                 <plus/>
                 <ci> A_L2 </ci>
-                <ci> A_generalized_hill1 </ci>
+                <apply>
+                  <times/>
+                  <ci> A_Vm_A1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> A_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> A_Vm_R1 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> A_K_R1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_R1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
               </apply>
               <apply>
                 <times/>
@@ -1864,12 +197,13 @@
         </kineticLaw>
       </reaction>
       <reaction id="A_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="A_m3"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="p_c1"/>
+          <modifierSpeciesReference species="A_p2"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -1879,8 +213,84 @@
                 <ci> A_L3 </ci>
                 <apply>
                   <times/>
-                  <ci> A_generalized_hill2 </ci>
-                  <ci> A_generalized_hill3 </ci>
+                  <ci> A_Vm_A2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> A_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> A_p2 </ci>
+                        <ci> A_H2 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> A_p2 </ci>
+                        <ci> A_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> A_Vm_R2 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> A_K_R2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_R2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> A_p2 </ci>
+                        <ci> A_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> A_Vm_A1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> A_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> A_Vm_R1 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> A_K_R1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> A_K_R1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c1 </ci>
+                        <ci> A_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
                 </apply>
               </apply>
               <apply>
@@ -1893,9 +303,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="A_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="p_c1"/>
         </listOfProducts>
@@ -1921,9 +328,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="A_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="A_p2"/>
         </listOfProducts>
@@ -1949,11 +353,8 @@
         </kineticLaw>
       </reaction>
       <reaction id="A_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="A_AA"/>
-        </listOfReactants>
         <listOfProducts>
-          <speciesReference species="A_p_output"/>
+          <speciesReference species="A_p_o"/>
         </listOfProducts>
         <listOfModifiers>
           <modifierSpeciesReference species="A_m3"/>
@@ -1970,16 +371,13 @@
               <apply>
                 <times/>
                 <ci> A_d_p3 </ci>
-                <ci> A_p_output </ci>
+                <ci> A_p_o </ci>
               </apply>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
       <reaction id="B_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="B_m1"/>
         </listOfProducts>
@@ -2002,9 +400,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="B_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="B_m2"/>
         </listOfProducts>
@@ -2015,7 +410,7 @@
               <apply>
                 <plus/>
                 <ci> B_L2 </ci>
-                <ci> B_generalized_hill1 </ci>
+                <ci> B_a_m2 </ci>
               </apply>
               <apply>
                 <times/>
@@ -2027,12 +422,13 @@
         </kineticLaw>
       </reaction>
       <reaction id="B_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="B_m3"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="B_p2"/>
+          <modifierSpeciesReference species="p_c2"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -2042,8 +438,84 @@
                 <ci> B_L3 </ci>
                 <apply>
                   <times/>
-                  <ci> B_generalized_hill2 </ci>
-                  <ci> B_generalized_hill3 </ci>
+                  <ci> B_Vm_A1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> B_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c2 </ci>
+                        <ci> B_H1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c2 </ci>
+                        <ci> B_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> B_Vm_R1 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> B_K_R1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_R1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> p_c2 </ci>
+                        <ci> B_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> B_Vm_A2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> B_Vm_R2 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> B_K_R2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_R2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
                 </apply>
               </apply>
               <apply>
@@ -2055,10 +527,112 @@
           </math>
         </kineticLaw>
       </reaction>
+      <reaction id="B_ts4" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="B_m4"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="B_p2"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <ci> B_L4 </ci>
+                <apply>
+                  <times/>
+                  <ci> B_Vm_A2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> B_Vm_R2 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> B_K_R2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_R2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> B_Vm_A2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> B_Vm_R2 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> B_K_R2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> B_K_R2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> B_p2 </ci>
+                        <ci> B_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> B_d_m4 </ci>
+                <ci> B_m4 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
       <reaction id="B_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="p_c2"/>
         </listOfProducts>
@@ -2084,9 +658,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="B_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="B_p2"/>
         </listOfProducts>
@@ -2112,11 +683,8 @@
         </kineticLaw>
       </reaction>
       <reaction id="B_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="B_AA"/>
-        </listOfReactants>
         <listOfProducts>
-          <speciesReference species="p_c1"/>
+          <speciesReference species="B_p3"/>
         </listOfProducts>
         <listOfModifiers>
           <modifierSpeciesReference species="B_m3"/>
@@ -2133,6 +701,31 @@
               <apply>
                 <times/>
                 <ci> B_d_p3 </ci>
+                <ci> B_p3 </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="B_tl4" reversible="false" fast="false">
+        <listOfProducts>
+          <speciesReference species="p_c1"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="B_m4"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <minus/>
+              <apply>
+                <times/>
+                <ci> B_a_p4 </ci>
+                <ci> B_m4 </ci>
+              </apply>
+              <apply>
+                <times/>
+                <ci> B_d_p4 </ci>
                 <ci> p_c1 </ci>
               </apply>
             </apply>
@@ -2140,9 +733,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="C_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="C_m1"/>
         </listOfProducts>
@@ -2165,12 +755,12 @@
         </kineticLaw>
       </reaction>
       <reaction id="C_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="C_m2"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="C_p_i"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -2178,7 +768,48 @@
               <apply>
                 <plus/>
                 <ci> C_L2 </ci>
-                <ci> C_generalized_hill1 </ci>
+                <apply>
+                  <times/>
+                  <ci> C_Vm_A1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> C_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> C_Vm_R1 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> C_K_R1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_R1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
               </apply>
               <apply>
                 <times/>
@@ -2190,12 +821,13 @@
         </kineticLaw>
       </reaction>
       <reaction id="C_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_N"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="C_m3"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="C_p_i"/>
+          <modifierSpeciesReference species="C_p2"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
@@ -2205,8 +837,84 @@
                 <ci> C_L3 </ci>
                 <apply>
                   <times/>
-                  <ci> C_generalized_hill2 </ci>
-                  <ci> C_generalized_hill3 </ci>
+                  <ci> C_Vm_A2 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> C_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p2 </ci>
+                        <ci> C_H2 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_A2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p2 </ci>
+                        <ci> C_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> C_Vm_R2 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> C_K_R2 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_R2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p2 </ci>
+                        <ci> C_H2 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                  <ci> C_Vm_A1 </ci>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <times/>
+                      <ci> C_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_A1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> C_Vm_R1 </ci>
+                  <apply>
+                    <divide/>
+                    <ci> C_K_R1 </ci>
+                    <apply>
+                      <plus/>
+                      <ci> C_K_R1 </ci>
+                      <apply>
+                        <power/>
+                        <ci> C_p_i </ci>
+                        <ci> C_H1 </ci>
+                      </apply>
+                    </apply>
+                  </apply>
                 </apply>
               </apply>
               <apply>
@@ -2219,11 +927,8 @@
         </kineticLaw>
       </reaction>
       <reaction id="C_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_AA"/>
-        </listOfReactants>
         <listOfProducts>
-          <speciesReference species="p_c3"/>
+          <speciesReference species="C_p_i"/>
         </listOfProducts>
         <listOfModifiers>
           <modifierSpeciesReference species="C_m1"/>
@@ -2240,16 +945,13 @@
               <apply>
                 <times/>
                 <ci> C_d_p1 </ci>
-                <ci> p_c3 </ci>
+                <ci> C_p_i </ci>
               </apply>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
       <reaction id="C_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="C_p2"/>
         </listOfProducts>
@@ -2275,9 +977,6 @@
         </kineticLaw>
       </reaction>
       <reaction id="C_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="C_AA"/>
-        </listOfReactants>
         <listOfProducts>
           <speciesReference species="p_c2"/>
         </listOfProducts>
@@ -2297,1147 +996,6 @@
                 <times/>
                 <ci> C_d_p3 </ci>
                 <ci> p_c2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="D_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> D_L1 </ci>
-                <ci> D_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_m1 </ci>
-                <ci> D_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="D_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> D_L2 </ci>
-                <ci> D_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_m2 </ci>
-                <ci> D_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="D_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> D_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> D_generalized_hill2 </ci>
-                  <ci> D_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_m3 </ci>
-                <ci> D_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c4"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="D_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> D_a_p1 </ci>
-                <ci> D_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_p1 </ci>
-                <ci> p_c4 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="D_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="D_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> D_a_p2 </ci>
-                <ci> D_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_p2 </ci>
-                <ci> D_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="D_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="D_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c3"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="D_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> D_a_p3 </ci>
-                <ci> D_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> D_d_p3 </ci>
-                <ci> p_c3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="E_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> E_L1 </ci>
-                <ci> E_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_m1 </ci>
-                <ci> E_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="E_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> E_L2 </ci>
-                <ci> E_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_m2 </ci>
-                <ci> E_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="E_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> E_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> E_generalized_hill2 </ci>
-                  <ci> E_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_m3 </ci>
-                <ci> E_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c5"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="E_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> E_a_p1 </ci>
-                <ci> E_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_p1 </ci>
-                <ci> p_c5 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="E_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="E_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> E_a_p2 </ci>
-                <ci> E_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_p2 </ci>
-                <ci> E_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="E_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="E_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c4"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="E_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> E_a_p3 </ci>
-                <ci> E_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> E_d_p3 </ci>
-                <ci> p_c4 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="F_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> F_L1 </ci>
-                <ci> F_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_m1 </ci>
-                <ci> F_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="F_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> F_L2 </ci>
-                <ci> F_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_m2 </ci>
-                <ci> F_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="F_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> F_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> F_generalized_hill2 </ci>
-                  <ci> F_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_m3 </ci>
-                <ci> F_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c6"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="F_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> F_a_p1 </ci>
-                <ci> F_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_p1 </ci>
-                <ci> p_c6 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="F_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="F_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> F_a_p2 </ci>
-                <ci> F_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_p2 </ci>
-                <ci> F_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="F_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="F_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c5"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="F_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> F_a_p3 </ci>
-                <ci> F_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> F_d_p3 </ci>
-                <ci> p_c5 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="G_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> G_L1 </ci>
-                <ci> G_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_m1 </ci>
-                <ci> G_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="G_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> G_L2 </ci>
-                <ci> G_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_m2 </ci>
-                <ci> G_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="G_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> G_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> G_generalized_hill2 </ci>
-                  <ci> G_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_m3 </ci>
-                <ci> G_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c7"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="G_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> G_a_p1 </ci>
-                <ci> G_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_p1 </ci>
-                <ci> p_c7 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="G_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="G_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> G_a_p2 </ci>
-                <ci> G_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_p2 </ci>
-                <ci> G_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="G_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="G_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c6"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="G_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> G_a_p3 </ci>
-                <ci> G_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> G_d_p3 </ci>
-                <ci> p_c6 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="H_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> H_L1 </ci>
-                <ci> H_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_m1 </ci>
-                <ci> H_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="H_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> H_L2 </ci>
-                <ci> H_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_m2 </ci>
-                <ci> H_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="H_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> H_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> H_generalized_hill2 </ci>
-                  <ci> H_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_m3 </ci>
-                <ci> H_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c8"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="H_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> H_a_p1 </ci>
-                <ci> H_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_p1 </ci>
-                <ci> p_c8 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="H_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="H_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> H_a_p2 </ci>
-                <ci> H_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_p2 </ci>
-                <ci> H_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="H_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="H_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c7"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="H_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> H_a_p3 </ci>
-                <ci> H_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> H_d_p3 </ci>
-                <ci> p_c7 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="I_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> I_L1 </ci>
-                <ci> I_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_m1 </ci>
-                <ci> I_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="I_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> I_L2 </ci>
-                <ci> I_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_m2 </ci>
-                <ci> I_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="I_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> I_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> I_generalized_hill2 </ci>
-                  <ci> I_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_m3 </ci>
-                <ci> I_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c9"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="I_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> I_a_p1 </ci>
-                <ci> I_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_p1 </ci>
-                <ci> p_c9 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="I_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="I_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> I_a_p2 </ci>
-                <ci> I_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_p2 </ci>
-                <ci> I_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="I_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="I_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c8"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="I_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> I_a_p3 </ci>
-                <ci> I_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> I_d_p3 </ci>
-                <ci> p_c8 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_ts1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="J_m1"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> J_L1 </ci>
-                <ci> J_a_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_m1 </ci>
-                <ci> J_m1 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_ts2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="J_m2"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> J_L2 </ci>
-                <ci> J_generalized_hill1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_m2 </ci>
-                <ci> J_m2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_ts3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_N"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="J_m3"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <plus/>
-                <ci> J_L3 </ci>
-                <apply>
-                  <times/>
-                  <ci> J_generalized_hill2 </ci>
-                  <ci> J_generalized_hill3 </ci>
-                </apply>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_m3 </ci>
-                <ci> J_m3 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_tl1" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="J_p_input"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="J_m1"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> J_a_p1 </ci>
-                <ci> J_m1 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_p1 </ci>
-                <ci> J_p_input </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_tl2" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="J_p2"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="J_m2"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> J_a_p2 </ci>
-                <ci> J_m2 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_p2 </ci>
-                <ci> J_p2 </ci>
-              </apply>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="J_tl3" reversible="false" fast="false">
-        <listOfReactants>
-          <speciesReference species="J_AA"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="p_c9"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference species="J_m3"/>
-        </listOfModifiers>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <minus/>
-              <apply>
-                <times/>
-                <ci> J_a_p3 </ci>
-                <ci> J_m3 </ci>
-              </apply>
-              <apply>
-                <times/>
-                <ci> J_d_p3 </ci>
-                <ci> p_c9 </ci>
               </apply>
             </apply>
           </math>
