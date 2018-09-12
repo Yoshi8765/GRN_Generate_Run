@@ -3,11 +3,26 @@ import numpy as np
 import random
 import time
 
+# TO DO:
+# **Decide how to fix issue with INPUT interfering with algorithm
+#       could just count how many disjoint sets there are and re run algorithm if it happens to
+#       fail due to this issue. Failure should be uncommon. I.E. add these lines at bottom of method
+#       if (# disjointSets > 1) {
+#           return get_model(num_genes, reg_probs, model_name, init_params)
+#       }
+# **Adjust sentinal values in DisjointSet to be -(total connections remaining + 1)
+#   so that we avoid the issue of the sentinal values reaching 0 at the end. This will allow us
+#   to easily count # of disjoint sets at end (simply count negative values in disjointSet array)
 
 
 # init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="model", init_params = [0.5 ,   0.9 , 0.8 ,  30  ,  30   , 0.5 ,  1]):
-
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="model", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
+    # cases/errors to handle:
+    #     probs dont add to 1
+    #     probs are all >= 0
+    #     init_params has length not == 6
+    #     num genes is > 1
+    #     init_params are all greater than 1
 
     if not len(reg_probs) == 5:
         raise ValueError("There are 5 gene types, but " + str(len(reg_probs)) + " probabilities were given")
@@ -24,7 +39,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
 
     gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
 
-    np.random.seed(0) # for reproducibility (remove after testing)
+    np.random.seed(123) # for reproducibility (remove after testing)
 
     # TESTING: sampling works
     random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
@@ -53,8 +68,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
     # TESTING: assignment protocol seems to work and generate no orphans
     # Notes:
     #for gene in all_genes:
-    #    print (str(gene.reg_type) + "(" + str(gene.protein_name) + "): " + str(gene.in_connections))
-
+    #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
     print convert_to_antimony(all_genes, model_name, init_params)
 
@@ -101,7 +115,8 @@ def assign_connections(all_genes, gene_sets):
 
 
 def convert_to_antimony(all_genes, model_name, init_params):
-    # protein/mRNA start at zero concentration
+    # add variation to parameters around their mean found in init_params
+    std_dev_perc = 0.25
 
     ant_str = "\'\'\'\n"
     ant_str += "model *" + model_name + "()\n\n"
@@ -158,7 +173,7 @@ def convert_to_antimony(all_genes, model_name, init_params):
     ant_str += "\n\t// Reactions:\n"
     for i in range(len(all_genes)):
         ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + v"+ str(i+1) + " - d_mRNA"+ str(i+1) + " * mRNA" + str(i+1) + ";\n"
-        ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein"+ str(i+1) + " * mRNA" + str(i+1) + " - d_protein " + str(i+1) + " *protein" + str(i+1) + ";\n"
+        ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein"+ str(i+1) + " * mRNA" + str(i+1) + " - d_protein " + str(i+1) + " * protein" + str(i+1) + ";\n"
 
 
 
@@ -291,4 +306,4 @@ class DisjointSet():
 
 
 
-get_model(3)
+get_model(2)
