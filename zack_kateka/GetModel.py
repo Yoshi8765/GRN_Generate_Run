@@ -70,9 +70,12 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="mode
     #for gene in all_genes:
     #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
-    print convert_to_antimony(all_genes, model_name, init_params)
-
-    print "done!"
+    ant_str = convert_to_antimony(all_genes, model_name, init_params)
+    print (ant_str)
+    f = open(model_name + "_antimony.txt", 'w')
+    f.write(ant_str)
+    f.close()
+    print ("done!")
 
 
 
@@ -125,7 +128,8 @@ def convert_to_antimony(all_genes, model_name, init_params):
     species = "".join([gene.protein_name + ", " + "mRNA" + str(i+1) + ", " for i, gene in enumerate(all_genes)])
     ant_str += "\tspecies INPUT, " + species[:-2] + ";\n\n"
 
-    ant_str += "\t// Assignment Rules:\n"
+    rules = {}
+    ant_str += "\t// Assignment Rules (production rates used in reactions):\n"
     for i,gene in enumerate(all_genes):
         type = gene.reg_type
         inputs = gene.in_connections
@@ -167,12 +171,13 @@ def convert_to_antimony(all_genes, model_name, init_params):
         else:
             raise ValueError("gene type does not match any of the 5 standard varieties")
 
-        expression = "Vm1" + '*(' + num  + '/' + denom + ')'
-        ant_str += "\tv" + str(i+1) + " := " + expression +  ";\n"
+        expression = "Vm" + str(i+1) + '*(' + num  + '/' + denom + ')'
+        rules["v" + str(i+1)] = expression
+        ant_str += "\t// transcription" + str(i+1) + " uses production rate := " + expression +  ";\n"
 
     ant_str += "\n\t// Reactions:\n"
     for i in range(len(all_genes)):
-        ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + v"+ str(i+1) + " - d_mRNA"+ str(i+1) + " * mRNA" + str(i+1) + ";\n"
+        ant_str += "\ttranscription" + str(i+1) + ": => mRNA" + str(i+1) + " ; L" + str(i+1) + " + "+ rules["v" + str(i+1)] + " - d_mRNA"+ str(i+1) + " * mRNA" + str(i+1) + ";\n"
         ant_str += "\ttranslation" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein"+ str(i+1) + " * mRNA" + str(i+1) + " - d_protein " + str(i+1) + " * protein" + str(i+1) + ";\n"
 
 
