@@ -17,11 +17,12 @@ r = te.loada(antimony_str)
 
 #s3 = get_model(5, reg_probs=["hi"])
 
-s4 = get_model(5, reg_probs=[0.5,0.5, 0, 0, 0])
+#s4 = get_model(50, reg_probs=[0.5, 0.5, 0, 0, 0])
+#print s4
 
-s4 = get
-print s4
-print ("done")
+s5 = get_model(5, init_params=["hi"])
+
+print ("\n\n\ndone!")
 
 
 

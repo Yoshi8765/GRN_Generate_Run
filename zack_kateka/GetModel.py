@@ -11,32 +11,17 @@ import time
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1]):
 
     # Invalid parameter handling
-    while not type(num_genes) == int or num_genes < 2:
-        try:
-            print ("That is not a valid input for num_genes.\n")
-            num_genes = input("The number of genes cannot be negative, and zero genes or only one gene is not very fun.\nPlease input a new integer:\n")
-        except SyntaxError:
-            print("")
+    if not type(num_genes) == int or num_genes < 2:
+        raise ValueError("num_genes is invalid: it must be a single integer greater than 1")
 
-    while not type(reg_probs) == list or any([not (type(x) == int or type(x) == float) for x in reg_probs]) or not sum(reg_probs) == 1 or not len(reg_probs) == 5 or any(x < 0 for x in reg_probs):
-        try:
-            print ("That is not a valid input for reg_probs\n")
-            reg_probs = input("The probabilities must sum to 1, and 5 positive probabilities must be given.\nPlease enter 5 decimals that add to 1 in a list (i.e. [0.1, 0.2, 0.3, 0.4, 0]:\n")
-        except SyntaxError:
-            print ("")
+    if not type(reg_probs) == list or any([not (type(x) == int or type(x) == float) for x in reg_probs]) or not sum(reg_probs) == 1 or not len(reg_probs) == 5 or any(x < 0 for x in reg_probs):
+        raise ValueError("reg_probs is invalid: reg_probs must be a list of 5 positive decimals that sum to 1")
 
-    while not type(init_params) == list or any([not (type(x) == int or type(x) == float) for x in init_params]) or not len(init_params) == 7 or any(x < 0 for x in init_params):
-        try:
-            print("That is not a valid input for init_params\n")
-            init_params = input("The initial parameter means must all be greater than zero, and there must be seven of them.\n Please enter 7 positive numbers in a list:\n")
-        except SyntaxError:
-            print("")
+    if not type(init_params) == list or any([not (type(x) == int or type(x) == float) for x in init_params]) or not len(init_params) == 7 or any(x < 0 for x in init_params):
+        raise ValueError("init_params is invalid: init_params must be a list of 7 positive numbers")
 
-    while model_name == None or len(model_name) == 0:
-        try:
-            model_name = str(input("Please enter a model name"))
-        except SyntaxError:
-            print("")
+    if not type(model_name) == str or model_name == None or len(model_name) == 0:
+        raise ValueError("model name is invalid: must be a valid string with no illegal characters")
 
     # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
