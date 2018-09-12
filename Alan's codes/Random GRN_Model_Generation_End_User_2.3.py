@@ -20,6 +20,7 @@ Created on Tue Jul 10 14:52:12 2018
 #Figure out what to do about Perturbation method
 #Figure out what to do about GetEvents method
 #implement hill coefficient -> HILL COEFF NOT WORKING, BREAKS MODEL GENERATION
+# TODO: There are still orphans being made.
 
 import tellurium as te
 import numpy as np
@@ -129,7 +130,7 @@ def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
     # Creating a list of activator proteins, numbering about half the number of genes.
     nums =[int(math.ceil(float(numGenes)/2)), int(math.floor(float(numGenes)/2))]
     RanAct = np.random.choice(GRN['Prot'], nums[np.random.randint(2)])
-    print "Randomly generated Activators: " + str(RanAct)
+    #print "Randomly generated Activators: " + str(RanAct)
     GRNInt.update({'activators': RanAct})
     scannedActivators = []
     for i in (range(len(GRNInt['activators']))):
@@ -140,15 +141,15 @@ def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
         scannedActivators.append(ActivatorCur)
         i += 1
     GRNInt.update({'activators': scannedActivators})
-    print "Activators: " + str(GRNInt['activators'])
+    #print "Activators: " + str(GRNInt['activators'])
 
     #All proteins not turned into activators will be set as a repressor
-    repressors = GRN['Prot']
+    repressors = list(GRN['Prot'])
     for s in GRNInt['activators']:
         if s in repressors:
             repressors.remove(s)
         GRNInt.update({'repressors': repressors})
-    print "Repressors: " + str(GRNInt['repressors'])
+    #print "Repressors: " + str(GRNInt['repressors'])
 
     #Creating a list of regulation types, not assigned to proteins yet.
     ProbabilityMatrix = []
@@ -161,7 +162,7 @@ def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
 
     if interactionCounts['SingleRep'] > len(GRNInt['repressors']):
         numChangeInteractions = interactionCounts['SingleRep'] - len(GRNInt['repressors'])
-        print 'number of SingleRep behavior we have above capacity.: ' + str(numChangeInteractions)
+        #print 'number of SingleRep behavior we have above capacity.: ' + str(numChangeInteractions)
         counter = 0
         singleRepCounter = 0
         for x in pickedInteractions: #when pickedInteraction == singlerep
@@ -176,7 +177,7 @@ def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
 
     if interactionCounts['SingleAct'] > len(GRNInt['activators']):
         numChangeInteractions = interactionCounts['SingleAct'] - len(GRNInt['activators'])
-        print 'number of SingleAct behavior we have above capacity.: ' + str(numChangeInteractions)
+        #print 'number of SingleAct behavior we have above capacity.: ' + str(numChangeInteractions)
         counter = 0
         singleActCounter = 0
         for x in pickedInteractions: #when pickedInteraction == singlerep
@@ -190,7 +191,7 @@ def AssignRegulation(numGenes,GRN,GRNInt,Interactions):
             counter += 1
 
     GRNInt.update({'interactions': pickedInteractions})
-    print "Regulation types: " + str(GRNInt['interactions'])
+    #print "Regulation types: " + str(GRNInt['interactions'])
     return
 
 
@@ -211,10 +212,6 @@ def DetermineInteractors(GRN,GRNInt,regProb):
                 testcounter += 1
                 pickedProt = np.random.randint(len(GRNInt[RegType]))
                 currTF = [reg, [GRNInt[RegType][pickedProt]] ]
-                if testcounter == 30:
-                    continue
-                if testcounter == 40:
-                    continue
             GRNInt['TF'].append(currTF)
         else:
             Tps={'activators':[], 'repressors':[]}
@@ -296,7 +293,6 @@ def GetReactionRates(GRN,GRNInt):
         #print 'ReactionRates ' + str(i) + ' :'+ str(ReactionRates)
         #print 'Reg ' + str(i) + ' :'+ str(Reg)
     print '\n'
-    #print GRN
     return ReactionRates
 
     # Generates chemical network reaction model for the model
@@ -304,11 +300,9 @@ def GetReactions(GRN,StringList,Rates):
     ReactionM =''
     ReactionP =''
     ReactionSumString= 'model Random_GRN()\n'
-
     for i in np.arange(1, numGenes+1):
         M = GRN['mRNA'][i-1]
         P = GRN['Prot'][i-1]
-        # TODO: Error above
         ReactionM += 'Rm' + str(i) + ':' + NUCLEOTIDE_SOURCE + '=> ' + M + ';' + Rates[i-1]
         ReactionP += 'Rp' + str(i) + ':' + AMINO_ACID_SOURCE + '=> ' + P + ';' + GRN['a_p'][i-1] + '*' + M + ' - ' + P + '*' + GRN['PDeg'][i-1] + ';\n'
     ReactionSumString += ReactionM +ReactionP
@@ -392,7 +386,7 @@ def makePlots(tmax,result,NoisyResult):
     jet = plt.get_cmap('jet')
     pickColorSpace = [int(np.floor(i)) for i in np.linspace(0,255,numGenes)]
     colors = jet(pickColorSpace)
-#    colors = jet(np.linspace(0,1,numGenes))
+    colors = jet(np.linspace(0,1,numGenes))
     vars = {'P':[],'M':[]}
     for e in vars.keys():
         plt.figure(1)
