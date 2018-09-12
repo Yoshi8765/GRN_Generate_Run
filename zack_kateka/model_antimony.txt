@@ -5,8 +5,8 @@ model *model()
 	species INPUT, P1, mRNA1, P2, mRNA2;
 
 	// Assignment Rules (production rates used in reactions):
-	// transcription1uses production rate := Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1));
-	// transcription2uses production rate := Vm2*( 1 /(1 +K1_2*P2**H2));
+	// transcription1 uses production rate := Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1));
+	// transcription2 uses production rate := Vm2*( 1 /(1 +K1_2*P2**H2));
 
 	// Reactions:
 	transcription1: => mRNA1 ; L1 + Vm1*((K1_1*INPUT**H1)/(1 + K1_1*INPUT**H1 + K2_1*P2**H1 + K1_1*K2_1*INPUT**H1*P2**H1)) - d_mRNA1 * mRNA1;
