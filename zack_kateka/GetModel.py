@@ -10,7 +10,8 @@ import time
 # reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1],seed = 0):
     """Docstring for help command: Demonstrate docstrings and does nothing really."""
-    # Invalid parameter handling
+
+    # Invalid parameter handling #
 
     #catch for illegal file names
     forbiddenChar = ['<','>',':','"','/','\'','|','?','*']

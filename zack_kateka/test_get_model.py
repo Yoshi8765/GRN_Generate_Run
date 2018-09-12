@@ -6,7 +6,6 @@ Created on Wed Sep 12 11:42:03 2018
 """
 
 import tellurium as te
-import roadrunner
 
 from GetModel import get_model
 
