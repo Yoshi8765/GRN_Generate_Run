@@ -286,6 +286,11 @@ def check_input_quality(all_genes):
     return 1.0*reachable_genes/len(all_genes)
 
 
+
+# Converts the given network to a .csv file that is readible by the program Bio
+def convert_to_biotapestry(all_genes):
+
+
 # Keeps track of the gene regulatory type, the protein name associated to this gene,
 # the other genes this gene has already been connected to, and the remaining connections to be made
 class Gene():
