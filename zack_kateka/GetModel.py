@@ -91,7 +91,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
     # is poorly reachable from INPUT (leading to a low activity network
     quality = check_input_quality(all_genes)
-    if (not gene_sets.get_set_count() == 1 or quality < reachability):
+    if not gene_sets.get_set_count() == 1 or quality < reachability:
         return get_model(num_genes, reg_probs, model_name, init_params)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
@@ -110,7 +110,6 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
         print("\n\nThe reachability of this network from INPUT is " + str(quality) + "\n")
         return ant_str
-
 
 
 # Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
@@ -134,7 +133,7 @@ def assign_connections(all_genes, gene_sets):
     for gene in all_genes:
 
         # while the gene still has unoccupied/unassigned regulatory sites
-        while (gene.remaining_connections > 0):
+        while gene.remaining_connections > 0:
             # to avoid connecting same protein to both regulatory sites on a gene, do not consider
             # genes whose proteins are already acting as a regulator for this current gene
             available_genes = list(set(all_genes) - set(gene.in_connections))
@@ -355,8 +354,8 @@ class Gene():
     # toString method mostly used for debugging
     def __repr__(self):
         return str(self.protein_name)
-        #return (str(self.reg_type) + " (" + str(self.protein_name) + "): " + str(self.remaining_connections) + " connection(s) remaining")
-
+        # return (str(self.reg_type) + " (" + str(self.protein_name) + "): " +
+        # str(self.remaining_connections) + " connection(s) remaining")
 
 
 # DisjointSets keeps a collection of disjoint sets. In this code, these sets represent collections of
@@ -383,9 +382,9 @@ class DisjointSets():
 
     # makes a new set of a single element, and stores the given value as a sentinel value
     def make_set(self, item, value):
-        if (value >= 0):
+        if value >= 0:
             raise ValueError("The sentinel value must be less than zero")
-        if (self.contains(item)):
+        if self.contains(item):
             raise ValueError("This item is already present in the DisjointSet")
 
         self.pointers.append(value)
@@ -409,7 +408,7 @@ class DisjointSets():
         return self.find_helper(index)
 
     def find_helper(self, index):
-        if (self.pointers[index] < 0):
+        if self.pointers[index] < 0:
             return index
         else:
             representative_index = self.find_helper(self.pointers[index])
