@@ -84,7 +84,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     f.write(ant_str)
     f.close()
 
-    return ant_str
+    return ant_str,model_name
 
 
 
