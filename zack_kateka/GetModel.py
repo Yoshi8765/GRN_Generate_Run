@@ -89,16 +89,24 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     # is poorly reachable from INPUT (leading to a low activity network
     quality = check_input_quality(all_genes)
     if (not gene_sets.get_set_count() == 1 or quality < reachability):
-        ant_str = get_model(num_genes, reg_probs, model_name, init_params)
+        return get_model(num_genes, reg_probs, model_name, init_params)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params)
+
+        # creates file storing antimony string
+        f = open(model_name + "_antimony.txt", 'w')
+        f.write(ant_str)
+        f.close()
+
+        biotap_str = convert_to_biotapestry(all_genes)
+
+        # creates file storing Biotapestry string in CSV format
+        f2 = open(model_name + "_biotapestry.csv", 'w')
+        f2.write(biotap_str)
+        f2.close()
+
         print("\n\nThe reachability of this network from INPUT is " + str(quality) + "\n")
-
-    f = open(model_name + "_antimony.txt", 'w')
-    f.write(ant_str)
-    f.close()
-
-    return ant_str
+        return ant_str
 
 
 
@@ -287,8 +295,30 @@ def check_input_quality(all_genes):
 
 
 
-# Converts the given network to a .csv file that is readible by the program Bio
+# Converts the given network to a CSV format that is readable by the program Bio
+# and returns this as a string
 def convert_to_biotapestry(all_genes):
+    biotap = ""
+    biotap += "model,root,,,,\n"
+    reg_patterns = {"SR":["Repressor"], "SA":["Activator"], "SA+SR":["Activator","Repressor"], "DA":["Activator", "Activator"], "DR":["Repressor", "Repressor"]}
+    for gene in all_genes:
+        for i, in_connect in enumerate(gene.in_connections):
+            biotap += "general,root,"
+            if in_connect.gene_name == "INPUT":
+                biotap += "box,"
+            else:
+                biotap += "gene,"
+            biotap += in_connect.gene_name + ","
+            biotap += "gene," + gene.gene_name + ","
+
+            reg_type = reg_patterns.get(gene.reg_type)[i]
+            if reg_type == "Activator":
+                biotap += "positive\n"
+            elif reg_type == "Repressor":
+                biotap += "negative\n"
+
+    return biotap
+
 
 
 # Keeps track of the gene regulatory type, the protein name associated to this gene,
@@ -298,6 +328,13 @@ class Gene():
     def __init__(self, protein_name, reg_type=None):
         # name of protein created by this gene
         self.protein_name = protein_name
+
+        # name of gene
+        self.gene_name = ""
+        if self.protein_name == "INPUT":
+            self.gene_name = "INPUT"
+        else:
+            self.gene_name = "Gene " + self.protein_name[1:]
 
         # regulation type this gene undergoes
         self.reg_type = reg_type
