@@ -3,7 +3,7 @@ import time
 
 
 
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 0.5, 1],seed = 0, reachability=0.9):
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5], param_std = 0.25, seed = 0, reachability=0.9):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
     The pathway is fully connected, and contains no orphans. Also, saves a plain text file
@@ -12,7 +12,10 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     num_genes = number of genes included in the network (an INPUT is also included, but not counted as part of num_genes)
     reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
     model_name = file with antimony string will be created with name "model_name_antimony.txt" in working directory
-    init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'K' , 'H']
+    init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'H', 'K']
+    param_std = controls std used to randomly generate parameter values from normal dist;
+                proportion of mean that standard deviation should be
+                parameters will be generated using distribution ~N(mean in init_params, param_std * mean)
     seed = controls seed for randomly generated portions of this method
     reachability = lower bound for proportion of network that should be reachable by INPUT (allows filtering out of less active networks)
 
@@ -91,7 +94,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     if (not gene_sets.get_set_count() == 1 or quality < reachability):
         return get_model(num_genes, reg_probs, model_name, init_params)
     else:
-        ant_str = convert_to_antimony(all_genes, model_name, init_params)
+        ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
 
         # creates file storing antimony string
         f = open(model_name + "_antimony.txt", 'w')
@@ -164,9 +167,7 @@ def assign_connections(all_genes, gene_sets):
 
 
 # converts the generated network to an antimony string
-def convert_to_antimony(all_genes, model_name, init_params):
-    # add variation to parameters around their mean found in init_params
-    std_dev_perc = 0.25
+def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
 
     ant_str = ""
     ant_str += "model *" + model_name + "()\n\n"
@@ -177,7 +178,7 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
     rules = {}
     ant_str += "\t// Assignment Rules (production rates used in reactions):\n"
-    for i,gene in enumerate(all_genes):
+    for i, gene in enumerate(all_genes):
         type = gene.reg_type
         inputs = gene.in_connections
         P1 = inputs[0].protein_name
@@ -185,9 +186,7 @@ def convert_to_antimony(all_genes, model_name, init_params):
         if len(inputs) == 2:
             P2 = inputs[1].protein_name
 
-        # TO DO: incorporate variable initial parameters
-
-        #Ki_j corresponds to rate constant i for protein j
+        # Ki_j corresponds to rate constant i for protein j
         K1 = "K1_" + str(i+1)
         K2 = "K2_" + str(i + 1)
         K3 = "K3_" + str(i + 1)
@@ -239,7 +238,8 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
 
     ant_str += "\n\t// Variable initializations:\n"
-    var_names = ["H", "Vm", "L", "d_mRNA", "a_protein", "d_protein", "K1_", "K2_", "K3_"]
+
+    var_names = ["d_protein", "d_mRNA", "L", "Vm", "a_protein", "H", "K1_", "K2_", "K3_"]
     for i in range(len(all_genes)):
         for k, var in enumerate(var_names):
             mean = 0
@@ -253,23 +253,21 @@ def convert_to_antimony(all_genes, model_name, init_params):
 
     ant_str += "\n\t// Other declarations:\n"
 
-    #variables = "".join(["v" + str(i+1) + ", " for i in range(len(all_genes))])
-    #ant_str += "\tvar " + variables[:-2] + ";\n"
     ant_str += "\tconst "
     for i in range(len(all_genes)):
         for var in var_names:
             ant_str += var + str(i+1) + ", "
     ant_str = ant_str[:-2] + ";\n"
 
-
     ant_str += "\n\nend"
     return ant_str
+
 
 # Checks how many genes can be activated directly or indirectly by INPUT
 # As input is the only source of stimulus, this determines how much of the network
 # can be activated. Returns proportion of genes that can be reached
 def check_input_quality(all_genes):
-    out_connections = {"INPUT":[]} # {protein_name : out connects [P1, P2, ...]}
+    out_connections = {"INPUT": []} # {protein_name : out connects [P1, P2, ...]}
     for gene in all_genes:
         out_connections[gene.protein_name] = []
 
@@ -277,13 +275,10 @@ def check_input_quality(all_genes):
         for in_connect in gene.in_connections:
             out_connections[in_connect.protein_name].append(gene.protein_name)
 
-    #TESTING: seems to properly generate out connections
-    #print (out_connections)
-
     reachable_genes = 0
     to_vist = ["INPUT"]
     genes_counted = []
-    while (not len(to_vist) == 0):
+    while not len(to_vist) == 0:
         curr_gene = to_vist.pop()
         for adjacent_gene in out_connections[curr_gene]:
             if adjacent_gene not in genes_counted:
@@ -294,13 +289,13 @@ def check_input_quality(all_genes):
     return 1.0*reachable_genes/len(all_genes)
 
 
-
 # Converts the given network to a CSV format that is readable by the program Bio
 # and returns this as a string
 def convert_to_biotapestry(all_genes):
     biotap = ""
     biotap += "model,root,,,,\n"
-    reg_patterns = {"SR":["Repressor"], "SA":["Activator"], "SA+SR":["Activator","Repressor"], "DA":["Activator", "Activator"], "DR":["Repressor", "Repressor"]}
+    reg_patterns = {"SR": ["Repressor"], "SA": ["Activator"], "SA+SR": ["Activator","Repressor"],
+                    "DA": ["Activator", "Activator"], "DR": ["Repressor", "Repressor"]}
     for gene in all_genes:
         for i, in_connect in enumerate(gene.in_connections):
             biotap += "general,root,"
@@ -318,7 +313,6 @@ def convert_to_biotapestry(all_genes):
                 biotap += "negative\n"
 
     return biotap
-
 
 
 # Keeps track of the gene regulatory type, the protein name associated to this gene,
