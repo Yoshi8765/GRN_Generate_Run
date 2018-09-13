@@ -166,6 +166,7 @@ def assign_connections(all_genes, gene_sets):
 
 
 # converts the generated network to an antimony string
+# to load, use tellurium.loada(ant_str)
 def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
 
     ant_str = ""
@@ -289,7 +290,8 @@ def check_input_quality(all_genes):
 
 
 # Converts the given network to a CSV format that is readable by the program Bio
-# and returns this as a string
+# and returns this as a string.
+# To load into Biotapestry: File > Import > Import Full Model Hierarchy from CSV
 def convert_to_biotapestry(all_genes):
     biotap = ""
     biotap += "model,root,,,,\n"
