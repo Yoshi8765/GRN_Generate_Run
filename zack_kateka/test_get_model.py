@@ -9,29 +9,29 @@ import tellurium as te
 
 from GetModel import get_model
 
-antimony_str = get_model(5)
-r = te.loada(antimony_str)
+#antimony_str = get_model(5)
+#r = te.loada(antimony_str)
 
 #s2 = get_model(-1)
 
 #s3 = get_model(5, reg_probs=["hi"])
 
-#s4 = get_model(50, reg_probs=[0.5, 0.5, 0, 0, 0])
+s4 = get_model(20, reg_probs=[0.5, 0.5, 0, 0, 0], seed=20, reachability= 0.4)
 #print s4
+print ("\ndone!\n")
 
-s5 = get_model(5)
+#s5 = get_model(5)
 
 
 #%% Running the model to see if it works
-r=te.loada(s5)
-r.reset()
+#r=te.loada(s5)
+#r.reset()
 #plt.close("all")
-res = r.simulate(0,50,1000)
+#res = r.simulate(0,50,1000)
 #r.plot()
-
 #r.draw(layout='fdp')
 
-print ("\n\n\ndone!")
+#print ("\n\n\ndone!")
 
 
 
