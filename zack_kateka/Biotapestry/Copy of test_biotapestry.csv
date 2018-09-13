@@ -1,0 +1,13 @@
+﻿# Creating a model,,,,,,,,,,
+model,root,,,,,,,,,
+model,Tutorial model,,root,,,,,,,
+model,Region A,,Tutorial Model,,,,,,,
+,,,,,,,,,,
+region,Tutorial Model,,A,A,,,,,,
+,,,,,,,,,,
+# Defining interactions,,,,,,,,,,
+general,Tutorial model,,gene,Gene1,gene,Gene2,positive,A,A,
+general,Tutorial model,,gene,Gene2,gene,Gene3,negative,A,A,
+,,,,,,,,,,
+,,,,,,,,,,
+signal,Tutorial Model,,gene,Gene4,gene,Gene5,gene,Gene6,promoteSig,A
