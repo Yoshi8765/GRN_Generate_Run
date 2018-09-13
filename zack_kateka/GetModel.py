@@ -53,8 +53,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     # the double input genes (DA, DR, SA+SR) is significantly low
 
     gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
-
-    if seed!=0:
+    if seed == 0:
+        np.random.seed()
+    elif seed!=0:
         np.random.seed(seed)
     try:
         assert seed >= 0 and seed < 0xffffffff
@@ -76,6 +77,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     gene_sets = DisjointSets()
     for gene in all_genes:
         gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
+
 
     assign_connections(all_genes, gene_sets)
 
@@ -122,7 +124,6 @@ def assign_connections(all_genes, gene_sets):
 
         # while the gene still has unoccupied/unassigned regulatory sites
         while (gene.remaining_connections > 0):
-
             # to avoid connecting same protein to both regulatory sites on a gene, do not consider
             # genes whose proteins are already acting as a regulator for this current gene
             available_genes = list(set(all_genes) - set(gene.in_connections))
@@ -148,7 +149,7 @@ def assign_connections(all_genes, gene_sets):
             # In this case, the situation is similar to when an orphan is being formed. You are
             # connecting two genes in same network, and only one connection remains. However,
             # the "orphan" is the entire, complete network
-            elif gene_sets.get_total_connections(set1) > 1 or total_connections_left == 1:
+            elif gene_sets.get_total_connections(name1) > 1 or total_connections_left == 1:
                 gene_sets.decrement_value(name1)
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
@@ -289,7 +290,7 @@ def check_input_quality(all_genes):
 # the other genes this gene has already been connected to, and the remaining connections to be made
 class Gene():
 
-    def __init__(self, protein_name, reg_type = None):
+    def __init__(self, protein_name, reg_type=None):
         # name of protein created by this gene
         self.protein_name = protein_name
 
@@ -356,9 +357,10 @@ class DisjointSets():
         self.size += 1
         self.set_count += 1
 
-    # returns total # of connections remaining in set whose head is at the given index set_head
-    def get_total_connections(self, head_index):
-        return -1 * self.pointers[head_index]
+    # returns total # of connections remaining in set that contains the given item
+    def get_total_connections(self, item):
+        head_index = self.find_set(item)
+        return -1 * (self.pointers[head_index] + 1)
 
     # returns the # of sets in the collection
     def get_set_count(self):
@@ -391,7 +393,9 @@ class DisjointSets():
         if head1 == head2:
             raise ValueError("These two items are already part of the same set")
 
-        self.pointers[head1] += self.pointers[head2] + 1 # +1 is due to 1 connection lost as new connection forms
+        # +2 is due to 1 connection lost as new connection forms and an extra +1 is added to account for the artificial
+        #  extra -1 we added at the beginning to keep all our sentinel values < 0
+        self.pointers[head1] += self.pointers[head2] + 2
         self.pointers[head2] = head1
         self.set_count -= 1
 
@@ -399,8 +403,8 @@ class DisjointSets():
     # connected. This will not create an orphan as long as that set has some remaining unassigned connections
     def decrement_value(self, item):
         # reduces total # of connections remaining in this set (uses +1 vs -1 as sentinal values are negative)
-        head = self.find_set(item)
-        self.pointers[head] += 1
+        head_index = self.find_set(item)
+        self.pointers[head_index] += 1
 
     # toString mostly used for debugging purposes
     def __repr__(self):
