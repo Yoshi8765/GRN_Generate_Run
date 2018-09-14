@@ -1,6 +1,6 @@
 import numpy as np
 import time
-
+import math
 
 
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5],
@@ -261,11 +261,18 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i in range(len(all_genes)):
         for k, var in enumerate(var_names):
             mean = 0
-            if k <= 5:
+            if k < 5:
                 mean = init_params[k]
+            elif k == 5:
+                # Hill Coefficients are forced to be integers >= 1
+                mean = math.ceil(init_params[k])
             else:
                 mean = init_params[6]
-            std = mean * std_dev_perc
+            if k == 0:
+                # degradation rate for proteins are all assumed to be the same
+                std = 0
+            else:
+                std = mean * std_dev_perc
             value = np.random.normal(loc=mean, scale=std)
             ant_str += "\t" + var + str(i+1) + " = " + str(value) + ";\n"
 
