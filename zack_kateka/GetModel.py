@@ -3,8 +3,8 @@ import time
 
 
 
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",
-        init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5], param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0):
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5],
+              param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0, max_builds = 1000):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
     The pathway is fully connected, and contains no orphans. Also, saves a plain text file
@@ -20,6 +20,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     seed = controls seed for randomly generated portions of this method
     reachability = lower bound for proportion of network that should be reachable by INPUT (allows filtering out of less active networks)
     self_feedback_min = lower bound for the number of self feedback loops that are desired in the network
+    max_builds = maximum number of attempts to build model that matches desired specifications
     """
     # Invalid parameter handling
 
@@ -48,8 +49,11 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     if not (type(param_std) == float or type(param_std) == int) or param_std < 0:
         raise ValueError("param_std must be a positive number")
 
-    if not type(self_feedback_min == int) or self_feedback_min < 0:
+    if not type(self_feedback_min == int) or self_feedback_min < 0 or self_feedback_min > num_genes:
         raise ValueError("self_feedback_min must be a non-negative integer")
+
+    if not type(max_builds == int) or max_builds < 0:
+        raise ValueError("max_builds must be a positive integer")
 
     if seed == 0:
         np.random.seed()
@@ -70,51 +74,56 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     # INPUT, it might not be connected at all. This is likely only an issue if the proportion of
     # the double input genes (DA, DR, SA+SR) is significantly low. To avoid orphans, we
     # regenerate any models that contain orphans or that do not satisfy reachability conditions
+    current_build = 1
+    while current_build <= max_builds:
+        gene_types = ["SA", "SR", "DA", "SA+SR", "DR"]
 
-    gene_types = ["SA", "SR", "DA", "SA+SR", "DR"]
+        # chooses a random collection of gene types of the required size with the given probabilities
+        random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
 
-    # chooses a random collection of gene types of the required size with the given probabilities
-    random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
+        # assigns genes their names and regulation types
+        all_genes = []
+        for i, reg_type in enumerate(random_reg_types):
+            protein_name = "P" + str(i+1)
+            all_genes.append(Gene(protein_name, reg_type))
 
-    # assigns genes their names and regulation types
-    all_genes = []
-    for i, reg_type in enumerate(random_reg_types):
-        protein_name = "P" + str(i+1)
-        all_genes.append(Gene(protein_name, reg_type))
+        # DisjointSets helps keeps track of which genes are connected, directly or indirectly.
+        # Used to prevent the formation of "orphans"
+        gene_sets = DisjointSets()
+        for gene in all_genes:
+            gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
 
-    # DisjointSets helps keeps track of which genes are connected, directly or indirectly.
-    # Used to prevent the formation of "orphans"
-    gene_sets = DisjointSets()
-    for gene in all_genes:
-        gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
+        # number of self feedback loops created
+        feedback_count = assign_connections(all_genes, gene_sets)
 
-    # number of self feedback loops created
-    feedback_count = assign_connections(all_genes, gene_sets)
+        # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
+        # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
+        # is poorly reachable from INPUT (leading to a low activity network
+        quality = check_input_quality(all_genes)
+        if not gene_sets.get_set_count() == 1 or quality < reachability or feedback_count < self_feedback_min:
+            #print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
+            current_build += 1
+        else:
+            ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
 
-    # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
-    # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
-    # is poorly reachable from INPUT (leading to a low activity network
-    quality = check_input_quality(all_genes)
-    if not gene_sets.get_set_count() == 1 or quality < reachability or feedback_count < self_feedback_min:
-        return get_model(num_genes, reg_probs=reg_probs, model_name=model_name, init_params=init_params,
-                param_std=param_std, seed=seed, reachability=reachability, self_feedback_min=self_feedback_min)
-    else:
-        ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
+            # creates file storing antimony string
+            f = open(model_name + "_antimony.txt", 'w')
+            f.write(ant_str)
+            f.close()
 
-        # creates file storing antimony string
-        f = open(model_name + "_antimony.txt", 'w')
-        f.write(ant_str)
-        f.close()
+            biotap_str = convert_to_biotapestry(all_genes)
 
-        biotap_str = convert_to_biotapestry(all_genes)
+            # creates file storing Biotapestry string in CSV format
+            f2 = open(model_name + "_biotapestry.csv", 'w')
+            f2.write(biotap_str)
+            f2.close()
 
-        # creates file storing Biotapestry string in CSV format
-        f2 = open(model_name + "_biotapestry.csv", 'w')
-        f2.write(biotap_str)
-        f2.close()
+            print("\n\nThe reachability of this network from INPUT is " + str(round(quality*100)) +
+                    "% and there are " + str(feedback_count) + " self feedback loops")
+            return ant_str
 
-        print("\n\nThe reachability of this network from INPUT is " + str(quality) + " and there are " + str(feedback_count) + " self feedback loops\n")
-        return ant_str
+    raise TimeoutError("A model could not be generated with the desired specifications in the allotted number of builds." +
+            "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)") 
 
 
 # Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
