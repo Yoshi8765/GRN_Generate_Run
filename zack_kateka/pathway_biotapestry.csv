@@ -1,13 +1,35 @@
 model,root,,,,
-general,root,gene,Gene 8,gene,Gene 1,negative
-general,root,gene,Gene 2,gene,Gene 2,positive
-general,root,gene,Gene 5,gene,Gene 2,negative
-general,root,box,INPUT,gene,Gene 3,positive
-general,root,gene,Gene 4,gene,Gene 3,negative
-general,root,gene,Gene 1,gene,Gene 4,positive
-general,root,gene,Gene 3,gene,Gene 4,negative
-general,root,gene,Gene 6,gene,Gene 5,positive
-general,root,gene,Gene 6,gene,Gene 6,positive
-general,root,gene,Gene 4,gene,Gene 6,positive
-general,root,gene,Gene 1,gene,Gene 7,negative
-general,root,gene,Gene 3,gene,Gene 8,negative
+general,root,gene,Gene 9,gene,Gene 1,positive
+general,root,gene,Gene 19,gene,Gene 1,negative
+general,root,gene,Gene 6,gene,Gene 2,positive
+general,root,gene,Gene 8,gene,Gene 3,positive
+general,root,gene,Gene 18,gene,Gene 3,positive
+general,root,gene,Gene 12,gene,Gene 4,positive
+general,root,gene,Gene 4,gene,Gene 4,positive
+general,root,gene,Gene 19,gene,Gene 5,positive
+general,root,gene,Gene 17,gene,Gene 5,positive
+general,root,gene,Gene 16,gene,Gene 6,negative
+general,root,gene,Gene 11,gene,Gene 6,negative
+general,root,gene,Gene 4,gene,Gene 7,positive
+general,root,gene,Gene 7,gene,Gene 7,negative
+general,root,gene,Gene 15,gene,Gene 8,negative
+general,root,box,INPUT,gene,Gene 9,positive
+general,root,gene,Gene 5,gene,Gene 10,negative
+general,root,gene,Gene 18,gene,Gene 11,positive
+general,root,gene,Gene 10,gene,Gene 11,negative
+general,root,gene,Gene 10,gene,Gene 12,negative
+general,root,gene,Gene 15,gene,Gene 12,negative
+general,root,gene,Gene 12,gene,Gene 13,positive
+general,root,gene,Gene 13,gene,Gene 13,positive
+general,root,gene,Gene 7,gene,Gene 14,positive
+general,root,gene,Gene 11,gene,Gene 14,positive
+general,root,gene,Gene 9,gene,Gene 15,positive
+general,root,gene,Gene 6,gene,Gene 16,positive
+general,root,gene,Gene 15,gene,Gene 16,positive
+general,root,gene,Gene 3,gene,Gene 17,negative
+general,root,gene,Gene 17,gene,Gene 18,negative
+general,root,gene,Gene 3,gene,Gene 18,negative
+general,root,gene,Gene 18,gene,Gene 19,positive
+general,root,gene,Gene 20,gene,Gene 19,positive
+general,root,gene,Gene 17,gene,Gene 20,positive
+general,root,gene,Gene 10,gene,Gene 20,negative
