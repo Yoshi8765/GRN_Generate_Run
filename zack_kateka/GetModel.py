@@ -202,8 +202,8 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i, gene in enumerate(all_genes):
         reg_type = gene.reg_type
         inputs = gene.in_connections
-        P1 = inputs[0].protein_name
-        P2 = ""
+        if (len(inputs) > 1):
+            P1 = inputs[0].protein_name
         if len(inputs) == 2:
             P2 = inputs[1].protein_name
 
