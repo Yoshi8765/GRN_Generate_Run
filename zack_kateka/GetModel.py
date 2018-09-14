@@ -44,27 +44,30 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     if not (type(reachability) == int or type(reachability) == float) or reachability < 0 or reachability > 1:
         raise ValueError("reachability must be a number between 0 and 1")
 
+    if not (type(param_std) == float or type(param_std) == int) or param_std < 0:
+        raise ValueError("param_std must be a positive number")
+
+    if seed == 0:
+        np.random.seed()
+    else:
+        try:
+            np.random.seed(seed)
+        except ValueError:
+            raise ValueError("Seed must be between 0 and 2**32 - 1")
+
     # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
     # will create an orphan (within each disjoint set, keep track of how many inputs are
     # left between all genes within the set; if the previous action connects two genes within
-    # a set AND the # inputs remaining is only 1, do not connect the two). The INPUT messes with
+    # a set AND the # inputs remaining in whole set is only 1, do not connect the two). The INPUT messes with
     # this algorithm because it acts as a gene with no in-connections. Thus, if it initially connects
     # to a single-regulation type (SA or SR) it may create an orphan, as there is no guarantee
     # this SA/SR will connect to other genes, and since it used up its only in connection with
     # INPUT, it might not be connected at all. This is likely only an issue if the proportion of
-    # the double input genes (DA, DR, SA+SR) is significantly low
+    # the double input genes (DA, DR, SA+SR) is significantly low. To avoid orphans, we
+    # regenerate any models that contain orphans or that do not satisfy reachability conditions
 
-    gene_types = ["SA", "SR", "DA", "SA+SR","DR"]
-    if seed == 0:
-        np.random.seed()
-    elif seed!=0:
-        np.random.seed(seed)
-    try:
-        assert seed >= 0 and seed < 0xffffffff
-    except AssertionError:
-        raise AssertionError("Please use a 32-bit unsigned integer or 0.")
-
+    gene_types = ["SA", "SR", "DA", "SA+SR", "DR"]
 
     # chooses a random collection of gene types of the required size with the given probabilities
     random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
@@ -81,11 +84,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     for gene in all_genes:
         gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
 
-
     assign_connections(all_genes, gene_sets)
-
-    #for gene in all_genes:
-    #    print (str(gene.protein_name) + "(" + str(gene.reg_type) + "): " + str(gene.in_connections))
 
     # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
     # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
@@ -152,8 +151,8 @@ def assign_connections(all_genes, gene_sets):
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
 
-            # else genes are part of same set (already connected), but is there
-            # still enough connections remaining to form another without creating an orphan?
+            # else genes are part of same set (already connected), but there may
+            # still enough connections remaining to form another without creating an orphan.
 
             # Second condition handles edge case where final connection is trying to be made.
             # In this case, the situation is similar to when an orphan is being formed. You are
@@ -228,14 +227,11 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
         ant_str += "\t//translation" + str(i+1) + "\n"
         ant_str += "\tF" + str(i+1) + ": => P" + str(i+1) + " ; " + "a_protein" + str(i+1) + " * mRNA" + str(i+1) + " - d_protein" + str(i+1) + " * P" + str(i+1) + ";\n"
 
-
-
     ant_str += "\n\t// Species initializations:\n"
     ant_str += "\tINPUT = 1;\n"
     for i in range(len(all_genes)):
         ant_str += "\tmRNA" + str(i+1) + " = 0;\n"
         ant_str += "\tP" + str(i + 1) + " = 0;\n"
-
 
     ant_str += "\n\t// Variable initializations:\n"
 
@@ -267,7 +263,8 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
 # As input is the only source of stimulus, this determines how much of the network
 # can be activated. Returns proportion of genes that can be reached
 def check_input_quality(all_genes):
-    out_connections = {"INPUT": []} # {protein_name : out connects [P1, P2, ...]}
+    # out_connections -> {protein_name : out connects [P1, P2, ...]}
+    out_connections = {"INPUT": []}
     for gene in all_genes:
         out_connections[gene.protein_name] = []
 
@@ -289,7 +286,7 @@ def check_input_quality(all_genes):
     return 1.0*reachable_genes/len(all_genes)
 
 
-# Converts the given network to a CSV format that is readable by the program Bio
+# Converts the given network to a CSV format that is readable by the program Biotapestry
 # and returns this as a string.
 # To load into Biotapestry: File > Import > Import Full Model Hierarchy from CSV
 def convert_to_biotapestry(all_genes):
@@ -312,13 +309,15 @@ def convert_to_biotapestry(all_genes):
                 biotap += "positive\n"
             elif reg_type == "Repressor":
                 biotap += "negative\n"
+            else:
+                raise ValueError("reg_type is not recognized")
 
     return biotap
 
 
 # Keeps track of the gene regulatory type, the protein name associated to this gene,
 # the other genes this gene has already been connected to, and the remaining connections to be made
-class Gene():
+class Gene:
 
     def __init__(self, protein_name, reg_type=None):
         # name of protein created by this gene
@@ -366,7 +365,7 @@ class Gene():
 
 # The following link gives some more information on disjoint sets (pg 32-57)
 # https://courses.cs.washington.edu/courses/cse373/18su/files/slides/lecture-19.pdf
-class DisjointSets():
+class DisjointSets:
 
     def __init__(self):
         # stores values that point towards index of head of disjoint set, or stores a sentinel value representing

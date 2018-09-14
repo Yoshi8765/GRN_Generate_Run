@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created by BioTapestry Thu Sep 13 13:43:56 PDT 2018 -->
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
+  <model name="Full_Genome" >
+    <listOfUnitDefinitions>
+      <unitDefinition name="volume">
+        <listOfUnits>
+          <unit kind="dimensionless"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition name="substance">
+        <listOfUnits>
+          <unit kind="item"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment name="A" />
+    </listOfCompartments>
+    <listOfSpecies>
+      <species name="btGene_3_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_1_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_8_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_2_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_4_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_5_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btINPUT_A" compartment="A" initialAmount="200.0" boundaryCondition="false" />
+      <species name="btGene_7_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+      <species name="btGene_6_A" compartment="A" initialAmount="0.0" boundaryCondition="false" />
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="KQ_0_3_1" value="10.0" />
+      <parameter name="KQ_1_8_8" value="10.0" />
+      <parameter name="KR_18_0" value="100000.0" />
+      <parameter name="KD_10" value="0.005" />
+      <parameter name="KD_12" value="0.005" />
+      <parameter name="KD_14" value="0.005" />
+      <parameter name="KD_18" value="0.005" />
+      <parameter name="KR_0_10" value="100000.0" />
+      <parameter name="DN_12" value="160000000.0" />
+      <parameter name="DN_10" value="160000000.0" />
+      <parameter name="DN_0" value="160000000.0" />
+      <parameter name="DN_14" value="160000000.0" />
+      <parameter name="KQ_0_10_10" value="10.0" />
+      <parameter name="DN_1" value="160000000.0" />
+      <parameter name="KR_14_3" value="100000.0" />
+      <parameter name="DN_3" value="160000000.0" />
+      <parameter name="KR_0_1" value="100000.0" />
+      <parameter name="DN_6" value="160000000.0" />
+      <parameter name="DN_8" value="160000000.0" />
+      <parameter name="KR_0_6" value="100000.0" />
+      <parameter name="KR_3_1" value="100000.0" />
+      <parameter name="KR_1_3" value="100000.0" />
+      <parameter name="KD_1" value="0.005" />
+      <parameter name="KD_0" value="0.005" />
+      <parameter name="KD_3" value="0.005" />
+      <parameter name="KD_8" value="0.005" />
+      <parameter name="KR_8_8" value="100000.0" />
+      <parameter name="KD_6" value="0.005" />
+      <parameter name="IM_10" value="5.45" />
+      <parameter name="IM_1" value="5.45" />
+      <parameter name="KR_1_12" value="100000.0" />
+      <parameter name="KQ_1_14_3" value="10.0" />
+      <parameter name="IM_12" value="5.45" />
+      <parameter name="IM_0" value="5.45" />
+      <parameter name="KR_12_14" value="100000.0" />
+      <parameter name="IM_14" value="5.45" />
+      <parameter name="KR_1_8" value="100000.0" />
+      <parameter name="IM_6" value="5.45" />
+      <parameter name="IM_3" value="5.45" />
+      <parameter name="KR_10_10" value="100000.0" />
+      <parameter name="IM_8" value="5.45" />
+      <parameter name="DEGRF_18_A" />
+      <parameter name="Y_0_A" />
+      <parameter name="CRMAS_0_A" />
+      <parameter name="TRNLR_0_A" />
+      <parameter name="DEGRF_0_A" />
+      <parameter name="Y_1_A" />
+      <parameter name="CRMAS_1_A" />
+      <parameter name="TRNLR_1_A" />
+      <parameter name="DEGRF_1_A" />
+      <parameter name="Y_12_A" />
+      <parameter name="CRMAS_12_A" />
+      <parameter name="TRNLR_12_A" />
+      <parameter name="DEGRF_12_A" />
+      <parameter name="Y_14_A" />
+      <parameter name="CRMAS_14_A" />
+      <parameter name="TRNLR_14_A" />
+      <parameter name="DEGRF_14_A" />
+      <parameter name="Y_3_A" />
+      <parameter name="CRMAS_3_A" />
+      <parameter name="TRNLR_3_A" />
+      <parameter name="DEGRF_3_A" />
+      <parameter name="Y_6_A" />
+      <parameter name="CRMAS_6_A" />
+      <parameter name="TRNLR_6_A" />
+      <parameter name="DEGRF_6_A" />
+      <parameter name="Y_8_A" />
+      <parameter name="CRMAS_8_A" />
+      <parameter name="TRNLR_8_A" />
+      <parameter name="DEGRF_8_A" />
+      <parameter name="Y_10_A" />
+      <parameter name="CRMAS_10_A" />
+      <parameter name="TRNLR_10_A" />
+      <parameter name="DEGRF_10_A" />
+    </listOfParameters>
+    <listOfRules>
+      <parameterRule name="Y_0_A" formula="((0)) / ((DN_0) + ((btINPUT_A)) + ((KR_18_0*btINPUT_A)))" />
+      <parameterRule name="CRMAS_0_A" formula="Y_0_A * IM_0" />
+      <parameterRule name="TRNLR_0_A" formula="CRMAS_0_A * 2.0" />
+      <parameterRule name="DEGRF_0_A" formula="KD_0 * btGene_3_A" />
+      <parameterRule name="Y_1_A" formula="(((DN_1)*(0+0)) + (KQ_0_3_1*((KR_0_1*btGene_3_A)*(KR_3_1*btGene_4_A)))) / ((DN_1^2.0) + ((DN_1)*(btGene_3_A+btGene_4_A)) + ((DN_1)*((KR_0_1*btGene_3_A)+(KR_3_1*btGene_4_A))) + (KQ_0_3_1*((KR_0_1*btGene_3_A)*(KR_3_1*btGene_4_A))))" />
+      <parameterRule name="CRMAS_1_A" formula="Y_1_A * IM_1" />
+      <parameterRule name="TRNLR_1_A" formula="CRMAS_1_A * 2.0" />
+      <parameterRule name="DEGRF_1_A" formula="KD_1 * btGene_1_A" />
+      <parameterRule name="Y_12_A" formula="(((KR_1_12*btGene_1_A))) / ((DN_12) + ((btGene_1_A)) + ((KR_1_12*btGene_1_A)))" />
+      <parameterRule name="CRMAS_12_A" formula="Y_12_A * IM_12" />
+      <parameterRule name="TRNLR_12_A" formula="CRMAS_12_A * 2.0" />
+      <parameterRule name="DEGRF_12_A" formula="KD_12 * btGene_8_A" />
+      <parameterRule name="Y_14_A" formula="((0)) / ((DN_14) + ((btGene_8_A)) + ((KR_12_14*btGene_8_A)))" />
+      <parameterRule name="CRMAS_14_A" formula="Y_14_A * IM_14" />
+      <parameterRule name="TRNLR_14_A" formula="CRMAS_14_A * 2.0" />
+      <parameterRule name="DEGRF_14_A" formula="KD_14 * btGene_2_A" />
+      <parameterRule name="Y_3_A" formula="(((DN_3)*(0+0)) + (0)) / ((DN_3^2.0) + ((DN_3)*(btGene_1_A+btGene_2_A)) + ((DN_3)*((KR_1_3*btGene_1_A)+(KR_14_3*btGene_2_A))) + (KQ_1_14_3*((KR_1_3*btGene_1_A)*(KR_14_3*btGene_2_A))))" />
+      <parameterRule name="CRMAS_3_A" formula="Y_3_A * IM_3" />
+      <parameterRule name="TRNLR_3_A" formula="CRMAS_3_A * 2.0" />
+      <parameterRule name="DEGRF_3_A" formula="KD_3 * btGene_4_A" />
+      <parameterRule name="Y_6_A" formula="((0)) / ((DN_6) + ((btGene_3_A)) + ((KR_0_6*btGene_3_A)))" />
+      <parameterRule name="CRMAS_6_A" formula="Y_6_A * IM_6" />
+      <parameterRule name="TRNLR_6_A" formula="CRMAS_6_A * 2.0" />
+      <parameterRule name="DEGRF_6_A" formula="KD_6 * btGene_5_A" />
+      <parameterRule name="Y_8_A" formula="(((DN_8)*(0+0)) + (0)) / ((DN_8^2.0) + ((DN_8)*(btGene_1_A+btGene_7_A)) + ((DN_8)*((KR_1_8*btGene_1_A)+(KR_8_8*btGene_7_A))) + (KQ_1_8_8*((KR_1_8*btGene_1_A)*(KR_8_8*btGene_7_A))))" />
+      <parameterRule name="CRMAS_8_A" formula="Y_8_A * IM_8" />
+      <parameterRule name="TRNLR_8_A" formula="CRMAS_8_A * 2.0" />
+      <parameterRule name="DEGRF_8_A" formula="KD_8 * btGene_7_A" />
+      <parameterRule name="Y_10_A" formula="(((DN_10)*(0+0)) + (KQ_0_10_10*((KR_0_10*btGene_3_A)*(KR_10_10*btGene_6_A)))) / ((DN_10^2.0) + ((DN_10)*(btGene_3_A+btGene_6_A)) + ((DN_10)*((KR_0_10*btGene_3_A)+(KR_10_10*btGene_6_A))) + (KQ_0_10_10*((KR_0_10*btGene_3_A)*(KR_10_10*btGene_6_A))))" />
+      <parameterRule name="CRMAS_10_A" formula="Y_10_A * IM_10" />
+      <parameterRule name="TRNLR_10_A" formula="CRMAS_10_A * 2.0" />
+      <parameterRule name="DEGRF_10_A" formula="KD_10 * btGene_6_A" />
+      <parameterRule name="DEGRF_18_A" formula="KD_18 * btINPUT_A" />
+    </listOfRules>
+    <listOfReactions>
+      <reaction name="REAC_0_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_3_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_0_A" />
+      </reaction>
+      <reaction name="REAC_1_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_1_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_1_A" />
+      </reaction>
+      <reaction name="REAC_12_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_8_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_12_A" />
+      </reaction>
+      <reaction name="REAC_14_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_2_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_14_A" />
+      </reaction>
+      <reaction name="REAC_3_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_4_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_3_A" />
+      </reaction>
+      <reaction name="REAC_6_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_5_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_6_A" />
+      </reaction>
+      <reaction name="REAC_8_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_7_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_8_A" />
+      </reaction>
+      <reaction name="REAC_10_A" reversible="false">
+        <listOfProducts>
+          <speciesReference species="btGene_6_A"/>
+        </listOfProducts>
+        <kineticLaw formula="TRNLR_10_A" />
+      </reaction>
+      <reaction name="DEGR_0_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_3_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_0_A" />
+      </reaction>
+      <reaction name="DEGR_1_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_1_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_1_A" />
+      </reaction>
+      <reaction name="DEGR_12_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_8_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_12_A" />
+      </reaction>
+      <reaction name="DEGR_14_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_2_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_14_A" />
+      </reaction>
+      <reaction name="DEGR_3_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_4_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_3_A" />
+      </reaction>
+      <reaction name="DEGR_6_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_5_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_6_A" />
+      </reaction>
+      <reaction name="DEGR_18_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btINPUT_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_18_A" />
+      </reaction>
+      <reaction name="DEGR_8_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_7_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_8_A" />
+      </reaction>
+      <reaction name="DEGR_10_A" reversible="false">
+        <listOfReactants>
+          <speciesReference species="btGene_6_A"/>
+        </listOfReactants>
+        <kineticLaw formula="DEGRF_10_A" />
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
