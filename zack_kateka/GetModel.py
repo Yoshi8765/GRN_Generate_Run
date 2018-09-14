@@ -200,7 +200,7 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     rules = {}
     ant_str += "\t// Assignment Rules (production rates used in reactions):\n"
     for i, gene in enumerate(all_genes):
-        type = gene.reg_type
+        reg_type = gene.reg_type
         inputs = gene.in_connections
         P1 = inputs[0].protein_name
         P2 = ""
@@ -215,31 +215,35 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
 
         num = ""
         denom = ""
-        if type == "SA":
+        if reg_type == "SA":
             num = '(' + K1 + '*' + P1 + '^' + H1 + ')'
             denom = '(1 +' + K1 + '*' + P1 + '^' + H1 + ')'
 
-        elif type == "SR":
+        elif reg_type == "SR":
             num = ' 1 '
             denom = '(1 +' + K1 + '*' + P1 + '^' + H1 + ')'
 
-        elif type == "DA":
+        elif reg_type == "DA":
             num = '(' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + '+ K1 + '*' + K3 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
             denom = '(1 + ' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + ' + K1 + '*' + K3 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
 
-        elif type == "DR":
+        elif reg_type == "DR":
             num = ' 1 '
             denom = '(1 + ' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + ' + K1 + '*' + K3 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
 
-        elif type == "SA+SR":
+        elif reg_type == "SA+SR":
             num = '(' + K1 + '*' + P1 + '^' + H1 + ')'
             denom = '(1 + ' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + '+ K1 + '*' + K2 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
-
+        
         else:
             raise ValueError("gene type does not match any of the 5 standard varieties")
 
         expression = "Vm" + str(i+1) + '*(' + num  + '/' + denom + ')'
-        rules["v" + str(i+1)] = expression
+        
+        if reg_type == "N/A":
+            rules["v"+str(i+1)] = ""
+        else:
+            rules["v" + str(i+1)] = expression
         ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
 
     ant_str += "\n\t// Reactions:\n"

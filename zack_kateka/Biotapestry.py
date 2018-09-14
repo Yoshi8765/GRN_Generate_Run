@@ -46,7 +46,9 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
 
     for protein_name in all_in_connects.keys():
         in_connects = all_in_connects[protein_name]
-        if len(in_connects) == 1:
+        if len(in_connects) == 0:
+            next_gene = Gene(protein_name, "N/A")
+        elif len(in_connects) == 1:
             if  in_connects[0][1] == "positive":
                 next_gene = Gene(protein_name, "SA")
             else:
