@@ -43,7 +43,7 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
 
             all_in_connects[target_name].append((source_name, reg_type))
     
-    print (all_in_connects)
+    #print (all_in_connects)
 
     for protein_name in all_in_connects.keys():
         in_connects = all_in_connects[protein_name]
