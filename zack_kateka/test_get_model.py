@@ -17,7 +17,8 @@ start = time.time()
 
 ant_str = convert_biotapestry_to_antimony("Biotapestry/8gene_broken.csv", 8, [1]*7)
 
-
+print (ant_str)
+       
 
 #ant_str = get_model(3, reg_probs=[0.3, 0.3, 0.2, 0.1, 0.1], reachability=1, init_params = [1]*7, param_std = 0, model_name = "test") 
 #ant_str2 = convert_biotapestry_to_antimony("test_biotapestry.csv",3,[1]*7 , model_name = "test")

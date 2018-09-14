@@ -26,9 +26,8 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
     all_genes = []
     converter = {"INPUT":Gene("INPUT")} # protein_name : Gene()
     for line in f:
-
+        line = line.replace("\"", "")
         words = line.split(",")
-        print(words)
         if words[0].rstrip() == "general":
             gene_source = words[3].rstrip()
             source_name = ""
@@ -43,6 +42,8 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
             reg_type = words[6].rstrip()
 
             all_in_connects[target_name].append((source_name, reg_type))
+    
+    print (all_in_connects)
 
     for protein_name in all_in_connects.keys():
         in_connects = all_in_connects[protein_name]

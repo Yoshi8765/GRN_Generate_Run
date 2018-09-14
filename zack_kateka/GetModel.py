@@ -235,13 +235,13 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
             num = '(' + K1 + '*' + P1 + '^' + H1 + ')'
             denom = '(1 + ' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + '+ K1 + '*' + K2 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
         
-        else:
-            raise ValueError("gene type does not match any of the 5 standard varieties")
+        # else:
+        #    raise ValueError("gene type does not match any of the 5 standard varieties")
 
         expression = "Vm" + str(i+1) + '*(' + num  + '/' + denom + ')'
         
         if reg_type == "N/A":
-            rules["v"+str(i+1)] = ""
+            rules["v"+str(i+1)] = "0"
         else:
             rules["v" + str(i+1)] = expression
         ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
