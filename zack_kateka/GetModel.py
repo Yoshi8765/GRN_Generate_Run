@@ -4,11 +4,12 @@ import time
 
 
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5],
-              param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0, max_builds = 1000):
+              param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0, max_builds = 1000, export = False):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
-    The pathway is fully connected, and contains no orphans. Also, saves a plain text file
-    containing the antimony string to a plain text file.
+    The pathway is fully connected, and contains no orphans. Also generates a CSV format compatible with
+    the Biotapestry program. Both are returned in a tuple (antimony, biotapestry).
+
 
     num_genes = number of genes included in the network (an INPUT is also included, but not counted as part of num_genes)
     reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
@@ -21,6 +22,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     reachability = lower bound for proportion of network that should be reachable by INPUT (allows filtering out of less active networks)
     self_feedback_min = lower bound for the number of self feedback loops that are desired in the network
     max_builds = maximum number of attempts to build model that matches desired specifications
+    export = if True, files model_name_antimony.txt and model_name_biotapestry.csv will be made in working directory
     """
     # Invalid parameter handling
 
@@ -104,23 +106,21 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
             #print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
             current_build += 1
         else:
-            ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
-
-            # creates file storing antimony string
-            f = open(model_name + "_antimony.txt", 'w')
-            f.write(ant_str)
-            f.close()
-
+            ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std) 
             biotap_str = convert_to_biotapestry(all_genes)
 
-            # creates file storing Biotapestry string in CSV format
-            f2 = open(model_name + "_biotapestry.csv", 'w')
-            f2.write(biotap_str)
-            f2.close()
+            if export:
+                f = open(model_name + "_antimony.txt", 'w')
+                f.write(ant_str)
+                f.close()
+
+                f2 = open(model_name + "_biotapestry.csv", 'w')
+                f2.write(biotap_str)
+                f2.close()
 
             print("\n\nThe reachability of this network from INPUT is " + str(round(quality*100)) +
                     "% and there are " + str(feedback_count) + " self feedback loops")
-            return ant_str
+            return (ant_str, biotap)
 
     raise TimeoutError("A model could not be generated with the desired specifications in the allotted number of builds." +
             "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)") 
