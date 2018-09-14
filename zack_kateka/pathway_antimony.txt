@@ -1,111 +1,61 @@
 model *pathway()
 
 	// Compartments and Species:
-	species INPUT, P1, mRNA1, P2, mRNA2, P3, mRNA3, P4, mRNA4, P5, mRNA5, P6, mRNA6, P7, mRNA7, P8, mRNA8, P9, mRNA9, P10, mRNA10, P11, mRNA11, P12, mRNA12, P13, mRNA13, P14, mRNA14, P15, mRNA15, P16, mRNA16, P17, mRNA17, P18, mRNA18, P19, mRNA19, P20, mRNA20;
+	species INPUT, P1, mRNA1, P2, mRNA2, P3, mRNA3, P4, mRNA4, P5, mRNA5, P6, mRNA6, P7, mRNA7, P8, mRNA8, P9, mRNA9, P10, mRNA10;
 
 	// Assignment Rules (production rates used in reactions):
-	// transcription1(SR : in connections = [P12]) uses production rate := Vm1*( 1 /(1 +K1_1*P12^H1));
-	// transcription2(DA : in connections = [P3, P13]) uses production rate := Vm2*((K1_2*P3^H2 + K2_2*P13^H2 + K1_2*K3_2*P3^H2*P13^H2)/(1 + K1_2*P3^H2 + K2_2*P13^H2 + K1_2*K3_2*P3^H2*P13^H2));
-	// transcription3(DA : in connections = [P8, P19]) uses production rate := Vm3*((K1_3*P8^H3 + K2_3*P19^H3 + K1_3*K3_3*P8^H3*P19^H3)/(1 + K1_3*P8^H3 + K2_3*P19^H3 + K1_3*K3_3*P8^H3*P19^H3));
-	// transcription4(SA : in connections = [P11]) uses production rate := Vm4*((K1_4*P11^H4)/(1 +K1_4*P11^H4));
-	// transcription5(DR : in connections = [P11, P8]) uses production rate := Vm5*( 1 /(1 + K1_5*P11^H5 + K2_5*P8^H5 + K1_5*K3_5*P11^H5*P8^H5));
-	// transcription6(SR : in connections = [P7]) uses production rate := Vm6*( 1 /(1 +K1_6*P7^H6));
-	// transcription7(DR : in connections = [P20, P19]) uses production rate := Vm7*( 1 /(1 + K1_7*P20^H7 + K2_7*P19^H7 + K1_7*K3_7*P20^H7*P19^H7));
-	// transcription8(SA+SR : in connections = [INPUT, P3]) uses production rate := Vm8*((K1_8*INPUT^H8)/(1 + K1_8*INPUT^H8 + K2_8*P3^H8 + K1_8*K2_8*INPUT^H8*P3^H8));
-	// transcription9(DR : in connections = [P13, P20]) uses production rate := Vm9*( 1 /(1 + K1_9*P13^H9 + K2_9*P20^H9 + K1_9*K3_9*P13^H9*P20^H9));
-	// transcription10(SR : in connections = [P19]) uses production rate := Vm10*( 1 /(1 +K1_10*P19^H10));
-	// transcription11(DA : in connections = [P17, P16]) uses production rate := Vm11*((K1_11*P17^H11 + K2_11*P16^H11 + K1_11*K3_11*P17^H11*P16^H11)/(1 + K1_11*P17^H11 + K2_11*P16^H11 + K1_11*K3_11*P17^H11*P16^H11));
-	// transcription12(SA : in connections = [P3]) uses production rate := Vm12*((K1_12*P3^H12)/(1 +K1_12*P3^H12));
-	// transcription13(DR : in connections = [P1, P20]) uses production rate := Vm13*( 1 /(1 + K1_13*P1^H13 + K2_13*P20^H13 + K1_13*K3_13*P1^H13*P20^H13));
-	// transcription14(DA : in connections = [P19, P3]) uses production rate := Vm14*((K1_14*P19^H14 + K2_14*P3^H14 + K1_14*K3_14*P19^H14*P3^H14)/(1 + K1_14*P19^H14 + K2_14*P3^H14 + K1_14*K3_14*P19^H14*P3^H14));
-	// transcription15(SA : in connections = [P5]) uses production rate := Vm15*((K1_15*P5^H15)/(1 +K1_15*P5^H15));
-	// transcription16(DR : in connections = [P19, P1]) uses production rate := Vm16*( 1 /(1 + K1_16*P19^H16 + K2_16*P1^H16 + K1_16*K3_16*P19^H16*P1^H16));
-	// transcription17(SA+SR : in connections = [P11, P2]) uses production rate := Vm17*((K1_17*P11^H17)/(1 + K1_17*P11^H17 + K2_17*P2^H17 + K1_17*K2_17*P11^H17*P2^H17));
-	// transcription18(SR : in connections = [P19]) uses production rate := Vm18*( 1 /(1 +K1_18*P19^H18));
-	// transcription19(SR : in connections = [P7]) uses production rate := Vm19*( 1 /(1 +K1_19*P7^H19));
-	// transcription20(SA : in connections = [P13]) uses production rate := Vm20*((K1_20*P13^H20)/(1 +K1_20*P13^H20));
+	// transcription1(DA : in connections = [P9, P3]) uses production rate := Vm1*((K1_1*P9^H1 + K2_1*P3^H1 + K1_1*K3_1*P9^H1*P3^H1)/(1 + K1_1*P9^H1 + K2_1*P3^H1 + K1_1*K3_1*P9^H1*P3^H1));
+	// transcription2(SR : in connections = [P4]) uses production rate := Vm2*( 1 /(1 +K1_2*P4^H2));
+	// transcription3(DA : in connections = [P3, P8]) uses production rate := Vm3*((K1_3*P3^H3 + K2_3*P8^H3 + K1_3*K3_3*P3^H3*P8^H3)/(1 + K1_3*P3^H3 + K2_3*P8^H3 + K1_3*K3_3*P3^H3*P8^H3));
+	// transcription4(SR : in connections = [P8]) uses production rate := Vm4*( 1 /(1 +K1_4*P8^H4));
+	// transcription5(DA : in connections = [INPUT, P6]) uses production rate := Vm5*((K1_5*INPUT^H5 + K2_5*P6^H5 + K1_5*K3_5*INPUT^H5*P6^H5)/(1 + K1_5*INPUT^H5 + K2_5*P6^H5 + K1_5*K3_5*INPUT^H5*P6^H5));
+	// transcription6(SA : in connections = [P10]) uses production rate := Vm6*((K1_6*P10^H6)/(1 +K1_6*P10^H6));
+	// transcription7(SA+SR : in connections = [P1, P10]) uses production rate := Vm7*((K1_7*P1^H7)/(1 + K1_7*P1^H7 + K2_7*P10^H7 + K1_7*K2_7*P1^H7*P10^H7));
+	// transcription8(SA+SR : in connections = [P5, P1]) uses production rate := Vm8*((K1_8*P5^H8)/(1 + K1_8*P5^H8 + K2_8*P1^H8 + K1_8*K2_8*P5^H8*P1^H8));
+	// transcription9(DR : in connections = [P10, P3]) uses production rate := Vm9*( 1 /(1 + K1_9*P10^H9 + K2_9*P3^H9 + K1_9*K3_9*P10^H9*P3^H9));
+	// transcription10(SA+SR : in connections = [P5, P6]) uses production rate := Vm10*((K1_10*P5^H10)/(1 + K1_10*P5^H10 + K2_10*P6^H10 + K1_10*K2_10*P5^H10*P6^H10));
 
 	// Reactions:
 	//transcription1
-	J1: => mRNA1 ; L1 + Vm1*( 1 /(1 +K1_1*P12^H1)) - d_mRNA1 * mRNA1;
+	J1: => mRNA1 ; L1 + Vm1*((K1_1*P9^H1 + K2_1*P3^H1 + K1_1*K3_1*P9^H1*P3^H1)/(1 + K1_1*P9^H1 + K2_1*P3^H1 + K1_1*K3_1*P9^H1*P3^H1)) - d_mRNA1 * mRNA1;
 	//translation1
 	F1: => P1 ; a_protein1 * mRNA1 - d_protein1 * P1;
 	//transcription2
-	J2: => mRNA2 ; L2 + Vm2*((K1_2*P3^H2 + K2_2*P13^H2 + K1_2*K3_2*P3^H2*P13^H2)/(1 + K1_2*P3^H2 + K2_2*P13^H2 + K1_2*K3_2*P3^H2*P13^H2)) - d_mRNA2 * mRNA2;
+	J2: => mRNA2 ; L2 + Vm2*( 1 /(1 +K1_2*P4^H2)) - d_mRNA2 * mRNA2;
 	//translation2
 	F2: => P2 ; a_protein2 * mRNA2 - d_protein2 * P2;
 	//transcription3
-	J3: => mRNA3 ; L3 + Vm3*((K1_3*P8^H3 + K2_3*P19^H3 + K1_3*K3_3*P8^H3*P19^H3)/(1 + K1_3*P8^H3 + K2_3*P19^H3 + K1_3*K3_3*P8^H3*P19^H3)) - d_mRNA3 * mRNA3;
+	J3: => mRNA3 ; L3 + Vm3*((K1_3*P3^H3 + K2_3*P8^H3 + K1_3*K3_3*P3^H3*P8^H3)/(1 + K1_3*P3^H3 + K2_3*P8^H3 + K1_3*K3_3*P3^H3*P8^H3)) - d_mRNA3 * mRNA3;
 	//translation3
 	F3: => P3 ; a_protein3 * mRNA3 - d_protein3 * P3;
 	//transcription4
-	J4: => mRNA4 ; L4 + Vm4*((K1_4*P11^H4)/(1 +K1_4*P11^H4)) - d_mRNA4 * mRNA4;
+	J4: => mRNA4 ; L4 + Vm4*( 1 /(1 +K1_4*P8^H4)) - d_mRNA4 * mRNA4;
 	//translation4
 	F4: => P4 ; a_protein4 * mRNA4 - d_protein4 * P4;
 	//transcription5
-	J5: => mRNA5 ; L5 + Vm5*( 1 /(1 + K1_5*P11^H5 + K2_5*P8^H5 + K1_5*K3_5*P11^H5*P8^H5)) - d_mRNA5 * mRNA5;
+	J5: => mRNA5 ; L5 + Vm5*((K1_5*INPUT^H5 + K2_5*P6^H5 + K1_5*K3_5*INPUT^H5*P6^H5)/(1 + K1_5*INPUT^H5 + K2_5*P6^H5 + K1_5*K3_5*INPUT^H5*P6^H5)) - d_mRNA5 * mRNA5;
 	//translation5
 	F5: => P5 ; a_protein5 * mRNA5 - d_protein5 * P5;
 	//transcription6
-	J6: => mRNA6 ; L6 + Vm6*( 1 /(1 +K1_6*P7^H6)) - d_mRNA6 * mRNA6;
+	J6: => mRNA6 ; L6 + Vm6*((K1_6*P10^H6)/(1 +K1_6*P10^H6)) - d_mRNA6 * mRNA6;
 	//translation6
 	F6: => P6 ; a_protein6 * mRNA6 - d_protein6 * P6;
 	//transcription7
-	J7: => mRNA7 ; L7 + Vm7*( 1 /(1 + K1_7*P20^H7 + K2_7*P19^H7 + K1_7*K3_7*P20^H7*P19^H7)) - d_mRNA7 * mRNA7;
+	J7: => mRNA7 ; L7 + Vm7*((K1_7*P1^H7)/(1 + K1_7*P1^H7 + K2_7*P10^H7 + K1_7*K2_7*P1^H7*P10^H7)) - d_mRNA7 * mRNA7;
 	//translation7
 	F7: => P7 ; a_protein7 * mRNA7 - d_protein7 * P7;
 	//transcription8
-	J8: => mRNA8 ; L8 + Vm8*((K1_8*INPUT^H8)/(1 + K1_8*INPUT^H8 + K2_8*P3^H8 + K1_8*K2_8*INPUT^H8*P3^H8)) - d_mRNA8 * mRNA8;
+	J8: => mRNA8 ; L8 + Vm8*((K1_8*P5^H8)/(1 + K1_8*P5^H8 + K2_8*P1^H8 + K1_8*K2_8*P5^H8*P1^H8)) - d_mRNA8 * mRNA8;
 	//translation8
 	F8: => P8 ; a_protein8 * mRNA8 - d_protein8 * P8;
 	//transcription9
-	J9: => mRNA9 ; L9 + Vm9*( 1 /(1 + K1_9*P13^H9 + K2_9*P20^H9 + K1_9*K3_9*P13^H9*P20^H9)) - d_mRNA9 * mRNA9;
+	J9: => mRNA9 ; L9 + Vm9*( 1 /(1 + K1_9*P10^H9 + K2_9*P3^H9 + K1_9*K3_9*P10^H9*P3^H9)) - d_mRNA9 * mRNA9;
 	//translation9
 	F9: => P9 ; a_protein9 * mRNA9 - d_protein9 * P9;
 	//transcription10
-	J10: => mRNA10 ; L10 + Vm10*( 1 /(1 +K1_10*P19^H10)) - d_mRNA10 * mRNA10;
+	J10: => mRNA10 ; L10 + Vm10*((K1_10*P5^H10)/(1 + K1_10*P5^H10 + K2_10*P6^H10 + K1_10*K2_10*P5^H10*P6^H10)) - d_mRNA10 * mRNA10;
 	//translation10
 	F10: => P10 ; a_protein10 * mRNA10 - d_protein10 * P10;
-	//transcription11
-	J11: => mRNA11 ; L11 + Vm11*((K1_11*P17^H11 + K2_11*P16^H11 + K1_11*K3_11*P17^H11*P16^H11)/(1 + K1_11*P17^H11 + K2_11*P16^H11 + K1_11*K3_11*P17^H11*P16^H11)) - d_mRNA11 * mRNA11;
-	//translation11
-	F11: => P11 ; a_protein11 * mRNA11 - d_protein11 * P11;
-	//transcription12
-	J12: => mRNA12 ; L12 + Vm12*((K1_12*P3^H12)/(1 +K1_12*P3^H12)) - d_mRNA12 * mRNA12;
-	//translation12
-	F12: => P12 ; a_protein12 * mRNA12 - d_protein12 * P12;
-	//transcription13
-	J13: => mRNA13 ; L13 + Vm13*( 1 /(1 + K1_13*P1^H13 + K2_13*P20^H13 + K1_13*K3_13*P1^H13*P20^H13)) - d_mRNA13 * mRNA13;
-	//translation13
-	F13: => P13 ; a_protein13 * mRNA13 - d_protein13 * P13;
-	//transcription14
-	J14: => mRNA14 ; L14 + Vm14*((K1_14*P19^H14 + K2_14*P3^H14 + K1_14*K3_14*P19^H14*P3^H14)/(1 + K1_14*P19^H14 + K2_14*P3^H14 + K1_14*K3_14*P19^H14*P3^H14)) - d_mRNA14 * mRNA14;
-	//translation14
-	F14: => P14 ; a_protein14 * mRNA14 - d_protein14 * P14;
-	//transcription15
-	J15: => mRNA15 ; L15 + Vm15*((K1_15*P5^H15)/(1 +K1_15*P5^H15)) - d_mRNA15 * mRNA15;
-	//translation15
-	F15: => P15 ; a_protein15 * mRNA15 - d_protein15 * P15;
-	//transcription16
-	J16: => mRNA16 ; L16 + Vm16*( 1 /(1 + K1_16*P19^H16 + K2_16*P1^H16 + K1_16*K3_16*P19^H16*P1^H16)) - d_mRNA16 * mRNA16;
-	//translation16
-	F16: => P16 ; a_protein16 * mRNA16 - d_protein16 * P16;
-	//transcription17
-	J17: => mRNA17 ; L17 + Vm17*((K1_17*P11^H17)/(1 + K1_17*P11^H17 + K2_17*P2^H17 + K1_17*K2_17*P11^H17*P2^H17)) - d_mRNA17 * mRNA17;
-	//translation17
-	F17: => P17 ; a_protein17 * mRNA17 - d_protein17 * P17;
-	//transcription18
-	J18: => mRNA18 ; L18 + Vm18*( 1 /(1 +K1_18*P19^H18)) - d_mRNA18 * mRNA18;
-	//translation18
-	F18: => P18 ; a_protein18 * mRNA18 - d_protein18 * P18;
-	//transcription19
-	J19: => mRNA19 ; L19 + Vm19*( 1 /(1 +K1_19*P7^H19)) - d_mRNA19 * mRNA19;
-	//translation19
-	F19: => P19 ; a_protein19 * mRNA19 - d_protein19 * P19;
-	//transcription20
-	J20: => mRNA20 ; L20 + Vm20*((K1_20*P13^H20)/(1 +K1_20*P13^H20)) - d_mRNA20 * mRNA20;
-	//translation20
-	F20: => P20 ; a_protein20 * mRNA20 - d_protein20 * P20;
 
 	// Species initializations:
 	INPUT = 1;
@@ -129,211 +79,101 @@ model *pathway()
 	P9 = 0;
 	mRNA10 = 0;
 	P10 = 0;
-	mRNA11 = 0;
-	P11 = 0;
-	mRNA12 = 0;
-	P12 = 0;
-	mRNA13 = 0;
-	P13 = 0;
-	mRNA14 = 0;
-	P14 = 0;
-	mRNA15 = 0;
-	P15 = 0;
-	mRNA16 = 0;
-	P16 = 0;
-	mRNA17 = 0;
-	P17 = 0;
-	mRNA18 = 0;
-	P18 = 0;
-	mRNA19 = 0;
-	P19 = 0;
-	mRNA20 = 0;
-	P20 = 0;
 
 	// Variable initializations:
-	d_protein1 = 0.641804623394;
-	d_mRNA1 = 0.813647106743;
-	L1 = 0.61783197638;
-	Vm1 = 27.869473727;
-	a_protein1 = 35.6796819904;
-	H1 = 1.0258012152;
-	K1_1 = 0.538357501871;
-	K2_1 = 0.388422230087;
-	K3_1 = 0.529746877026;
-	d_protein2 = 0.454647209635;
-	d_mRNA2 = 1.03797667;
-	L2 = 0.623611244419;
-	Vm2 = 28.4284782979;
-	a_protein2 = 23.0818231122;
-	H2 = 1.22961176042;
-	K1_2 = 0.638369365852;
-	K2_2 = 0.426497650238;
-	K3_2 = 0.552915710934;
-	d_protein3 = 0.264478289258;
-	d_mRNA3 = 1.08573795727;
-	L3 = 0.744300756637;
-	Vm3 = 21.0341877751;
-	a_protein3 = 20.0220974426;
-	H3 = 1.28229423213;
-	K1_3 = 0.630880372343;
-	K2_3 = 0.466621420363;
-	K3_3 = 0.546796132292;
-	d_protein4 = 0.398927063911;
-	d_mRNA4 = 1.05980117126;
-	L4 = 1.11349569367;
-	Vm4 = 41.6637263476;
-	a_protein4 = 24.0075705706;
-	H4 = 1.11062618375;
-	K1_4 = 0.438485447498;
-	K2_4 = 0.281216786835;
-	K3_4 = 0.71838433652;
-	d_protein5 = 0.539581469109;
-	d_mRNA5 = 1.27215397859;
-	L5 = 1.19305298423;
-	Vm5 = 27.1927097102;
-	a_protein5 = 28.2167021716;
-	H5 = 1.01295606257;
-	K1_5 = 0.688662615029;
-	K2_5 = 0.553572578857;
-	K3_5 = 0.737529758126;
-	d_protein6 = 0.46510552972;
-	d_mRNA6 = 0.976741672164;
-	L6 = 1.01902100152;
-	Vm6 = 40.575541132;
-	a_protein6 = 34.8501833943;
-	H6 = 1.4833731288;
-	K1_6 = 0.386112226389;
-	K2_6 = 0.456506230963;
-	K3_6 = 0.751671678991;
-	d_protein7 = 0.569187345005;
-	d_mRNA7 = 0.930510967401;
-	L7 = 0.774792150653;
-	Vm7 = 20.5633180867;
-	a_protein7 = 23.6296327957;
-	H7 = 1.07864108081;
-	K1_7 = 0.345162401907;
-	K2_7 = 0.662778914753;
-	K3_7 = 0.517621165141;
-	d_protein8 = 0.468582388954;
-	d_mRNA8 = 0.92877583333;
-	L8 = 0.699205077727;
-	Vm8 = 28.1160869387;
-	a_protein8 = 28.6742311461;
-	H8 = 0.93955768117;
-	K1_8 = 0.573824519276;
-	K2_8 = 0.521848810451;
-	K3_8 = 0.462514686937;
-	d_protein9 = 0.294910067953;
-	d_mRNA9 = 0.790855742406;
-	L9 = 0.650408472901;
-	Vm9 = 42.4811770928;
-	a_protein9 = 23.0264496755;
-	H9 = 1.02985485261;
-	K1_9 = 0.540456079355;
-	K2_9 = 0.28123036378;
-	K3_9 = 0.474244491777;
-	d_protein10 = 0.549575587631;
-	d_mRNA10 = 0.744903530441;
-	L10 = 0.866726809136;
-	Vm10 = 28.6198884027;
-	a_protein10 = 30.3754929707;
-	H10 = 0.718453426259;
-	K1_10 = 0.206650773043;
-	K2_10 = 0.334126107963;
-	K3_10 = 0.349268198414;
-	d_protein11 = 0.575913084738;
-	d_mRNA11 = 0.543332477667;
-	L11 = 0.87673208826;
-	Vm11 = 39.9623460663;
-	a_protein11 = 42.3584495282;
-	H11 = 0.775350357872;
-	K1_11 = 0.531320906481;
-	K2_11 = 0.497282692954;
-	K3_11 = 0.420495299464;
-	d_protein12 = 0.494972945381;
-	d_mRNA12 = 0.960522432913;
-	L12 = 0.954210933389;
-	Vm12 = 35.838523278;
-	a_protein12 = 34.4397363235;
-	H12 = 1.62397791824;
-	K1_12 = 0.404503692888;
-	K2_12 = 0.331481834219;
-	K3_12 = 0.557542542948;
-	d_protein13 = 0.525479739474;
-	d_mRNA13 = 0.844734537116;
-	L13 = 0.835397471793;
-	Vm13 = 54.2194562999;
-	a_protein13 = 22.2794692676;
-	H13 = 0.696379268928;
-	K1_13 = 0.494139570938;
-	K2_13 = 0.474073136407;
-	K3_13 = 0.496946735471;
-	d_protein14 = 0.393162177698;
-	d_mRNA14 = 1.10958959818;
-	L14 = 1.02876528122;
-	Vm14 = 35.460270213;
-	a_protein14 = 39.4401832133;
-	H14 = 0.602235165876;
-	K1_14 = 0.660052374604;
-	K2_14 = 0.508217872205;
-	K3_14 = 0.576412040618;
-	d_protein15 = 0.680101176013;
-	d_mRNA15 = 0.878561513244;
-	L15 = 0.981521874628;
-	Vm15 = 21.4077729478;
-	a_protein15 = 39.2093823853;
-	H15 = 1.12975743321;
-	K1_15 = 0.43151558318;
-	K2_15 = 0.565089695708;
-	K3_15 = 0.489752438202;
-	d_protein16 = 0.458521730495;
-	d_mRNA16 = 0.477108921293;
-	L16 = 0.961893282752;
-	Vm16 = 29.3416903492;
-	a_protein16 = 41.3578453136;
-	H16 = 1.26288257773;
-	K1_16 = 0.445784907001;
-	K2_16 = 0.500188860804;
-	K3_16 = 0.609032808938;
-	d_protein17 = 0.480875299001;
-	d_mRNA17 = 0.674045238503;
-	L17 = 0.952354242615;
-	Vm17 = 43.3955847915;
-	a_protein17 = 50.2869008878;
-	H17 = 0.982283041139;
-	K1_17 = 0.140819970244;
-	K2_17 = 0.463082812762;
-	K3_17 = 0.711780265256;
-	d_protein18 = 0.394675601805;
-	d_mRNA18 = 0.810294045029;
-	L18 = 1.01789255863;
-	Vm18 = 25.9867785076;
-	a_protein18 = 41.31446669;
-	H18 = 0.616807123555;
-	K1_18 = 0.617188949631;
-	K2_18 = 0.475261088224;
-	K3_18 = 0.600590619557;
-	d_protein19 = 0.316857562593;
-	d_mRNA19 = 0.494489478489;
-	L19 = 0.800724096536;
-	Vm19 = 28.779788155;
-	a_protein19 = 41.9086993644;
-	H19 = 0.694105815323;
-	K1_19 = 0.513568638282;
-	K2_19 = 0.222381681499;
-	K3_19 = 0.792879622378;
-	d_protein20 = 0.627458232801;
-	d_mRNA20 = 0.747921097376;
-	L20 = 0.877148036493;
-	Vm20 = 23.7682760738;
-	a_protein20 = 39.5832962291;
-	H20 = 1.00388446665;
-	K1_20 = 0.222763561438;
-	K2_20 = 0.269415310636;
-	K3_20 = 0.437225116765;
+	d_protein1 = 0.2859424569281239;
+	d_mRNA1 = 0.759397644422168;
+	L1 = 0.8453825225599989;
+	Vm1 = 37.3097076714869;
+	a_protein1 = 25.768538917837233;
+	H1 = 1.1124936976622304;
+	K1_1 = 0.3672765640675707;
+	K2_1 = 0.5122332481539515;
+	K3_1 = 0.3046963683257865;
+	d_protein2 = 0.28974308504078583;
+	d_mRNA2 = 0.9074628910297389;
+	L2 = 1.144029608936586;
+	Vm2 = 35.92963745028304;
+	a_protein2 = 43.450808383338014;
+	H2 = 0.8483202647614915;
+	K1_2 = 0.4118230572141487;
+	K2_2 = 0.34103190561849284;
+	K3_2 = 0.46564840350902975;
+	d_protein3 = 0.24224958727906587;
+	d_mRNA3 = 0.8256113369724007;
+	L3 = 0.7692079659391411;
+	Vm3 = 18.886943353079204;
+	a_protein3 = 31.258701978834598;
+	H3 = 1.045134966041638;
+	K1_3 = 0.5057880403882404;
+	K2_3 = 0.586750533414056;
+	K3_3 = 0.8463005953954927;
+	d_protein4 = 0.4350892221039264;
+	d_mRNA4 = 0.594595852154612;
+	L4 = 0.5181848718846327;
+	Vm4 = 29.965403288332237;
+	a_protein4 = 22.9144874176496;
+	H4 = 1.0542583128676595;
+	K1_4 = 0.528267543440458;
+	K2_4 = 0.7120590862854783;
+	K3_4 = 0.5083783381339022;
+	d_protein5 = 0.5399415123406295;
+	d_mRNA5 = 0.5424916278727802;
+	L5 = 0.8380965409710721;
+	Vm5 = 36.91189088664777;
+	a_protein5 = 37.50591713335236;
+	H5 = 0.7536648833846353;
+	K1_5 = 0.4703652618062597;
+	K2_5 = 0.24278137022227453;
+	K3_5 = 0.5529838329275669;
+	d_protein6 = 0.45101455707991184;
+	d_mRNA6 = 0.5505416796289702;
+	L6 = 0.499368568502438;
+	Vm6 = 24.533299965363774;
+	a_protein6 = 22.007192900229406;
+	H6 = 1.3197420481043045;
+	K1_6 = 0.48860119430612725;
+	K2_6 = 0.7039660837414691;
+	K3_6 = 0.53376743057743;
+	d_protein7 = 0.457136773437388;
+	d_mRNA7 = 1.2540027009430876;
+	L7 = 0.9327248165918476;
+	Vm7 = 35.259057740999744;
+	a_protein7 = 26.73703950065158;
+	H7 = 0.855123421692644;
+	K1_7 = 0.4421651665807346;
+	K2_7 = 0.4812762611871075;
+	K3_7 = 0.5026161707693747;
+	d_protein8 = 0.5751942865140451;
+	d_mRNA8 = 0.8713737301456216;
+	L8 = 0.7885429989081658;
+	Vm8 = 33.93646488832987;
+	a_protein8 = 17.639076358213046;
+	H8 = 1.4464781689547779;
+	K1_8 = 0.6012292184117043;
+	K2_8 = 0.523219722878709;
+	K3_8 = 0.44478299118607645;
+	d_protein9 = 0.498826725964685;
+	d_mRNA9 = 1.04341848183588;
+	L9 = 0.8112517933932821;
+	Vm9 = 35.276167956514556;
+	a_protein9 = 33.37379503853792;
+	H9 = 1.0186485727142927;
+	K1_9 = 0.5885364526816272;
+	K2_9 = 0.5989233707102254;
+	K3_9 = 0.5533207188734195;
+	d_protein10 = 0.4726055901391587;
+	d_mRNA10 = 0.9844086270659351;
+	L10 = 0.6736163820390039;
+	Vm10 = 27.0465299416153;
+	a_protein10 = 31.37487327300656;
+	H10 = 1.2114860455122014;
+	K1_10 = 0.405525536823219;
+	K2_10 = 0.3657647123261273;
+	K3_10 = 0.2732951174033703;
 
 	// Other declarations:
-	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8, d_protein9, d_mRNA9, L9, Vm9, a_protein9, H9, K1_9, K2_9, K3_9, d_protein10, d_mRNA10, L10, Vm10, a_protein10, H10, K1_10, K2_10, K3_10, d_protein11, d_mRNA11, L11, Vm11, a_protein11, H11, K1_11, K2_11, K3_11, d_protein12, d_mRNA12, L12, Vm12, a_protein12, H12, K1_12, K2_12, K3_12, d_protein13, d_mRNA13, L13, Vm13, a_protein13, H13, K1_13, K2_13, K3_13, d_protein14, d_mRNA14, L14, Vm14, a_protein14, H14, K1_14, K2_14, K3_14, d_protein15, d_mRNA15, L15, Vm15, a_protein15, H15, K1_15, K2_15, K3_15, d_protein16, d_mRNA16, L16, Vm16, a_protein16, H16, K1_16, K2_16, K3_16, d_protein17, d_mRNA17, L17, Vm17, a_protein17, H17, K1_17, K2_17, K3_17, d_protein18, d_mRNA18, L18, Vm18, a_protein18, H18, K1_18, K2_18, K3_18, d_protein19, d_mRNA19, L19, Vm19, a_protein19, H19, K1_19, K2_19, K3_19, d_protein20, d_mRNA20, L20, Vm20, a_protein20, H20, K1_20, K2_20, K3_20;
+	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8, d_protein9, d_mRNA9, L9, Vm9, a_protein9, H9, K1_9, K2_9, K3_9, d_protein10, d_mRNA10, L10, Vm10, a_protein10, H10, K1_10, K2_10, K3_10;
 
 
 end

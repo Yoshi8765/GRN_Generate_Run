@@ -3,7 +3,8 @@ import time
 
 
 
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway", init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5], param_std = 0.25, seed = 0, reachability=0.9):
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",
+        init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5], param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
     The pathway is fully connected, and contains no orphans. Also, saves a plain text file
@@ -18,7 +19,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
                 parameters will be generated using distribution ~N(mean in init_params, param_std * mean)
     seed = controls seed for randomly generated portions of this method
     reachability = lower bound for proportion of network that should be reachable by INPUT (allows filtering out of less active networks)
-
+    self_feedback_min = lower bound for the number of self feedback loops that are desired in the network
     """
     # Invalid parameter handling
 
@@ -46,6 +47,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     if not (type(param_std) == float or type(param_std) == int) or param_std < 0:
         raise ValueError("param_std must be a positive number")
+
+    if not type(self_feedback_min == int) or self_feedback_min < 0:
+        raise ValueError("self_feedback_min must be a non-negative integer")
 
     if seed == 0:
         np.random.seed()
@@ -84,14 +88,16 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     for gene in all_genes:
         gene_sets.make_set(gene.protein_name, -1*(gene.remaining_connections + 1))
 
-    assign_connections(all_genes, gene_sets)
+    # number of self feedback loops created
+    feedback_count = assign_connections(all_genes, gene_sets)
 
     # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
     # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
     # is poorly reachable from INPUT (leading to a low activity network
     quality = check_input_quality(all_genes)
-    if not gene_sets.get_set_count() == 1 or quality < reachability:
-        return get_model(num_genes, reg_probs, model_name, init_params)
+    if not gene_sets.get_set_count() == 1 or quality < reachability or feedback_count < self_feedback_min:
+        return get_model(num_genes, reg_probs=reg_probs, model_name=model_name, init_params=init_params,
+                param_std=param_std, seed=seed, reachability=reachability, self_feedback_min=self_feedback_min)
     else:
         ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
 
@@ -107,7 +113,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
         f2.write(biotap_str)
         f2.close()
 
-        print("\n\nThe reachability of this network from INPUT is " + str(quality) + "\n")
+        print("\n\nThe reachability of this network from INPUT is " + str(quality) + " and there are " + str(feedback_count) + " self feedback loops\n")
         return ant_str
 
 
@@ -125,10 +131,14 @@ def assign_connections(all_genes, gene_sets):
     input_gene = np.random.choice(all_genes)
     input_gene.add_in_connection(Gene("INPUT"))
     gene_sets.decrement_value(input_gene.protein_name)
-
+    
+    #keep track of the total # of unassigned connections within entire network
     total_connections_left = sum([gene.remaining_connections for gene in all_genes])
-
-    # go gene to gene and fill in any empty regulatory sites
+    
+    # keeps track of the number of self feedback loops created
+    feedback_count = 0
+   
+   # go gene to gene and fill in any empty regulatory sites
     for gene in all_genes:
 
         # while the gene still has unoccupied/unassigned regulatory sites
@@ -162,7 +172,10 @@ def assign_connections(all_genes, gene_sets):
                 gene_sets.decrement_value(name1)
                 gene.add_in_connection(gene_to_add)
                 total_connections_left -= 1
-
+                if name1 == name2:
+                    feedback_count += 1
+    
+    return feedback_count
 
 # converts the generated network to an antimony string
 # to load, use tellurium.loada(ant_str)

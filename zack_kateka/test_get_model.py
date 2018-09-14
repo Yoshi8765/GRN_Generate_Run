@@ -15,7 +15,7 @@ from Biotapestry import convert_biotapestry_to_antimony
 
 start = time.time()
 
-ant_str = get_model(20, reg_probs=[0.2, 0.2, 0.2, 0.2, 0.2], reachability= 0.9, seed = 2**33-2)
+ant_str = get_model(10, reg_probs=[0.2, 0.2, 0.2, 0.2, 0.2], reachability= 0.9, self_feedback_min = 1) 
 
 
 #r=te.loada(ant_str)
