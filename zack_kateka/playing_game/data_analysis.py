@@ -23,7 +23,7 @@ plt.yscale('log')
 
 
 #selections =['time'] + ["mRNA" + str(i+1) for i in range(8)]
-#r = te.loada(ant_str)
+r = te.loada(ant_str)
 #r.simulate(0,50,100, selections=selections) #TO DO: update so time scale matches data
 #r.plot()
 
@@ -57,8 +57,12 @@ print(ids)
 paramsets = next_paramset(param_possibilities)
 for vals in paramsets:
     for i, param in enumerate(ids):
-        val = vals[i]
+        if i % 9 < 6:
+            val = vals[i%9]
+        else:
+            val = vals[6]
+        r.resetToOrigin()
         exec("r.%s = %d" % (param, val))
-
+        r.simulate(0,50,10)
 
 
