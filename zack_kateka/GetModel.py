@@ -251,7 +251,7 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
         ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
 
     var_names = ["d_protein", "d_mRNA", "L", "Vm", "a_protein", "H", "K1_", "K2_", "K3_"]
-    ant_str += "\tconst "
+    ant_str += "\n\tconst "
     for i in range(len(all_genes)):
         for var in var_names:
             ant_str += var + str(i+1) + ", "
@@ -284,8 +284,6 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
             std = mean * std_dev_perc
             value = np.random.normal(loc=mean, scale=std)
             ant_str += "\t" + var + str(i+1) + " = " + str(value) + ";\n"
-
-    ant_str += "\n\t// Other declarations:\n"
 
     ant_str += "\n\nend"
     return ant_str
