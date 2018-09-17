@@ -16,8 +16,10 @@ ant_str = convert_biotapestry_to_antimony("8gene_broken.csv",8, [1]*7)
 
 var_names = list(rna_data)
 
-#rna_data.iloc[::20].plot(style='.-')
-#plt.yscale('log')
+
+rna_data.iloc[::30].plot(style='.-')
+plt.yscale('log')
+
 
 
 #selections =['time'] + ["mRNA" + str(i+1) for i in range(8)]

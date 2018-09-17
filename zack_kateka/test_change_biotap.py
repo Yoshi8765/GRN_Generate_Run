@@ -13,11 +13,11 @@ csv_filename="Biotapestry/8gene_network.csv"
 csv_filename2="Biotapestry/8gene_broken.csv"
 csv_newfile="Biotapestry/8gene_broken3.csv"
 
-remove=[(1,4),(3,5),(1,7),(1,8),(2,4),(7,7)]
-remove_biotapestry(remove, csv_filename, csv_filename2)
+#remove=[(1,4),(3,5),(1,7),(1,8),(2,4),(7,7)]
+#remove_biotapestry(remove, csv_filename, csv_filename2)
 
 # 1=positive, -1=negative
-add = [(5,3,1),(7,8,-1),(1,4,1)]
+add = [(1,8,1),(3,8,1)]
 add_biotapestry(add, csv_filename2, csv_newfile)
 
 
