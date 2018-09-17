@@ -10,7 +10,7 @@
 * Nothing can act on INPUT
 * Your experimental data will have error
 * All of the currently provided connections are correct
-
+* INPUT is constant at 1 unit
 
 
 COSTS
@@ -19,5 +19,9 @@ COSTS
 * GFP Protein (up to 3)				200/500/850
 
 * Full gene knockout (Gene Deletion)		1000 
-* Partial gene knockout (CRISPR-based)		350
-* Partial gene upregulation (CRISPR-based)	350
+* Partial gene knockout (CRISPR-based)		350/550
+	* arbitrary (20%-50%)
+	* choice (20%,30%,40%,50%)
+* Partial gene upregulation (CRISPR-based)	350/550
+        * arbitrary (20%-50%)
+        * choice (20%,30%,40%,50%)

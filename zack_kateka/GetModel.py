@@ -250,6 +250,13 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
             rules["v" + str(i+1)] = expression
         ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
 
+    ant_str += "\tconst "
+    for i in range(len(all_genes)):
+        for var in var_names:
+            ant_str += var + str(i+1) + ", "
+    ant_str = ant_str[:-2] + ";\n"
+
+
     ant_str += "\n\t// Reactions:\n"
     for i in range(len(all_genes)):
         ant_str += "\t//transcription" + str(i+1) + "\n"
@@ -262,8 +269,6 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i in range(len(all_genes)):
         ant_str += "\tmRNA" + str(i+1) + " = 0;\n"
         ant_str += "\tP" + str(i + 1) + " = 0;\n"
-
-    ant_str += "\n\t// Variable initializations:\n"
 
     var_names = ["d_protein", "d_mRNA", "L", "Vm", "a_protein", "H", "K1_", "K2_", "K3_"]
     for i in range(len(all_genes)):
@@ -280,12 +285,6 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
             ant_str += "\t" + var + str(i+1) + " = " + str(value) + ";\n"
 
     ant_str += "\n\t// Other declarations:\n"
-
-    ant_str += "\tconst "
-    for i in range(len(all_genes)):
-        for var in var_names:
-            ant_str += var + str(i+1) + ", "
-    ant_str = ant_str[:-2] + ";\n"
 
     ant_str += "\n\nend"
     return ant_str
