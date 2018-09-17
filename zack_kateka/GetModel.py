@@ -250,6 +250,7 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
             rules["v" + str(i+1)] = expression
         ant_str += "\t// transcription" + str(i+1) + "("+str(gene.reg_type)+" : in connections = " + str(gene.in_connections)+ ")" + " uses production rate := " + expression +  ";\n"
 
+    var_names = ["d_protein", "d_mRNA", "L", "Vm", "a_protein", "H", "K1_", "K2_", "K3_"]
     ant_str += "\tconst "
     for i in range(len(all_genes)):
         for var in var_names:
