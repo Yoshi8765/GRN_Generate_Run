@@ -7,8 +7,6 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
     """
     converts a biotapestry CSV format to an antimony string
 
-
-
     init_params = parameter values (i.e. rate constants) to be used in the system.
     csv_filename = must be a gene network in the csv format specified by Biotapestry
 
@@ -28,18 +26,18 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
     for line in f:
         line = line.replace("\"", "")
         words = line.split(",")
-        if words[0].rstrip() == "general":
-            gene_source = words[3].rstrip()
+        if words[0].strip() == "general":
+            gene_source = words[3].strip()
             source_name = ""
             if gene_source == "INPUT":
                 source_name = "INPUT"
             else:
-                source_name = "P" + gene_source[5:].rstrip()
+                source_name = "P" + gene_source[5:].strip()
 
-            gene_target = words[5].rstrip()
-            target_name = "P" + gene_target[5:].rstrip()
+            gene_target = words[5].strip()
+            target_name = "P" + gene_target[5:].strip()
             
-            reg_type = words[6].rstrip()
+            reg_type = words[6].strip()
 
             all_in_connects[target_name].append((source_name, reg_type))
     

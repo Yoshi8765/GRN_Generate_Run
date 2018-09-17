@@ -1,0 +1,20 @@
+# Model Commands,,,,,,
+model,root,,,,,
+,,,,,,
+# Region Commands,,,,,,
+,,,,,,
+# Root Model Interaction Commands,,,,,,
+general,root,gene,Gene 3,gene,Gene 1,positive
+general,root,gene,Gene 4,gene,Gene 1,positive
+,,,,,,
+nodeOnly,root,gene,Gene 7,,,
+nodeOnly,root,gene,Gene 5,,,
+general,root,gene,Gene 3,gene,Gene 6,positive
+,,,,,,
+,,,,,,
+general,root,gene,Gene 6,gene,Gene 6,positive
+general,root,gene,Gene 8,gene,Gene 2,negative
+general,root,box,INPUT,gene,Gene 3,negative
+,,,,,,
+,,,,,,
+# Instance Interaction Commands,,,,,,
