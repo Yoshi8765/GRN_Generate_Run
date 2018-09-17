@@ -6,9 +6,21 @@ Created on Mon Sep 17 09:44:50 2018
 """
 
 from change_biotapestry import remove_biotapestry
+from change_biotapestry import add_biotapestry
+
+
+csv_filename="Biotapestry/8gene_network.csv"
+csv_filename2="Biotapestry/8gene_broken.csv"
+csv_newfile="Biotapestry/8gene_broken3.csv"
 
 remove=[(1,4),(3,5),(1,7),(1,8),(2,4),(7,7)]
-csv_filename="Biotapestry/8gene_network.csv"
-csv_newfile="Biotapestry/8gene_broken.csv"
+remove_biotapestry(remove, csv_filename, csv_filename2)
 
-remove_biotapestry(remove, csv_filename, csv_newfile)
+# 1=positive, -1=negative
+add = [(5,3,1),(7,8,-1),(1,4,1)]
+add_biotapestry(add, csv_filename2, csv_newfile)
+
+
+
+    
+        
