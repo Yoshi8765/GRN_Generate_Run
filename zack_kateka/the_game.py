@@ -15,9 +15,10 @@ import roadrunner
 import antimony
 
 ant_str = convert_biotapestry_to_antimony("Biotapestry/8gene_broken.csv", 8, [1]*7)
+print(ant_str)
 r=te.loada(ant_str)
 leaks=["time","P8","P5","P7","P4"]
 protein=["time", "INPUT","P1","P2","P3","P4","P5","P6","P7","P8"]
-r.simulate(0,20,100,leaks)
-r.plot(figsize=[7,7],ylim=[0,300],linewidth=2) 
+r.simulate(0,20,100,protein)
+r.plot(figsize=[7,7],ylim=[0,2],linewidth=2) 
 

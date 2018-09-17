@@ -13,6 +13,10 @@ model *pathway()
         // transcription7(N/A : in connections = []) uses production rate := Vm7*(/);
         // transcription8(N/A : in connections = []) uses production rate := Vm8*(/);
 
+
+        // Other declarations:
+        const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8;
+
         // Reactions:
         //transcription1
         J1: => mRNA1 ; L1 + Vm1*((K1_1*P3^H1 + K2_1*P4^H1 + K1_1*K3_1*P3^H1*P4^H1)/(1 + K1_1*P3^H1 + K2_1*P4^H1 + K1_1*K3_1*P3^H1*P4^H1)) - d_mRNA1 * mRNA1;
@@ -140,5 +144,4 @@ model *pathway()
         K2_8 = 0.5;
         K3_8 = 0.5;
 
-        // Other declarations:
-        const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8;
+        
