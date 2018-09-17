@@ -4,14 +4,17 @@ Created on Mon Sep 17 09:38:56 2018
 
 @author: Kateka Seth
 """
-# Given a biotapestry csv file, removes connections specified by remove. Prints
-# a new csv file to given location. 
-#
-#:param add: A list containing int tuples of connections to be remove. The tuple
-#            should be formatted as (source,target). Ex: (1,3) to remove connection
-#           starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
-#:param csv_filename: Location with name of the original csv file
-#:param csv_newfile: Location with new file name 
+
+"""
+Given a biotapestry csv file, removes connections specified by remove. Prints
+a new csv file to given location. 
+
+:param add: A list containing int tuples of connections to be remove. The tuple
+            should be formatted as (source,target). Ex: (1,3) to remove connection
+           starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
+:param csv_filename: Location with name of the original csv file
+:param csv_newfile: Location with new file name 
+"""
 def remove_biotapestry(remove, csv_filename, csv_newfile):
     f = open(csv_filename)
     f_new = open(csv_newfile,'w')
@@ -47,16 +50,17 @@ def remove_biotapestry(remove, csv_filename, csv_newfile):
     f.close()
     f_new.close()
 
+"""
+Given a biotapestry csv file, adds new connections specified by add. Prints
+a new csv file to given location. 
 
-# Given a biotapestry csv file, adds new connections specified by add. Prints
-# a new csv file to given location. 
-#
-#:param add: A list containing tuples of connections to be added. The tuple
-#             should be formatted as (source,target,type), where type is 1 for
-#             a positive connection and -1 for a negative connection. 
-#             Use "INPUT" for "INPUT" box.
-#:param csv_filename: Location with name of the original csv file
-#:param csv_newfile: Location with new file name 
+:param add: A list containing tuples of connections to be added. The tuple
+             should be formatted as (source,target,type), where type is 1 for
+             a positive connection and -1 for a negative connection. 
+             Use "INPUT" for "INPUT" box.
+:param csv_filename: Location with name of the original csv file
+:param csv_newfile: Location with new file name 
+"""
 def add_biotapestry(add, csv_filename, csv_newfile):
     f = open(csv_filename)
     f_new = open(csv_newfile,'w')
