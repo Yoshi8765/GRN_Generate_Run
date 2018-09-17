@@ -11,10 +11,13 @@ for i in range(100):
     errors.append(errors[i] + next_error)
     errors_std.append(next_error)
 
-plt.subplot(211)
+plt.subplot(311)
 plt.plot(errors)
 
-plt.subplot(212)
+plt.subplot(312)
 plt.plot(errors_std)
 plt.show()
     
+plt.subplot(313)
+
+for i in range(1,len(errors)-1):
