@@ -106,7 +106,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
             #print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
             current_build += 1
         else:
-            ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std) 
+            ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)
             biotap_str = convert_to_biotapestry(all_genes)
 
             if export:
@@ -120,10 +120,10 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
             print("\n\nThe reachability of this network from INPUT is " + str(round(quality*100)) +
                     "% and there are " + str(feedback_count) + " self feedback loops")
-            return (ant_str, biotap)
+            return (ant_str, biotap_str)
 
     raise TimeoutError("A model could not be generated with the desired specifications in the allotted number of builds." +
-            "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)") 
+            "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)")
 
 
 # Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
@@ -140,13 +140,13 @@ def assign_connections(all_genes, gene_sets):
     input_gene = np.random.choice(all_genes)
     input_gene.add_in_connection(Gene("INPUT"))
     gene_sets.decrement_value(input_gene.protein_name)
-    
+
     #keep track of the total # of unassigned connections within entire network
     total_connections_left = sum([gene.remaining_connections for gene in all_genes])
-    
+
     # keeps track of the number of self feedback loops created
     feedback_count = 0
-   
+
    # go gene to gene and fill in any empty regulatory sites
     for gene in all_genes:
 
@@ -183,7 +183,7 @@ def assign_connections(all_genes, gene_sets):
                 total_connections_left -= 1
                 if name1 == name2:
                     feedback_count += 1
-    
+
     return feedback_count
 
 # converts the generated network to an antimony string
@@ -202,7 +202,7 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i, gene in enumerate(all_genes):
         reg_type = gene.reg_type
         inputs = gene.in_connections
-        if (len(inputs) > 1):
+        if (len(inputs) > 0):
             P1 = inputs[0].protein_name
         if len(inputs) == 2:
             P2 = inputs[1].protein_name
@@ -234,12 +234,12 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
         elif reg_type == "SA+SR":
             num = '(' + K1 + '*' + P1 + '^' + H1 + ')'
             denom = '(1 + ' + K1 + '*' + P1 + '^' + H1 + ' + ' + K2 + '*' + P2 + '^' + H1 + ' + '+ K1 + '*' + K2 + '*' + P1 + '^' + H1 + '*' + P2 + '^' + H1 + ')'
-        
+
         # else:
         #    raise ValueError("gene type does not match any of the 5 standard varieties")
 
         expression = "Vm" + str(i+1) + '*(' + num  + '/' + denom + ')'
-        
+
         if reg_type == "N/A":
             rules["v"+str(i+1)] = "0"
         else:

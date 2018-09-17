@@ -11,14 +11,20 @@ import imp
 GRAPH_LABEL_FONTSIZE = 8
 GRAPH_TITLE_FONTSIZE = 10
 
-def run_model(antStr,noiseLevel,exportData=[ [0],'P','y','y','y','y'],savePath='\\model_output\\',showTimePlots='y',seed=0,drawModel=['y','fdp'],runAttempts=5,tmax=60):
+# TODO: Input specifications
+# TODO: specify resolutions
+# TODO: perturbations?
+# TODO: Masspec or rnaseq with all species
+# RNASeq
+
+def run_model(antStr,noiseLevel,exportData=[ [0],'P','y','y','y','y','y'],savePath='\\model_output\\',showTimePlots='y',seed=0,drawModel=['y','fdp'],runAttempts=5,tmax=60,biotap=''):
     """Asserts Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments:
         antStr:
         noiseLevel:
         exportData:
-            [genesToExport,dataType ('P'rotein or 'M'rNA),csv,sbml,antimony,seed]
+            [genesToExport,dataType ('P'rotein or 'M'rNA),csv,biotapestryCSV,sbml,antimony,seed]
         savePath:
         showTimePlots:
         seed:
@@ -92,8 +98,8 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P','y','y','y','y'],savePath='
             if showTimePlots=='y':
                 makePlots(tmax,numGenes,exportData,filesPath,result,noiseLevel,resultNoisy)
 
-            # Export data
-            Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr)
+            # Export datasets
+            Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,biotap)
 
             # Draw the model (requires pygraphviz module)
             if drawModel[0]=='y':
@@ -111,7 +117,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P','y','y','y','y'],savePath='
 
 ###### Other Functions that GetModel uses ######
 
-def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr):
+def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,biotap):
     # export csv of results
     if exportData[2]=='y':
         outputSpecies = range(int(np.size(result,1)))
@@ -121,19 +127,28 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
             if exportData[1]=='M':
                 exportData = [x.__add__(1) for x in exportData[0]]
                 outputSpecies = [gene for gene in exportData[0]]
-        writecsvFile(filesPath + 'Results_Clean.csv',model,result[:,outputSpecies])
+        else:
+            if exportData[1]=='P':
+                outputSpecies = outputSpecies[1::2]
+            if exportData[1]=='M':
+                outputSpecies = outputSpecies[2::2]
+        writecsvFile(outputSpecies,filesPath + 'Results_Clean.csv',model,result[:,outputSpecies])
         if noiseLevel != 0:
-            writecsvFile(filesPath + 'Noisy_Result.csv',model,result[:,outputSpecies])
-    # export SBML model text
+            writecsvFile(outputSpecies,filesPath + 'Noisy_Result.csv',model,resultNoisy[:,outputSpecies])
     if exportData[3]=='y':
+        f2 = open(filesPath + "biotapestry.csv", 'w')
+        f2.write(biotap)
+        f2.close()
+    # export SBML model text
+    if exportData[4]=='y':
         sbmlStr = model.getSBML()
         te.saveToFile (filesPath + 'OrigModel.xml', sbmlStr)
     # export Antimony model text
-    if exportData[4]=='y':
+    if exportData[5]=='y':
         fh = open(filesPath + 'OrigAntimony.txt', 'wb')
         fh.write(str(antStr))
     # export txt of seed number
-    if exportData[5]=='y':
+    if exportData[6]=='y':
         if seed == 0:
             fh = open(filesPath + 'Seed.txt', 'wb')
             fh.write('Random Seed not chosen.')
@@ -144,15 +159,15 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
     print('\nData Saved!\n')
 
 # function for exporting to csv
-def writecsvFile (exportData,filesPath, model, data):
-    names = model.getFloatingSpeciesIds()
-    if exportData[0]!=0:
-        if exportData[1]=='P':
-            outputSpecies = [gene for gene in exportData[0]]
-        if exportData[1]=='M':
-            exportData = [x.__add__(1) for x in exportData[0]]
-            outputSpecies = [gene for gene in exportData[0]]
-    names = names[outputSpecies]
+def writecsvFile (outputSpecies,filesPath, model, data):
+#    names = model.getFloatingSpeciesIds()
+#    if exportData[0]!=0:
+#        if exportData[1]=='P':
+#            outputSpecies = [gene for gene in exportData[0]]
+#        if exportData[1]=='M':
+#            exportData = [x.__add__(1) for x in exportData[0]]
+#            outputSpecies = [gene for gene in exportData[0]]
+    names = np.array(model.getFloatingSpeciesIds())[outputSpecies]
     header_string = names[0]
     for name in names[1-len(names):]:
         header_string = header_string + ',' + name
@@ -174,29 +189,32 @@ def makePlots(tmax,numGenes,exportData,filesPath,result,noiseLevel,resultNoisy):
     global GRAPH_LABEL_FONTSIZE
     global GRAPH_TITLE_FONTSIZE
 
+    outputSpecies = range(int(np.size(result,1)))
     if exportData[0]!=0:
-        numGenes = len(exportData[0])
-        outputGenes = [gene for gene in exportData[0]]
+        outputSpecies = [gene for gene in exportData[0]]
+    else:
+        outputSpecies = outputSpecies[2::2]
 
     # create a plot for clean data
     jet = plt.get_cmap('jet')
     pickColorSpace = [int(np.floor(i)) for i in np.linspace(0,255,numGenes)]
     colors = jet(pickColorSpace)
-    colors = jet(np.linspace(0,1,numGenes))
+    colors = jet(np.linspace(0,1,len(outputSpecies)))
+
     vars = {'P':[],'M':[]}
     for e in vars.keys():
         plt.figure(1)
-        for k in np.arange(0,numGenes):
+        for k in np.arange(0,len(outputSpecies)):
             vars[e].append(e + str(k))
             tStep = int(math.ceil(tmax)/20)
             tRange = np.arange(0,(int(math.ceil(tmax)))+ tStep,tStep)
-            if e=='P':
+            if exportData[1]=='P':
                 plt.subplot(2,1,1)
                 plt.title('Protein Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
                 plt.grid(color='k', linestyle='-', linewidth=.4)
                 plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                 plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                plt.plot (result[:,0],result[:,outputGenes[k]+1], label = vars[e][k],color=colors[k])
+                plt.plot (result[:,0],result[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
                 plt.yscale('log')
                 if tmax > 5000:
                     plt.xscale('log')
@@ -205,14 +223,14 @@ def makePlots(tmax,numGenes,exportData,filesPath,result,noiseLevel,resultNoisy):
                     plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
                 plt.xlim(0,tmax)
                 plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-            if e=='M':
+            if exportData[1]=='M':
                plt.subplot(2,1,2)
                plt.title('mRNA Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
                plt.grid(color='k', linestyle='-', linewidth=.4)
                plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
                plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.plot (result[:,0],result[:,outputGenes[k]+2], label = vars[e][k],color=colors[k])
+               plt.plot (result[:,0],result[:,outputSpecies[k]+1])#, label = vars[e][k],color=colors[k])
                plt.yscale('log')
                if tmax > 5000:
                     plt.xscale('log')
@@ -231,16 +249,16 @@ def makePlots(tmax,numGenes,exportData,filesPath,result,noiseLevel,resultNoisy):
         vars = {'P':[],'M':[]}
         for e in vars.keys():
             plt.figure(2)
-            for k in np.arange(0,numGenes):
+            for k in np.arange(0,len(outputSpecies)):
                 vars[e].append(e + str(k))
-                if e=='P':
+                if exportData[1]=='P':
                     plt.subplot(2,1,1)
                     plt.title('Protein Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
                     plt.grid(color='k', linestyle='-', linewidth=.4)
                     plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.xlim(0,tmax)
                     plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputGenes[k]+1], label = vars[e][k],color=colors[k])
+                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
                     plt.yscale('log')
                     if tmax > 5000:
@@ -249,15 +267,15 @@ def makePlots(tmax,numGenes,exportData,filesPath,result,noiseLevel,resultNoisy):
                     else:
                        plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-                if e=='M':
-                    plt.subplot(2,1,2)
+                if exportData[1]=='M':
+                    #plt.subplot(2,1,2)
                     plt.title('mRNA Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
                     plt.grid(color='k', linestyle='-', linewidth=.4)
                     plt.xlim(0,tmax)
                     plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputGenes[k]+2], label = vars[e][k],color=colors[k])
+                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]+1], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
                     plt.yscale('log')
                     if tmax > 5000:
@@ -279,3 +297,7 @@ def ErrorPrinting(Error,customHeader=''):
     print(customHeader + errorStr)
     print('!'*len(errorStr))
     return()
+
+antStr= open('8gene_network.txt','r').read()
+noiseLevel = 0.05 # put in a percentage. 0.05 = 5%
+r,res,resN = run_model(antStr,noiseLevel,exportData=[ 0,'M','y','y','y','y','y'])#,biotap=biotap_str)
