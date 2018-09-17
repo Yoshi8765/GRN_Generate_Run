@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import math
 
 
 
@@ -64,6 +65,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
             np.random.seed(seed)
         except ValueError:
             raise ValueError("Seed must be between 0 and 2**32 - 1")
+    
+    if not type(export) == bool:
+        raise ValueError("export option must be True/False")
 
     # Algorithm: look through each gene. Based on its type, assign other proteins/genes
     # to act as its activators/repressors. Before assigning however, check if this process
@@ -100,7 +104,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
         # Handles the case where INPUT causes algorithm to fail; this is only likely when the proportion
         # of double input genes (DA, DR, SA+SR) is low. Second condition handles case where graph
-        # is poorly reachable from INPUT (leading to a low activity network
+        # is poorly reachable from INPUT (leading to a low activity network)
         quality = check_input_quality(all_genes)
         if not gene_sets.get_set_count() == 1 or quality < reachability or feedback_count < self_feedback_min:
             #print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
@@ -120,7 +124,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
             print("\n\nThe reachability of this network from INPUT is " + str(round(quality*100)) +
                     "% and there are " + str(feedback_count) + " self feedback loops")
-            return (ant_str, biotap)
+            return (ant_str, biotap_str)
 
     raise TimeoutError("A model could not be generated with the desired specifications in the allotted number of builds." +
             "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)") 
@@ -171,7 +175,7 @@ def assign_connections(all_genes, gene_sets):
                 total_connections_left -= 1
 
             # else genes are part of same set (already connected), but there may
-            # still enough connections remaining to form another without creating an orphan.
+            # still be  enough connections remaining to form another without creating an orphan.
 
             # Second condition handles edge case where final connection is trying to be made.
             # In this case, the situation is similar to when an orphan is being formed. You are
@@ -202,7 +206,7 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i, gene in enumerate(all_genes):
         reg_type = gene.reg_type
         inputs = gene.in_connections
-        if (len(inputs) > 1):
+        if (len(inputs) > 0):
             P1 = inputs[0].protein_name
         if len(inputs) == 2:
             P2 = inputs[1].protein_name
@@ -265,8 +269,10 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     for i in range(len(all_genes)):
         for k, var in enumerate(var_names):
             mean = 0
-            if k <= 5:
+            if k < 5:
                 mean = init_params[k]
+            elif k == 5:
+                mean = math.ceil(init_params[k])
             else:
                 mean = init_params[6]
             std = mean * std_dev_perc
