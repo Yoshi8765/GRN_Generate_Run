@@ -101,7 +101,7 @@ def add_biotapestry(add, csv_filename, csv_newfile):
     f_new.close()
 
 def write_fencepost(f_new, words):
-    f_new.write(words[0].rstrip())
+    f_new.write(words[0].strip())
     for i in range(1, len(words)):
-        f_new.write(", " + words[i].rstrip())
+        f_new.write(", " + words[i].strip())
     f_new.write("\n")
