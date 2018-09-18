@@ -10,21 +10,19 @@ from Biotapestry import convert_biotapestry_to_antimony
 
 # from first RNA seqeunce test
 rna_data = pd.read_csv("Orders/rnaseq_Noisy_Result.csv")
-ant_str = convert_biotapestry_to_antimony("8gene_broken.csv",8, [1]*7)
-#rna_data.set_index("time") # need to wait for Yoshi to update .csv to include time
+ant_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60,1,1.0/60,1,5.0/60,5,1.0/60])
+rna_data.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
+
+print(rna_data.head())
 
 var_names = list(rna_data)
-
 
 rna_data.iloc[::30].plot(style='.-')
 plt.yscale('log')
 
-
-
-
 selections =['time'] + ["mRNA" + str(i+1) for i in range(8)]
 r = te.loada(ant_str)
-r.simulate(0,50,100, selections=selections) #TO DO: update so time scale matches data
+r.simulate(0,300,1000, selections=selections) #TO DO: update so time scale matches data
 r.plot()
 
 
@@ -35,10 +33,7 @@ r.plot()
 # Running a parameter scan to find minimum ideally
 # parameters = init_params = ['d_proteinX', 'd_mRNAX' , 'LX' , 'VmX' , 'a_proteinX' , 'HX', 'K_X']
 
-
-
-def next_paramset(param_ranges):
-    x = param_ranges
+def next_paramset(x):
     for a in x[0]:
         for b in x[1]:
             for c in x[2]:
@@ -48,23 +43,19 @@ def next_paramset(param_ranges):
                             for g in x[6]:
                                 yield (a,b,c,d,e,f,g)
 
-param_ranges = [(0,5), (0,5), (0,5), (0,60), (0,60), (0,5), (0,5)]
-step_count = 2 
-param_possibilities = [np.linspace(x[0],x[1],step_count) for x in param_ranges]
+    ids = r.getGlobalParameterIds()
+    paramsets = next_paramset(param_possibilities)
+    for paramset  in paramsets:
+        for i, next_id in enumerate(ids):
+            if i % 9 < 6:
+                val = paramset[i%9]
+            else:
+                val = paramset[6]
+            exec("r.%s = %d" % (next_id, val))
 
-
-
-ids = r.getGlobalParameterIds()
-print(ids)
-paramsets = next_paramset(param_possibilities)
-for vals in paramsets:
-    for i, param in enumerate(ids):
-        if i % 9 < 6:
-            val = vals[i%9]
-        else:
-            val = vals[6]
         r.resetToOrigin()
-        exec("r.%s = %d" % (param, val))
-        result = r.simulate(0,50,10)
+        result = r.simulate(start,stop,steps, selections=selections)
 
-
+param_ranges = [(0,5), (0,5), (0,5), (0,60), (0,60), (0,5), (0,5)]
+step_count = 2
+param_possibilities = [np.linspace(x[0],x[1],step_count) for x in param_ranges]
