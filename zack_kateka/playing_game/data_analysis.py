@@ -65,6 +65,6 @@ for vals in paramsets:
             val = vals[6]
         r.resetToOrigin()
         exec("r.%s = %d" % (param, val))
-        r.simulate(0,50,10)
+        result = r.simulate(0,50,10)
 
 
