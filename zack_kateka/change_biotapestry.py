@@ -50,6 +50,7 @@ def remove_biotapestry(remove, csv_filename, csv_newfile):
     f.close()
     f_new.close()
 
+
 """
 Given a biotapestry csv file, adds new connections specified by add. Prints
 a new csv file to given location. 
@@ -100,6 +101,11 @@ def add_biotapestry(add, csv_filename, csv_newfile):
     f.close()
     f_new.close()
 
+
+"""
+Writes the given words array to the given file with a comma between each array
+element.
+"""
 def write_fencepost(f_new, words):
     f_new.write(words[0].strip())
     for i in range(1, len(words)):
