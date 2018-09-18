@@ -4,7 +4,7 @@ import math
 
 
 
-def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[0.5, 0.9, 0.8, 30, 30, 1, 0.5],
+def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[1.0/60,1,1.0/60,1,5.0/60,5,1.0/60],
               param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0, max_builds = 1000, export = False):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
