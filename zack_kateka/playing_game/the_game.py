@@ -14,23 +14,30 @@ import tellurium as te
 import roadrunner
 import antimony
 
-ant_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_broken.csv", 8, [1]*7)
+csv_filename="../Biotapestry/8gene_broken.csv"
+csv_newfile="../Biotapestry/8gene_test.csv"
+#init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'H', 'K']
+add_biotapestry([(6,8,1),(1,7,1)],csv_filename, csv_newfile)
+
+ant_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_test.csv", 8, [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
 r=te.loada(ant_str)
 leaks=["time","P8","P5","P7","P4"]
 protein=["time", "INPUT","P1","P2","P3","P4","P5","P6","P7","P8"]
-r.simulate(0,20,100,leaks)
-r.plot(figsize=[7,7],ylim=[0,300],linewidth=2) 
+mRNA=["time","mRNA1","mRNA2","mRNA3","mRNA4","mRNA5","mRNA6","mRNA7","mRNA8"]
+r.simulate(0,300,100,mRNA)
+r.plot(figsize=[7,7],xlim=(0,300),linewidth=2) 
 
-csv_filename="../Biotapestry/8gene_broken.csv"
-csv_newfile="../Biotapestry/8gene_test.csv"
+
 
 connect1= list(range(1,8))
 connect2= list(range(1,8))
 
 #add
-add_biotapestry([(1,8,1),(2,8,1)],csv_filename, csv_newfile)
+
+#exec("[(%d,8,%d),(%d,8,1)]",i,j,k)
+#add_biotapestry([(1,8,1),(2,8,1)],csv_filename, csv_newfile)
 #test
-ant_str2 = convert_biotapestry_to_antimony("../Biotapestry/8gene_test.csv", 8, [1]*7)
+#ant_str2 = convert_biotapestry_to_antimony("../Biotapestry/8gene_test.csv", 8, [1]*7)
 
 
 #remove

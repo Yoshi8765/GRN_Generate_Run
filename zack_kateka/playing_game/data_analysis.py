@@ -13,12 +13,12 @@ rna_data = pd.read_csv("Orders/rnaseq_Noisy_Result.csv")
 ant_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60,1,1.0/60,1,5.0/60,5,1.0/60])
 rna_data.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
 
-print(rna_data.head())
+#print(rna_data.head())
 
 var_names = list(rna_data)
 
-rna_data.iloc[::30].plot(style='.-')
-plt.yscale('log')
+#rna_data.iloc[::30].plot(style='.-')
+#plt.yscale('log')
 
 selections =['time'] + ["mRNA" + str(i+1) for i in range(8)]
 r = te.loada(ant_str)

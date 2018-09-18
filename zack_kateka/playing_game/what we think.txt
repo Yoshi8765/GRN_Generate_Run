@@ -1,0 +1,8 @@
+Gene 8: DA
+	rna-seq data matches with mRNA6 which is also DA
+	Probably activated by 1 or 6
+
+4,5,7: probably similar
+
+2,3: probably similar
+

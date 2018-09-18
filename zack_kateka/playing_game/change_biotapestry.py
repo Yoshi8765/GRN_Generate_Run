@@ -78,10 +78,10 @@ def add_biotapestry(add, csv_filename, csv_newfile):
     for line in f:
         line = line.replace("\"", "")
         words = line.split(",")
-        if "Instance" not in words[0].strip() and words[0].strip() != "nodeOnly":
+        if "Instance" not in words[0] and words[0] != "nodeOnly":
             write_fencepost(f_new, words)
-        elif words[0].strip() == "nodeOnly":
-            if words[3].strip() not in new_nodes:
+        elif words[0] == "nodeOnly":
+            if words[3] in new_nodes:
                 write_fencepost(f_new, words)
     
     # write new nodes
