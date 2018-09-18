@@ -3,59 +3,85 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tellurium as te
 import os, sys
-import itertools as itl
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Biotapestry import convert_biotapestry_to_antimony
 
+import scipy
+
+"""
+Runs differential evolution in an attempt to roughly estimate parameter values using data
+Uses "broken" model, so the estimate is based on an incorrect model, but filtering out
+liking poor/incorrect species from this estimation can improve its performance. You can
+select which species to use in the estimation by altering the "selections" variable
+
+"""
+selections = ["mRNA" + str(i) for i in [1,2,3,6]]
+
 # from first RNA seqeunce test
-rna_data = pd.read_csv("Orders/rnaseq_Noisy_Result.csv")
-ant_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60,1,1.0/60,1,5.0/60,5,1.0/60])
-rna_data.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
-
-#print(rna_data.head())
-
-var_names = list(rna_data)
-
+#rna_data = pd.read_csv("Orders/rnaseq_Noisy_Result.csv")
+#rna_data.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
 #rna_data.iloc[::30].plot(style='.-')
 #plt.yscale('log')
 
-selections =['time'] + ["mRNA" + str(i+1) for i in range(8)]
+
+# Load in our current "best guess" for the model
+ant_str = convert_biotapestry_to_antimony("8gene_broken.csv", 8, [0.05, 2, 0.05, 2, 0.1, 3, 0.02])
 r = te.loada(ant_str)
-r.simulate(0,300,1000, selections=selections) #TO DO: update so time scale matches data
-r.plot()
+
+# fake data: remove when real data is obtained
+data_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
+data_model = te.loada(data_str)
+data = data_model.simulate(0,200,40, selections=selections)
+#data_model.plot()
+
+"""
+param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
+the first entry (0,10) says we think d_protein is somewhere between 0 and 10.
+"""
+
+# smaller range
+#param_ranges = [(0,0.25), (0,4), (0,0.25), (0,4), (0,0.5), (0,6), (0,0.25)]
+# larger range
+param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
 
-#plt.show()
 
 
-# Running a parameter scan to find minimum ideally
-# parameters = init_params = ['d_proteinX', 'd_mRNAX' , 'LX' , 'VmX' , 'a_proteinX' , 'HX', 'K_X']
 
-def next_paramset(x):
-    for a in x[0]:
-        for b in x[1]:
-            for c in x[2]:
-                for d in x[3]:
-                    for e in x[4]:
-                        for f in x[5]:
-                            for g in x[6]:
-                                yield (a,b,c,d,e,f,g)
+# returns the total squared error between the data and the model output
 
+# paramset: vector of values for each parameter (length of 7)
+# r : roadrunner instance storing model
+# data: numpy 2D array storing concentrations of each species at each timepoint
+# timepoints: [start, stop, steps] gives information on timepoints that our model (r) 
+#             will simulate species concentrations at; needs to match timepoints provided in data
+# selections: which species should be compared; note, you will have to pre-process "data"
+#             so that it only contains the species you are interested in
+
+def objective_func(paramset, r, data, timepoints, selections=None):
+    if selections == None:
+        selections = ['time'] + r.getFloatingSpeciesIds() + r.getBoundarySpeciesIds()
     ids = r.getGlobalParameterIds()
-    paramsets = next_paramset(param_possibilities)
-    for paramset  in paramsets:
-        for i, next_id in enumerate(ids):
-            if i % 9 < 6:
-                val = paramset[i%9]
-            else:
-                val = paramset[6]
-            exec("r.%s = %d" % (next_id, val))
+    r.resetToOrigin()
+    for i, next_id in enumerate(ids):
+        if i % 9 < 6:
+            val = paramset[i%9]
+        else:
+            val = paramset[6]
 
-        r.resetToOrigin()
-        result = r.simulate(start,stop,steps, selections=selections)
+        exec("r.%s = %f" % (next_id, val))
 
-param_ranges = [(0,5), (0,5), (0,5), (0,60), (0,60), (0,5), (0,5)]
-step_count = 2
-param_possibilities = [np.linspace(x[0],x[1],step_count) for x in param_ranges]
+    start = timepoints[0]
+    stop = timepoints[1]
+    steps = timepoints[2]
+    result = r.simulate(start,stop,steps, selections=selections)
+    diff = data - result
+    return  np.sum(np.power(diff, 2))
+
+
+
+
+opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, [0,200,40], selections=selections), param_ranges, disp=True, popsize=30)
+print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
