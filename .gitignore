@@ -108,3 +108,6 @@ zack_kateka/.idea/workspace.xml
 zack_kateka/.DS_Store
 *.swp
 *.DS_Store
+
+#Generated data
+zack_kateka/Random_GRNs/
