@@ -15,7 +15,6 @@ a new csv file to given location.
 :param csv_filename: Location with name of the original csv file
 :param csv_newfile: Location with new file name
 """
-# TODO: There seems to be a upper limit of the number of deletion of connections to 3.
 def remove_biotapestry(remove, csv_filename, csv_newfile):
     f = open(csv_filename)
     f_new = open(csv_newfile,'w')
