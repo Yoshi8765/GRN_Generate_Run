@@ -68,7 +68,7 @@ timepoints: [start,stop, step] for r.simulate
 
 # TODO: return the top 10 best
 # TODO: try/catch for add_biotap overflow
-def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):  
+def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections):  
     permConnection = []
     permError = float("inf")
     perms = list(it.permutations(gene))
@@ -79,7 +79,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):
         connection = [] # stores the chosen gene connection
         for jj in range(len(choice)):
             gene = choice[jj]
-            print(connection)
+            #print(connection)
             numAdded = -1
             singleConnection = connection[:]
 #            if numAdded == 1: 
@@ -88,7 +88,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):
 #                singleConnection.pop()
 #                singleConnection.pop()
             singleError = float("inf")
-            print(singleConnection)
+            #print(singleConnection)
             for i in range(0, 9): # 0 = flag for single connection
                 for j in range(0, 9):
                     for k in (-1, 1):
@@ -113,7 +113,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):
                                 start = timepoints[0]
                                 stop = timepoints[1]
                                 steps = timepoints[2]
-                                result = r.simulate(start, stop, steps)
+                                result = r.simulate(start, stop, steps, selections=selections)
                                 diff = data - result
                                 error = np.sum(np.power(diff, 2))
                                 # test error for best error
@@ -130,10 +130,10 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):
                                     else:
                                         numAdded = 2
                                     singleError = error
-                                    print("connection before add " + str(connection))
+                                    #print("connection before add " + str(connection))
                                     connection.extend(add)
                                     #print(add)
-                                    print("connection " + str(connection))
+                                    #print("connection " + str(connection))
                                 # remove choice for next loop
                                 #print("before pop" + str(singleConnection))
                                 singleConnection.pop()
@@ -141,10 +141,10 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):
                                     singleConnection.pop()   
                                 #print(add)
                                 #print("after " + str(singleConnection))
-        print(choice)
-        print(connection)                   
-        print(str(singleError) + " " + str(permError))
-        print()
+#        print(choice)
+#        print(connection)                   
+#        print(str(singleError) + " " + str(permError))
+#        print()
         if singleError < permError:              
             permConnection = connection
             permError  = singleError
@@ -198,5 +198,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 #print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
 
-connection = estimate_connections([7,5], data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv")
+connection = estimate_connections([7,5], data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 print("Best connection " + str(connection))
