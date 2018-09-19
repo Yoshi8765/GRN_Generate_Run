@@ -20,6 +20,11 @@ csv_newfile="Biotapestry/8gene_broken3.csv"
 csv_filename="Biotapestry/8gene_broken.csv"
 csv_newfile="Biotapestry/8gene_test.csv"
 
+test_filename="Biotapestry/test_network.csv"
+
+#add_biotapestry([(5,7,1), (5,7,1), (4,3,1), (3,1,1)],csv_filename2,test_filename)
+
+
 def write_fencepost(f_new, words):
     f_new.write(words[0].strip())
     for i in range(1, len(words)):

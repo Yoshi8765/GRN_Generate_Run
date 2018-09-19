@@ -1,4 +1,6 @@
-
+'''
+@author: Zachary McNulty
+'''
 import tellurium as te
 from GetModel import convert_to_antimony
 from GetModel import Gene

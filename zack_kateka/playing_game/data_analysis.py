@@ -1,3 +1,8 @@
+'''
+@author: Zachary McNulty & Kateka Seth
+'''
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -207,5 +212,8 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 #print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
 
+'''
+Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
+'''
 connection = estimate_connections([7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 print("Best connection " + str(connection))
