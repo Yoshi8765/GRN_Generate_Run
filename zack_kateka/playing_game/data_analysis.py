@@ -15,26 +15,34 @@ Runs differential evolution in an attempt to roughly estimate parameter values u
 Uses "broken" model, so the estimate is based on an incorrect model, but filtering out
 liking poor/incorrect species from this estimation can improve its performance. You can
 select which species to use in the estimation by altering the "selections" variable
-
+Timepoints is the a vector describing the timepoints present in the data. It is in the form
+[start, stop, step_size]. This is needed so the simulated data from the partially complete model
+lines up with the experimental data
 """
-selections = ["mRNA" + str(i) for i in [1,2,3,6]]
+broken_model = "model_files/biotapestry_broken.csv"
+selections = ["mRNA" + str(i) for i in range(1,9)] 
+timepoints = [0,200, 20]
 
+
+'''
+Load in experimental data.
+'''
 # from first RNA seqeunce test
-#rna_data = pd.read_csv("Orders/rnaseq_Noisy_Result.csv")
-#rna_data.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
-#rna_data.iloc[::30].plot(style='.-')
-#plt.yscale('log')
+data_table = pd.read_csv('model_files/RNASeq_HiRes.csv')
+data_table.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
+data_table[selections].plot(style='.-')
 
+
+# converts dataframe into numpy 2D array
+#data = data_table.as_matrix(columns=selections)-----(depreciated)
+data = data_table[selections].values
 
 # Load in our current "best guess" for the model
-ant_str = convert_biotapestry_to_antimony("8gene_broken.csv", 8, [0.05, 2, 0.05, 2, 0.1, 3, 0.02])
+ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
 r = te.loada(ant_str)
-
-# fake data: remove when real data is obtained
-data_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
-data_model = te.loada(data_str)
-data = data_model.simulate(0,200,40)#, selections=selections)
-#data_model.plot()
+r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
+r.plot()
+#plt.show()
 
 """
 param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
@@ -56,10 +64,9 @@ gene: the source gene
 data: the results
 timepoints: [start,stop, step] for r.simulate
 """
-def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile):  
+def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile, selections=None):  
     bestError = 0xFFFFFFFF
     connection = []
-    
     # 0 for single source
     for i in range(0, 9):
         for j in range(0, 9):
@@ -73,15 +80,16 @@ def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile):
                                 add = [(i, gene, k)]
                             else:
                                 add = [(i, gene, k), (j, gene, m)]
-                            print(add)
                             add_biotapestry(add, csv_filename, csv_newfile)
                             ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
-                                                                      [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+                                                                       [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
                             r = te.loada(ant_str)
+                            if selections == None:
+                                selections = r.getFloatingSpeciesIds() + r.getBoundarySpeciesIds()
                             start = timepoints[0]
                             stop = timepoints[1]
                             steps = timepoints[2]
-                            result = r.simulate(start,stop,steps)
+                            result = r.simulate(start,stop,steps, selections=selections)
                             diff = data - result
                             error = np.sum(np.power(diff, 2))
                             if error < bestError:
@@ -93,8 +101,8 @@ def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile):
 
 
 
-# returns the total squared error between the data and the model output
-# for parameter estimation
+# returns the total squared error between the data and the simulated data generated from
+# "best guess" model. Used for parameter estimation
 #
 # paramset: vector of values for each parameter (length of 7)
 # r : roadrunner instance storing model
@@ -115,7 +123,7 @@ def objective_func(paramset, r, data, timepoints, selections=None):
         else:
             val = paramset[6]
 
-        exec("r.%s = %f" % (next_id, val))
+        exec("r.%s = %f" % (next_id, val)) #runs the given formatted string as if it is a line of code
 
     start = timepoints[0]
     stop = timepoints[1]
@@ -126,10 +134,22 @@ def objective_func(paramset, r, data, timepoints, selections=None):
 
 
 
+'''
+Run objective_func through differential evolution to estimate parameters ['d_protein', 'd_mRNA', 'L', 'Vm', 'a_protein', 'H', 'K']
+'''
+# other parameters for optimize.differential_evolution
+#   popsize : increasing this will increase search radius; may lead to better solution but slows algorithm
+#   mutation : scales mutation phase. Larger numbers increase search radius (improves solution), but slows convergence
+#   recombination : higher numbers increase randomness. May lead to better solutions, but can increase instability
 
-#opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, [0,200,40], selections=selections), param_ranges, disp=True, popsize=30)
+#opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, timepoints, selections=selections), param_ranges, disp=True, popsize=40, mutation = (1,1.9))
 #print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
-for i in (4,5,7,8):
-    connection = interaction_estimate(i, data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv")
+'''
+Tries to find possible gene connections. To test is a list of genes you want to find the best in-connections to, given the current model. Does NOT 
+overwrite broken model, so can only test one gene at a time. Multiple iterations would be required to attempt to repair network
+'''
+to_test = [2,7]
+for i in to_test:
+    connection = interaction_estimate(i, data, timepoints, broken_model, "model_files/8gene_ie.csv", selections=selections)
     print("Best connection for " + str(i) + str(connection))
