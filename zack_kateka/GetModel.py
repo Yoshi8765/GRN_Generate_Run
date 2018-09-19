@@ -1,7 +1,7 @@
 import numpy as np
 import time
 import math
-
+import os
 
 
 def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="pathway",init_params=[1.0/60,1,1.0/60,1,5.0/60,5,1.0/60],
@@ -59,9 +59,15 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
         raise ValueError("max_builds must be a positive integer")
 
     if seed == 0:
-        np.random.seed()
+        randSeed = time.time()
+        np.random.seed(randSeed)
+        #     export txt of seed number
+        fh = open(model_name + '_Seed.txt', 'w')
+        fh.write('Random Seed = ' + str(randSeed))
+        fh.close()
     else:
         try:
+            print('Using seed: ' + str(seed))
             np.random.seed(seed)
         except ValueError:
             raise ValueError("Seed must be between 0 and 2**32 - 1")
@@ -107,7 +113,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
         # is poorly reachable from INPUT (leading to a low activity network)
         quality = check_input_quality(all_genes)
         if not gene_sets.get_set_count() == 1 or quality < reachability or feedback_count < self_feedback_min:
-            #print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
+            print("Model " + str(current_build) +  " does not meet desired specifications. Rebuilding model...")
             current_build += 1
         else:
             ant_str = convert_to_antimony(all_genes, model_name, init_params, param_std)

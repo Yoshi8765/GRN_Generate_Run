@@ -104,8 +104,8 @@
           <speciesReference species="mRNA1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P3"/>
           <modifierSpeciesReference species="P4"/>
+          <modifierSpeciesReference species="P3"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -539,8 +539,8 @@
           <speciesReference species="mRNA6" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P3"/>
           <modifierSpeciesReference species="P6"/>
+          <modifierSpeciesReference species="P3"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
