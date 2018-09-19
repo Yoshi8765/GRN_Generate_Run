@@ -22,7 +22,7 @@ lines up with the experimental data
 """
 broken_model = "model_files/biotapestry_broken.csv"
 selections = ["mRNA" + str(i) for i in range(1,9)] 
-timepoints = [0,200, 20]
+timepoints = [0,200, 40]
 
 
 '''
@@ -42,21 +42,25 @@ data = data_table[selections].values
 ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
-r.plot()
+#r.plot()
 #plt.show()
 
 """
 param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
 the first entry (0,10) says we think d_protein is somewhere between 0 and 10.
 """
-
 # smaller range
 #param_ranges = [(0,0.25), (0,4), (0,0.25), (0,4), (0,0.5), (0,6), (0,0.25)]
 # larger range
 param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
-# gene interaction
+
+#testing purpose
+data_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])	#plt.show()
+data_model = te.loada(data_str)	
+data = data_model.simulate(0,200,40, selections=selections)
+
 
 
 """
@@ -65,12 +69,12 @@ gene: source gene you want to look at
 data: the results
 timepoints: [start,stop, step] for r.simulate
 """
-
-# TODO: return the top 10 best
 # TODO: try/catch for add_biotap overflow
+# TODO: plz optimize
 def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections):  
-    permConnection = []
-    permError = float("inf")
+    mapping = {}
+    permConnections = []
+    permError = [float("inf")]*10
     perms = list(it.permutations(gene))
 
     for ii in range(len(perms)):
@@ -82,11 +86,6 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             #print(connection)
             numAdded = -1
             singleConnection = connection[:]
-#            if numAdded == 1: 
-#                singleConnection.pop() # prepare singleConnection
-#            elif numAdded == 2:
-#                singleConnection.pop()
-#                singleConnection.pop()
             singleError = float("inf")
             #print(singleConnection)
             for i in range(0, 9): # 0 = flag for single connection
@@ -104,8 +103,9 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                 singleConnection.extend(add)
                                 #print(add)
                                 #print(singleConnection)
-                                
+                                # add try here
                                 add_biotapestry(singleConnection, csv_filename, csv_newfile)
+                                # catch -- if catch do nothing, only continue if there's no error
                                 ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
                                                   [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
                                 # simulate
@@ -145,10 +145,19 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
 #        print(connection)                   
 #        print(str(singleError) + " " + str(permError))
 #        print()
-        if singleError < permError:              
-            permConnection = connection
-            permError  = singleError
-    return permConnection
+        permError.sort()
+        place = -1
+        for kk in range(len(permError) - 1, -1, -1):
+            if singleError <= permError[kk]:
+                place = kk
+        if place != -1:
+            permError.insert(kk, singleError)
+            mapping[str(singleError)] = connection
+    permError.sort()
+    for i in range(len(permError)):
+        if permError[i] != float("inf"):
+            permConnections.append(mapping.get(str(permError[i])))
+    return permConnections
 
 
 
@@ -198,5 +207,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 #print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
 
-connection = estimate_connections([7,5], data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+connection = estimate_connections([7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 print("Best connection " + str(connection))
