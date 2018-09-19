@@ -125,7 +125,7 @@ def add_biotapestry(add, csv_filename, csv_newfile):
             else:
                 connections[next_target] += 1
 
-    print (connections) 
+    #print (connections) 
     if any(x > 2 for x in list(connections.values())):
             #os.remove(csv_newfile)
             raise ValueError("You have added too many connections to one of the genes.\n A gene can have at most 2 connections.")

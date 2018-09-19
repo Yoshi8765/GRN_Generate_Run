@@ -108,8 +108,10 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                 singleConnection.extend(add)
                                 #print(add)
                                 #print(singleConnection)
-                                # add try here
-                                add_biotapestry(singleConnection, csv_filename, csv_newfile)
+                                try:
+                                    add_biotapestry(singleConnection, csv_filename, csv_newfile)
+                                except ValueError:
+                                    break
                                 # catch -- if catch do nothing, only continue if there's no error
                                 ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
                                                   [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
@@ -215,5 +217,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-connection = estimate_connections([7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+connection = estimate_connections([2], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 print("Best connection " + str(connection))
