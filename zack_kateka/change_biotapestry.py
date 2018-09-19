@@ -66,6 +66,7 @@ a new csv file to given location.
 :param csv_filename: Location with name of the original csv file
 :param csv_newfile: Location with new file name
 """
+# TODO: add check for overflow
 def add_biotapestry(add, csv_filename, csv_newfile):
     f = open(csv_filename)
     f_new = open(csv_newfile,'w')

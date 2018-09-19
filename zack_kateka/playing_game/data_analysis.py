@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tellurium as te
 import os, sys
+import itertools as it
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Biotapestry import convert_biotapestry_to_antimony
@@ -52,44 +53,93 @@ param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 """
 the one for gene interaction
-gene: the source gene 
+gene: source gene you want to look at
 data: the results
 timepoints: [start,stop, step] for r.simulate
 """
-def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile):  
-    bestError = 0xFFFFFFFF
-    connection = []
-    
-    # 0 for single source
-    for i in range(0, 9):
-        for j in range(0, 9):
-            for k in (-1, 1):
-                for m in (-1, 1):
-                    if (i != j):
-                        if (i != 0 and j != 0):
-                            if (i == 0):
-                                add = [(j, gene, k)]
-                            elif (j == 0):
-                                add = [(i, gene, k)]
-                            else:
-                                add = [(i, gene, k), (j, gene, m)]
-                            print(add)
-                            add_biotapestry(add, csv_filename, csv_newfile)
-                            ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
-                                                                      [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
-                            r = te.loada(ant_str)
-                            start = timepoints[0]
-                            stop = timepoints[1]
-                            steps = timepoints[2]
-                            result = r.simulate(start,stop,steps)
-                            diff = data - result
-                            error = np.sum(np.power(diff, 2))
-                            if error < bestError:
-                                bestError = error
-                                connection = add
-    return connection
-    
-    
+# TODO: return the top 10 best
+# TODO: try/catch for add_biotap overflow
+def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile):  
+    permConnection = []
+    permError = float("inf")
+    perms = list(it.permutations(gene))
+
+    for ii in range(len(perms)):
+        choice = perms[ii]
+        numAdded = -1
+        connection = [] # stores the chosen gene connection
+        for jj in range(len(choice)):
+            gene = choice[jj]
+            print(connection)
+            numAdded = -1
+            singleConnection = connection[:]
+#            if numAdded == 1: 
+#                singleConnection.pop() # prepare singleConnection
+#            elif numAdded == 2:
+#                singleConnection.pop()
+#                singleConnection.pop()
+            singleError = float("inf")
+            print(singleConnection)
+            for i in range(0, 9): # 0 = flag for single connection
+                for j in range(0, 9):
+                    for k in (-1, 1):
+                        for m in (-1, 1):
+                            if (i != j):
+                                if (i == 0):
+                                    add = [(j, gene, k)]
+                                elif (j == 0):
+                                    add = [(i, gene, k)]
+                                else:
+                                    add = [(i, gene, k), (j, gene, m)]
+                                # add the new connection
+                                singleConnection.extend(add)
+                                #print(add)
+                                #print(singleConnection)
+                                
+                                add_biotapestry(singleConnection, csv_filename, csv_newfile)
+                                ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
+                                                  [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+                                # simulate
+                                r = te.loada(ant_str)
+                                start = timepoints[0]
+                                stop = timepoints[1]
+                                steps = timepoints[2]
+                                result = r.simulate(start, stop, steps)
+                                diff = data - result
+                                error = np.sum(np.power(diff, 2))
+                                # test error for best error
+                                if error < singleError:
+                                    # removes old (worst) connection
+                                    if numAdded == 1:  
+                                        connection.pop()
+                                    elif numAdded == 2: 
+                                        connection.pop()
+                                        connection.pop()
+                                    # stores how many new connections are added
+                                    if len(add) == 1:
+                                        numAdded = 1
+                                    else:
+                                        numAdded = 2
+                                    singleError = error
+                                    print("connection before add " + str(connection))
+                                    connection.extend(add)
+                                    #print(add)
+                                    print("connection " + str(connection))
+                                # remove choice for next loop
+                                #print("before pop" + str(singleConnection))
+                                singleConnection.pop()
+                                if len(add) == 2:
+                                    singleConnection.pop()   
+                                #print(add)
+                                #print("after " + str(singleConnection))
+        print(choice)
+        print(connection)                   
+        print(str(singleError) + " " + str(permError))
+        print()
+        if singleError < permError:              
+            permConnection = connection
+            permError  = singleError
+    return permConnection
 
 
 
@@ -130,6 +180,5 @@ def objective_func(paramset, r, data, timepoints, selections=None):
 #opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, [0,200,40], selections=selections), param_ranges, disp=True, popsize=30)
 #print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
-for i in (4,5,7,8):
-    connection = interaction_estimate(i, data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv")
-    print("Best connection for " + str(i) + str(connection))
+connection = estimate_connections([7,5], data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv")
+print("Best connection " + str(connection))
