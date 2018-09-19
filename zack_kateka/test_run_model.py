@@ -12,6 +12,9 @@ model_name='exp2'
 numGenes = 8
 seednum = 6372 #seed not working
 
+# TODO: fix seed
+# TODO: check to make sure all species in model move concentration
+
 antStr,biotap_str=get_model(numGenes,model_name=model_name,seed=seednum,export=True)
 
 
