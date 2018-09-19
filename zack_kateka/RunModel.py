@@ -62,7 +62,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputD
         # Check that the model reaches steady-state. If the model has any issues running, it will raise an Exception. The user should run get_model again.
         plt.close('all')
         model.reset()
-        tStep = int(math.ceil(inputData[1])*5)
+        tStep = int(math.ceil(inputData[1]/inputData[2]))
         try:
             model.steadyState()
         except Exception:
@@ -78,7 +78,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputD
 
         # Run a simulation for time-course data
         model.resetToOrigin()
-        result = model.simulate(0,inputData[1],tStep/inputData[2])
+        result = model.simulate(0,inputData[1],tStep)
 
         #Specify input
         model.INPUT = inputData[0];
@@ -111,7 +111,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputD
 
         # Create graphs
         if showTimePlots==True:
-            makePlots(inputData[1],exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
+            makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
 
         # Export datasets
         Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap)
@@ -205,7 +205,7 @@ def writecsvFile (outputSpecies,filesPath, model, data):
         fh.write('\n')
     fh.close()
 
-def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
+def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
     global GRAPH_LABEL_FONTSIZE
     global GRAPH_TITLE_FONTSIZE
 
@@ -226,8 +226,8 @@ def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
         plt.figure(1)
         for k in np.arange(0,len(outputSpecies)):
             vars[e].append(e + str(k))
-            tStep = int(math.ceil(tmax)/inputData[2])
-            tRange = np.arange(0,(int(math.ceil(tmax)))+ tStep,tStep)
+            tStep = int(math.ceil(inputData[1]/inputData[2]))
+            tRange = np.arange(0,(int(math.ceil(inputData[1])))+ tStep,tStep)
             if exportData[1]=='P':
                 plt.subplot(2,1,1)
                 plt.title('Protein Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
@@ -236,12 +236,12 @@ def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
                 plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                 plt.plot (result[:,0],result[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
                 plt.yscale('log')
-                if tmax > 5000:
+                if inputData[1] > 5000:
                     plt.xscale('log')
                     plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
                 else:
                     plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-                plt.xlim(0,tmax)
+                plt.xlim(0,inputData[1])
                 plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
             if exportData[1]=='M':
                plt.subplot(2,1,2)
@@ -252,12 +252,12 @@ def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
                plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                plt.plot (result[:,0],result[:,outputSpecies[k]+1])#, label = vars[e][k],color=colors[k])
                plt.yscale('log')
-               if tmax > 5000:
+               if inputData[1] > 5000:
                     plt.xscale('log')
                     plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
                else:
                    plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.xlim(0,tmax)
+               plt.xlim(0,inputData[1])
                plt.legend(vars[e],loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
     manager = plt.get_current_fig_manager()
     manager.window.showMaximized()
@@ -276,12 +276,12 @@ def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
                     plt.title('Protein Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
                     plt.grid(color='k', linestyle='-', linewidth=.4)
                     plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.xlim(0,tmax)
+                    plt.xlim(0,inputData[1])
                     plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
                     plt.yscale('log')
-                    if tmax > 5000:
+                    if inputData[1] > 5000:
                         plt.xscale('log')
                         plt.xticks(fontsize=6)
                     else:
@@ -291,14 +291,14 @@ def makePlots(tmax,exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
                     #plt.subplot(2,1,2)
                     plt.title('mRNA Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
                     plt.grid(color='k', linestyle='-', linewidth=.4)
-                    plt.xlim(0, tmax)
+                    plt.xlim(0, inputData[1])
                     plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]+1], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
                     plt.yscale('log')
-                    if tmax > 5000:
+                    if inputData[1] > 5000:
                         plt.xscale('log')
                         plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
                     else:
