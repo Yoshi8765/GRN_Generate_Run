@@ -11,6 +11,7 @@ from change_biotapestry import add_biotapestry
 from GetModel import get_model
 from GetModel import convert_to_biotapestry
 from Biotapestry import convert_biotapestry_to_antimony
+from data_analysis import interaction_estimate
 import tellurium as te
 import roadrunner
 import antimony
@@ -34,8 +35,8 @@ mRNA=["time","mRNA1","mRNA2","mRNA3","mRNA4","mRNA5","mRNA6","mRNA7","mRNA8"]
 r.simulate(0,300,100,mRNA)
 r.plot(figsize=[7,7],xlim=(0,300),linewidth=2) 
 
-csv_filename="../Biotapestry/8gene_test.csv"
-csv_newfile="../Biotapestry/8gene_test2.csv"
+#csv_filename="../Biotapestry/8gene_test.csv"
+#csv_newfile="../Biotapestry/8gene_test2.csv"
 
 #for i in range(1,9):
 #    for j in range(1,9):
@@ -48,3 +49,4 @@ csv_newfile="../Biotapestry/8gene_test2.csv"
 #        r=te.loada(ant_str)
 #        r.simulate(0,300,100,mRNA)
 #        r.plot(figsize=[7,7],xlim=(0,300),linewidth=2,linestyle='-') 
+

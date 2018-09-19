@@ -6,6 +6,7 @@ import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Biotapestry import convert_biotapestry_to_antimony
+from change_biotapestry import add_biotapestry
 
 import scipy
 
@@ -32,7 +33,7 @@ r = te.loada(ant_str)
 # fake data: remove when real data is obtained
 data_str = convert_biotapestry_to_antimony("8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
 data_model = te.loada(data_str)
-data = data_model.simulate(0,200,40, selections=selections)
+data = data_model.simulate(0,200,40)#, selections=selections)
 #data_model.plot()
 
 """
@@ -46,12 +47,55 @@ the first entry (0,10) says we think d_protein is somewhere between 0 and 10.
 param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
+# gene interaction
 
+
+"""
+the one for gene interaction
+gene: the source gene 
+data: the results
+timepoints: [start,stop, step] for r.simulate
+"""
+def interaction_estimate(gene, data, timepoints, csv_filename, csv_newfile):  
+    bestError = 0xFFFFFFFF
+    connection = []
+    
+    # 0 for single source
+    for i in range(0, 9):
+        for j in range(0, 9):
+            for k in (-1, 1):
+                for m in (-1, 1):
+                    if (i != j):
+                        if (i != 0 and j != 0):
+                            if (i == 0):
+                                add = [(j, gene, k)]
+                            elif (j == 0):
+                                add = [(i, gene, k)]
+                            else:
+                                add = [(i, gene, k), (j, gene, m)]
+                            print(add)
+                            add_biotapestry(add, csv_filename, csv_newfile)
+                            ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
+                                                                      [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+                            r = te.loada(ant_str)
+                            start = timepoints[0]
+                            stop = timepoints[1]
+                            steps = timepoints[2]
+                            result = r.simulate(start,stop,steps)
+                            diff = data - result
+                            error = np.sum(np.power(diff, 2))
+                            if error < bestError:
+                                bestError = error
+                                connection = add
+    return connection
+    
+    
 
 
 
 # returns the total squared error between the data and the model output
-
+# for parameter estimation
+#
 # paramset: vector of values for each parameter (length of 7)
 # r : roadrunner instance storing model
 # data: numpy 2D array storing concentrations of each species at each timepoint
@@ -83,5 +127,9 @@ def objective_func(paramset, r, data, timepoints, selections=None):
 
 
 
-opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, [0,200,40], selections=selections), param_ranges, disp=True, popsize=30)
-print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
+#opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, [0,200,40], selections=selections), param_ranges, disp=True, popsize=30)
+#print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
+
+for i in (4,5,7,8):
+    connection = interaction_estimate(i, data, [0,200,40], "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv")
+    print("Best connection for " + str(i) + str(connection))
