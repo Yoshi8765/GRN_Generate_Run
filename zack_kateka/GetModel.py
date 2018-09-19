@@ -36,7 +36,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     escapeChars = ['t','r','n','b','f','0']
     if model_name[0] in escapeChars:
-        raise ValueError('The first character of your model name cannot start with an escape character.')
+        raise ValueError('The first character of your model name cannot start with an escape character [\'t\',\'r\',\'n\',\'b\',\'f\',\'0\'].')
 
     if not type(num_genes) == int or num_genes < 2:
         raise ValueError("num_genes is invalid: it must be a single integer greater than 1")
