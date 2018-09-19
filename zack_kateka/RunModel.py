@@ -17,8 +17,8 @@ GRAPH_TITLE_FONTSIZE = 10
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
 # TDOO: Make a table of appropriate ranges for parameters.
 
-def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputData=[1,40,1],bioTap='',
-              savePath='\\model_output\\',showTimePlots=True,seed=0,drawModel=[True,'fdp'],runAttempts=5):
+def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[1,40,1],bioTap='',
+              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=[False,'fdp'],runAttempts=5):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments:
@@ -29,13 +29,12 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputD
             genesToExport = (int List) Default: [0] . A list object of which genes you want to export, 1-based indexing. Pass in [0] to export all proteins.
             speciesDataType = (str) Default: 'P' . 'P'rotein or 'M'rNA
             csv = (bool) Default:True . This is a flag for the export of the timecourse data of the genesToExport as csv files.
-            biotapstryCSV = (bool) Default:True . This is a flag for the export of a csv file to use for BioTapestry.
             sbml = (bool) Default:True . This is a flag for the export of the model in SBML format (version based on Tellurium).
             antimony = (bool) Default:True . This is a flag for the export of the Antimony model as a txt.
 
         inputData:
             [valInput,maxTime,resolution]
-        bioTap:
+        bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
         savePath:
         showTimePlots:
         seed:
@@ -132,7 +131,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True,True],inputD
 
 ###### Other Functions that GetModel uses ######
 
-def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,biotap):
+def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap):
     # export csv of results
     if exportData[2]==True:
         outputSpecies = range(int(np.size(result,1)))
@@ -157,16 +156,16 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
             writeNoisy = np.hstack((outputTime,outputResultsNoisy))
             writecsvFile(outputSpecies,filesPath + 'Noisy_Result.csv',model,np.array(writeNoisy))
     # export csv file for importing into Biotapestry
-    if exportData[3]==True:
+    if bioTap!='':
         f2 = open(filesPath + "biotapestry.csv", 'w')
-        f2.write(biotap)
+        f2.write(bioTap)
         f2.close()
     # export SBML model text
-    if exportData[4]==True:
+    if exportData[3]==True:
         sbmlStr = model.getSBML()
         te.saveToFile (filesPath + 'OrigModel.xml', sbmlStr)
     # export Antimony model text
-    if exportData[5]==True:
+    if exportData[4]==True:
         fh = open(filesPath + 'OrigAntimony.txt', 'wb')
         fh.write(str(antStr))
 

@@ -5,6 +5,8 @@ Created on Mon Sep 17 09:38:56 2018
 @author: Kateka Seth
 """
 
+import os
+
 """
 Given a biotapestry csv file, removes connections specified by remove. Prints
 a new csv file to given location.
@@ -12,18 +14,24 @@ a new csv file to given location.
 :param remove: A list containing int tuples of connections to be remove. The tuple
             should be formatted as (source,target). Ex: (1,3) to remove connection
            starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
-:param csv_filename: Location with name of the original csv file
-:param csv_newfile: Location with new file name
+:param csv_filename: Location with name of the original csv file. Please use the absolute path.
+:param csv_newfile: name of new file name. Input as `file_name.csv`. The file will be saved in the same directory as the original file.
 """
 def remove_biotapestry(remove, csv_filename, csv_newfile):
+
+    escapeChars = ['t','r','n','b','f','0']
+    if csv_newfile[0] in escapeChars:
+        raise ValueError('The first character of your model name cannot start with an escape character [\'t\',\'r\',\'n\',\'b\',\'f\',\'0\'].')
+
     f = open(csv_filename)
-    f_new = open(csv_newfile,'w')
-    
+    currDir = os.path.dirname(f.name)
+    f_new = open(currDir + '\\' + csv_newfile,'w')
+
     og_nodes = set()
     new_sources = set()
     new_targets = set()
     canPrint = True
-    
+
     for line in f:
         line = line.replace("\"", "")
         words = line.split(",")
@@ -45,14 +53,14 @@ def remove_biotapestry(remove, csv_filename, csv_newfile):
                 f_new.write(line)
                 new_sources.add(gene_source)
                 new_targets.add(gene_target)
-            canPrint = True       
+            canPrint = True
     # print the node only
     node_only=og_nodes.difference(new_sources).difference(new_targets)
     for node in node_only:
         f_new.write("nodeOnly, root, gene, " + node + "\n")
     f.close()
     f_new.close()
-    
+
 
 """
 Given a biotapestry csv file, adds new connections specified by add. Prints
