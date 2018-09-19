@@ -73,7 +73,6 @@ a new csv file to given location.
 :param csv_filename: Location with name of the original csv file
 :param csv_newfile: Location with new file name
 """
-# TODO: add check for overflow
 def add_biotapestry(add, csv_filename, csv_newfile):
     f = open(csv_filename)
     f_new = open(csv_newfile,'w')
@@ -112,6 +111,26 @@ def add_biotapestry(add, csv_filename, csv_newfile):
             f_new.write("negative\n")
     f.close()
     f_new.close()
+
+    # check if too many connections have been formed; if so, remove csv_newfile and throw exception
+    f_new = open(csv_newfile, 'r')
+    connections = {}
+    for line in f_new:
+        line = line.replace("\"", "")
+        words = line.split(",")
+        if words[0].strip() == "general":
+            next_target = words[5].strip()
+            if next_target not in connections:
+                connections[next_target] = 1
+            else:
+                connections[next_target] += 1
+
+    print (connections) 
+    if any(x > 2 for x in list(connections.values())):
+            #os.remove(csv_newfile)
+            raise ValueError("You have added too many connections to one of the genes.\n A gene can have at most 2 connections.")
+    else:
+        f_new.close()
 
 
 """
