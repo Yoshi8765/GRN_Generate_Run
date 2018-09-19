@@ -46,10 +46,7 @@ def remove_biotapestry(remove, csv_filename, csv_newfile):
                 f_new.write(line)
                 new_sources.add(gene_source)
                 new_targets.add(gene_target)
-            canPrint = True
-    print(og_nodes)
-    print(new_sources)
-    print(new_targets)        
+            canPrint = True       
     # print the node only
     node_only=og_nodes.difference(new_sources).difference(new_targets)
     for node in node_only:
