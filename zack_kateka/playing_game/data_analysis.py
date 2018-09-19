@@ -73,15 +73,35 @@ the one for gene interaction
 gene: source gene you want to look at
 data: the results
 timepoints: [start,stop, step] for r.simulate
+DONT RUN 5 
 """
-# TODO: try/catch for add_biotap overflow
 # TODO: plz optimize
 def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections):  
     mapping = {}
     permConnections = []
     permError = [float("inf")]*10
-    perms = list(it.permutations(gene))
-
+    perms = []
+    
+    ant_str = convert_biotapestry_to_antimony(csv_filename, 8, 
+                      [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+    # simulate
+    r = te.loada(ant_str)
+    start = timepoints[0]
+    stop = timepoints[1]
+    steps = timepoints[2]
+    result = r.simulate(start, stop, steps, selections=selections)
+    diff = data - result
+    error = np.sum(np.power(diff, 2))
+    
+    permError[0] = error
+    mapping[str(error)] = [(-1,-1,-1)]
+    
+    
+    for i in range(1, len(gene) + 1):
+        perms.extend(list(it.permutations(gene, i)))
+    
+    
+    #print(perms)
     for ii in range(len(perms)):
         choice = perms[ii]
         numAdded = -1
@@ -97,6 +117,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                 for j in range(0, 9):
                     for k in (-1, 1):
                         for m in (-1, 1):
+                            #if m == 0:
+                                
                             if (i != j):
                                 if (i == 0):
                                     add = [(j, gene, k)]
@@ -148,10 +170,10 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                     singleConnection.pop()   
                                 #print(add)
                                 #print("after " + str(singleConnection))
-#        print(choice)
-#        print(connection)                   
-#        print(str(singleError) + " " + str(permError))
-#        print()
+        print(choice)
+        print(connection)                   
+        print(str(singleError) + " " + str(permError))
+        print()
         permError.sort()
         place = -1
         for kk in range(len(permError) - 1, -1, -1):
@@ -160,7 +182,9 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
         if place != -1:
             permError.insert(kk, singleError)
             mapping[str(singleError)] = connection
+            
     permError.sort()
+    print(permError)
     for i in range(len(permError)):
         if permError[i] != float("inf"):
             permConnections.append(mapping.get(str(permError[i])))
@@ -217,5 +241,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-connection = estimate_connections([2], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 print("Best connection " + str(connection))
