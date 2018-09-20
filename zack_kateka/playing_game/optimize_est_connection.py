@@ -88,26 +88,34 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             next_target = int(next_target[5:])
             if next_target in connections:
                 connections[next_target] += 1
-   
-    print ("connection counts: " + str(connections))
     
+    f_new.close()
+    print ("connection counts: " + str(connections))
+   
+    #--------------------
+    # csv_newfile starts as copy of initial file
+    with (open(csv_filename)) as f1:
+        with (open(csv_newfile, 'w')) as f2:
+            for line in f1:
+                f2.write(line)
+    
+    f1.close()
+    f2.close()
+    temp_file = csv_newfile[:-4] + "_other.csv" 
+    #-------------------
+
     mapping = {}
-    permConnections = []
-    permError = [float("inf")]*10
+    permError = [] 
     perms = list(it.permutations(gene)) # added feature so each gene considers option to choose no connections
 
     ant_str = convert_biotapestry_to_antimony(csv_filename, 8,
         [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
     # simulate
     r = te.loada(ant_str)
-    start = timepoints[0]
-    stop = timepoints[1]
-    steps = timepoints[2]
-    result = r.simulate(start, stop, steps, selections=selections)
+    result = r.simulate(timepoints[0],timepoints[1],timepoints[2], selections=selections)
     diff = data - result
     error = np.sum(np.power(diff, 2))
-
-    permError[0] = error
+    permError.append(error)
     mapping[str(error)] = [(-1,-1,-1)] # flag for add nothing; current model is already best
 
 
@@ -116,33 +124,79 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
         for next_gene in add_order:
             for _ in range(2-connections[next_gene]):
                 #find best connection to add to next_gene
-                # save this connection to chosen_connections
-                # and add it to the csv_newfile 
+                add = find_best_connection(8,next_gene, data, timepoints, csv_newfile, selections)
+                if not add == None:
+                    chosen_connections.extend(add)
+                    print ("add: " + str(add))
+                    print ( "chosen connections: " + str(chosen_connections) )
+                
+                    add_biotapestry(add, csv_newfile, temp_file)
+                
+                    temp = temp_file
+                    temp_file = csv_newfile
+                    csv_newfile = temp 
 
-    
+         
+        ant_str = convert_biotapestry_to_antimony(csv_newfile, 8,
+                [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+        # simulate
+        r = te.loada(ant_str)
+        result = r.simulate(timepoints[0],timepoints[1],timepoints[2], selections=selections)
+        diff = data - result
+        next_error = np.sum(np.power(diff, 2))
+        if str(next_error) not in mapping.keys():
+            mapping[str(next_error)] = chosen_connections
+        else:
+            mapping[str(next_error)].append(chosen_connections)
+        permError.append(next_error)
         # assess overall error of new model; add to mapping error_of_connections : chosen_connections 
+        
+        # csv_newfile starts as copy of initial file
+        with (open(csv_filename)) as f1:
+            with (open(csv_newfile, 'w')) as f2:
+                for line in f1:
+                    f2.write(line)
     
+        f1.close()
+        f2.close()
+        
+    permError.sort()
+    print("perm error: " + str(permError))
+    best_connections = []
+    for next_error in permError:   
+        best_connections.append(mapping[str(next_error)])
     #return list of best connections to add for each gene
+    print("best connections:" + str(best_connections))
 
+    return zip(permError, best_connections)
 
-def find_best_connection(gene_num, data, timepoints, csv_filename, selections):
+def find_best_connection(total_gene_count, gene_num, data, timepoints, csv_filename, selections):
     ant_str = convert_biotapestry_to_antimony(csv_filename, 8,
         [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
 
     r = te.loada(ant_str)
-    result = r.simulate(timepoints[0], timepoints[1], timepoints[2])
+    result = r.simulate(timepoints[0], timepoints[1], timepoints[2], selections = selections)
     diff = data - result
     min_error =  np.sum(np.power(diff,2))
-    best_choice = (-1,-1,-1) # add no connection
-    for i in range(1, gene_num + 1):
-        for j in range(1, gene_num + 1):
-            for k in (-1,1):
-                next_connection = (i,j,k)
-                add_biotapestry()
-                # add_biotap(next_connection)
-                # assess error, if better than min, reassign min/best_choice
-                
+    best_choice = None # add no connection
+    for i in range(1, total_gene_count + 1):
+        for k in (-1,1):
+            next_connection = [(i,gene_num,k)]
+            add_biotapestry(next_connection, csv_filename, "temp_biotap.csv")
+            # assess error, if better than min, reassign min/best_choice
+            ant_str = convert_biotapestry_to_antimony("temp_biotap.csv", 8,
+                            [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
 
+            r = te.loada(ant_str)
+            result = r.simulate(timepoints[0], timepoints[1], timepoints[2], selections=selections)
+            diff = data - result
+            error = np.sum(np.power(diff, 2))
+            if error < min_error:
+                min_error = error
+                best_choice = next_connection
+
+    os.remove("temp_biotap.csv")
+    return best_choice
 
 # returns the total squared error between the data and the simulated data generated from
 # "best guess" model. Used for parameter estimation with an optimization tool requiring an
@@ -192,4 +246,8 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
 connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
-print("Best connection " + str(connection))
+output = str(list(connection))
+f_new = open("est_connection_output.txt", 'w')
+f_new.write(output)
+f_new.close()
+print("Best connection " + output)

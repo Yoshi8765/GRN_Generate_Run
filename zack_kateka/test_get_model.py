@@ -18,7 +18,7 @@ start = time.time()
 ant_strs = []
 
 for _ in range(10):
-    next_antstring, biotap = get_model(8, model_name="debug")
+    next_antstring, biotap = get_model(3, seed = 6432, model_name="debug")
     print (next_antstring)
     print ("-"*40)
     #ant_strs.append(next_antstring)

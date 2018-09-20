@@ -8,6 +8,10 @@ Selecting for reasonable species (mRNA 1,3,4,6) gave:
 x: array([0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472,
        4.25284957, 0.06687737])
 
+Preliminary testing of both parameter sets seems to suggest the latter
+is the better estimate.
+
+
 ### Connection Predicting
 
 First run of interaction estimation trying to predict connections to the orphans gene 2 and gene 7 gave:

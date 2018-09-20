@@ -37,7 +37,7 @@ Load in experimental data.
 # from first RNA seqeunce test
 data_table = pd.read_csv('model_files/RNASeq_HiRes.csv') # RNASeq_HiRes has timepoints = [0,200,20]
 data_table.set_index('time', inplace=True) 
-#data_table[selections].plot(style='.-')
+data_table[selections].plot(style='.-')
 
 
 # converts dataframe into numpy 2D array
@@ -48,8 +48,8 @@ data = data_table[selections].values
 ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
-#r.plot()
-#plt.show()
+r.plot()
+plt.show()
 
 """
 param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
@@ -95,7 +95,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     error = np.sum(np.power(diff, 2))
     
     permError[0] = error
-    mapping[str(error)] = [(-1,-1,-1)]
+    mapping[str(error)] = [(-1,-1,-1)] # flag for add nothing; current model is already best
     
     
     for i in range(1, len(gene) + 1):
@@ -241,5 +241,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
-print("Best connection " + str(connection))
+#connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+#print("Best connection " + str(connection))

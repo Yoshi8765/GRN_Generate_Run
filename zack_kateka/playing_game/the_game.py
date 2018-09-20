@@ -16,13 +16,39 @@ import tellurium as te
 import roadrunner
 import antimony
 
-csv_filename="../Biotapestry/8gene_broken.csv"
-csv_newfile="../Biotapestry/8gene_test.csv"
-csv_remove="../Biotapestry/8gene_remove.csv"
+# Round 2 of game (new network) analysis
+csv_broken = "../playing_game/model_files/biotapestry_broken.csv"
+csv_new = "../playing_game/model_files/test_added_connections.csv"
+
+selections = ['time'] + ["mRNA" + str(i) for i in range(1,9)]
+
+for i in range(1,9):
+    add=[(i,2,-1)]
+    print(i,j)
+    add_biotapestry(add,csv_broken, csv_new)
+    ant_str = convert_biotapestry_to_antimony(csv_new, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472,
+                                                                                                4.25284957, 0.06687737])
+                                                                 
+    r=te.loada(ant_str)
+    r.simulate(0,300,100,selections=selections)
+    r.plot(figsize=[7,7],xlim=(0,300),linewidth=2,linestyle='-') 
+    r.resetToOrigin()
+
+
+
+
+
+
+
+#----------------------------------------------------
+
+#csv_filename="../Biotapestry/8gene_broken.csv"
+#csv_newfile="../Biotapestry/8gene_test.csv"
+#csv_remove="../Biotapestry/8gene_remove.csv"
 #init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'H', 'K']
 #add_biotapestry([(6,8,1),(3,5,-1),(6,7,-1),(7,7,-1),(2,4,-1),(6,4,-1)],csv_filename, csv_newfile)
 
-remove_biotapestry([(7,7),(3,1),(1,8),(1,7)],"../Biotapestry/8gene_network.csv",csv_remove)
+#remove_biotapestry([(7,7),(3,1),(1,8),(1,7)],"../Biotapestry/8gene_network.csv",csv_remove)
 
 #actual parameters=[1/60, 1, 1/60, 1, 5/60, 5, 1/60]
 #small range=[8.4111E-05, 5.919E-01, 1.88693E-01, 4.035919E-01,5.38276E-02, 5.92, 2.9811E-02]
