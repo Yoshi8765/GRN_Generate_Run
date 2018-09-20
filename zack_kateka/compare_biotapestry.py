@@ -14,31 +14,37 @@ broken csv file
 name of new student's file
 true csv file
 """
-add=[(6,8,1),(3,5,-1),(6,7,-1),(7,7,-1)]
-csv_broken="Biotapestry/8gene_broken.csv"
-csv_network="Biotapestry/8gene_network.csv"
-csv_student="Biotapestry/8gene_student.csv"
+def compare_biotapestry(add, csv_broken, csv_network, csv_student):
+    add_biotapestry(add, csv_broken, csv_student)
+    network = set()
+    
+    #strip useless stuff, add to set
+    f = open(csv_network)
+    for line in f: 
+        line = line.replace("\"", "")
+        line = line.replace(" ","")
+        line = line.strip()
+        words = line.split(",")
+        for i in range(len(words)):
+            words[i] = words[i].strip()
+        if words[0] == "general" or words[0] == "nodeOnly":
+            network.add(line)
+    
+    f = open(csv_student)
+    for line in f:
+        line = line.replace("\"", "")
+        line = line.replace(" ","")
+        line = line.strip()
+        if line not in network and len(line) > 0:
+            words = line.split(",")
+            if words[0] == "general":
+                print("wrong connection: " + words[3] + " to " + words[5])
+            elif words[0] == "nodeOnly":
+                print("wrong connection: " + words[3] + " not a node only")
 
-#add in student's connections
-add_biotapestry(add, csv_broken, csv_student)
 
-network = []
-
-#strip useless stuff, add to set
-#f = open(csv_network)
-#for line in f: 
-#    line = line.replace("\"", "")
-#    line = line.strip()
-#    words = line.split(",")
-#    for i in range(len(words)):
-#        words[i] = words[i].strip()
-#    if "#" not in words[0] and words[0] != "model" and words[0] != "":
-#        network.append(words)
-#print(network)
-
-f = open(csv_student)
-f_true = open(csv_network)
-for line in f:
-    line = line.replace("\"", "")
-    line = line.strip()
-    print(line)
+#add=[(6,8,1),(3,5,-1),(6,7,-1),(7,7,-1)]
+#csv_broken="Biotapestry/8gene_broken.csv"
+#csv_network="Biotapestry/8gene_network.csv"
+#csv_student="Biotapestry/8gene_student.csv"
+#compare_biotapestry(add, csv_broken, csv_network, csv_student)

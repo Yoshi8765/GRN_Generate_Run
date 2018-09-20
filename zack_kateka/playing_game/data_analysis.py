@@ -100,8 +100,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     
     for i in range(1, len(gene) + 1):
         perms.extend(list(it.permutations(gene, i)))
-    
-    
+    length = len(perms)
+    count =0
     #print(perms)
     for ii in range(len(perms)):
         choice = perms[ii]
@@ -115,16 +115,12 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             singleError = float("inf")
             #print(singleConnection)
             for i in range(0, 9): # 0 = flag for single connection
-                for j in range(0, 9):
+                for j in range(1, 9):
                     for k in (-1, 1):
-                        for m in (-1, 1):
-                            #if m == 0:
-                                
+                        for m in (-1, 1):   
                             if (i != j):
                                 if (i == 0):
                                     add = [(j, gene, k)]
-                                elif (j == 0):
-                                    add = [(i, gene, k)]
                                 else:
                                     add = [(i, gene, k), (j, gene, m)]
                                 # add the new connection
@@ -135,15 +131,12 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                     add_biotapestry(singleConnection, csv_filename, csv_newfile)
                                 except ValueError:
                                     break
-                                # catch -- if catch do nothing, only continue if there's no error
                                 ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
                                                   [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
                                 # simulate
                                 r = te.loada(ant_str)
-                                start = timepoints[0]
-                                stop = timepoints[1]
-                                steps = timepoints[2]
-                                result = r.simulate(start, stop, steps, selections=selections)
+                                result = r.simulate(timepoints[0], timepoints[1], 
+                                                    timepoints[2], selections=selections)
                                 diff = data - result
                                 error = np.sum(np.power(diff, 2))
                                 # test error for best error
@@ -171,10 +164,12 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                     singleConnection.pop()   
                                 #print(add)
                                 #print("after " + str(singleConnection))
-        print(choice)
-        print(connection)                   
-        print(str(singleError) + " " + str(permError))
-        print()
+#        print(choice)
+#        print(connection)                   
+#        print(str(singleError) + " " + str(permError))
+#        print()
+        count += 1
+        print("progress: " + str(count) + "/" + str(length))
         permError.sort()
         place = -1
         for kk in range(len(permError) - 1, -1, -1):
