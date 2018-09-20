@@ -37,7 +37,7 @@ Load in experimental data.
 # from first RNA seqeunce test
 data_table = pd.read_csv('model_files/RNASeq_HiRes.csv') # RNASeq_HiRes has timepoints = [0,200,20]
 data_table.set_index('time', inplace=True) 
-#data_table[selections].plot(style='.-')
+data_table[selections].plot(style='.-')
 
 
 # converts dataframe into numpy 2D array
@@ -95,14 +95,16 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     error = np.sum(np.power(diff, 2))
     
     permError[0] = error
-    mapping[str(error)] = [(-1,-1,-1)]
+    mapping[str(error)] = [(-1,-1,-1)] # flag for add nothing; current model is already best
     
     
-    for i in range(1, len(gene) + 1):
-        perms.extend(list(it.permutations(gene, i)))
+#    for i in range(1, len(gene) + 1):
+#        perms.extend(list(it.permutations(gene, i)))
+#    print(perms)
+    #place = -1
+    perms = list(it.permutations(gene))
     length = len(perms)
-    count =0
-    #print(perms)
+    count = 0
     for ii in range(len(perms)):
         choice = perms[ii]
         numAdded = -1
@@ -117,7 +119,16 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             for i in range(0, 9): # 0 = flag for single connection
                 for j in range(1, 9):
                     for k in (-1, 1):
-                        for m in (-1, 1):   
+                        for m in (-1, 1, 0):   
+                            if m == 0: # don't add connection just add it to permError
+                                permError.sort()
+                                #place = -1
+                                for kk in range(len(permError) - 1, -1, -1):
+                                    if singleError <= permError[kk]:
+                                        place = kk
+                                if place != -1:
+                                    permError.insert(kk, singleError)
+                                    mapping[str(singleError)] = connection
                             if (i != j):
                                 if (i == 0):
                                     add = [(j, gene, k)]

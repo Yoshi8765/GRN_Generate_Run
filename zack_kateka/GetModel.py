@@ -66,7 +66,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
     if not type(max_builds == int) or max_builds < 0:
         raise ValueError("max_builds must be a positive integer")
+        
 
+        
     if seed == 0:
        np.random.seed()
         # randSeed = time.time()
@@ -76,11 +78,9 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
        # fh.write('Random Seed = ' + str(randSeed))
        # fh.close()
     else:
-        try:
-            print('Using seed: ' + str(seed))
-            np.random.seed(seed)
-        except ValueError:
-            raise ValueError("Seed must be between 0 and 2**32 - 1")
+        print('Using seed: ' + str(seed))
+        np.random.seed(seed)
+        print ("the current state of the RNG is : " + str(np.random.get_state()))
 
     if not type(export) == bool:
         raise ValueError("export option must be True/False")
