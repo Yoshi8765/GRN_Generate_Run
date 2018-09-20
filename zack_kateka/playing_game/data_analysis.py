@@ -3,12 +3,9 @@
 '''
 
 
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import tellurium as te
 import itertools as it
-import scipy
 
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -24,10 +21,10 @@ timepoints: [start,stop, step] for r.simulate
 DONT RUN 5 
 """
 # TODO: plz optimize
-def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections, params):  
+def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_newfile, selections, params):  
     mapping = {}
     permConnections = []
-    permError = [float("inf")]*10
+    permError = [1000000]*10
     perms = []
     
     ant_str = convert_biotapestry_to_antimony(csv_filename, 8, params)
@@ -60,10 +57,10 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             #print(connection)
             numAdded = -1
             singleConnection = connection[:]
-            singleError = float("inf")
+            singleError = 1000000
             #print(singleConnection)
-            for i in (0, 2, 4, 6, 8): # 0 = flag for single connection
-                for j in (1, 3, 5, 7):
+            for i in range(0, num_genes + 1): # 0 = flag for single connection
+                for j in range(1, num_genes + 1):
                     for k in (-1, 1):
                         for m in (-1, 1, 0):   
                             if m == 0: # don't add connection just add it to permError
@@ -140,7 +137,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     permError.sort()
     print(permError)
     for i in range(1,11):
-        if permError[i] != float("inf"):
+        if permError[i] != 1000000:
             permConnections.append(mapping.get(str(permError[i])))
     return permConnections
 
