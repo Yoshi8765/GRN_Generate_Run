@@ -68,18 +68,20 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
         raise ValueError("max_builds must be a positive integer")
 
     if seed == 0:
-        randSeed = time.time()
-        np.random.seed(randSeed)
+       np.random.seed()
+        # randSeed = time.time()
+       # np.random.seed(randSeed)
         #     export txt of seed number
-        fh = open(model_name + '_Seed.txt', 'w')
-        fh.write('Random Seed = ' + str(randSeed))
-        fh.close()
+       # fh = open(model_name + '_Seed.txt', 'w')
+       # fh.write('Random Seed = ' + str(randSeed))
+       # fh.close()
     else:
         try:
             print('Using seed: ' + str(seed))
             np.random.seed(seed)
         except ValueError:
             raise ValueError("Seed must be between 0 and 2**32 - 1")
+
     if not type(export) == bool:
         raise ValueError("export option must be True/False")
 

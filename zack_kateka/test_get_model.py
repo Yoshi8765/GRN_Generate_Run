@@ -15,14 +15,30 @@ from Biotapestry import convert_biotapestry_to_antimony
 
 start = time.time()
 
-ant_str,biotap = get_model(8, init_params=[1,2,3,4,5,0.5,7], model_name = "debug", param_std = 0, export=True)
-ant_str2 = convert_biotapestry_to_antimony("debug_biotapestry.csv",num_genes=8, init_params=[1,2,3,4,5,0.5,7], model_name="debug")
+ant_strs = []
 
-print(ant_str)
-print("-"*40)
-print(ant_str2)
+for _ in range(10):
+    next_antstring, biotap = get_model(8, model_name="debug")
+    print (next_antstring)
+    print ("-"*40)
+    #ant_strs.append(next_antstring)
 
-print(ant_str == ant_str2)
+
+
+
+
+
+
+
+
+#ant_str,biotap = get_model(8, init_params=[1,2,3,4,5,0.5,7], model_name = "debug", param_std = 0, export=True)
+#ant_str2 = convert_biotapestry_to_antimony("debug_biotapestry.csv",num_genes=8, init_params=[1,2,3,4,5,0.5,7], model_name="debug")
+
+#print(ant_str)
+#print("-"*40)
+#print(ant_str2)
+
+#print(ant_str == ant_str2)
 #ant_str = convert_biotapestry_to_antimony("Biotapestry/8gene_network.csv", 8, [.5,.9,.8,30,30,1,.5])
 #print(ant_str)
 #r = te.loada(ant_str)
