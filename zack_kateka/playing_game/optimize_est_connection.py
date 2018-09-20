@@ -51,14 +51,6 @@ r = te.loada(ant_str)
 #r.plot()
 #plt.show()
 
-"""
-param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
-the first entry (0,10) says we think d_protein is somewhere between 0 and 10.
-"""
-# smaller range
-#param_ranges = [(0,0.25), (0,4), (0,0.25), (0,4), (0,0.5), (0,6), (0,0.25)]
-# larger range
-param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
 
@@ -96,6 +88,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     # csv_newfile starts as copy of initial file
     with (open(csv_filename)) as f1:
         with (open(csv_newfile, 'w')) as f2:
+            f2.truncate(0)
             for line in f1:
                 f2.write(line)
     
@@ -154,7 +147,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
         # csv_newfile starts as copy of initial file
         with (open(csv_filename)) as f1:
             with (open(csv_newfile, 'w')) as f2:
-                for line in f1:
+               f2.truncate(0) 
+               for line in f1:
                     f2.write(line)
     
         f1.close()
@@ -198,48 +192,6 @@ def find_best_connection(total_gene_count, gene_num, data, timepoints, csv_filen
     os.remove("temp_biotap.csv")
     return best_choice
 
-# returns the total squared error between the data and the simulated data generated from
-# "best guess" model. Used for parameter estimation with an optimization tool requiring an
-# objective function
-#
-# paramset: vector of values for each parameter (length of 7)
-# r : roadrunner instance storing model
-# data: numpy 2D array storing concentrations of each species at each timepoint
-# timepoints: [start, stop, steps] gives information on timepoints that our model (r) 
-#             will simulate species concentrations at; needs to match timepoints provided in data
-# selections: which species should be compared; note, you will have to pre-process "data"
-#             so that it only contains the species you are interested in
-
-def objective_func(paramset, r, data, timepoints, selections):
-    ids = r.getGlobalParameterIds()
-    r.resetToOrigin()
-    for i, next_id in enumerate(ids):
-        if i % 9 < 6:
-            val = paramset[i%9]
-        else:
-            val = paramset[6]
-
-        exec("r.%s = %f" % (next_id, val)) #runs the given formatted string as if it is a line of code
-
-    start = timepoints[0]
-    stop = timepoints[1]
-    steps = timepoints[2]
-    result = r.simulate(start,stop,steps, selections=selections)
-    diff = data - result
-    return  np.sum(np.power(diff, 2))
-
-
-
-'''
-Run objective_func through differential evolution to estimate parameters ['d_protein', 'd_mRNA', 'L', 'Vm', 'a_protein', 'H', 'K']
-'''
-# other parameters for optimize.differential_evolution
-#   popsize : increasing this will increase search radius; may lead to better solution but slows algorithm
-#   mutation : scales mutation phase. Larger numbers increase search radius (improves solution), but slows convergence
-#   recombination : higher numbers increase randomness. May lead to better solutions, but can increase instability
-
-#opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, timepoints, selections=selections), param_ranges, disp=True, popsize=40, mutation = (1,1.9))
-#print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
 
 '''
