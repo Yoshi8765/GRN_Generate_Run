@@ -131,7 +131,9 @@ def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_ne
             if singleError <= permError[kk]:
                 place = kk
         if place != -1:
+            remove=permError[11]
             permError.insert(kk, singleError)
+            del mapping[str(remove)]
             mapping[str(singleError)] = connection
             
     permError.sort()
