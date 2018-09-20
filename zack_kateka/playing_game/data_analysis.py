@@ -7,19 +7,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import tellurium as te
-import os, sys
 import itertools as it
+import scipy
+
+import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Biotapestry import convert_biotapestry_to_antimony
 from change_biotapestry import add_biotapestry
 
-import scipy
 
 """
 Runs differential evolution in an attempt to roughly estimate parameter values using data
 Uses "broken" model, so the estimate is based on an incorrect model, but filtering out
-liking poor/incorrect species from this estimation can improve its performance. You can
+likely poor/incorrect species from this estimation can improve its performance. You can
 select which species to use in the estimation by altering the "selections" variable
 Timepoints is the a vector describing the timepoints present in the data. It is in the form
 [start, stop, step_size]. This is needed so the simulated data from the partially complete model
@@ -34,9 +35,9 @@ timepoints = [0,200, 40]
 Load in experimental data.
 '''
 # from first RNA seqeunce test
-data_table = pd.read_csv('model_files/RNASeq_HiRes.csv')
-data_table.set_index('time', inplace=True) # need to wait for Yoshi to update .csv to include time
-data_table[selections].plot(style='.-')
+data_table = pd.read_csv('model_files/RNASeq_HiRes.csv') # RNASeq_HiRes has timepoints = [0,200,20]
+data_table.set_index('time', inplace=True) 
+#data_table[selections].plot(style='.-')
 
 
 # converts dataframe into numpy 2D array
@@ -61,8 +62,8 @@ param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
 
-#testing purpose
-data_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])	#plt.show()
+#testing purposes
+data_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
 data_model = te.loada(data_str)	
 data = data_model.simulate(0,200,40, selections=selections)
 
@@ -71,7 +72,7 @@ data = data_model.simulate(0,200,40, selections=selections)
 """
 the one for gene interaction
 gene: source gene you want to look at
-data: the results
+data: the experimental data
 timepoints: [start,stop, step] for r.simulate
 DONT RUN 5 
 """
@@ -194,7 +195,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
 
 
 # returns the total squared error between the data and the simulated data generated from
-# "best guess" model. Used for parameter estimation
+# "best guess" model. Used for parameter estimation with an optimization tool requiring an
+# objective function
 #
 # paramset: vector of values for each parameter (length of 7)
 # r : roadrunner instance storing model
@@ -204,9 +206,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
 # selections: which species should be compared; note, you will have to pre-process "data"
 #             so that it only contains the species you are interested in
 
-def objective_func(paramset, r, data, timepoints, selections=None):
-    if selections == None:
-        selections = ['time'] + r.getFloatingSpeciesIds() + r.getBoundarySpeciesIds()
+def objective_func(paramset, r, data, timepoints, selections):
     ids = r.getGlobalParameterIds()
     r.resetToOrigin()
     for i, next_id in enumerate(ids):
