@@ -9,7 +9,7 @@ from RunModel import run_model
 from GetModel import get_model
 from GetModel import convert_to_biotapestry
 
-model_name='exp4'
+model_name='exp3'
 numGenes = 8
 seednum = 305345 #seed not working
 
@@ -18,14 +18,14 @@ seednum = 305345 #seed not working
 
 #antStr,biotap_str = get_model(numGenes,model_name=model_name,seed=seednum,export=False)
 
-antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony.txt','r').read()
+antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony_up7.txt','r').read()
 noiseLevel = 0.05 # put in a percentage. 0.05 = 5%
 tmax=200 # The clean data will have tmax*5 datapoints
 resolution = 10 # How much you want to divide from the clean data (ie 10 => tmax/10 datapoints)
-
+#perturb = np.random.normal(35,4)
 #r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
 
-r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True],inputData=[1,tmax,resolution])
+r,res,resN = run_model(antStr,noiseLevel,exportData=[[2,8],'P',True,True,True],inputData=[1,tmax,resolution])
 
 print('done!')
 
