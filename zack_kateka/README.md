@@ -1,4 +1,5 @@
-# Function Descriptions (see documentation in files for more details + use instructions)
+# Function Descriptions
+*(see documentation in files for more details + use instructions)
 
 ## Main Folder
 
