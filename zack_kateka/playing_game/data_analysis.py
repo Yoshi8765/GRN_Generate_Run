@@ -133,6 +133,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                     break
                                 ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
                                                   [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+                                os.remove(csv_newfile)
                                 # simulate
                                 r = te.loada(ant_str)
                                 result = r.simulate(timepoints[0], timepoints[1], 
