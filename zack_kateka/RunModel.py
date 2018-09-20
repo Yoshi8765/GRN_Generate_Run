@@ -136,17 +136,15 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
         outputSpecies = range(int(np.size(result,1)))
         if exportData[0]!=0:
             if exportData[1]=='P':
-                outputSpecies = [gene for gene in exportData[0]]
+                outputSpecies = [gene*2 for gene in exportData[0]]
             if exportData[1]=='M':
-                exportData = [x.__add__(1) for x in exportData[0]]
-                outputSpecies = [gene for gene in exportData[0]]
+                outputSpecies  = [gene*2 for gene in exportData[0]]
         else:
             if exportData[1]=='P':
-                outputSpecies = outputSpecies[1::2]
-                outputResults = np.array(result[:,outputSpecies])
+                outputSpecies = outputSpecies[2::2]
             if exportData[1]=='M':
                 outputSpecies = outputSpecies[1::2]
-                outputResults = np.array(result[:,outputSpecies])
+        outputResults = np.array(result[:,outputSpecies])
         outputTime = np.reshape(result[:,0],[len(result[:,0]),1])
         writeResult = np.hstack((outputTime,outputResults))
         writecsvFile(outputSpecies,filesPath + 'Results_Clean.csv',model,np.array(writeResult))
