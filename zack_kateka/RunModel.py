@@ -60,7 +60,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
             raise RuntimeError("Failed to load antimony string due to parsing error. Check that your antStr is correct.")
         # Check that the model reaches steady-state. If the model has any issues running, it will raise an Exception. The user should run get_model again.
         plt.close('all')
-        model.reset()
+        model.resetToOrigin()
         tStep = int(math.ceil(inputData[1]/inputData[2]))
         try:
             model.steadyState()
@@ -72,15 +72,14 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
                 print "Failed to reach steady-state or there is an Integrator error. Check your model or run get_model again."
                 ErrorPrinting(error)
                 raise error
-        # TODO: Error test to see behavior when it runs but doesn't reach steady state.
-        # Currently under investigation (when there is a species that stays at 0, in some models nleq fails)
 
-        # Run a simulation for time-course data
         model.resetToOrigin()
-        result = model.simulate(0,inputData[1],tStep)
 
         #Specify input
         model.INPUT = inputData[0];
+        # Run a simulation for time-course data
+        result = model.simulate(0,inputData[1],tStep)
+
 
 #            numGenes = model.getNumFloatingSpecies()
         model_name = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
@@ -234,7 +233,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                 plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                 plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                 plt.plot (result[:,0],result[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
-                plt.yscale('log')
+                #plt.yscale('log')
                 if inputData[1] > 5000:
                     plt.xscale('log')
                     plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
@@ -250,7 +249,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                plt.plot (result[:,0],result[:,outputSpecies[k]+1])#, label = vars[e][k],color=colors[k])
-               plt.yscale('log')
+              # plt.yscale('log')
                if inputData[1] > 5000:
                     plt.xscale('log')
                     plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
@@ -279,7 +278,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                     plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
-                    plt.yscale('log')
+                    #plt.yscale('log')
                     if inputData[1] > 5000:
                         plt.xscale('log')
                         plt.xticks(fontsize=6)
@@ -296,7 +295,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                     plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]+1], label = vars[e][k],color=colors[k])
                     plt.legend(vars[e])
-                    plt.yscale('log')
+                    #plt.yscale('log')
                     if inputData[1] > 5000:
                         plt.xscale('log')
                         plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
