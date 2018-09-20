@@ -24,7 +24,7 @@ timepoints: [start,stop, step] for r.simulate
 DONT RUN 5 
 """
 # TODO: plz optimize
-def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections, params):  
+def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_newfile, selections, params):  
     mapping = {}
     permConnections = []
     permError = [float("inf")]*10
@@ -62,8 +62,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             singleConnection = connection[:]
             singleError = float("inf")
             #print(singleConnection)
-            for i in (0, 2, 4, 6, 8): # 0 = flag for single connection
-                for j in (1, 3, 5, 7):
+            for i in range(0, num_genes + 1): # 0 = flag for single connection
+                for j in (1, num_genes + 1):
                     for k in (-1, 1):
                         for m in (-1, 1, 0):   
                             if m == 0: # don't add connection just add it to permError

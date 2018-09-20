@@ -64,5 +64,6 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
+# def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections, params):  
 connection = estimate_connections([2,7], 8, data, timepoints, broken_model, "model_files/temp.csv", selections, init_params)
 print("Best connection " + str(connection))
