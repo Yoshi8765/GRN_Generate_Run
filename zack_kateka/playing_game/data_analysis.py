@@ -48,8 +48,8 @@ data = data_table[selections].values
 ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
-r.plot()
-plt.show()
+#r.plot()
+#plt.show()
 
 """
 param_ranges is a list of rough bounds for each parameter value in the form (min, max). For example,
@@ -98,11 +98,13 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
     mapping[str(error)] = [(-1,-1,-1)] # flag for add nothing; current model is already best
     
     
-    for i in range(1, len(gene) + 1):
-        perms.extend(list(it.permutations(gene, i)))
+#    for i in range(1, len(gene) + 1):
+#        perms.extend(list(it.permutations(gene, i)))
+#    print(perms)
+    #place = -1
+    perms = list(it.permutations(gene))
     length = len(perms)
-    count =0
-    #print(perms)
+    count = 0
     for ii in range(len(perms)):
         choice = perms[ii]
         numAdded = -1
@@ -117,7 +119,16 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             for i in range(0, 9): # 0 = flag for single connection
                 for j in range(1, 9):
                     for k in (-1, 1):
-                        for m in (-1, 1):   
+                        for m in (-1, 1, 0):   
+                            if m == 0: # don't add connection just add it to permError
+                                permError.sort()
+                                #place = -1
+                                for kk in range(len(permError) - 1, -1, -1):
+                                    if singleError <= permError[kk]:
+                                        place = kk
+                                if place != -1:
+                                    permError.insert(kk, singleError)
+                                    mapping[str(singleError)] = connection
                             if (i != j):
                                 if (i == 0):
                                     add = [(j, gene, k)]
@@ -133,6 +144,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                                     break
                                 ant_str = convert_biotapestry_to_antimony(csv_newfile, 8, 
                                                   [1/60, 1, 1/60, 1, 5/60, 5, 1/60])
+                                os.remove(csv_newfile)
                                 # simulate
                                 r = te.loada(ant_str)
                                 result = r.simulate(timepoints[0], timepoints[1], 
@@ -236,5 +248,5 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-#connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
-#print("Best connection " + str(connection))
+connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+print("Best connection " + str(connection))
