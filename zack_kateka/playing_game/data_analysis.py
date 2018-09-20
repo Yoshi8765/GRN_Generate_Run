@@ -27,8 +27,8 @@ Timepoints is the a vector describing the timepoints present in the data. It is 
 lines up with the experimental data
 """
 broken_model = "model_files/biotapestry_broken.csv"
-selections = ["mRNA" + str(i) for i in range(1,9)] 
-timepoints = [0,200, 40]
+selections = ["mRNA" + str(i) for i in [1,2,7,4,3]] 
+timepoints = [0,200, 20]
 
 
 '''
@@ -45,7 +45,7 @@ data_table[selections].plot(style='.-')
 data = data_table[selections].values
 
 # Load in our current "best guess" for the model
-ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
+ant_str = convert_biotapestry_to_antimony("model_files/test_added_connections.csv", 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
 #r.plot()
@@ -63,9 +63,9 @@ param_ranges = [(0,10), (0,10), (0,10), (0,10), (0,10), (0,10), (0,10)]
 
 
 #testing purposes
-data_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
-data_model = te.loada(data_str)	
-data = data_model.simulate(0,200,40, selections=selections)
+#data_str = convert_biotapestry_to_antimony("../Biotapestry/8gene_network.csv", 8,  [1.0/60, 1, 1.0/60, 1,5.0/60, 5, 1.0/60])
+#data_model = te.loada(data_str)	
+#data = data_model.simulate(0,200,40, selections=selections)
 
 
 
@@ -116,8 +116,8 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
             singleConnection = connection[:]
             singleError = float("inf")
             #print(singleConnection)
-            for i in range(0, 9): # 0 = flag for single connection
-                for j in range(1, 9):
+            for i in (0, 2, 4, 6, 8): # 0 = flag for single connection
+                for j in (1, 3, 5, 7):
                     for k in (-1, 1):
                         for m in (-1, 1, 0):   
                             if m == 0: # don't add connection just add it to permError
@@ -241,12 +241,11 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 #   mutation : scales mutation phase. Larger numbers increase search radius (improves solution), but slows convergence
 #   recombination : higher numbers increase randomness. May lead to better solutions, but can increase instability
 
-#opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, timepoints, selections=selections), param_ranges, disp=True, popsize=40, mutation = (1,1.9))
-#print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
-
+opt_sol = scipy.optimize.differential_evolution(lambda x: objective_func(x, r, data, timepoints, selections=selections), param_ranges, disp=True, popsize=40)
+print("\nParameter Estimation: [d_protein, d_mRNA, L, Vm, a_protein, H, K ] = " + str(opt_sol))
 
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
-print("Best connection " + str(connection))
+#connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
+#print("Best connection " + str(connection))

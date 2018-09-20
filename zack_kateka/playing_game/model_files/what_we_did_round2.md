@@ -17,3 +17,25 @@ is the better estimate.
 First run of interaction estimation trying to predict connections to the orphans gene 2 and gene 7 gave:
 Best connection for 2[(7, 2, -1), (8, 2, -1)]
 Best connection for 7[(6, 7, -1), (7, 7, -1)]
+
+### Parameter Picking
+
+Vm1= 8.0
+Vm2= 12.5
+Vm3= 6.0
+Vm4= 6
+Vm5= 6
+Vm6= 6
+Vm7= 10
+Vm8= 6
+
+# Educated Guesses
+
+Gene 2:
+    SR: 7
+    SR: 5
+Gene 8:
+    DA: 6 + 8 
+Gene 7:
+    SR: 4
+    DR: 2 + 4 

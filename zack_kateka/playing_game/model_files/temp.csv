@@ -8,3 +8,4 @@ general, root, gene, Gene 8, gene, Gene 5, positive
 general, root, box, INPUT, gene, Gene 6, positive
 general, root, gene, Gene 4, gene, Gene 7, negative
 general, root, gene, Gene 7, gene, Gene 2, negative
+general, root, gene, Gene 7, gene, Gene 5, positive
