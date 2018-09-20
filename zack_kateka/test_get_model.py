@@ -7,6 +7,7 @@ Created on Wed Sep 12 11:42:03 2018
 
 import tellurium as te
 import time
+import numpy as np
 
 from GetModel import get_model
 from GetModel import convert_to_biotapestry
@@ -18,11 +19,10 @@ start = time.time()
 ant_strs = []
 
 for _ in range(10):
-    next_antstring, biotap = get_model(3, seed = 6432, model_name="debug")
-    print (next_antstring)
+    next_antstring, biotap = get_model(8, seed = 6432, model_name="debug")
+    #print (next_antstring)
     print ("-"*40)
     #ant_strs.append(next_antstring)
-
 
 
 

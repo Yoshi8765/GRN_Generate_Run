@@ -80,8 +80,6 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     else:
         print('Using seed: ' + str(seed))
         np.random.seed(seed)
-        print ("the current state of the RNG is : " + str(np.random.get_state()))
-
     if not type(export) == bool:
         raise ValueError("export option must be True/False")
 
@@ -102,13 +100,13 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
         # chooses a random collection of gene types of the required size with the given probabilities
         random_reg_types = np.random.choice(gene_types, size=num_genes, p=np.asarray(reg_probs), replace=True)
-
+        
         # assigns genes their names and regulation types
         all_genes = []
         for i, reg_type in enumerate(random_reg_types):
             protein_name = "P" + str(i+1)
             all_genes.append(Gene(protein_name, reg_type))
-
+        
         # DisjointSets helps keeps track of which genes are connected, directly or indirectly.
         # Used to prevent the formation of "orphans"
         gene_sets = DisjointSets()
@@ -174,9 +172,11 @@ def assign_connections(all_genes, gene_sets):
         while gene.remaining_connections > 0:
             # to avoid connecting same protein to both regulatory sites on a gene, do not consider
             # genes whose proteins are already acting as a regulator for this current gene
-            available_genes = list(set(all_genes) - set(gene.in_connections))
-            gene_to_add = np.random.choice(available_genes)
+            
+            #available_genes = list(set(all_genes) - set(gene.in_connections)) # caused seeding to fail
+            available_genes = [x for x in all_genes if x not in gene.in_connections]
 
+            gene_to_add = np.random.choice(available_genes)
             # check if new connection is valid (does not result in orphan)
             name1 = gene.protein_name
             name2 = gene_to_add.protein_name
@@ -400,8 +400,8 @@ class Gene:
 
     # toString method mostly used for debugging
     def __repr__(self):
-        return str(self.protein_name)
-        # return (str(self.reg_type) + " (" + str(self.protein_name) + "): " +
+        #return str(self.protein_name)
+        return str(self.reg_type) + " (" + str(self.protein_name) + "): " 
         # str(self.remaining_connections) + " connection(s) remaining")
 
 
