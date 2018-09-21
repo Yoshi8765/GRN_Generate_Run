@@ -78,7 +78,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
         #Specify input
         model.INPUT = inputData[0];
         # Run a simulation for time-course data
-        result = model.simulate(0,inputData[1],tStep)
+        result = model.simulate(0,inputData[1],tStep+1)
 
 
 #            numGenes = model.getNumFloatingSpecies()
