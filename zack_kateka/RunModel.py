@@ -11,7 +11,7 @@ import imp
 GRAPH_LABEL_FONTSIZE = 8
 GRAPH_TITLE_FONTSIZE = 10
 
-# TODO: perturbations?
+# TODO: perturbations -> Affect Vm# with a specific perturbation
 # TODO: Masspec or rnaseq with all species
 # RNASeq
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
