@@ -163,8 +163,11 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
         te.saveToFile (filesPath + 'OrigModel.xml', sbmlStr)
     # export Antimony model text
     if exportData[4]==True:
-        fh = open(filesPath + 'OrigAntimony.txt', 'wb')
-        fh.write(str(antStr))
+        if np.DataSource().exists(filesPath +  'OrigAntimony.txt'):
+            print('Warning: ' + filesPath + 'OrigAntimony.txt already exists! Preventing overwrite.' )
+        else:
+            fh = open(filesPath + 'OrigAntimony.txt', 'wb')
+            fh.write(str(antStr))
 
     print('\nData Saved!\n')
 
