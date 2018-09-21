@@ -19,14 +19,14 @@ seednum = 305345 #seed not working
 
 #antStr,biotap_str = get_model(numGenes,model_name=model_name,seed=seednum,export=False)
 
-antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony.txt','r').read()
+antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony_up3.txt','r').read()
 noiseLevel = 0.05 # put in a percentage. 0.05 = 5%
-tmax=200 # The clean data will have tmax*5 datapoints
-resolution = 20 # How much you want to divide from the clean data (ie 10 => tmax/10 datapoints)
-#perturb = np.random.normal(35,4)
+tmax=200 # minutes. The complete data will have tmax*5 datapoints
+resolution = 20 # The number of minutes between each timepoint you want in your output.
+#perturb = np.random.normal(35,4)/100
 #r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
 
-r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'P',True,False,False],inputData=[1,tmax,resolution],showTimePlots=True)
+r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,False,False],inputData=[1,tmax,resolution],showTimePlots=True)
 
 print('done!')
 

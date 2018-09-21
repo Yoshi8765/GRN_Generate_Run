@@ -138,11 +138,16 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
         diff = data - result
         next_error = np.sum(np.power(diff, 2))
         if str(next_error) not in mapping.keys():
-            mapping[str(next_error)] = chosen_connections
+            mapping[str(next_error)] = [chosen_connections]
         else:
             mapping[str(next_error)].append(chosen_connections)
         permError.append(next_error)
-        # assess overall error of new model; add to mapping error_of_connections : chosen_connections 
+
+        # permError stores 10 lowest erros (which act as keys for the map)
+        if len(permError) > 10:
+            permError.sort()
+            del mapping[str(permError.pop())]
+       # assess overall error of new model; add to mapping error_of_connections : chosen_connections 
         
         # csv_newfile starts as copy of initial file
         with (open(csv_filename)) as f1:
@@ -150,7 +155,7 @@ def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, sele
                f2.truncate(0) 
                for line in f1:
                     f2.write(line)
-    
+
         f1.close()
         f2.close()
         
@@ -197,6 +202,8 @@ def find_best_connection(total_gene_count, gene_num, data, timepoints, csv_filen
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
+
+#[2,8,7,5]
 connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
 output = str(list(connection))
 f_new = open("est_connection_output.txt", 'w')

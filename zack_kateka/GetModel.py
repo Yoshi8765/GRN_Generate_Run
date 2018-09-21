@@ -177,6 +177,7 @@ def assign_connections(all_genes, gene_sets):
             available_genes = [x for x in all_genes if x not in gene.in_connections]
 
             gene_to_add = np.random.choice(available_genes)
+
             # check if new connection is valid (does not result in orphan)
             name1 = gene.protein_name
             name2 = gene_to_add.protein_name

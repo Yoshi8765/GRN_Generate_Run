@@ -11,7 +11,7 @@ import imp
 GRAPH_LABEL_FONTSIZE = 8
 GRAPH_TITLE_FONTSIZE = 10
 
-# TODO: perturbations?
+# TODO: perturbations -> Affect Vm# with a specific perturbation
 # TODO: Masspec or rnaseq with all species
 # RNASeq
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
@@ -78,7 +78,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
         #Specify input
         model.INPUT = inputData[0];
         # Run a simulation for time-course data
-        result = model.simulate(0,inputData[1],tStep)
+        result = model.simulate(0,inputData[1],tStep+1)
 
 
 #            numGenes = model.getNumFloatingSpecies()
@@ -163,8 +163,11 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
         te.saveToFile (filesPath + 'OrigModel.xml', sbmlStr)
     # export Antimony model text
     if exportData[4]==True:
-        fh = open(filesPath + 'OrigAntimony.txt', 'wb')
-        fh.write(str(antStr))
+        if np.DataSource().exists(filesPath +  'OrigAntimony.txt'):
+            print('Warning: ' + filesPath + 'OrigAntimony.txt already exists! Preventing overwrite.' )
+        else:
+            fh = open(filesPath + 'OrigAntimony.txt', 'wb')
+            fh.write(str(antStr))
 
     print('\nData Saved!\n')
 
