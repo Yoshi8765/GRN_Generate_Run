@@ -50,11 +50,7 @@ ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
 
-
-
-
-
-
+        
 '''
 Run objective_func through differential evolution to estimate parameters ['d_protein', 'd_mRNA', 'L', 'Vm', 'a_protein', 'H', 'K']
 '''

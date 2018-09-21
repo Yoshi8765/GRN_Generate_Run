@@ -177,3 +177,15 @@ def objective_func(paramset, r, data, timepoints, selections):
     result = r.simulate(start,stop,steps, selections=selections)
     diff = data - result
     return  np.sum(np.power(diff, 2))
+
+
+# param set i.e. [Vm1, Vm2, Vm3, ...]
+# ID = string representing single parameter of interest (i.e. "Vm")
+def single_parameter_sweep(paramset, ID,  r, data, timepoints, selections):
+    r.resetToOrigin()
+    for i, next_param in enumerate(paramset):
+        exec("r.%s = %f" % (ID + str(i+1), next_param)) #runs the given formatted string as if it is a line of code
+
+    result = simulate(timepoints[0], timepoints[1], timepoints[2], selections=selections)
+    diff = data - result
+    return np.sum(np.power(diff,2))
