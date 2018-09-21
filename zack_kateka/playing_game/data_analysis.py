@@ -62,16 +62,16 @@ def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_ne
             for i in range(0, num_genes + 1): # 0 = flag for single connection
                 for j in range(1, num_genes + 1):
                     for k in (-1, 1):
-                        for m in (-1, 1, 0):   
-                            if m == 0: # don't add connection just add it to permError
-                                permError.sort()
-                                #place = -1
-                                for kk in range(10, -1, -1):
-                                    if singleError <= permError[kk]:
-                                        place = kk
-                                if place != -1:
-                                    permError.insert(kk, singleError)
-                                    mapping[str(singleError)] = connection
+                        for m in (-1, 1):   
+#                            if m == 0: # don't add connection just add it to permError
+#                                permError.sort()
+#                                #place = -1
+#                                for kk in range(10, -1, -1):
+#                                    if singleError <= permError[kk]:
+#                                        place = kk
+#                                if place != -1:
+#                                    permError.insert(kk, singleError)
+#                                    mapping[str(singleError)] = connection
                             if (i != j):
                                 if (i == 0):
                                     add = [(j, gene, k)]
@@ -90,6 +90,9 @@ def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_ne
                                 os.remove(csv_newfile)
                                 # simulate
                                 r = te.loada(ant_str)
+                                r.Vm2 = 12.5
+                                r.Vm7 = 10
+                                r.Vm1 = 8
                                 result = r.simulate(timepoints[0], timepoints[1], 
                                                     timepoints[2], selections=selections)
                                 diff = data - result
@@ -127,15 +130,21 @@ def estimate_connections(gene, num_genes, data, timepoints, csv_filename, csv_ne
         print("progress: " + str(count) + "/" + str(length))
         permError.sort()
         place = -1
-        for kk in range(10, -1, -1):
+        for kk in range(1,11):
+            print(kk)
+            print(permError)
             if singleError <= permError[kk]:
                 place = kk
+                break
         if place != -1:
-            remove=permError[11]
+            print(permError)
             permError.insert(kk, singleError)
-            del mapping[str(remove)]
+            remove=permError[10]
+            permError.pop()
+            if remove in mapping.keys():
+                del mapping[str(remove)]
             mapping[str(singleError)] = connection
-            
+            print(connection)
     permError.sort()
     print(permError)
     for i in range(1,11):

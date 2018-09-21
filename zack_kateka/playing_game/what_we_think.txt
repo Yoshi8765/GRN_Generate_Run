@@ -11,6 +11,9 @@ Strategy
 		- leak rate controls the equalibrium position
 - make some connections to match the experimental data (change_biotapestry.py)
 
+- tried aggregating protein and mRNA data, but protein was too high --> terrible parameters
+	- hone the protein parameters with mass spec data first
+
 Notes
 ------------------------------------------------
 Gene 8: DA

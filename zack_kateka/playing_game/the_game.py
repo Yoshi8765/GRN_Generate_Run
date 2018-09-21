@@ -20,7 +20,7 @@ import antimony
 csv_broken = "../playing_game/model_files/biotapestry_broken.csv"
 csv_new = "../playing_game/model_files/test_added_connections.csv"
 
-selections = ['time'] + ["mRNA" + str(i) for i in range(1,9)]
+selections = ['time'] + ["mRNA" + str(i) for i in range(1,9)] + ['P2'] + ['P8']
 
 #for i in range(1,9):
 #    add=[(i,2,-1)]
@@ -37,37 +37,28 @@ selections = ['time'] + ["mRNA" + str(i) for i in range(1,9)]
 
 # round 2 parameters: [0.40242652, 8.39507097, 0.0136378 , 9.99897755, 0.98195867,
 #                      8.1766647 , 0.5442412]
-add_biotapestry([(4,7,-1), (7,2,-1)], csv_broken, csv_new)
-for i in (1,8,6,5):
-    for j in (-1,1):
-        add=[(7,i,j)]
-        print(add)
-        add_biotapestry(add, csv_new, "../playing_game/model_files/temp.csv")
-        ant_str = convert_biotapestry_to_antimony("../playing_game/model_files/temp.csv", 8, [0.01556653, 9.959682  , 0.1056418 , 6.669, 0.08160472,
-                                                                                           4.25284957, 0.06687737])
-        r=te.loada(ant_str)
-        r.simulate(0,220,100,selections=selections)
-        r.plot(figsize=[7,7],xlim=(0,220),ylim=(0,1.3),linewidth=2,linestyle='-')
-        r.resetToOrigin()
-#print(ant_str)
-#r=te.loada(ant_str)
+add_biotapestry([(7,2,-1)], csv_broken, csv_new)
+ant_str = convert_biotapestry_to_antimony(csv_new, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472,
+                                                                                            4.25284957, 0.06687737])
+print(ant_str)
 
-#r=te.loada(
+
+r=te.loada(
 """
-   model *pathway()
+model *pathway()
 
         // Compartments and Species:
         species INPUT, P1, mRNA1, P2, mRNA2, P3, mRNA3, P4, mRNA4, P5, mRNA5, P6, mRNA6, P7, mRNA7, P8, mRNA8;
 
         // Assignment Rules (production rates used in reactions):
-        // transcription1(SR : in connections = [P4]) uses production rate := Vm1*( 1 /(1 +K1_1*P4^H1));
-        // transcription2(SR : in connections = [P5]) uses production rate := Vm2*( 1 /(1 +K1_2*P5^H2));
-        // transcription3(DR : in connections = [P5, P6]) uses production rate := Vm3*( 1 /(1 + K1_3*P5^H3 + K2_3*P6^H3 + K1_3*K3_3*P5^H3*P6^H3));
-        // transcription4(SA+SR : in connections = [P1, P8]) uses production rate := Vm4*((K1_4*P1^H4)/(1 + K1_4*P1^H4 + K2_4*P8^H4 + K1_4*K2_4*P1^H4*P8^H4));
-        // transcription5(SA : in connections = [P8]) uses production rate := Vm5*((K1_5*P8^H5)/(1 +K1_5*P8^H5));
-        // transcription6(SA : in connections = [INPUT]) uses production rate := Vm6*((K1_6*INPUT^H6)/(1 +K1_6*INPUT^H6));
-        // transcription7(SR : in connections = [P4]) uses production rate := Vm7*( 1 /(1 +K1_7*P4^H7));
-        // transcription8(DA : in connections = [P6, P8]) uses production rate := Vm8*((K1_8*P6^H8 + K2_8*P8^H8 + K1_8*K3_8*P6^H8*P8^H8)/(1 + K1_8*P6^H8 + K2_8*P8^H8 + K1_8*K3_8*P6^H8*P8^H8));
+        // transcription1(SR : in connections = [SA+SR (P4): ]) uses production rate := Vm1*( 1 /(1 +K1_1*P4^H1));
+        // transcription2(SR : in connections = [N/A (P7): ]) uses production rate := Vm2*( 1 /(1 +K1_2*P7^H2));
+        // transcription3(DR : in connections = [SA (P5): , SA (P6): ]) uses production rate := Vm3*( 1 /(1 + K1_3*P5^H3 + K2_3*P6^H3 + K1_3*K3_3*P5^H3*P6^H3));
+        // transcription4(SA+SR : in connections = [SR (P1): , N/A (P8): ]) uses production rate := Vm4*((K1_4*P1^H4)/(1 + K1_4*P1^H4 + K2_4*P8^H4 + K1_4*K2_4*P1^H4*P8^H4));
+        // transcription5(SA : in connections = [N/A (P8): ]) uses production rate := Vm5*((K1_5*P8^H5)/(1 +K1_5*P8^H5));
+        // transcription6(SA : in connections = [None (INPUT): ]) uses production rate := Vm6*((K1_6*INPUT^H6)/(1 +K1_6*INPUT^H6));
+        // transcription7(N/A : in connections = []) uses production rate := Vm7*(/);
+        // transcription8(N/A : in connections = []) uses production rate := Vm8*(/);
 
         const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8;
 
@@ -77,7 +68,7 @@ for i in (1,8,6,5):
         //translation1
         F1: => P1 ; a_protein1 * mRNA1 - d_protein1 * P1;
         //transcription2
-        J2: => mRNA2 ; L2 + Vm2*( 1 /(1 +K1_2*P5^H2)) - d_mRNA2 * mRNA2;
+        J2: => mRNA2 ; L2 + Vm2*( 1 /(1 +K1_2*P7^H2)) - d_mRNA2 * mRNA2;
         //translation2
         F2: => P2 ; a_protein2 * mRNA2 - d_protein2 * P2;
         //transcription3
@@ -97,11 +88,11 @@ for i in (1,8,6,5):
         //translation6
         F6: => P6 ; a_protein6 * mRNA6 - d_protein6 * P6;
         //transcription7
-        J7: => mRNA7 ; L7 + Vm7*( 1 /(1 +K1_7*P4^H7)) - d_mRNA7 * mRNA7;
+        J7: => mRNA7 ; L7 + 0 - d_mRNA7 * mRNA7;
         //translation7
         F7: => P7 ; a_protein7 * mRNA7 - d_protein7 * P7;
         //transcription8
-        J8: => mRNA8 ; L8 + Vm8*((K1_8*P6^H8 + K2_8*P8^H8 + K1_8*K3_8*P6^H8*P8^H8)/(1 + K1_8*P6^H8 + K2_8*P8^H8 + K1_8*K3_8*P6^H8*P8^H8)) - d_mRNA8 * mRNA8;
+        J8: => mRNA8 ; L8 + 0 - d_mRNA8 * mRNA8;
         //translation8
         F8: => P8 ; a_protein8 * mRNA8 - d_protein8 * P8;
 
@@ -144,7 +135,7 @@ for i in (1,8,6,5):
         d_protein3 = 0.01556653;
         d_mRNA3 = 9.959682;
         L3 = 0.1056418;
-        Vm3 = 6.669;
+        Vm3 = 6.66957033;
         a_protein3 = 0.08160472;
         H3 = 5.0;
         K1_3 = 0.06687737;
@@ -153,7 +144,7 @@ for i in (1,8,6,5):
         d_protein4 = 0.01556653;
         d_mRNA4 = 9.959682;
         L4 = 0.1056418;
-        Vm4 = 6.669;
+        Vm4 = 6.66957033;
         a_protein4 = 0.08160472;
         H4 = 5.0;
         K1_4 = 0.06687737;
@@ -162,7 +153,7 @@ for i in (1,8,6,5):
         d_protein5 = 0.01556653;
         d_mRNA5 = 9.959682;
         L5 = 0.1056418;
-        Vm5 = 6.669;
+        Vm5 = 6.66957033;
         a_protein5 = 0.08160472;
         H5 = 5.0;
         K1_5 = 0.06687737;
@@ -171,7 +162,7 @@ for i in (1,8,6,5):
         d_protein6 = 0.01556653;
         d_mRNA6 = 9.959682;
         L6 = 0.1056418;
-        Vm6 = 6.669;
+        Vm6 = 6.66957033;
         a_protein6 = 0.08160472;
         H6 = 5.0;
         K1_6 = 0.06687737;
@@ -189,7 +180,7 @@ for i in (1,8,6,5):
         d_protein8 = 0.01556653;
         d_mRNA8 = 9.959682;
         L8 = 0.1056418;
-        Vm8 = 6.669;
+        Vm8 = 6.66957033;
         a_protein8 = 0.08160472;
         H8 = 5.0;
         K1_8 = 0.06687737;
@@ -197,10 +188,12 @@ for i in (1,8,6,5):
         K3_8 = 0.06687737;
 
 
-end        
-"""#)
-#r.simulate(0,220,100,selections=selections)
-#r.plot(figsize=[7,7],xlim=(0,220),ylim=(0,1.3),linewidth=2,linestyle='-')
+end
+""")
+    
+r=te.loada(ant_str)
+r.simulate(0,220,100,selections=selections)
+r.plot(figsize=[7,7],xlim=(0,220),ylim=(0,8),linewidth=2,linestyle='-')
 
 
 
