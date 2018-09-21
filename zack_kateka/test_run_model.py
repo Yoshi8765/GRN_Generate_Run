@@ -13,19 +13,20 @@ model_name='exp3'
 numGenes = 8
 seednum = 305345 #seed not working
 
+# Output function in Runmodel has index errors? Causing weird data?
 # TODO: fix seed
 # TODO: check to make sure all species in model move concentration
 
 #antStr,biotap_str = get_model(numGenes,model_name=model_name,seed=seednum,export=False)
 
-antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony_up7.txt','r').read()
+antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony.txt','r').read()
 noiseLevel = 0.05 # put in a percentage. 0.05 = 5%
 tmax=200 # The clean data will have tmax*5 datapoints
-resolution = 10 # How much you want to divide from the clean data (ie 10 => tmax/10 datapoints)
+resolution = 20 # How much you want to divide from the clean data (ie 10 => tmax/10 datapoints)
 #perturb = np.random.normal(35,4)
 #r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
 
-r,res,resN = run_model(antStr,noiseLevel,exportData=[[2,8],'P',True,True,True],inputData=[1,tmax,resolution])
+r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'P',True,False,False],inputData=[1,tmax,resolution],showTimePlots=True)
 
 print('done!')
 
@@ -49,7 +50,7 @@ a new csv file to given location.
 rem = [(5,3),(6,6),(8,1),(1,5),(4,7)]
 #rem = [(8,8),(1,5),(5,3)]
 
-remove_biotapestry(rem,'C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\\biotapestry.csv','stestWorking.csv')
+#remove_biotapestry(rem,'C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\\biotapestry.csv','stestWorking.csv')
 print('done')
 
 #I don't think we were going to have as an assumption that 3 connections are gone.
