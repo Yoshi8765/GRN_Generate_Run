@@ -5,18 +5,13 @@
 
 
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
 import tellurium as te
-import itertools as it
-import scipy
-
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from Biotapestry import convert_biotapestry_to_antimony
-from change_biotapestry import add_biotapestry
-
+from data_analysis import estimate_connections
+from data_analysis import objective_func
 
 """
 Runs differential evolution in an attempt to roughly estimate parameter values using data
@@ -28,14 +23,14 @@ Timepoints is the a vector describing the timepoints present in the data. It is 
 lines up with the experimental data
 """
 broken_model = "model_files/biotapestry_broken.csv"
-selections = ["mRNA" + str(i) for i in [5]] 
-timepoints = [0,200, 40]
+selections = ["mRNA" + str(i) for i in [8]] 
+timepoints = [0,200, 20]
 
 
 '''
 Load in experimental data.
 '''
-# from first RNA seqeunce test
+# from first RNAseq test
 data_table = pd.read_csv('model_files/RNASeq_HiRes.csv') # RNASeq_HiRes has timepoints = [0,200,20]
 data_table.set_index('time', inplace=True) 
 data_table[selections].plot(style='.-')
@@ -45,12 +40,14 @@ data_table[selections].plot(style='.-')
 #data = data_table.as_matrix(columns=selections)-----(depreciated)
 data = data_table[selections].values
 
+
+init_params =  [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737]
+
 # Load in our current "best guess" for the model
-ant_str = convert_biotapestry_to_antimony(broken_model, 8, [0.01556653, 9.959682  , 0.1056418 , 6.66957033, 0.08160472, 4.25284957, 0.06687737])
+ant_str = convert_biotapestry_to_antimony(broken_model, 8,init_params)
 r = te.loada(ant_str)
 r.simulate(timepoints[0],timepoints[1], timepoints[2], selections = ['time'] + selections) 
 
-        
 '''
 Run objective_func through differential evolution to estimate parameters ['d_protein', 'd_mRNA', 'L', 'Vm', 'a_protein', 'H', 'K']
 '''
@@ -66,5 +63,6 @@ Run objective_func through differential evolution to estimate parameters ['d_pro
 '''
 Probes for possible connections; we can investigate the feasibility of these connections using further experimental data
 '''
-#connection = estimate_connections([2,8,7,5], data, timepoints, "../Biotapestry/8gene_broken.csv", "../Biotapestry/8gene_ie.csv", selections)
-#print("Best connection " + str(connection))
+# def estimate_connections(gene, data, timepoints, csv_filename, csv_newfile, selections, params):  
+connection = estimate_connections([2,7], 8, data, timepoints, broken_model, "model_files/temp.csv", selections, init_params)
+print("Best connection " + str(connection))
