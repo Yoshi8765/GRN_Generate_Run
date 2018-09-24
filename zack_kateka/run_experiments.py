@@ -6,6 +6,11 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 from RunModel_2 import run_model2
+import smtplib 
+from email.mime.multipart import MIMEMultipart 
+from email.mime.text import MIMEText 
+from email.mime.base import MIMEBase 
+from email import encoders 
 
 # TODO: add email functionality??
 def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
@@ -120,7 +125,47 @@ def update_money(team_file, team, money):
         f.write("," + str(words[i]))
     f.close()
     return canBuy
-     
+
+def send_email(toaddr, filename, path, money):
+    fromaddr = "bioen498@gmail.com"
+    # instance of MIMEMultipart 
+    msg = MIMEMultipart() 
+    
+    msg['From'] = fromaddr 
+    msg['To'] = toaddr 
+    msg['Subject'] = "BIOEN 498 Experiment Data"
+    body = "Your experiment results. You have " + str(money) + ("left.")
+    msg.attach(MIMEText(body, 'plain')) 
+      
+    # open the file to be sent  
+    filename = filename
+    attachment = open(path, "r") 
+      
+    # instance of MIMEBase and named as p 
+    p = MIMEBase('application', 'octet-stream') 
+      
+    # To change the payload into encoded form 
+    p.set_payload((attachment).read())   
+    # encode into base64 
+    encoders.encode_base64(p) 
+    p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+      
+    # attach the instance 'p' to instance 'msg' 
+    msg.attach(p) 
+    # creates SMTP session 
+    s = smtplib.SMTP('smtp.gmail.com', 587) 
+    # start TLS for security 
+    s.starttls() 
+    # Authentication 
+    s.login(fromaddr, "uwbioenrules!") 
+    # Converts the Multipart msg into a string 
+    text = msg.as_string() 
+    # sending the mail 
+    s.sendmail(fromaddr, toaddr, text) 
+    # terminating the session 
+    s.quit() 
+
+
 ############## Helper functions ##############
 def convert_list(genes):
     print(genes)
@@ -138,4 +183,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments()
+#export_experiments()
