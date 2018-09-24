@@ -12,7 +12,9 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase 
 from email import encoders 
 
-# TODO: add email functionality??
+"""
+
+"""
 def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv"):
     ant_str = open(ant_file, 'r').read()
@@ -99,7 +101,8 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 send_email(email, saveName, path, money, canBuy[1])
         i = 1
  
-    
+"""
+"""
 def update_money(team_file, team, money):
     f = open(team_file)
     team = int(team.replace("team ", ""))
@@ -133,6 +136,17 @@ def update_money(team_file, team, money):
     f.close()
     return [canBuy, money_left]
 
+"""
+Sends an email to students with data for their requested experiment using 
+bioen498@gmail.com as the sender. Will tell students how much money they spent
+and how much they have left.
+
+toaddr: student's email
+filename: name of attachment file (including extension)
+path: path to filename (including filename)
+money: money student spent on this experiment
+money_left: total money the student's team has left
+"""
 def send_email(toaddr, filename, path, money, money_left):
     fromaddr = "bioen498@gmail.com"
     # instance of MIMEMultipart 
