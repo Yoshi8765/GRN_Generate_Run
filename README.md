@@ -1,1 +1,1 @@
-# DREAM-work
+# GRN Generator and Runner for Sauro's class
