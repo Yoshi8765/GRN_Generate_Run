@@ -9,15 +9,6 @@ from matplotlib import pyplot as plt
 import imp
 import pandas as pd
 
-GRAPH_LABEL_FONTSIZE = 8
-GRAPH_TITLE_FONTSIZE = 10
-
-# TODO: perturbations -> Affect Vm# with a specific perturbation
-# TODO: Masspec or rnaseq with all species
-# RNASeq
-# TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
-# TDOO: Make a table of appropriate ranges for parameters.
-
 def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepoints,       
         exportData=False,input_conc=1, perturbs = [], perbParam=[.20,.50], bioTap='',
               save_path = os.getcwd(), filename = "results", showTimePlots=False,seed=0,runAttempts=5):
@@ -41,6 +32,7 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             NOTE: percents are chosen uniformally between the min and max
         bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
         save_path = directory to save output folder to
+        filename = file to save the experimental data to
         showTimePlots: whether or not to output timeplots of the data (as png) in the output file
         seed: random number generator seed
         runAttempts: number of attempts to load/run model before exiting and suggesting to rebuild the model
@@ -140,6 +132,7 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             plt.xlabel("time")
             plt.savefig(filesPath + 'Simulation_Noisy_Plot2.png', dpi=400)
 
+            # do not want to give students the clean data 
             #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
             #df = pd.DataFrame.from_dict(data)            
             #df.set_index('time', inplace=True)
@@ -163,13 +156,14 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
 
 def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap, selections, filename):
     # export csv of results
-    
+   
+    # do not want to give students the clean data
     #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
     #df = pd.DataFrame.from_dict(data)            
     #df.set_index('time', inplace=True)
     #df.to_csv(filesPath + "Results_Clean2.csv")
 
-    data = {next_name:resultNoisy[:,i] for i,next_name in enumerate(selections)}
+    data = {next_name:resultNoisy[:,i] for i, next_name in enumerate(selections)}
     df = pd.DataFrame.from_dict(data)            
     df.set_index('time', inplace=True)
     df.to_csv(filesPath + filename + ".csv")
