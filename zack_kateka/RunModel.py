@@ -272,7 +272,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
             tStep = int(math.ceil(inputData[1]/inputData[2]))
             tRange = np.arange(0,(int(math.ceil(inputData[1])))+ tStep,tStep)
             if exportData[1]=='P':
-                plt.subplot(2,1,1)
+               # plt.subplot(2,1,1)
                 plt.title('Protein Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
                 plt.grid(color='k', linestyle='-', linewidth=.4)
                 plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
@@ -287,7 +287,7 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                 plt.xlim(0,inputData[1])
                 plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
             if exportData[1]=='M':
-               plt.subplot(2,1,2)
+              # plt.subplot(2,1,2)
                plt.title('mRNA Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
                plt.grid(color='k', linestyle='-', linewidth=.4)
                plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
@@ -303,8 +303,8 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                plt.xlim(0,inputData[1])
                plt.legend(vars[e],loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
     manager = plt.get_current_fig_manager()
-    manager.window.showMaximized()
-    manager.window.showMinimized()
+#    manager.window.showMaximized()
+#    manager.window.showMinimized()
     plt.savefig(filesPath + 'Simulation_Plot.png', dpi=400)
 
     # create a plot for noisy data
@@ -348,8 +348,8 @@ def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
                         plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
                     plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
         manager = plt.get_current_fig_manager()
-        manager.window.showMaximized()
-        manager.window.showMinimized()
+#        manager.window.showMaximized()
+#        manager.window.showMinimized()
         plt.savefig(filesPath + 'Noisy Simulation_Plot.png', dpi=400)
         print('\nPlots created!\n')
 
