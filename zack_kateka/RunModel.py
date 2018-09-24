@@ -17,7 +17,7 @@ GRAPH_TITLE_FONTSIZE = 10
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
 # TDOO: Make a table of appropriate ranges for parameters.
 
-def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[1,40,1],bioTap='',
+def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[1,40,1, [0],[0]],bioTap='',
               savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=[False,'fdp'],runAttempts=5):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
@@ -33,7 +33,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
             antimony = (bool) Default:True . This is a flag for the export of the Antimony model as a txt.
 
         inputData:
-            [valInput,maxTime,resolution]
+            [INPUTval,maxTime,resolution,perturbations,perturbation_params[up/dowm,avrg,stdev]]
         bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
         savePath:
         showTimePlots:
@@ -77,6 +77,18 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
 
         #Specify input
         model.INPUT = inputData[0];
+
+        #specify perturbations
+        if inputData[3] != [0]:
+            perturb = inputData[3]
+            pertParam = inputData[4]
+            for gene in perturb:
+                currVm = eval(model.Vm + str(gene))
+                if perParam[0] == 'UP':
+                    eval(model.Vm + str(gene)) = currVm + np.random.normal(perParam[1],perParam[2])/100
+                if perParam[0] == 'DOWN':
+                    eval(model.Vm + str(gene)) = currVm - np.random.normal(perParam[1],perParam[2])/100
+
         # Run a simulation for time-course data
         result = model.simulate(0,inputData[1],tStep+1)
 
