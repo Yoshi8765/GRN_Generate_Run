@@ -96,6 +96,7 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
                         newVm  = currVm - np.random.uniform(perbParam[0]*currVm, perbParam[1]*currVm)
                         exec("model.Vm" + str(gene) + " = " + str(newVm))
                     elif next_type  == 'KO':
+                        exec("model.L" + str(gene) + " = 0")
                         exec('model.Vm' + str(gene)  + ' = 0')
                         exec('model.d_mRNA' + str(gene)  + ' = 0')
                         exec('model.d_protein' + str(gene)  + ' = 0')
@@ -125,10 +126,9 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             print('\nFolder created: ' + filesPath)
 
         # Create results with artificial noise
-        if noiseLevel != '0':
-            noise = np.random.normal(1, noiseLevel, size=result.shape)
-            noise[:,0] = 1
-            resultNoisy = np.multiply(result, noise)
+        noise = np.random.normal(1, noiseLevel, size=result.shape)
+        noise[:,0] = 1 # we dont want there to be noise in the time
+        resultNoisy = np.multiply(result, noise)
 
         # Create graphs
         if showTimePlots==True:
@@ -140,13 +140,13 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             plt.xlabel("time")
             plt.savefig(filesPath + 'Simulation_Noisy_Plot2.png', dpi=400)
 
-            data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
-            df = pd.DataFrame.from_dict(data)            
-            df.set_index('time', inplace=True)
-            df.plot()
-            plt.title("Normal Data")
-            plt.xlabel("time")
-            plt.savefig(filesPath + 'Simulation_Clean_Plot2.png', dpi=400)
+            #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
+            #df = pd.DataFrame.from_dict(data)            
+            #df.set_index('time', inplace=True)
+            #df.plot()
+            #plt.title("Normal Data")
+            #plt.xlabel("time")
+            #plt.savefig(filesPath + 'Simulation_Clean_Plot2.png', dpi=400)
             
             plt.show()
 
