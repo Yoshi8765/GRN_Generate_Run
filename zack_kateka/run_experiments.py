@@ -4,7 +4,8 @@ Created on Mon Sep 24 12:13:40 2018
 
 @author: Kateka Seth
 """
-from RunModel import run_model
+import os
+from RunModel_2 import run_model2
 
 # TODO: add email functionality??
 def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
@@ -12,14 +13,11 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
-    print("here")
     for line in f:
         if i != 0:
-            print("here")
             line = line.replace("\"", "")
             words = line.split(",")
             print(line)
-            print(words)
             team = words[2]
             # process pertubations
             if "Up" in words[3]:
@@ -44,17 +42,17 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
             if "Mass Spectrometry" in words[5]:
                 name = "MassSpec"
                 selections = list(range(1,9))
-                flag = "M"
+                species_type = "M"
                 money += 1700
             elif "RNA" in words[5]:
                 name = "RNASeq"
                 selections = list(range(1,9))
-                flag = "P"
+                species_type = "P"
                 money += 1500
             else: #words[5] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
                 selections = list_to_ints(words[6].split(";"))
-                flag = "P"
+                species_type = "P"
                 money += 300 * len(selections)
                 if len(selections) == 3:
                     money += 50         
@@ -70,21 +68,27 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 resolution = 10
                 
             canBuy = update_money(team_file, team, money)    
-            
+            print(selections)
             if canBuy:
+                # make team dir
+                if os.path.exists(team + "/") == False:
+                    os.mkdir(team)
                 # create file names
                 savePath = team + "/"
-                savePath += team + "_" + pert + "_" + convert_list(pert_gene) + name
+                savePath += team + "_" + pert + "_" + convert_list(pert_gene) + "_" + name
                 if name == "Fl":
                     savePath += "_" + convert_list(selections)
                 savePath = savePath.replace(" ", "_")
                 print(savePath)
-                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
-                exportData = [selections, flag, True, False, True]
+#                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
+#                exportData = [selections, species_type, True, False, True]
                 
     #           def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
     #                         savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
-                run_model(ant_str, noiseLevel=5, inputData=inputData, exportData=exportData, savePath=savePath)
+#                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
+                run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
+                           timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
+                           save_path=savePath, num_genes=8)
         i = 1
  
     
@@ -96,7 +100,6 @@ def update_money(team_file, team, money):
     words=[]
     canBuy = True;
     for line in f:
-        print(line)
         if i == 0:
             header = line
         if i == 1:
@@ -109,7 +112,7 @@ def update_money(team_file, team, money):
                 words[team-1] = team_money - money
         i += 1
     f.close()
-    print(words)
+    
     # write new file
     f = open(team_file, 'w')
     f.write(header)
@@ -121,9 +124,11 @@ def update_money(team_file, team, money):
      
 ############## Helper functions ##############
 def convert_list(genes):
+    print(genes)
     result = ""
-    for i in genes:
-        result += str(i) + "_"
+    result += str(genes[0])
+    for i in range(1, len(genes)):
+        result += "_" + str(genes[i])
     return result
 
 def list_to_ints(genes):
