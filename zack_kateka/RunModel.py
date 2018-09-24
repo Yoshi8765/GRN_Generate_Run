@@ -106,19 +106,19 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
                 perturb = inputData[3]
                 pertParam = inputData[4]
                 for gene in perturb:
-                    currVm = eval(model.Vm + str(gene))
+                    currVm = eval('model.Vm' + str(gene))
                     if pertParam[0] == 'UP':
                          pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
-                         eval('model.Vm' + str(gene) + ' = ' + str(pertVal))
+                         exec('model.Vm' + str(gene) +  ' = ' + str(pertVal))
                     if pertParam[0] == 'DOWN':
                         pertVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
-                        eval('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
+                        exec('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
                     if pertParam[0] == 'KO':
-                        eval('model.Vm' + str(gene)  + ' = 0')
-                        eval('model.d_mRNA' + str(gene)  + ' = 0')
-                        eval('model.d_protein' + str(gene)  + ' = 0')
-                        eval('model.mRNA' + str(gene)  + ' = 1E-9')
-                        eval('model.P' + str(gene)  + ' = 1E-9')
+                        exec('model.Vm' + str(gene)  + ' = 0')
+                        exec('model.d_mRNA' + str(gene)  + ' = 0')
+                        exec('model.d_protein' + str(gene)  + ' = 0')
+                        exec('model.mRNA' + str(gene)  + ' = 1E-9')
+                        exec('model.P' + str(gene)  + ' = 1E-9')
                         #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
 
         # Run a simulation for time-course data

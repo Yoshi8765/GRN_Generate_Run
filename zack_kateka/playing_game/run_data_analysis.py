@@ -38,7 +38,6 @@ param_ranges = [(0,10)] * num_genes
 '''
 Load in experimental data.
 '''
-<<<<<<< HEAD
 ## from first RNAseq test
 #data_table = pd.read_csv('model_files/RNASeq_HiRes.csv') # RNASeq_HiRes has timepoints = [0,200,20]
 #data_table.set_index('time', inplace=True) 
