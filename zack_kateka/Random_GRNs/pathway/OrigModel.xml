@@ -347,8 +347,8 @@
           <speciesReference species="mRNA4" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
           <modifierSpeciesReference species="P3"/>
+          <modifierSpeciesReference species="P1"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -710,8 +710,8 @@
           <speciesReference species="mRNA7" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
           <modifierSpeciesReference species="INPUT"/>
+          <modifierSpeciesReference species="P1"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
