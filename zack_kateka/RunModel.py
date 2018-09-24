@@ -69,7 +69,7 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
                 model.conservedMoietyAnalysis = True
                 model.steadyState()
             except Exception as error:
-                print "Failed to reach steady-state or there is an Integrator error. Check your model or run get_model again."
+                print ("Failed to reach steady-state or there is an Integrator error. Check your model or run get_model again.")
                 ErrorPrinting(error)
                 raise error
 
@@ -138,7 +138,7 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
             if exportData[1]=='P':
                 outputSpecies = [gene*2 for gene in exportData[0]]
             if exportData[1]=='M':
-                outputSpecies  = [gene*2 for gene in exportData[0]]
+                outputSpecies  = [gene*2+1 for gene in exportData[0]]
         else:
             if exportData[1]=='P':
                 outputSpecies = outputSpecies[2::2]
@@ -166,9 +166,9 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
         if np.DataSource().exists(filesPath +  'OrigAntimony.txt'):
             print('Warning: ' + filesPath + 'OrigAntimony.txt already exists! Preventing overwrite.' )
         else:
-            fh = open(filesPath + 'OrigAntimony.txt', 'wb')
+            fh = open(filesPath + 'OrigAntimony.txt', 'w')
             fh.write(str(antStr))
-
+            fh.close()
     print('\nData Saved!\n')
 
 # function for exporting to csv
@@ -191,11 +191,11 @@ def writecsvFile (outputSpecies,filesPath, model, data):
 #    for name in names[1-len(names):]:
 #        header_string = header_string + ',' + name
 
-    fh = open(filesPath, "wb")
+    fh = open(filesPath, "w")
     fh.write(header_string)
     fh.write('\n')
-    for x in xrange(data.shape[0]):
-        for y in xrange(data.shape[1]):
+    for x in range(data.shape[0]):
+        for y in range(data.shape[1]):
             val = data[x][y]
             s1 = "{:6.5f}".format(val)
             fh.write (s1)
