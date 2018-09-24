@@ -17,13 +17,26 @@ GRAPH_TITLE_FONTSIZE = 10
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
 # TDOO: Make a table of appropriate ranges for parameters.
 
-def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[1,40,1, [0],[0]],bioTap='',
-              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=[False,'fdp'],runAttempts=5):
+def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
+              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments:
         antStr: (str) The Antimony model.
         noiseLevel: (float) level of noise as a decimal. Ex: 0.05 = 5%
+
+        inputData:
+            [INPUTval,maxTime,resolution,perturbations,perturbation_params[up/dowm,mean,stdev]]
+            - INPUTval: The initial concentration of the input species (name in model: INPUT)
+            - maxTime: Duration of minutes to simulate model
+            - resolution: The resolution of datapoints. Eg: If resolution = 5, the data will include data every 5 minutes
+            - perturbations: What species to perturb, if perturbation is necessary.
+            - perturbation_params: (Input: list of numbers) The parameters needed for perturbation of species.
+                - up/down: either `UP` or `DOWN` or `KO` used as a flag for upregulation, repression, or knockout, respectively.
+                - mean: The mean value used in np.random.normal to generate a random perturbation. The default is recommended for a perturbation of 20-60%.
+                - stdev: The stdev value used in np.random.normal to generate a random pertrubation. The default is recommended for a perturbation of 20-60%.
+        bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
+
         exportData:
             [genesToExport,speciesDataType,csv,biotapestryCSV,sbml,antimony,seed]
             genesToExport = (int List) Default: [0] . A list object of which genes you want to export, 1-based indexing. Pass in [0] to export all proteins.
@@ -32,9 +45,6 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
             sbml = (bool) Default:True . This is a flag for the export of the model in SBML format (version based on Tellurium).
             antimony = (bool) Default:True . This is a flag for the export of the Antimony model as a txt.
 
-        inputData:
-            [INPUTval,maxTime,resolution,perturbations,perturbation_params[up/dowm,avrg,stdev]]
-        bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
         savePath:
         showTimePlots:
         seed:
@@ -48,6 +58,18 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
         result:
         resultNoisy:
     """
+
+    #Creating default lists
+    if inputData is None:
+        inputData = [1,40,1, [0],['UP',35,4]]
+    if len(inputData) == 1:
+        inputData = [inputData[0],35,4]
+
+    if exportData is None:
+        exportData = [ [0],'P',True,True,True]
+
+    if drawModel is None:
+        drawModel = [False,'fdp']
 
     # Attempt to execute run_model up to runAttempts times with different generated models.
     for retry in range(runAttempts):
@@ -79,15 +101,25 @@ def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[
         model.INPUT = inputData[0];
 
         #specify perturbations
-        if inputData[3] != [0]:
-            perturb = inputData[3]
-            pertParam = inputData[4]
-            for gene in perturb:
-                currVm = eval(model.Vm + str(gene))
-                if perParam[0] == 'UP':
-                    eval(model.Vm + str(gene)) = currVm + np.random.normal(perParam[1],perParam[2])/100
-                if perParam[0] == 'DOWN':
-                    eval(model.Vm + str(gene)) = currVm - np.random.normal(perParam[1],perParam[2])/100
+        if len(inputData)> 3:
+            if inputData[3] != [0]:
+                perturb = inputData[3]
+                pertParam = inputData[4]
+                for gene in perturb:
+                    currVm = eval(model.Vm + str(gene))
+                    if pertParam[0] == 'UP':
+                         pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
+                         eval('model.Vm' + str(gene) + ' = ' + str(pertVal))
+                    if pertParam[0] == 'DOWN':
+                        pertVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
+                        eval('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
+                    if pertParam[0] == 'KO':
+                        eval('model.Vm' + str(gene)  + ' = 0')
+                        eval('model.d_mRNA' + str(gene)  + ' = 0')
+                        eval('model.d_protein' + str(gene)  + ' = 0')
+                        eval('model.mRNA' + str(gene)  + ' = 1E-9')
+                        eval('model.P' + str(gene)  + ' = 1E-9')
+                        #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
 
         # Run a simulation for time-course data
         result = model.simulate(0,inputData[1],tStep+1)
@@ -150,7 +182,7 @@ def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr
             if exportData[1]=='P':
                 outputSpecies = [gene*2 for gene in exportData[0]]
             if exportData[1]=='M':
-                outputSpecies  = [gene*2 for gene in exportData[0]]
+                outputSpecies  = [gene*2+1 for gene in exportData[0]]
         else:
             if exportData[1]=='P':
                 outputSpecies = outputSpecies[2::2]
