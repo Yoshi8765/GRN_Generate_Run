@@ -106,7 +106,7 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
                 perturb = inputData[3]
                 pertParam = inputData[4]
                 for gene in perturb:
-                    currVm = eval('model.Vm' + str(gene))
+                    currVm = exec('model.Vm' + str(gene))
                     if pertParam[0] == 'UP':
                          pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
                          exec('model.Vm' + str(gene) +  ' = ' + str(pertVal))
