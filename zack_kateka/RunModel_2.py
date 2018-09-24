@@ -20,7 +20,7 @@ GRAPH_TITLE_FONTSIZE = 10
 
 def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepoints,       
         exportData=False,input_conc=1, perturbs = [], perbParam=[.20,.50], bioTap='',
-              save_path = os.getcwd(), showTimePlots=False,seed=0,runAttempts=5):
+              save_path = os.getcwd(), filename = "results", showTimePlots=False,seed=0,runAttempts=5):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments
@@ -51,7 +51,6 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
         result: experimental data without noise
         resultNoisy: experimental data with noise
     """
-
     # Attempt to execute run_model up to runAttempts times with different generated models.
     for retry in range(runAttempts):
         # Load the Antimony string as a model
@@ -89,21 +88,22 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
         #specify perturbations
             for next_type, targets in perturbs:
                 for gene in targets:    
-                    currVm = eval(model.Vm + str(gene))
+                    currVm = eval("model.Vm" + str(gene))
                     if next_type  == 'UP':
                         newVm  = currVm + np.random.uniform(perbParam[0]*currVm, perbParam[1]*currVm)
                         exec("model.Vm" + str(gene) + " = " + str(newVm))
-                    if next_type  == 'DOWN':
+                    elif next_type  == 'DOWN':
                         newVm  = currVm - np.random.uniform(perbParam[0]*currVm, perbParam[1]*currVm)
                         exec("model.Vm" + str(gene) + " = " + str(newVm))
-                    if next_type  == 'KO':
+                    elif next_type  == 'KO':
                         exec('model.Vm' + str(gene)  + ' = 0')
                         exec('model.d_mRNA' + str(gene)  + ' = 0')
                         exec('model.d_protein' + str(gene)  + ' = 0')
                         exec('model.mRNA' + str(gene)  + ' = 1E-9')
                         exec('model.P' + str(gene)  + ' = 1E-9')
                         #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
-
+                    else:
+                        raise ValueError("Perturbation type is not recognized; expected UP, DOWN, or KO")
 
         # Run a simulation for time-course data
         if species_type == 'P':
@@ -119,11 +119,8 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
         model_name = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
 
         # Specify (and make if necessary) a folder to save outputs to
-        folderPath = save_path + '/Random_GRNs/'
-        filesPath = folderPath + model_name + '/'
+        filesPath = save_path + "/experimental_data_" + model_name + '/'
         if os.path.exists(filesPath) == False:
-            if os.path.exists(folderPath) == False:
-                os.mkdir(folderPath)
             os.mkdir(filesPath)
             print('\nFolder created: ' + filesPath)
 
@@ -154,7 +151,7 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             plt.show()
 
         # Export datasets
-        Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap, selections)
+        Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap, selections, filename)
 
         #returns the model, and result and/or resultNoisy arrays
         return(model,result,resultNoisy)
@@ -164,19 +161,18 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
 
 ###### Other Functions that GetModel uses ######
 
-def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap, selections):
+def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap, selections, filename):
     # export csv of results
     
-    data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
+    #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
+    #df = pd.DataFrame.from_dict(data)            
+    #df.set_index('time', inplace=True)
+    #df.to_csv(filesPath + "Results_Clean2.csv")
+
+    data = {next_name:resultNoisy[:,i] for i,next_name in enumerate(selections)}
     df = pd.DataFrame.from_dict(data)            
     df.set_index('time', inplace=True)
-    df.to_csv(filesPath + "Results_Clean2.csv")
-
-    if noiseLevel != 0:     
-        data = {next_name:resultNoisy[:,i] for i,next_name in enumerate(selections)}
-        df = pd.DataFrame.from_dict(data)            
-        df.set_index('time', inplace=True)
-        df.to_csv(filesPath + "Results_Noisy2.csv")
+    df.to_csv(filesPath + filename + ".csv")
     
     # export csv file for importing into Biotapestry
     if bioTap!='':
