@@ -40,6 +40,7 @@ def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepo
             i.e. perbParam = (0.20, 0.50) specifies that you want the up/down regulation to change transcription between 20 and 50 percent.
             NOTE: percents are chosen uniformally between the min and max
         bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
+        save_path = directory to save output folder to
         showTimePlots: whether or not to output timeplots of the data (as png) in the output file
         seed: random number generator seed
         runAttempts: number of attempts to load/run model before exiting and suggesting to rebuild the model
