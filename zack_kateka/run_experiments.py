@@ -24,14 +24,19 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
             # process pertubations
             if "Up" in words[3]:
                 pert = "UP"
+                money = 350
             elif "Down" in words[3]:
                 pert = "DOWN"
+                money = 350
             elif "Deletion" in words[3]:
                 pert = "KO"
+                money = 800
             else: 
                 pert = "Wild"
+                money = 0
             if pert != "Wild":
                 pert_gene = list_to_ints(words[4].split(";"))
+                money *= len(pert_gene)
             else:
                 pert_gene = [0]
                 
@@ -40,17 +45,17 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 name = "MassSpec"
                 selections = list(range(1,9))
                 flag = "M"
-                money = 1700
+                money += 1700
             elif "RNA" in words[5]:
                 name = "RNASeq"
                 selections = list(range(1,9))
                 flag = "P"
-                money = 1500
+                money += 1500
             else: #words[5] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
                 selections = list_to_ints(words[6].split(";"))
                 flag = "P"
-                money = 300 * len(selections)
+                money += 300 * len(selections)
                 if len(selections) == 3:
                     money += 50         
             
