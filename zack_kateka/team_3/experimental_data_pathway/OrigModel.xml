@@ -199,8 +199,8 @@
           <speciesReference species="mRNA2" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
           <modifierSpeciesReference species="P4"/>
+          <modifierSpeciesReference species="P1"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">

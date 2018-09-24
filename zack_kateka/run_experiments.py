@@ -23,6 +23,7 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
             line = line.replace("\"", "")
             words = line.split(",")
             team = words[2]
+            email = words[1]
             # process pertubations
             if "Up" in words[3]:
                 pert = "UP"
@@ -73,7 +74,7 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 
             canBuy = update_money(team_file, team, money)    
             
-            if canBuy:
+            if canBuy[0]:
                 savePath = team
                 savePath = savePath.replace(" ", "_")
                 # make team dir
@@ -92,6 +93,10 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
                            timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
                            save_path=savePath, filename=saveName, num_genes=8)
+                
+                path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
+                saveName = saveName + ".csv"
+                send_email(email, saveName, path, money, canBuy[1])
         i = 1
  
     
@@ -101,7 +106,8 @@ def update_money(team_file, team, money):
     i = 0
     header=""
     words=[]
-    canBuy = True;
+    canBuy = True
+    money_left = 0
     for line in f:
         if i == 0:
             header = line
@@ -114,6 +120,7 @@ def update_money(team_file, team, money):
                       + str(money) + ".")
             else:
                 words[team-1] = team_money - money
+                money_left = words[team-1]
         i += 1
     f.close()
     
@@ -124,9 +131,9 @@ def update_money(team_file, team, money):
     for i in range(1, len(words)):
         f.write("," + str(words[i]))
     f.close()
-    return canBuy
+    return [canBuy, money_left]
 
-def send_email(toaddr, filename, path, money):
+def send_email(toaddr, filename, path, money, money_left):
     fromaddr = "bioen498@gmail.com"
     # instance of MIMEMultipart 
     msg = MIMEMultipart() 
@@ -134,7 +141,7 @@ def send_email(toaddr, filename, path, money):
     msg['From'] = fromaddr 
     msg['To'] = toaddr 
     msg['Subject'] = "BIOEN 498 Experiment Data"
-    body = "Your experiment results. You have " + str(money) + ("left.")
+    body = "Here is your experiment results. You have spent " + str(money) + ". Your team has " + str(money_left) + " left."
     msg.attach(MIMEText(body, 'plain')) 
       
     # open the file to be sent  
@@ -168,7 +175,6 @@ def send_email(toaddr, filename, path, money):
 
 ############## Helper functions ##############
 def convert_list(genes):
-    print(genes)
     result = ""
     result += str(genes[0])
     for i in range(1, len(genes)):
@@ -183,4 +189,4 @@ def list_to_ints(genes):
 
 
 # testing code
-#export_experiments()
+export_experiments()
