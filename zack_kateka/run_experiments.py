@@ -17,7 +17,6 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
         if i != 0:
             line = line.replace("\"", "")
             words = line.split(",")
-            print(line)
             team = words[2]
             # process pertubations
             if "Up" in words[3]:
@@ -68,18 +67,17 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 resolution = 10
                 
             canBuy = update_money(team_file, team, money)    
-            print(selections)
+            
             if canBuy:
-                # make team dir
-                if os.path.exists(team + "/") == False:
-                    os.mkdir(team)
-                # create file names
-                savePath = team + "/"
-                savePath += team + "_" + pert + "_" + convert_list(pert_gene) + "_" + name
-                if name == "Fl":
-                    savePath += "_" + convert_list(selections)
+                savePath = team
                 savePath = savePath.replace(" ", "_")
-                print(savePath)
+                # make team dir
+                if os.path.exists(savePath + "/") == False:
+                    os.mkdir(savePath)
+                saveName = team + "_" + pert + "_" + convert_list(pert_gene) + "_" + name
+                if name == "Fl":
+                    saveName += "_" + convert_list(selections)
+                saveName = saveName.replace(" ", "_")
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
                 
@@ -88,7 +86,7 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
 #                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
                 run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
                            timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
-                           save_path=savePath, num_genes=8)
+                           save_path=savePath, filename=saveName, num_genes=8)
         i = 1
  
     
@@ -107,7 +105,8 @@ def update_money(team_file, team, money):
             team_money = int(words[team - 1])
             if team_money - money < 0:
                 canBuy=False
-                print(team + "only has " + str(team_money) + ". Cannot buy experiment.")
+                print("Team " + str(team) + " only has " + str(team_money) + ". Cannot buy experiment that costs "
+                      + str(money) + ".")
             else:
                 words[team-1] = team_money - money
         i += 1
