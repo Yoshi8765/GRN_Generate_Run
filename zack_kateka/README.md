@@ -24,7 +24,7 @@ Update the team names on the google form if necessary, and when creating the sco
 1. Download csv from google forms
 2. Unzip csv into the same directory as run_experiments.py
 	- You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
-3. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently, it is set to 8)  
+3. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently set to 8)  
 	- NOTE: the first time you run this, it will generate a CSV to keep track of how much money each team has. Open get_data.py and make sure the team names in top section match those on the google form.
 
 The students will then be sent an email from bioen498@gmail.com containing the data they have ordered, and an update on
