@@ -12,9 +12,11 @@
 		get_model()
 		convert_to_antimony()
 		convert_to_biotapestry()
+
 ### Biotapestry.py
-	contains the method 'convert_biotapestry_to_antimony' which is a convenience method
-	for converting between the two formats
+	Contains the method 'convert_biotapestry_to_antimony' which is a convenience method
+	for converting between the two formats. Since biotapestry does not store parameter values,
+	you must provide these manually. 
 
 
 ### RunModel.py

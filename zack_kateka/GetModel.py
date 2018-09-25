@@ -18,9 +18,12 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
 
 
     num_genes = number of genes included in the network (an INPUT is also included, but not counted as part of num_genes)
-    reg_probs = [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
-    model_name = file with antimony string will be created with name "model_name_antimony.txt" in working directory
-    init_params = ['d_p', 'd_m' , 'L' , 'Vm' , 'a_p' , 'H', 'K']
+    reg_probs = probability a gene is  each regulation type -> [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
+        SA/SR = single activator/repressor, DA/DR = doubel activator/repressor, SA+SR = one repressor one activator
+    model_name = what the antimony model will be named;file with antimony string will be created with name "model_name_antimony.txt" in working directory (if export == True)
+    init_params = mean values used to randomly generate parameter values for our reactions ['d_protein', 'd_mRNA' , 'L' , 'Vm' , 'a_protein' , 'H', 'K']
+        d_protein/d_mRNA = degradation rate of protein/mRNA, L = leak rate (of transcription), Vm = maximum rate of gene expression (transcription rate),
+        a_protein = translation rate, H = Hill coefficient, K = rate constant
     param_std = controls std used to randomly generate parameter values from normal dist;
                 proportion of mean that standard deviation should be
                 parameters will be generated using distribution ~N(mean in init_params, param_std * mean)
@@ -71,12 +74,6 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
         
     if seed == 0:
        np.random.seed()
-        # randSeed = time.time()
-       # np.random.seed(randSeed)
-        #     export txt of seed number
-       # fh = open(model_name + '_Seed.txt', 'w')
-       # fh.write('Random Seed = ' + str(randSeed))
-       # fh.close()
     else:
         print('Using seed: ' + str(seed))
         np.random.seed(seed)
@@ -93,7 +90,7 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     # this SA/SR will connect to other genes, and since it used up its only in connection with
     # INPUT, it might not be connected at all. This is likely only an issue if the proportion of
     # the double input genes (DA, DR, SA+SR) is significantly low. To avoid orphans, we
-    # regenerate any models that contain orphans or that do not satisfy reachability conditions
+    # regenerate any models that contain orphans or that do not satisfy reachability/feedback conditions
     current_build = 1
     while current_build <= max_builds:
         gene_types = ["SA", "SR", "DA", "SA+SR", "DR"]
@@ -170,15 +167,14 @@ def assign_connections(all_genes, gene_sets):
 
         # while the gene still has unoccupied/unassigned regulatory sites
         while gene.remaining_connections > 0:
+
             # to avoid connecting same protein to both regulatory sites on a gene, do not consider
             # genes whose proteins are already acting as a regulator for this current gene
-            
-            #available_genes = list(set(all_genes) - set(gene.in_connections)) # caused seeding to fail
             available_genes = [x for x in all_genes if x not in gene.in_connections]
 
             gene_to_add = np.random.choice(available_genes)
 
-            # check if new connection is valid (does not result in orphan)
+            # this section checks if new connection is valid (does not result in orphan)
             name1 = gene.protein_name
             name2 = gene_to_add.protein_name
 
@@ -207,9 +203,15 @@ def assign_connections(all_genes, gene_sets):
 
     return feedback_count
 
-# converts the generated network to an antimony string
-# to load, use tellurium.loada(ant_str)
+
 def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
+    """
+    Converts the generated network to an antimony string. Uses init_params and std_dev_perc to randomly generate parameter
+    values for each reaction with a mean given in init_params and a standard deviation of mean * std_dev_perc. Gives the model
+    the name model_name. To load, use tellurium.loada(ant_str).
+
+    """
+
 
     ant_str = ""
     ant_str += "model *" + model_name + "()\n\n"
@@ -306,10 +308,14 @@ def convert_to_antimony(all_genes, model_name, init_params, std_dev_perc):
     return ant_str
 
 
-# Checks how many genes can be activated directly or indirectly by INPUT
-# As input is the only source of stimulus, this determines how much of the network
-# can be activated. Returns proportion of genes that can be reached
 def check_input_quality(all_genes):
+    """
+    Checks how many genes can be activated directly or indirectly by INPUT
+    As input is the only source of stimulus besides the leak rate, this determines how much of the network
+    can be activated. Returns proportion of genes that can be reached. This is only important if the INPUT
+    is relatively high compared to the leak rates.
+    """
+
     # out_connections -> {protein_name : out connects [P1, P2, ...]}
     out_connections = {"INPUT": []}
     for gene in all_genes:
@@ -319,6 +325,7 @@ def check_input_quality(all_genes):
         for in_connect in gene.in_connections:
             out_connections[in_connect.protein_name].append(gene.protein_name)
 
+    # Standard Depth first search starting at INPUT
     reachable_genes = 0
     to_vist = ["INPUT"]
     genes_counted = []
@@ -333,10 +340,13 @@ def check_input_quality(all_genes):
     return 1.0*reachable_genes/len(all_genes)
 
 
-# Converts the given network to a CSV format that is readable by the program Biotapestry
-# and returns this as a string.
-# To load into Biotapestry: File > Import > Import Full Model Hierarchy from CSV
 def convert_to_biotapestry(all_genes):
+    """
+    Converts the given network to a CSV format that is readable by the program Biotapestry
+    and returns this as a string.
+    To load into Biotapestry, from the program choose:  File > Import > Import Full Model Hierarchy from CSV
+    """
+    
     biotap = ""
     biotap += "model,root,,,,\n"
     reg_patterns = {"SR": ["Repressor"], "SA": ["Activator"], "SA+SR": ["Activator","Repressor"],
@@ -362,9 +372,11 @@ def convert_to_biotapestry(all_genes):
     return biotap
 
 
-# Keeps track of the gene regulatory type, the protein name associated to this gene,
-# the other genes this gene has already been connected to, and the remaining connections to be made
 class Gene:
+    """
+    Keeps track of the gene regulatory type, the protein name associated to this gene,
+    the other genes this gene has already been connected to, and the remaining connections to be made
+    """
 
     def __init__(self, protein_name, reg_type=None):
         # name of protein created by this gene
@@ -406,13 +418,15 @@ class Gene:
         # str(self.remaining_connections) + " connection(s) remaining")
 
 
-# DisjointSets keeps a collection of disjoint sets. In this code, these sets represent collections of
-# genes that are connected, directly or indirectly, to each other (when the network is considered as an
-# undirected graph). Helps keep track of conditions important for avoiding the creation of orphans.
-
-# The following link gives some more information on disjoint sets (pg 32-57)
-# https://courses.cs.washington.edu/courses/cse373/18su/files/slides/lecture-19.pdf
 class DisjointSets:
+    """
+    DisjointSets keeps a collection of disjoint sets. In this code, these sets represent collections of
+    genes that are connected, directly or indirectly, to each other (when the network is considered as an
+    undirected graph). Helps keep track of conditions important for avoiding the creation of orphans.
+
+    The following link gives some more information on disjoint sets (pg 32-57)
+    https://courses.cs.washington.edu/courses/cse373/18su/files/slides/lecture-19.pdf
+    """
 
     def __init__(self):
         # stores values that point towards index of head of disjoint set, or stores a sentinel value representing
