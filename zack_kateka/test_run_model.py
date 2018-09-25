@@ -25,7 +25,7 @@ noiseLevel = 0.00 # put in a percentage. 0.05 = 5%
 tmax=200 # minutes. The complete data will have tmax*5 datapoints
 resolution = 1 # The number of minutes between each timepoint you want in your output.
 #perturb = np.random.normal(35,4)/100
-r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'P',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
+r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True,True],inputData=[1,tmax,resolution],seed=seednum, showTimePlots=True,bioTap=biotap_str)
 
 #r,res,resN = run_model(antStr,noiseLevel,exportData=[[2,8],'P',True,False,False],inputData=[1,tmax,resolution],showTimePlots=True)
 

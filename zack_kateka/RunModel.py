@@ -130,7 +130,7 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
             elif species_type == 'M':
                 selections = ["mRNA" + str(i) for i in genesToExport]
         else:
-            allGenes = (model.getNumFloatingSpecies() - 1)/2
+            allGenes = int((model.getNumFloatingSpecies() - 1)/2)
             if species_type == 'P':
                 selections = ["P" + str(i+1) for i in range(allGenes)]
             elif species_type == 'M':
@@ -181,8 +181,9 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
         plt.title("Noisy Data")
         plt.xlabel("time")
         plt.savefig(filesPath + 'Simulation_Noisy_Plot2.png', dpi=400)
-        manager = plt.get_current_fig_manager()
-        manager.window.showMaximized()
+        #manager = plt.get_current_fig_manager()
+        #manager.window.showMaximized()
+
         # do not want to give students the clean data
         #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
         #df = pd.DataFrame.from_dict(data)
