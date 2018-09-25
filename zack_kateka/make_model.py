@@ -30,22 +30,21 @@ You may want to save the seed you use for reproducibility.
 
 num_genes will be the number of genes in the model
 
-name will be the model name. Keep track of this name as you will need it for ordering experimental data.
-
 reachability defines the proportion of  genes in the network you want to be connected to the INPUT, directly or indirectly. This
 is really only important if the INPUT is high relative to the other protein concentrations. 
 
 self_feedback_min is the  min number of self feedback loops that the model will have. If you want self feedback, increasing this number
 will do the trick.
+
+Do NOT change the model name from the default of pathway; the other code requires the name to be pathway
 """
 
 seednum = 12345
 num_genes = 8
-name = "pathway"
 reachability = 0.9
 self_feedback_min = 0
 
-ant_str, biotap_str = get_model(num_genes, seed = seednum, model_name = name, reachability=reachability, self_feedback_min=self_feedback_min, export=True)
+ant_str, biotap_str = get_model(num_genes, seed = seednum, model_name ="pathway" , reachability=reachability, self_feedback_min=self_feedback_min, export=True)
 
 r = te.loada(ant_str)
 r.simulate(0,200,1000)
