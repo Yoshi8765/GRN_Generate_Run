@@ -1,23 +1,33 @@
 # Usage Instructions
-* NOTE: Do not rearrange the provided files; they are required to have a specific relative path to each other, so
-  rearranging them will break the code. Feel free to place the overall folder wherever you wish however.
+NOTE: Do not rearrange the provided files; they are required to have a specific relative path to each other, so
+rearranging them will break the code. Feel free to place the overall folder wherever you wish however.
 
 ## Generating A Model
-* In order to generate a model, you will run GetModel.py. I have created a helper file called make_model.py that makes this process easy.
-  Open this file, and there will be some comments describing some options you have to set certain features of the model. When you are satisfied
-  with these, run the script. You might have to run it multiple times to generate a model that is sufficiently interesting. This will create a
-  biotapestry file and antimony file in your current working directory. Hold on to these.
+In order to generate a model, you will run GetModel.py. I have created a helper file called make_model.py that makes this process easy.
+Open this file, and there will be some comments describing some options you have to set certain features of the model. When you are satisfied
+with these, run the script. You might have to run it multiple times to generate a model that is sufficiently interesting. This will create a
+biotapestry file and antimony file in your current working directory. Hold on to these.
 
 ## Breaking the model
-* In order to break the model, first open Biotapestry. From there, click File > Import > Import Full Model Hierarchy from CSV and select the
-  biotapestry CSV generated in the previous step. This will give you a visualization of the model, and from here select which connections to remove.
-  Deleting the connections off the Biotapestry file will not work, as Biotapestry does not support this. As such, we have written our own code for
-  removing/adding connections, found in change_biotapestry.py. I have written a helper file called break_model.py that includes instructions for 
-  breaking the model. This will output a new CSV of the form model_name_broken.csv. I recommend this to be the file you give to the students.
+In order to break the model, first open Biotapestry. From there, click File > Import > Import Full Model Hierarchy from CSV and select the
+biotapestry CSV generated in the previous step. This will give you a visualization of the model, and from here select which connections to remove.
+Deleting the connections off the Biotapestry file will not work, as Biotapestry does not support this. As such, we have written our own code for
+removing/adding connections, found in change_biotapestry.py. I have written a helper file called break_model.py that includes instructions for 
+breaking the model. This will output a new CSV of the form model_name_broken.csv. I recommend this to be the file you give to the students.
 
 ## Ordering Experimental Data
-* To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY/edit) which students should be given access to.
-  
+To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY/edit) which students should be given access to. Use run_experiments.py to run student experiments.
+
+1. Download csv from google forms
+	- NOTE: The csv you run should only contain new student requests otherwise it will rerun the out requests. The best thing to do is to delete all response right after you download.
+2. Unzip csv into the same directory as run_experiments.py
+3. Create a team_scores.csv if it doesn't already exist. team_score formatting: save as csv!
+	- Note: save as csv! This only needs to be done once as run_experiments will overwrite the file with new scores. See function comments for details.
+```
+team 1,team 2,team 3,team 4
+14000,14000,14000,14000
+```
+4. Run run_experiments.py (change parameters as necessary in the last time of the file). 
 
 
 
