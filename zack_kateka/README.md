@@ -25,20 +25,16 @@ Update the team names on the google form if necessary, and when creating the sco
 2. Unzip csv into the same directory as run_experiments.py
 	- You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
 3. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently, it is set to 8)  
-	- NOTE: the first time you run this, it will generate a CSV to keep track of how much money each team has. Open get_data.py
-	and make sure the team names in top section match those on the google form.
+	- NOTE: the first time you run this, it will generate a CSV to keep track of how much money each team has. Open get_data.py and make sure the team names in top section match those on the google form.
 
 The students will then be sent an email from bioen498@gmail.com containing the data they have ordered, and an update on
 how much money they have remaining. If a student tries to order experiments they do not have the money for, they will receive no results.
 
 
 ### Final Notes
-	- While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main
-	folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
+	- While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
 	- experiments.md stores the list of experiments, including their descriptions and costs.
-	- The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our
-	broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we
-	documented our general strategy.
+	- The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we documented our general strategy.
 
 
 
@@ -53,60 +49,50 @@ how much money they have remaining. If a student tries to order experiments they
 ## Main Folder
 
 ### GetModel.py
-	Allows you to randomly generate a gene regulatory network that meets certain criteria.
-	Has functions for converting this network to an antimony string or to a 
-	CSV format that Biotapestry can read. Returns a tuple (antimony_string, biotapestry_string)
-	and can also has an option to export this information to files in the working directory
-	Relavent functions:
-		get_model()
-		convert_to_antimony()
-		convert_to_biotapestry()
+Allows you to randomly generate a gene regulatory network that meets certain criteria. Has functions for converting this network to an antimony string or to a 
+CSV format that Biotapestry can read. Returns a tuple (antimony_string, biotapestry_string) and can also has an option to export this information to files in the working directory
+Relavent functions:
+	* get_model()
+	* convert_to_antimony()
+	* convert_to_biotapestry()
 
 ### Biotapestry.py
-	Contains the method 'convert_biotapestry_to_antimony' which is a convenience method
-	for converting between the two formats. Since biotapestry does not store parameter values,
-	you must provide these manually. 
+Contains the method 'convert_biotapestry_to_antimony' which is a convenience method for converting between the two formats. Since biotapestry does not store parameter values, you must provide these manually. 
 
 ### RunModel.py
-	Allows you to run a model (generated using GetModel.py) and generate "experimental"
-	data from it. Can add noise to this data as well.
+Allows you to run a model (generated using GetModel.py) and generate "experimental" data from it. Can add noise to this data as well.
 
 ### change_biotapestry.py
-	Has methods for automatically adding and removing connections in a gene network
-	from a Biotapestry CSV format. Convenient for breaking gene network, or for
-	trying out new possible connections in attempt to fix the broken network.
-	Relevant Functions:
-		add_biotapestry() = adds the given connections to model
-		remove_biotapestry() = removes the given connections from model
+Has methods for automatically adding and removing connections in a gene network
+from a Biotapestry CSV format. Convenient for breaking gene network, or for
+trying out new possible connections in attempt to fix the broken network.
+Relevant Functions:
+	* add_biotapestry() = adds the given connections to model
+	* remove_biotapestry() = removes the given connections from model
 
 ### compare_biotapestry.py
-	Compares two biotapestry CSV formats and outputs their differences.
-	Might be useful for assessing how well students captured the true network
-	at end of quarter
+Compares two biotapestry CSV formats and outputs their differences.
+Might be useful for assessing how well students captured the true network
+at end of quarter
 
 ### run_experiments.py
-	Given the csv from google forms, will parse through and run the correct experiments 
-	for each entry. Will update the team's money and send email with the csv of the experiment 
-	results to the student who filled the form.
+Given the csv from google forms, will parse through and run the correct experiments for each entry. Will update the team's money and send email with the csv of the experiment results to the student who filled the form.
 
 ### Other
-	assumptions.md = list of assumptions made about the true network when playing the game
-			We tried to capture all the information we felt the students might need
-			to fairly play the game
-	experiments.md = list of available experiments and pertubations, as well as their costs
+* assumptions.md = list of assumptions made about the true network when playing the game. We tried to capture all the information we felt the students might need
+to fairly play the game
+* experiments.md = list of available experiments and pertubations, as well as their costs
 
 
 ## Playing the Game folder
 
 ### data_analysis.py
-	Used to make sense of experimental data. This includes parameter estimation, and probing
-	for possible missing connections.
+Used to make sense of experimental data. This includes parameter estimation, and probing for possible missing connections.
 
 ### the_game.py
-	Plots current working model vs experimental data to help spot shortcomings in 
-	current model. Helps us manually decide which connections to consider, and
-	which tests to order
+Plots current working model vs experimental data to help spot shortcomings in current model. Helps us manually decide which connections to consider, and
+which tests to order
 
 ### Other
-	what we think.md = describes the strategy we used while playing the game
-	model_files = all the experimental data we bought
+* what we think.md = describes the strategy we used while playing the game
+* model_files = all the experimental data we bought
