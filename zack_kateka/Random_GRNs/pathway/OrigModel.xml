@@ -580,8 +580,8 @@
           <speciesReference species="mRNA6" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P5"/>
           <modifierSpeciesReference species="P6"/>
+          <modifierSpeciesReference species="P5"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
