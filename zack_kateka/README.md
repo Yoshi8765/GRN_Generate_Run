@@ -26,7 +26,7 @@ To collect data orders from students, we have created a google form [BIOEN 498: 
 team 1,team 2,team 3,team 4
 14000,14000,14000,14000
 ```
-4. Run get_data.py (change parameters as necessary in the last time of the file). 
+4. Run get_data.py (change parameters as necessary). 
 
 
 

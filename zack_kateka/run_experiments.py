@@ -19,6 +19,9 @@ Given the csv from google forms, will parse through and run the correct experime
 for each entry. Will update the team's money and send email with the csv of the experiment
 results to the student who filled the form.
 
+This function will generate a file called "run_experiments_data.txt" which keeps 
+tracks of the last timestamp in the csv so that it does not run experiments twice.
+
 csv_file: File location of the google forms csv. Default is the name downloaded 
           off of google in current directory.
 ant_file: File location of a txt that contains the antimony string of the pathway.
