@@ -9,7 +9,7 @@ a new CSV for the broken model in your working directory. Run this script when y
 """
 
 #CHANGE ME
-remove_connections = [(1,2), (5,6)]
+remove_connections = [(4,1), (4,6), (4,2), (6,4),(3,4),(7,7)]
 
 #do NOT change this
 model_name = "pathway"

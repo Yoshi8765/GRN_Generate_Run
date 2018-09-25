@@ -5,7 +5,6 @@ Created on Mon Sep 17 09:38:56 2018
 @author: Kateka Seth
 """
 
-import os
 
 """
 Given a biotapestry csv file, removes connections specified by remove. Prints
@@ -14,8 +13,8 @@ a new csv file to given location.
 :param remove: A list containing int tuples of connections to be remove. The tuple
             should be formatted as (source,target). Ex: (1,3) to remove connection
            starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
-:param csv_filename: Location with name of the original csv file. Please use the absolute path.
-:param csv_newfile: name of new file name. Input as `file_name.csv`. The file will be saved in the same directory as the original file.
+:param csv_filename: Location with name of the original csv file.
+:param csv_newfile: Location with name of new file name. Input as `file_name.csv`.
 """
 def remove_biotapestry(remove, csv_filename, csv_newfile):
 
@@ -24,8 +23,7 @@ def remove_biotapestry(remove, csv_filename, csv_newfile):
         raise ValueError('The first character of your model name cannot start with an escape character [\'t\',\'r\',\'n\',\'b\',\'f\',\'0\'].')
 
     f = open(csv_filename)
-    currDir = os.path.dirname(f.name)
-    f_new = open(currDir + '\\' + csv_newfile,'w')
+    f_new = open(csv_newfile,'w')
 
     og_nodes = set()
     new_sources = set()
