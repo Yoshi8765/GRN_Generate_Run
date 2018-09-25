@@ -32,9 +32,14 @@ how much money they have remaining. If a student tries to order experiments they
 
 
 ### Final Notes
-	* While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
+	* While playing the game, we generated a list of assumptions we had to make about the network. 
+	  This list is stored in assumptions.md in the main folder. It might be worthwhile to provide this list, 
+      or a subset of it, to the students as I think it may help answer some common questions.
 	* experiments.md stores the list of experiments, including their descriptions and costs.
-	* The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we documented our general strategy.
+	* The playing_game folder stores all the material we used when playing this game. This includes 
+	  a lot of code we wrote for filtering through our broken model, estimating parameters, attempting 
+      to find missing connections, and whatnot. We also included a file called "what we think" where we 
+      documented our general strategy.
 
 
 # Function Descriptions
