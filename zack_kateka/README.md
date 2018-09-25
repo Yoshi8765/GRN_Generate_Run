@@ -20,14 +20,14 @@ To collect data orders from students, we have created a google form [BIOEN 498: 
 
 1. Download csv from google forms
 2. Unzip csv into the same directory as run_experiments.py
+	- You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
 3. Create a team_scores.csv if it doesn't already exist. team_score formatting: save as csv!
 	- Note: save as csv! This only needs to be done once as run_experiments will overwrite the file with new scores, but make sure the team names match those on the google form. See function comments for details.
 ```
 team 1,team 2,team 3,team 4
 14000,14000,14000,14000
 ```
-4. Run get_data.py (change parameters as necessary in the last time of the file). 
-
+4. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently, it is set to 8)  
 
 
 
