@@ -8,10 +8,11 @@ Created on Fri Sep 14 10:46:56 2018
 from RunModel import run_model
 from GetModel import get_model
 from GetModel import convert_to_biotapestry
+#from RunModel_2 import run_model2
 
 model_name='exp5'
 numGenes = 8
-seednum = 12123 #seed not working
+seednum = 123468
 
 # Output function in Runmodel has index errors? Causing weird data?
 # TODO: fix seed
@@ -20,11 +21,11 @@ seednum = 12123 #seed not working
 antStr,biotap_str = get_model(numGenes,model_name=model_name,seed=seednum,export=False)
 
 #antStr= open('C:\Users\Yoshi\Documents\GitHub\DREAM-work\zack_kateka\Random_GRNs\exp3\OrigAntimony_up7.txt','r').read()
-noiseLevel = 0.05 # put in a percentage. 0.05 = 5%
+noiseLevel = 0.00 # put in a percentage. 0.05 = 5%
 tmax=200 # minutes. The complete data will have tmax*5 datapoints
-resolution = 5 # The number of minutes between each timepoint you want in your output.
+resolution = 1 # The number of minutes between each timepoint you want in your output.
 #perturb = np.random.normal(35,4)/100
-r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'M',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
+r,res,resN = run_model(antStr,noiseLevel,exportData=[0,'P',True,True,True,True],inputData=[1,tmax,resolution],showTimePlots=True,bioTap=biotap_str)
 
 #r,res,resN = run_model(antStr,noiseLevel,exportData=[[2,8],'P',True,False,False],inputData=[1,tmax,resolution],showTimePlots=True)
 
