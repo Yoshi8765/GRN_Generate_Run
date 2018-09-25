@@ -31,6 +31,21 @@ The students will then be sent an email from bioen498@gmail.com containing the d
 how much money they have remaining. If a student tries to order experiments they do not have the money for, they will receive no results.
 
 
+### Final Notes
+	- While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main
+	folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
+	- experiments.md stores the list of experiments, including their descriptions and costs.
+	- The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our
+	broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we
+	documented our general strategy.
+
+
+
+
+
+
+
+
 # Function Descriptions
 *(see documentation in files for more details)
 
@@ -74,6 +89,9 @@ how much money they have remaining. If a student tries to order experiments they
 	results to the student who filled the form.
 
 ### Other
+	assumptions.md = list of assumptions made about the true network when playing the game
+			We tried to capture all the information we felt the students might need
+			to fairly play the game
 	experiments.md = list of available experiments and pertubations, as well as their costs
 
 
@@ -89,8 +107,5 @@ how much money they have remaining. If a student tries to order experiments they
 	which tests to order
 
 ### Other
-	assumptions.md = list of assumptions made about the true network when playing the game
-			We tried to capture all the information we felt the students might need
-			to fairly play the game
 	what we think.md = describes the strategy we used while playing the game
 	model_files = all the experimental data we bought
