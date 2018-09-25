@@ -1,2 +1,2 @@
-"Timestamp","Username","Team Name","Perturbation Type","Perturbation Target(s) (Protein Numbers)","Data Collection Type","Target of Data Collection (Protein numbers)"
-"2018/09/25 10:55:16 AM MDT","yoshi876@uw.edu","team 4","Gene Down-regulation","2;6","Mass Spectrometry (all proteins) - High Resolution","1;2;3"
+Timestamp,Username,Team Name,Perturbation Type,Perturbation Target(s) (Protein Numbers),Data Collection Type,Target of Data Collection (Protein numbers)
+2018/09/25 10:55:16 AM MDT,kateks@uw.edu,team 4,Gene Down-regulation,2;6,Mass Spectrometry (all proteins) - High Resolution,1;2;3

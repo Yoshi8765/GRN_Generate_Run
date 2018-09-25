@@ -6,11 +6,13 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 from RunModel_2 import run_model2
+# from RunModel import run_model
 import smtplib 
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders 
+
 
 """
 Given the csv from google forms, will parse through and run the correct experiments
@@ -109,12 +111,15 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
                 if sendEmail:
-                    body = "Here is your experiment results. You have spent " + str(money) + ". Your team has " + str(money_left) + " left."
+                    body = ("Here is your experiment results. You have spent " + str(money) + 
+                           ". Your team has " + str(money_left) + " credits left.")
                     send_email(email, body, saveName, path, True)
+                    print("Success! Emailed " + email)
             else:
                 if sendEmail:
-                    body = "Lacking funds -- experiment has not been run. You have " + money_left + " credits leftover."
-                    send_email(email, body=body)
+                    body = "Lacking funds -- experiment has not been run. You have " + str(money_left) + " credits leftover."
+                    send_email(email, body)
+                    print("Emailed " + email)
         i = 1
  
     
