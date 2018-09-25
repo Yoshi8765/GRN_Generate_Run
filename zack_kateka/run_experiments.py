@@ -29,11 +29,11 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
-    if csv_file.is_file() == False:
+    if os.path.isfile(csv_file) == False:
         raise ValueError(csv_file + " does not exist")
-    if team_file.is_file() == False:
+    if os.path.isfile(team_file) == False:
         raise ValueError(team_file + " does not exist")
-    if ant_file.is_file() == False:
+    if os.path.isfile(ant_file) == False:
         raise ValueError(ant_file + " does not exist")
     if type(num_genes) != int:
         raise ValueError("num_genes parameter should be an integer")
@@ -45,12 +45,15 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
+    prevTime = getPrevTime()
+    timestamp = 0
     for line in f:
+        line = line.replace("\"", "")
+        words = line.split(",")
         if i != 0:
-            line = line.replace("\"", "")
-            words = line.split(",")
             team = words[2]
             email = words[1]
+            timestamp = words[0]
             # process pertubations
             if "Up" in words[3]:
                 pert = "UP"
@@ -135,9 +138,17 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
-        i = 1
+        if prevTime == "":
+            i = 1
+        else:
+            time = words[0]
+            if prevTime == time:
+                i = 1
     f.close()
-    
+    f = open("run_experiments_data.txt", "w")
+    f.write(timestamp)
+    f.close()
+        
     
 """
 Will update the given csv of team credits by subtracting the experiment cost. 
@@ -150,26 +161,30 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def update_money(team_file, team, money, updateMoney):
     f = open(team_file)
-    team = int(team.replace("team ", ""))
+    #team = int(team.replace("team ", ""))
     i = 0
+    teamNum = 0
     header=""
     words=[]
     canBuy = True
     money_left = 0
     for line in f:
+        words = line.split(",")
         if i == 0:
             header = line
+            for j in range(0, len(words)):
+                if words[j].strip() == team.strip():
+                    teamNum = j
         if i == 1:
-            words = line.split(",")
-            team_money = int(words[team - 1])
+            team_money = int(words[teamNum])
             money_left = team_money
             if team_money - money < 0:
                 canBuy=False
                 print("Team " + str(team) + " only has " + str(team_money) + 
                       ". Cannot buy experiment that costs " + str(money) + ".")
             else:
-                words[team-1] = team_money - money
-                money_left = words[team-1]
+                words[teamNum] = team_money - money
+                money_left = words[teamNum]
         i += 1
     f.close()
     if updateMoney:
@@ -231,7 +246,20 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
     # terminating the session 
     s.quit() 
 
-  
+ 
+"""
+Returns the previous time stamp or "" if the timestamp file doesn't exist.
+"""
+def getPrevTime():
+    if os.path.isfile("run_experiments_data.txt"):
+        f = open("run_experiments_data.txt", 'r')
+        time = f.read()
+        f.close()
+        return time
+    else:
+        return "" 
+    
+    
 ############## Helper functions ##############
 def convert_list(genes):
     result = ""
@@ -248,4 +276,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments(8, sendEmail=True, updateMoney=True)
+export_experiments(8, sendEmail=False, updateMoney=True)
