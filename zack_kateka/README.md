@@ -16,8 +16,18 @@ removing/adding connections, found in change_biotapestry.py. I have written a he
 breaking the model. This will output a new CSV of the form model_name_broken.csv. I recommend this to be the file you give to the students.
 
 ### Ordering Experimental Data
-To collect data orders from students, we have created a google form called the  [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY/edit) which students should be given access to.
+To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY/edit) which students should be given access to. Use run_experiments.py to run student experiments.
 
+1. Download csv from google forms
+	- NOTE: The csv you run should only contain new student requests otherwise it will rerun the out requests. The best thing to do is to delete all response right after you download.
+2. Unzip csv into the same directory as run_experiments.py
+3. Create a team_scores.csv if it doesn't already exist. team_score formatting: save as csv!
+	- Note: save as csv! This only needs to be done once as run_experiments will overwrite the file with new scores. See function comments for details.
+```
+team 1,team 2,team 3,team 4
+14000,14000,14000,14000
+```
+4. Run run_experiments.py (change parameters as necessary in the last time of the file). 
 
 
 
