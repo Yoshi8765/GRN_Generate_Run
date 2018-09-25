@@ -18,7 +18,6 @@
 	for converting between the two formats. Since biotapestry does not store parameter values,
 	you must provide these manually. 
 
-
 ### RunModel.py
 	Allows you to run a model (generated using GetModel.py) and generate "experimental"
 	data from it. Can add noise to this data as well.
