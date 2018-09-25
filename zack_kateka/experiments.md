@@ -1,11 +1,11 @@
 # Pertubations
 
 #### Gene Partial Knockout:
-###### Price: 350/550
-A partial knockout of the given gene. Choose between two options: an arbitrary 20-50% knockout, or choose exactly 20%, 30%, 40%, or 50% for the higher cost.
+###### Price: 350
+A partial knockout of the given gene. Will knock out an arbitrary 20-50% of gene function.
 #### Gene upregulation:
 ###### Price: 350
-Upregulate the choosen gene. 
+Upregulate the choosen gene. Will upregulate an arbitrary 20-50% of gene function.
 #### Gene deletion:
 ###### Price: 800
 Completely delete the chosen gene.
