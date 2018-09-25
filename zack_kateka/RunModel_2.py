@@ -9,14 +9,13 @@ from matplotlib import pyplot as plt
 import imp
 import pandas as pd
 
-def run_model2(antStr, num_genes, noiseLevel, species_type, species_nums, timepoints,
+def run_model2(antStr, noiseLevel, species_type, species_nums, timepoints,
         exportData=False,input_conc=1, perturbs = [], perbParam=[.20,.50], bioTap='',
               save_path = os.getcwd(), filename = "results", showTimePlots=False,seed=0,runAttempts=5):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments
         antStr = antimony string for the given model
-        num_genes = number of genes in this GRN
         noiseLevel = (float) level of noise as a decimal. Ex: 0.05 = 5%
         species_type = 'P' for protein, or 'M' for mRNA
         species_nums = The gene numbers for associated to the species you are interested in.

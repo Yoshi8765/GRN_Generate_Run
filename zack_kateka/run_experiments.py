@@ -6,7 +6,7 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 from RunModel_2 import run_model2
-# from RunModel import run_model
+#from RunModel import run_model
 import smtplib 
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
@@ -27,8 +27,21 @@ team_file: File location of the csv file containing the team scores.
 sendEmail: Set to true to turn on email sending functionalities.
 updateMoney: Set to true to update team money by overwritting team_file.
 """
-def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
+def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
+    if os.path.isfile(csv_file) == False:
+        raise ValueError(csv_file + " does not exist")
+    if os.path.isfile(team_file) == False:
+        raise ValueError(team_file + " does not exist")
+    if os.path.isfile(ant_file) == False:
+        raise ValueError(ant_file + " does not exist")
+    if type(num_genes) != int:
+        raise ValueError("num_genes parameter should be an integer")
+    if type(sendEmail) != bool:
+        raise ValueError("sendEmail should be a boolean")
+    if type(updateMoney) != bool:
+        raise ValueError("updateMoney should be a boolean")
+        
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
@@ -60,12 +73,12 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
             # process experiment
             if "Mass Spectrometry" in words[5]:
                 name = "MassSpec"
-                selections = list(range(1,9))
+                selections = list(range(1,num_genes+1))
                 species_type = "M"
                 money += 1700
             elif "RNA" in words[5]:
                 name = "RNASeq"
-                selections = list(range(1,9))
+                selections = list(range(1,num_genes+1))
                 species_type = "P"
                 money += 1500
             else: #words[5] == "Fluorescence Tagging (up to 3 proteins)"
@@ -101,12 +114,13 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
                 
-    #           def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
-    #                         savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
+#                def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
+#                             savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
 #                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
+    
                 run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
                            timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
-                           save_path=savePath, filename=saveName, num_genes=8)
+                           save_path=savePath, filename=saveName)
                 
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
@@ -117,11 +131,13 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                     print("Success! Emailed " + email)
             else:
                 if sendEmail:
-                    body = "Lacking funds -- experiment has not been run. You have " + str(money_left) + " credits leftover."
+                    body = ("Lacking funds -- experiment has not been run. You have " 
+                           + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
         i = 1
- 
+    f.close()
+    
     
 """
 Will update the given csv of team credits by subtracting the experiment cost. 
@@ -134,26 +150,30 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def update_money(team_file, team, money, updateMoney):
     f = open(team_file)
-    team = int(team.replace("team ", ""))
+    #team = int(team.replace("team ", ""))
     i = 0
+    teamNum = 0
     header=""
     words=[]
     canBuy = True
     money_left = 0
     for line in f:
+        words = line.split(",")
         if i == 0:
             header = line
+            for j in range(0, len(words)):
+                if words[j].strip() == team.strip():
+                    teamNum = j
         if i == 1:
-            words = line.split(",")
-            team_money = int(words[team - 1])
+            team_money = int(words[teamNum])
             money_left = team_money
             if team_money - money < 0:
                 canBuy=False
-                print("Team " + str(team) + " only has " + str(team_money) + ". Cannot buy experiment that costs "
-                      + str(money) + ".")
+                print("Team " + str(team) + " only has " + str(team_money) + 
+                      ". Cannot buy experiment that costs " + str(money) + ".")
             else:
-                words[team-1] = team_money - money
-                money_left = words[team-1]
+                words[teamNum] = team_money - money
+                money_left = words[teamNum]
         i += 1
     f.close()
     if updateMoney:
@@ -215,7 +235,7 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
     # terminating the session 
     s.quit() 
 
-
+  
 ############## Helper functions ##############
 def convert_list(genes):
     result = ""
@@ -232,4 +252,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments(sendEmail=True, updateMoney=True)
+export_experiments(8, sendEmail=False, updateMoney=True)
