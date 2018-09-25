@@ -45,12 +45,15 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
+    prevTime = getPrevTime()
+    timestamp = 0
     for line in f:
+        line = line.replace("\"", "")
+        words = line.split(",")
         if i != 0:
-            line = line.replace("\"", "")
-            words = line.split(",")
             team = words[2]
             email = words[1]
+            timestamp = words[0]
             # process pertubations
             if "Up" in words[3]:
                 pert = "UP"
@@ -135,9 +138,17 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
-        i = 1
+        if prevTime == "":
+            i = 1
+        else:
+            time = words[0]
+            if prevTime == time:
+                i = 1
     f.close()
-    
+    f = open("run_experiments_data.txt", "w")
+    f.write(timestamp)
+    f.close()
+        
     
 """
 Will update the given csv of team credits by subtracting the experiment cost. 
@@ -235,7 +246,20 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
     # terminating the session 
     s.quit() 
 
-  
+ 
+"""
+Returns the previous time stamp or "" if the timestamp file doesn't exist.
+"""
+def getPrevTime():
+    if os.path.isfile("run_experiments_data.txt"):
+        f = open("run_experiments_data.txt", 'r')
+        time = f.read()
+        f.close()
+        return time
+    else:
+        return "" 
+    
+    
 ############## Helper functions ##############
 def convert_list(genes):
     result = ""
