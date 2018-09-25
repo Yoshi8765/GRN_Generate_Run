@@ -11,7 +11,7 @@ from GetModel import convert_to_biotapestry
 
 model_name='exp5'
 numGenes = 8
-seednum = 1235 #seed not working
+seednum = 12123 #seed not working
 
 # Output function in Runmodel has index errors? Causing weird data?
 # TODO: fix seed

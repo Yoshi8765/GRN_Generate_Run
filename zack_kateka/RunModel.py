@@ -8,17 +8,15 @@ import math
 from matplotlib import pyplot as plt
 import imp
 
+# Global variables used for plot fontsizes
 GRAPH_LABEL_FONTSIZE = 8
 GRAPH_TITLE_FONTSIZE = 10
 
-# TODO: perturbations -> Affect Vm# with a specific perturbation
-# TODO: Masspec or rnaseq with all species
-# RNASeq
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
 # TDOO: Make a table of appropriate ranges for parameters.
 
 def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
-              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
+              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None):
     """Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
     Arguments:
@@ -26,7 +24,7 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
         noiseLevel: (float) level of noise as a decimal. Ex: 0.05 = 5%
 
         inputData:
-            [INPUTval,maxTime,resolution,perturbations,perturbation_params[up/dowm,mean,stdev]]
+            (list) [INPUTval,maxTime,resolution,perturbations,perturbation_params[up/dowm,mean,stdev]]
             - INPUTval: The initial concentration of the input species (name in model: INPUT)
             - maxTime: Duration of minutes to simulate model
             - resolution: The resolution of datapoints. Eg: If resolution = 5, the data will include data every 5 minutes
@@ -35,28 +33,29 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
                 - up/down: either `UP` or `DOWN` or `KO` used as a flag for upregulation, repression, or knockout, respectively.
                 - mean: The mean value used in np.random.normal to generate a random perturbation. The default is recommended for a perturbation of 20-60%.
                 - stdev: The stdev value used in np.random.normal to generate a random pertrubation. The default is recommended for a perturbation of 20-60%.
-        bioTap: (str) If this is not empty, a csv file to use for BioTapestry will be exported.
 
         exportData:
-            [genesToExport,speciesDataType,csv,biotapestryCSV,sbml,antimony,seed]
+            (list) [genesToExport,speciesDataType,csv,biotapestryCSV,sbml,antimony,seed]
             genesToExport = (int List) Default: [0] . A list object of which genes you want to export, 1-based indexing. Pass in [0] to export all proteins.
             speciesDataType = (str) Default: 'P' . 'P'rotein or 'M'rNA
             csv = (bool) Default:True . This is a flag for the export of the timecourse data of the genesToExport as csv files.
             sbml = (bool) Default:True . This is a flag for the export of the model in SBML format (version based on Tellurium).
             antimony = (bool) Default:True . This is a flag for the export of the Antimony model as a txt.
 
-        savePath:
-        showTimePlots:
-        seed:
-        drawModel: Requires pygraphviz and graphviz installed
-        runAttempts:
+        bioTap: (str)  Default: '' . If this is not empty, a csv file to use for BioTapestry will be exported.
 
+        savePath: (str) Default: '\\model_output\\' . All output files will be saved to `current_working_directory\savePath\modelName\`
 
+        showTimePlots: (bool) Default: False . Flag for if you want plots to be generated and saved.
+
+        seed: (int) Default: 0 . Seed for reproducibility purposes when generating random data.
+
+        drawModel: (bool) Default: False . Generates a graph with PyGraphViz. Requires pygraphviz and graphviz installed
 
     Outputs:
-        model:
-        result:
-        resultNoisy:
+        model: (model object) Roadrunner instance of the model.
+        result: (np.array) Numpy matrix of the result data
+        resultNoisy: (np.array) Numpy matrix of the result data (Noisy)
     """
 
     #Creating default lists
@@ -71,103 +70,101 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
     if drawModel is None:
         drawModel = [False,'fdp']
 
-    # Attempt to execute run_model up to runAttempts times with different generated models.
-    for retry in range(runAttempts):
-        # Load the Antimony string as a model
+    # Load the Antimony string as a model
+    try:
+        model = te.loadAntimonyModel(antStr)
+        print('Successfully loaded in Antimony string as a model.')
+    except Exception as error:
+        ErrorPrinting(error)
+        raise RuntimeError("Failed to load antimony string due to parsing error. Check that your antStr is correct.")
+    # Check that the model reaches steady-state. If the model has any issues running, it will raise an Exception. The user should run get_model again.
+    plt.close('all')
+    model.resetToOrigin()
+    tStep = int(math.ceil(inputData[1]/inputData[2]))
+    try:
+        model.steadyState()
+    except Exception:
         try:
-            model = te.loadAntimonyModel(antStr)
-            print('Successfully loaded in Antimony string as a model.')
-        except Exception as error:
-            ErrorPrinting(error)
-            raise RuntimeError("Failed to load antimony string due to parsing error. Check that your antStr is correct.")
-        # Check that the model reaches steady-state. If the model has any issues running, it will raise an Exception. The user should run get_model again.
-        plt.close('all')
-        model.resetToOrigin()
-        tStep = int(math.ceil(inputData[1]/inputData[2]))
-        try:
+            model.conservedMoietyAnalysis = True
             model.steadyState()
-        except Exception:
-            try:
-                model.conservedMoietyAnalysis = True
-                model.steadyState()
-            except Exception as error:
-                print ("Failed to reach steady-state or there is an Integrator error. Check your model or run get_model again.")
-                ErrorPrinting(error)
-                raise error
+        except Exception as error:
+            print ("Failed to reach steady-state or there is an Integrator error. Check your model or run get_model again.")
+            ErrorPrinting(error)
+            raise error
 
-        model.resetToOrigin()
+    model.resetToOrigin()
 
-        #Specify input
-        model.INPUT = inputData[0];
+    #Specify input
+    model.INPUT = inputData[0];
 
-        #specify perturbations
-        if len(inputData)> 3:
-            if inputData[3] != [0]:
-                perturb = inputData[3]
-                pertParam = inputData[4]
-                for gene in perturb:
-                    currVm = eval('model.Vm' + str(gene))
-                    if pertParam[0] == 'UP':
-                         pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
-                         exec('model.Vm' + str(gene) +  ' = ' + str(pertVal))
-                    if pertParam[0] == 'DOWN':
-                        pertVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
-                        exec('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
-                    if pertParam[0] == 'KO':
-                        exec('model.Vm' + str(gene)  + ' = 0')
-                        exec('model.d_mRNA' + str(gene)  + ' = 0')
-                        exec('model.d_protein' + str(gene)  + ' = 0')
-                        exec('model.mRNA' + str(gene)  + ' = 1E-9')
-                        exec('model.P' + str(gene)  + ' = 1E-9')
-                        #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
+    #specify perturbations
+    if len(inputData)> 3:
+        if inputData[3] != [0]:
+            perturb = inputData[3]
+            pertParam = inputData[4]
+            for gene in perturb:
+                currVm = eval('model.Vm' + str(gene))
+                if pertParam[0] == 'UP':
+                     pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
+                     exec('model.Vm' + str(gene) +  ' = ' + str(pertVal))
+                if pertParam[0] == 'DOWN':
+                    pertVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
+                    exec('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
+                if pertParam[0] == 'KO':
+                    exec('model.Vm' + str(gene)  + ' = 0')
+                    exec('model.d_mRNA' + str(gene)  + ' = 0')
+                    exec('model.d_protein' + str(gene)  + ' = 0')
+                    exec('model.mRNA' + str(gene)  + ' = 1E-9')
+                    exec('model.P' + str(gene)  + ' = 1E-9')
+                    #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
 
-        # Run a simulation for time-course data
-        result = model.simulate(0,inputData[1],tStep+1)
+    # Run a simulation for time-course data
+    result = model.simulate(0,inputData[1],tStep+1)
 
 
 #            numGenes = model.getNumFloatingSpecies()
-        model_name = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
+    model_name = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
 
-        # Specify (and make if necessary) a folder to save outputs to
-        folderPath = os.getcwd() + '\\Random_GRNs\\'
-        filesPath = folderPath + model_name + '\\'
-        if os.path.exists(filesPath) == False:
-            if os.path.exists(folderPath) == False:
-                os.mkdir(folderPath)
-            os.mkdir(filesPath)
-            print('\nFolder created: ' + filesPath)
+    # Specify (and make if necessary) a folder to save outputs to
+    folderPath = os.getcwd() + '\\Random_GRNs\\'
+    filesPath = folderPath + model_name + '\\'
+    if os.path.exists(filesPath) == False:
+        if os.path.exists(folderPath) == False:
+            os.mkdir(folderPath)
+        os.mkdir(filesPath)
+        print('\nFolder created: ' + filesPath)
 
-        # Create results with artificial noise
-        if noiseLevel != '0':
-            resultNoisy = np.zeros([len(result[:,0]), len(result[0,:])])
-            for k in range(len(result[:,0])):
-                for i in range(len(result[0])):
-                    if i == 0:
-                        resultNoisy[k,i] = result[k,i]
-                    else:
-                        CurrVal = -1
-                        while CurrVal < 0:
-                            CurrVal = result[k,i] + np.random.normal(0,noiseLevel*result[k,i])
-                        resultNoisy[k,i] = CurrVal
+    # Create results with artificial noise
+    if noiseLevel != '0':
+        resultNoisy = np.zeros([len(result[:,0]), len(result[0,:])])
+        for k in range(len(result[:,0])):
+            for i in range(len(result[0])):
+                if i == 0:
+                    resultNoisy[k,i] = result[k,i]
+                else:
+                    CurrVal = -1
+                    while CurrVal < 0:
+                        CurrVal = result[k,i] + np.random.normal(0,noiseLevel*result[k,i])
+                    resultNoisy[k,i] = CurrVal
 
 
-        # Create graphs
-        if showTimePlots==True:
-            makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
+    # Create graphs
+    if showTimePlots==True:
+        makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
 
-        # Export datasets
-        Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap)
+    # Export datasets
+    Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap)
 
-        # Draw the model (requires pygraphviz module)
-        if drawModel[0]==True:
-            try:
-                imp.find_module('pygraphviz')
-                model.draw(layout=str(drawModel[1]))
-            except ImportError:
-                print('pygraphviz is not installed!')
+    # Draw the model (requires pygraphviz module)
+    if drawModel[0]==True:
+        try:
+            imp.find_module('pygraphviz')
+            model.draw(layout=str(drawModel[1]))
+        except ImportError:
+            print('pygraphviz is not installed!')
 
-        #returns the model, and result and/or resultNoisy arrays
-        return(model,result,resultNoisy)
+    #returns the model, and result and/or resultNoisy arrays
+    return(model,result,resultNoisy)
 
     raise RuntimeError('Could not create a working model for ' + str(runAttempts) + ' tries.')
 
