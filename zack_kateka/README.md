@@ -18,7 +18,7 @@ I recommend this to be the file you give to the students.
 
 
 ### Ordering Experimental Data
-To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY) which students should be given access to. Use run_experiments.py to run student experiments.
+To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY) which students should be given access to. 
 Update the team names on the google form if necessary, and when creating the score file (step 3 below) make sure these team names match those in the score file.
 
 1. Download csv from google forms
