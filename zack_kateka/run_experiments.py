@@ -19,6 +19,9 @@ Given the csv from google forms, will parse through and run the correct experime
 for each entry. Will update the team's money and send email with the csv of the experiment
 results to the student who filled the form.
 
+This function will generate a file called "run_experiments_data.txt" which keeps 
+tracks of the last timestamp in the csv so that it does not run experiments twice.
+
 csv_file: File location of the google forms csv. Default is the name downloaded 
           off of google in current directory.
 ant_file: File location of a txt that contains the antimony string of the pathway.
@@ -104,7 +107,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
              
             canBuy = update_money(team_file, team, money, updateMoney)    
             money_left = canBuy[1]
-            if canBuy[0]: # comment out line to run experiment regardless
+            if canBuy[0]: # comment out line to run experiment regardless of money (i.e. for testing)
                 savePath = team
                 savePath = savePath.replace(" ", "_")
                 # make team dir if it doesn't exist
@@ -273,7 +276,3 @@ def list_to_ints(genes):
         genes[i] = int(genes[i])
     return genes
 ##############################################
-
-
-# testing code
-export_experiments(8, sendEmail=False, updateMoney=True)
