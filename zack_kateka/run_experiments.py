@@ -29,11 +29,11 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
-    if csv_file.is_file() == False:
+    if os.path.isfile(csv_file) == False:
         raise ValueError(csv_file + " does not exist")
-    if team_file.is_file() == False:
+    if os.path.isfile(team_file) == False:
         raise ValueError(team_file + " does not exist")
-    if ant_file.is_file() == False:
+    if os.path.isfile(ant_file) == False:
         raise ValueError(ant_file + " does not exist")
     if type(num_genes) != int:
         raise ValueError("num_genes parameter should be an integer")
@@ -150,26 +150,30 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def update_money(team_file, team, money, updateMoney):
     f = open(team_file)
-    team = int(team.replace("team ", ""))
+    #team = int(team.replace("team ", ""))
     i = 0
+    teamNum = 0
     header=""
     words=[]
     canBuy = True
     money_left = 0
     for line in f:
+        words = line.split(",")
         if i == 0:
             header = line
+            for j in range(0, len(words)):
+                if words[j].strip() == team.strip():
+                    teamNum = j
         if i == 1:
-            words = line.split(",")
-            team_money = int(words[team - 1])
+            team_money = int(words[teamNum])
             money_left = team_money
             if team_money - money < 0:
                 canBuy=False
                 print("Team " + str(team) + " only has " + str(team_money) + 
                       ". Cannot buy experiment that costs " + str(money) + ".")
             else:
-                words[team-1] = team_money - money
-                money_left = words[team-1]
+                words[teamNum] = team_money - money
+                money_left = words[teamNum]
         i += 1
     f.close()
     if updateMoney:
@@ -248,4 +252,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments(8, sendEmail=True, updateMoney=True)
+export_experiments(8, sendEmail=False, updateMoney=True)
