@@ -2,10 +2,15 @@ from GetModel import get_model
 from RunModel_2 import run_model2 
 from RunModel import run_model
 
-#seed = 19443232
+seed = 19443232
 
+<<<<<<< HEAD
+#seed = 123468
+ant_str, biotap = get_model(8, seed=seed, model_name="debug_zack")
+=======
 seed = 123468
 ant_str, biotap = get_model(8, seed=seed,export=True)
+>>>>>>> d96b159506ca287cd66c09b5b7d3bde66c9bd99f
 
 #f = open("debug_biotap.csv", 'w')
 #f.write(biotap)
