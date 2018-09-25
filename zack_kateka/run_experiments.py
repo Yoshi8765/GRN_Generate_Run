@@ -29,6 +29,19 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
+    if csv_file.is_file() == False:
+        raise ValueError(csv_file + " does not exist")
+    if team_file.is_file() == False:
+        raise ValueError(team_file + " does not exist")
+    if ant_file.is_file() == False:
+        raise ValueError(ant_file + " does not exist")
+    if type(num_genes) != int:
+        raise ValueError("num_genes parameter should be an integer")
+    if type(sendEmail) != bool:
+        raise ValueError("sendEmail should be a boolean")
+    if type(updateMoney) != bool:
+        raise ValueError("updateMoney should be a boolean")
+        
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
@@ -218,7 +231,7 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
     # terminating the session 
     s.quit() 
 
-
+  
 ############## Helper functions ##############
 def convert_list(genes):
     result = ""
