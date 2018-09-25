@@ -36,7 +36,9 @@
 	at end of quarter
 
 ### run_experiments.py
-	Given the csv from google forms, will parse through and run the correct experiments for each entry. Will update the team's money and send email with the csv of the experiment results to the student who filled the form.
+	Given the csv from google forms, will parse through and run the correct experiments 
+	for each entry. Will update the team's money and send email with the csv of the experiment 
+	results to the student who filled the form.
 
 ### Other
 	experiments.md = list of available experiments and pertubations, as well as their costs
