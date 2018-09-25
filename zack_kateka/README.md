@@ -23,18 +23,18 @@ Update the team names on the google form if necessary, and when creating the sco
 
 1. Download csv from google forms
 2. Unzip csv into the same directory as run_experiments.py
-	- You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
+	* You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
 3. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently set to 8)  
-	- NOTE: the first time you run this, it will generate a CSV to keep track of how much money each team has. Open get_data.py and make sure the team names in top section match those on the google form.
+	* NOTE: the first time you run this, it will generate a CSV to keep track of how much money each team has. Open get_data.py and make sure the team names in top section match those on the google form.
 
 The students will then be sent an email from bioen498@gmail.com containing the data they have ordered, and an update on
 how much money they have remaining. If a student tries to order experiments they do not have the money for, they will receive no results.
 
 
 ### Final Notes
-	- While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
-	- experiments.md stores the list of experiments, including their descriptions and costs.
-	- The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we documented our general strategy.
+	* While playing the game, we generated a list of assumptions we had to make about the network. This list is stored in assumptions.md in the main folder. It might be worthwhile to provide this list, or a subset of it, to the students as I think it may help answer some common questions.
+	* experiments.md stores the list of experiments, including their descriptions and costs.
+	* The playing_game folder stores all the material we used when playing this game. This includes a lot of code we wrote for filtering through our broken model, estimating parameters, attempting to find missing connections, and whatnot. We also included a file called "what we think" where we documented our general strategy.
 
 
 # Function Descriptions
