@@ -107,7 +107,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
              
             canBuy = update_money(team_file, team, money, updateMoney)    
             money_left = canBuy[1]
-            if canBuy[0]: # comment out line to run experiment regardless
+            if canBuy[0]: # comment out line to run experiment regardless of money (i.e. for testing)
                 savePath = team
                 savePath = savePath.replace(" ", "_")
                 # make team dir if it doesn't exist
