@@ -117,7 +117,8 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                     print("Success! Emailed " + email)
             else:
                 if sendEmail:
-                    body = "Lacking funds -- experiment has not been run. You have " + str(money_left) + " credits leftover."
+                    body = ("Lacking funds -- experiment has not been run. You have " 
+                           + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
         i = 1
@@ -149,8 +150,8 @@ def update_money(team_file, team, money, updateMoney):
             money_left = team_money
             if team_money - money < 0:
                 canBuy=False
-                print("Team " + str(team) + " only has " + str(team_money) + ". Cannot buy experiment that costs "
-                      + str(money) + ".")
+                print("Team " + str(team) + " only has " + str(team_money) + 
+                      ". Cannot buy experiment that costs " + str(money) + ".")
             else:
                 words[team-1] = team_money - money
                 money_left = words[team-1]
