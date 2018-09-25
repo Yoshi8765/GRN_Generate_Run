@@ -210,7 +210,7 @@ toaddr: student's email
 body: a string of the message to be sent in the email
 filename: name of attachment file (including extension)
 path: path to filename (including filename)
-attachment: set to true to send email with attachment.s
+attachment: set to true to send email with attachments.
 """
 def send_email(toaddr, body, filename=None, path=None, attachment=False):
     fromaddr = "bioen498@gmail.com"
