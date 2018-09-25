@@ -6,7 +6,7 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 from RunModel_2 import run_model2
-# from RunModel import run_model
+#from RunModel import run_model
 import smtplib 
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
@@ -27,7 +27,7 @@ team_file: File location of the csv file containing the team scores.
 sendEmail: Set to true to turn on email sending functionalities.
 updateMoney: Set to true to update team money by overwritting team_file.
 """
-def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
+def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
@@ -60,12 +60,12 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
             # process experiment
             if "Mass Spectrometry" in words[5]:
                 name = "MassSpec"
-                selections = list(range(1,9))
+                selections = list(range(1,num_genes+1))
                 species_type = "M"
                 money += 1700
             elif "RNA" in words[5]:
                 name = "RNASeq"
-                selections = list(range(1,9))
+                selections = list(range(1,num_genes+1))
                 species_type = "P"
                 money += 1500
             else: #words[5] == "Fluorescence Tagging (up to 3 proteins)"
@@ -101,12 +101,13 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
                 
-    #           def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
-    #                         savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
+#                def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
+#                             savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
 #                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
+    
                 run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
                            timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
-                           save_path=savePath, filename=saveName, num_genes=8)
+                           save_path=savePath, filename=saveName)
                 
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
@@ -122,7 +123,8 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                     send_email(email, body)
                     print("Emailed " + email)
         i = 1
- 
+    f.close()
+    
     
 """
 Will update the given csv of team credits by subtracting the experiment cost. 
@@ -233,4 +235,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments(sendEmail=True, updateMoney=True)
+export_experiments(8, sendEmail=True, updateMoney=True)

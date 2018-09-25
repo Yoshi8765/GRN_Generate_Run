@@ -18,7 +18,6 @@
 	for converting between the two formats. Since biotapestry does not store parameter values,
 	you must provide these manually. 
 
-
 ### RunModel.py
 	Allows you to run a model (generated using GetModel.py) and generate "experimental"
 	data from it. Can add noise to this data as well.
@@ -35,6 +34,9 @@
 	Compares two biotapestry CSV formats and outputs their differences.
 	Might be useful for assessing how well students captured the true network
 	at end of quarter
+
+### run_experiments.py
+	Given the csv from google forms, will parse through and run the correct experiments for each entry. Will update the team's money and send email with the csv of the experiment results to the student who filled the form.
 
 ### Other
 	experiments.md = list of available experiments and pertubations, as well as their costs
