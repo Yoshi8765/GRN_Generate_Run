@@ -6,17 +6,29 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 from RunModel_2 import run_model2
+# from RunModel import run_model
 import smtplib 
 from email.mime.multipart import MIMEMultipart 
 from email.mime.text import MIMEText 
 from email.mime.base import MIMEBase 
 from email import encoders 
 
-"""
 
 """
+Given the csv from google forms, will parse through and run the correct experiments
+for each entry. Will update the team's money and send email with the csv of the experiment
+results to the student who filled the form.
+
+csv_file: File location of the google forms csv. Default is the name downloaded 
+          off of google in current directory.
+ant_file: File location of a txt that contains the antimony string of the pathway.
+          Default is the file given by GetModel with model name "pathway"
+team_file: File location of the csv file containing the team scores. 
+sendEmail: Set to true to turn on email sending functionalities.
+updateMoney: Set to true to update team money by overwritting team_file.
+"""
 def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
-                       team_file="team_scores.csv"):
+                       team_file="team_scores.csv", sendEmail=False, updateMoney=False):
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
@@ -73,13 +85,13 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                     money += 1500 
             else: # flourescence
                 resolution = 10
-                
-            canBuy = update_money(team_file, team, money)    
-            
-            if canBuy[0]:
+             
+            canBuy = update_money(team_file, team, money, updateMoney)    
+            money_left = canBuy[1]
+            if canBuy[0]: # comment out line to run experiment regardless
                 savePath = team
                 savePath = savePath.replace(" ", "_")
-                # make team dir
+                # make team dir if it doesn't exist
                 if os.path.exists(savePath + "/") == False:
                     os.mkdir(savePath)
                 saveName = team + "_" + pert + "_" + convert_list(pert_gene) + "_" + name
@@ -98,12 +110,29 @@ def export_experiments(csv_file="BIOEN 498_ Experiment Request Form.csv", ant_fi
                 
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
-                send_email(email, saveName, path, money, canBuy[1])
+                if sendEmail:
+                    body = ("Here is your experiment results. You have spent " + str(money) + 
+                           ". Your team has " + str(money_left) + " credits left.")
+                    send_email(email, body, saveName, path, True)
+                    print("Success! Emailed " + email)
+            else:
+                if sendEmail:
+                    body = "Lacking funds -- experiment has not been run. You have " + str(money_left) + " credits leftover."
+                    send_email(email, body)
+                    print("Emailed " + email)
         i = 1
  
+    
 """
+Will update the given csv of team credits by subtracting the experiment cost. 
+Overwrites the given file with the new updated money.
+
+team_file: File location of the csv file containing the team scores.
+team: Name of team purchasing experiment.
+money: Cost of the experiment.
+updateMoney: Set to true to update team money by overwritting team_file.
 """
-def update_money(team_file, team, money):
+def update_money(team_file, team, money, updateMoney):
     f = open(team_file)
     team = int(team.replace("team ", ""))
     i = 0
@@ -117,6 +146,7 @@ def update_money(team_file, team, money):
         if i == 1:
             words = line.split(",")
             team_money = int(words[team - 1])
+            money_left = team_money
             if team_money - money < 0:
                 canBuy=False
                 print("Team " + str(team) + " only has " + str(team_money) + ". Cannot buy experiment that costs "
@@ -126,15 +156,16 @@ def update_money(team_file, team, money):
                 money_left = words[team-1]
         i += 1
     f.close()
-    
-    # write new file
-    f = open(team_file, 'w')
-    f.write(header)
-    f.write(str(words[0]))
-    for i in range(1, len(words)):
-        f.write("," + str(words[i]))
-    f.close()
+    if updateMoney:
+        # write new file
+        f = open(team_file, 'w')
+        f.write(header)
+        f.write(str(words[0]))
+        for i in range(1, len(words)):
+            f.write("," + str(words[i]))
+        f.close()
     return [canBuy, money_left]
+
 
 """
 Sends an email to students with data for their requested experiment using 
@@ -142,12 +173,12 @@ bioen498@gmail.com as the sender. Will tell students how much money they spent
 and how much they have left.
 
 toaddr: student's email
+body: a string of the message to be sent in the email
 filename: name of attachment file (including extension)
 path: path to filename (including filename)
-money: money student spent on this experiment
-money_left: total money the student's team has left
+attachment: set to true to send email with attachment.s
 """
-def send_email(toaddr, filename, path, money, money_left):
+def send_email(toaddr, body, filename=None, path=None, attachment=False):
     fromaddr = "bioen498@gmail.com"
     # instance of MIMEMultipart 
     msg = MIMEMultipart() 
@@ -155,24 +186,22 @@ def send_email(toaddr, filename, path, money, money_left):
     msg['From'] = fromaddr 
     msg['To'] = toaddr 
     msg['Subject'] = "BIOEN 498 Experiment Data"
-    body = "Here is your experiment results. You have spent " + str(money) + ". Your team has " + str(money_left) + " left."
     msg.attach(MIMEText(body, 'plain')) 
-      
-    # open the file to be sent  
-    filename = filename
-    attachment = open(path, "r") 
-      
-    # instance of MIMEBase and named as p 
-    p = MIMEBase('application', 'octet-stream') 
-      
-    # To change the payload into encoded form 
-    p.set_payload((attachment).read())   
-    # encode into base64 
-    encoders.encode_base64(p) 
-    p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
-      
-    # attach the instance 'p' to instance 'msg' 
-    msg.attach(p) 
+    
+    if attachment:  
+        # open the file to be sent  
+        filename = filename
+        attachment = open(path, "r") 
+        # instance of MIMEBase and named as p 
+        p = MIMEBase('application', 'octet-stream') 
+        # To change the payload into encoded form 
+        p.set_payload((attachment).read())   
+        # encode into base64 
+        encoders.encode_base64(p) 
+        p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
+        # attach the instance 'p' to instance 'msg' 
+        msg.attach(p) 
+    
     # creates SMTP session 
     s = smtplib.SMTP('smtp.gmail.com', 587) 
     # start TLS for security 
@@ -203,4 +232,4 @@ def list_to_ints(genes):
 
 
 # testing code
-export_experiments()
+export_experiments(sendEmail=True, updateMoney=True)

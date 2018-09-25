@@ -7,13 +7,14 @@ import numpy as np
 import math
 from matplotlib import pyplot as plt
 import imp
+import pandas as pd
 
 # Global variables used for plot fontsizes
 GRAPH_LABEL_FONTSIZE = 8
 GRAPH_TITLE_FONTSIZE = 10
 
 # TODO: Plots do not plot anything above around 50 correctly. Solve this or else fixing plots are useless.
-# TDOO: Make a table of appropriate ranges for parameters.
+# TODO: Make a table of appropriate ranges for parameters.
 
 def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
               savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None):
@@ -105,21 +106,42 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
             for gene in perturb:
                 currVm = eval('model.Vm' + str(gene))
                 if pertParam[0] == 'UP':
-                     pertVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
-                     exec('model.Vm' + str(gene) +  ' = ' + str(pertVal))
+                     newVal = currVm + np.random.normal(pertParam[1],pertParam[2])/100
+                     exec('model.Vm' + str(gene) +  ' = ' + str(newVal)) in globals()
                 if pertParam[0] == 'DOWN':
-                    pertVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
-                    exec('model.Vm' + str(gene)  +  ' = ' + str(pertVal))
+                    newVal = currVm - np.random.normal(pertParam[1],pertParam[2])/100
+                    exec('model.Vm' + str(gene)  +  ' = ' + str(newVal)) in globals()
                 if pertParam[0] == 'KO':
-                    exec('model.Vm' + str(gene)  + ' = 0')
-                    exec('model.d_mRNA' + str(gene)  + ' = 0')
-                    exec('model.d_protein' + str(gene)  + ' = 0')
-                    exec('model.mRNA' + str(gene)  + ' = 1E-9')
-                    exec('model.P' + str(gene)  + ' = 1E-9')
+                    exec('model.Vm' + str(gene)  + ' = 0') in globals()
+                    exec('model.d_mRNA' + str(gene)  + ' = 0') in globals()
+                    exec('model.d_protein' + str(gene)  + ' = 0') in globals()
+                    exec('model.mRNA' + str(gene)  + ' = 1E-9') in globals()
+                    exec('model.P' + str(gene)  + ' = 1E-9') in globals()
                     #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
 
     # Run a simulation for time-course data
-    result = model.simulate(0,inputData[1],tStep+1)
+    if exportData[2]==True:
+        genesToExport = exportData[0]
+        species_type = exportData[1]
+
+        if genesToExport!=0:
+            if species_type == 'P':
+                selections = ["P" + str(i) for i in genesToExport]
+            elif species_type == 'M':
+                selections = ["mRNA" + str(i) for i in genesToExport]
+        else:
+            allGenes = (model.getNumFloatingSpecies() - 1)/2
+            if species_type == 'P':
+                selections = ["P" + str(i+1) for i in range(allGenes)]
+            elif species_type == 'M':
+                selections = ["mRNA" + str(i+1) for i in range(allGenes)]
+
+        if species_type not in ['P','M']:
+            raise ValueError("Output data type not recognized (must be P or M)")
+
+    selections = ['time'] + selections
+
+    result = model.simulate(0,inputData[1],tStep+1,selections=selections)
 
 
 #            numGenes = model.getNumFloatingSpecies()
@@ -147,13 +169,30 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
                         CurrVal = result[k,i] + np.random.normal(0,noiseLevel*result[k,i])
                     resultNoisy[k,i] = CurrVal
 
+    # Export datasets
+    Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap)
 
     # Create graphs
     if showTimePlots==True:
-        makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy)
+        data = {next_name:resultNoisy[:,i] for i,next_name in enumerate(selections)}
+        df = pd.DataFrame.from_dict(data)
+        df.set_index('time', inplace=True)
+        df.plot()
+        plt.title("Noisy Data")
+        plt.xlabel("time")
+        plt.savefig(filesPath + 'Simulation_Noisy_Plot2.png', dpi=400)
+        manager = plt.get_current_fig_manager()
+        manager.window.showMaximized()
+        # do not want to give students the clean data
+        #data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
+        #df = pd.DataFrame.from_dict(data)
+        #df.set_index('time', inplace=True)
+        #df.plot()
+        #plt.title("Normal Data")
+        #plt.xlabel("time")
+        #plt.savefig(filesPath + 'Simulation_Clean_Plot2.png', dpi=400)
 
-    # Export datasets
-    Output(exportData,model,seed,result,noiseLevel,resultNoisy, filesPath, antStr,bioTap)
+        plt.show()
 
     # Draw the model (requires pygraphviz module)
     if drawModel[0]==True:
@@ -166,34 +205,22 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
     #returns the model, and result and/or resultNoisy arrays
     return(model,result,resultNoisy)
 
-    raise RuntimeError('Could not create a working model for ' + str(runAttempts) + ' tries.')
-
-
 ###### Other Functions that GetModel uses ######
 
-def Output(exportData,model,seed,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap):
-    # export csv of results
-    if exportData[2]==True:
-        outputSpecies = range(int(np.size(result,1)))
-        if exportData[0]!=0:
-            if exportData[1]=='P':
-                outputSpecies = [gene*2 for gene in exportData[0]]
-            if exportData[1]=='M':
-                outputSpecies  = [gene*2+1 for gene in exportData[0]]
-        else:
-            if exportData[1]=='P':
-                outputSpecies = outputSpecies[2::2]
-            if exportData[1]=='M':
-                outputSpecies = outputSpecies[1::2]
-        outputResults = np.array(result[:,outputSpecies])
-        outputTime = np.reshape(result[:,0],[len(result[:,0]),1])
-        writeResult = np.hstack((outputTime,outputResults))
-        writecsvFile(outputSpecies,filesPath + 'Results_Clean.csv',model,np.array(writeResult))
-        if noiseLevel != 0:
-            outputResultsNoisy = np.array(resultNoisy[:,outputSpecies])
-            writeNoisy = np.hstack((outputTime,outputResultsNoisy))
-            writecsvFile(outputSpecies,filesPath + 'Noisy_Result.csv',model,np.array(writeNoisy))
-    # export csv file for importing into Biotapestry
+def Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy,filesPath, antStr,bioTap):
+#     export csv of results
+    data = {next_name:result[:,i] for i, next_name in enumerate(selections)}
+    df = pd.DataFrame.from_dict(data)
+    df.set_index('time', inplace=True)
+    df.to_csv(filesPath + "Result_Clean.csv")
+
+    if noiseLevel != 0:
+        data = {next_name:resultNoisy[:,i] for i, next_name in enumerate(selections)}
+        df = pd.DataFrame.from_dict(data)
+        df.set_index('time', inplace=True)
+        df.to_csv(filesPath + "Noisy_Result.csv")
+
+#     export csv file for importing into Biotapestry
     if bioTap!='':
         f2 = open(filesPath + "biotapestry.csv", 'w')
         f2.write(bioTap)
@@ -244,111 +271,114 @@ def writecsvFile (outputSpecies,filesPath, model, data):
                 fh.write (',')
         fh.write('\n')
     fh.close()
+    return(header_string)
 
-def makePlots(exportData,inputData,filesPath,result,noiseLevel,resultNoisy):
-    global GRAPH_LABEL_FONTSIZE
-    global GRAPH_TITLE_FONTSIZE
+#def makePlots(exportData,inputData,filesPath,header_string,noiseLevel,resultNoisy):
+# Create graphs
 
-    outputSpecies = range(int(np.size(result,1)))
-    if exportData[0]!=0:
-        outputSpecies = [gene for gene in exportData[0]]
-    else:
-        outputSpecies = outputSpecies[2::2]
-
-    # create a plot for clean data
-    jet = plt.get_cmap('jet')
-    pickColorSpace = [int(np.floor(i)) for i in np.linspace(0,255,len(outputSpecies))]
-    colors = jet(pickColorSpace)
-    colors = jet(np.linspace(0,1,len(outputSpecies)))
-
-    vars = {'P':[],'M':[]}
-    for e in vars.keys():
-        plt.figure(1)
-        for k in np.arange(0,len(outputSpecies)):
-            vars[e].append(e + str(k))
-            tStep = int(math.ceil(inputData[1]/inputData[2]))
-            tRange = np.arange(0,(int(math.ceil(inputData[1])))+ tStep,tStep)
-            if exportData[1]=='P':
-               # plt.subplot(2,1,1)
-                plt.title('Protein Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
-                plt.grid(color='k', linestyle='-', linewidth=.4)
-                plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-                plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                plt.plot (result[:,0],result[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
-                #plt.yscale('log')
-                if inputData[1] > 5000:
-                    plt.xscale('log')
-                    plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                else:
-                    plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-                plt.xlim(0,inputData[1])
-                plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-            if exportData[1]=='M':
-              # plt.subplot(2,1,2)
-               plt.title('mRNA Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
-               plt.grid(color='k', linestyle='-', linewidth=.4)
-               plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.plot (result[:,0],result[:,outputSpecies[k]+1])#, label = vars[e][k],color=colors[k])
-              # plt.yscale('log')
-               if inputData[1] > 5000:
-                    plt.xscale('log')
-                    plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
-               else:
-                   plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-               plt.xlim(0,inputData[1])
-               plt.legend(vars[e],loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-    manager = plt.get_current_fig_manager()
-#    manager.window.showMaximized()
-#    manager.window.showMinimized()
-    plt.savefig(filesPath + 'Simulation_Plot.png', dpi=400)
-
-    # create a plot for noisy data
-    if noiseLevel != 0:
-        vars = {'P':[],'M':[]}
-        for e in vars.keys():
-            plt.figure(2)
-            for k in np.arange(0,len(outputSpecies)):
-                vars[e].append(e + str(k))
-                if exportData[1]=='P':
-                    plt.subplot(2,1,1)
-                    plt.title('Protein Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
-                    plt.grid(color='k', linestyle='-', linewidth=.4)
-                    plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.xlim(0,inputData[1])
-                    plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
-                    plt.legend(vars[e])
-                    #plt.yscale('log')
-                    if inputData[1] > 5000:
-                        plt.xscale('log')
-                        plt.xticks(fontsize=6)
-                    else:
-                       plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-                if exportData[1]=='M':
-                    #plt.subplot(2,1,2)
-                    plt.title('mRNA Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
-                    plt.grid(color='k', linestyle='-', linewidth=.4)
-                    plt.xlim(0, inputData[1])
-                    plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]+1], label = vars[e][k],color=colors[k])
-                    plt.legend(vars[e])
-                    #plt.yscale('log')
-                    if inputData[1] > 5000:
-                        plt.xscale('log')
-                        plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
-                    else:
-                        plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
-                    plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
-        manager = plt.get_current_fig_manager()
-#        manager.window.showMaximized()
-#        manager.window.showMinimized()
-        plt.savefig(filesPath + 'Noisy Simulation_Plot.png', dpi=400)
-        print('\nPlots created!\n')
+    #    global GRAPH_LABEL_FONTSIZE
+#    global GRAPH_TITLE_FONTSIZE
+#
+#    outputSpecies = range(int(np.size(result,1)))
+#    if exportData[0]!=0:
+#        outputSpecies = [gene for gene in exportData[0]]
+#    else:
+#        outputSpecies = outputSpecies[2::2]
+#
+#    # create a plot for clean data
+#    jet = plt.get_cmap('jet')
+#    pickColorSpace = [int(np.floor(i)) for i in np.linspace(0,255,len(outputSpecies))]
+#    colors = jet(pickColorSpace)
+#    colors = jet(np.linspace(0,1,len(outputSpecies)))
+#
+#    vars = {'P':[],'M':[]}
+#    for e in vars.keys():
+#        plt.figure(1)
+#        for k in np.arange(0,len(outputSpecies)):
+#            vars[e].append(e + str(k))
+#            tStep = int(math.ceil(inputData[1]/inputData[2]))
+#            tRange = np.arange(0,(int(math.ceil(inputData[1])))+ tStep,tStep)
+#            if exportData[1]=='P':
+#               # plt.subplot(2,1,1)
+#                plt.title('Protein Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
+#                plt.grid(color='k', linestyle='-', linewidth=.4)
+#                plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
+#                plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#                plt.plot (result[:,0],result[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
+#                #plt.yscale('log')
+#                if inputData[1] > 5000:
+#                    plt.xscale('log')
+#                    plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#                else:
+#                    plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
+#                plt.xlim(0,inputData[1])
+#                plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
+#            if exportData[1]=='M':
+#              # plt.subplot(2,1,2)
+#               plt.title('mRNA Count Vs. Time', fontsize=GRAPH_TITLE_FONTSIZE)
+#               plt.grid(color='k', linestyle='-', linewidth=.4)
+#               plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
+#               plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
+#               plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#               plt.plot (result[:,0],result[:,outputSpecies[k]+1])#, label = vars[e][k],color=colors[k])
+#              # plt.yscale('log')
+#               if inputData[1] > 5000:
+#                    plt.xscale('log')
+#                    plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#               else:
+#                   plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
+#               plt.xlim(0,inputData[1])
+#               plt.legend(vars[e],loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
+#    manager = plt.get_current_fig_manager()
+##    manager.window.showMaximized()
+##    manager.window.showMinimized()
+#    plt.savefig(filesPath + 'Simulation_Plot.png', dpi=400)
+#
+#    # create a plot for noisy data
+#    if noiseLevel != 0:
+#        vars = {'P':[],'M':[]}
+#        for e in vars.keys():
+#            plt.figure(2)
+#            for k in np.arange(0,len(outputSpecies)):
+#                vars[e].append(e + str(k))
+#                if exportData[1]=='P':
+#                    plt.subplot(2,1,1)
+#                    plt.title('Protein Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
+#                    plt.grid(color='k', linestyle='-', linewidth=.4)
+#                    plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.xlim(0,inputData[1])
+#                    plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]], label = vars[e][k],color=colors[k])
+#                    plt.legend(vars[e])
+#                    #plt.yscale('log')
+#                    if inputData[1] > 5000:
+#                        plt.xscale('log')
+#                        plt.xticks(fontsize=6)
+#                    else:
+#                       plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
+#                if exportData[1]=='M':
+#                    #plt.subplot(2,1,2)
+#                    plt.title('mRNA Count Vs. Time (Noisy)', fontsize=GRAPH_TITLE_FONTSIZE)
+#                    plt.grid(color='k', linestyle='-', linewidth=.4)
+#                    plt.xlim(0, inputData[1])
+#                    plt.yticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.xlabel('time(s)',fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.ylabel('count',fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.plot (resultNoisy[:,0],resultNoisy[:,outputSpecies[k]+1], label = vars[e][k],color=colors[k])
+#                    plt.legend(vars[e])
+#                    #plt.yscale('log')
+#                    if inputData[1] > 5000:
+#                        plt.xscale('log')
+#                        plt.xticks(fontsize=GRAPH_LABEL_FONTSIZE)
+#                    else:
+#                        plt.xticks(tRange, fontsize=GRAPH_LABEL_FONTSIZE)
+#                    plt.legend(loc='upper right',ncol=3, bbox_to_anchor=(1.13, 1.035), fontsize=GRAPH_LABEL_FONTSIZE)
+#        manager = plt.get_current_fig_manager()
+##        manager.window.showMaximized()
+##        manager.window.showMinimized()
+#        plt.savefig(filesPath + 'Noisy Simulation_Plot.png', dpi=400)
+#        print('\nPlots created!\n')
 
     # Attepts to print meaningful Errors
 def ErrorPrinting(Error,customHeader=''):
