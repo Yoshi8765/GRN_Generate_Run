@@ -9,29 +9,26 @@ with these, run the script. You might have to run it multiple times to generate 
 biotapestry file and antimony file in your current working directory. Hold on to these.
 
 ### Breaking the model
-In order to break the model, first open Biotapestry. From there, click File > Import > Import Full Model Hierarchy from CSV and select the
+In order to break the model, first open the BiotapestryEditor program. From there, click File > Import > Import Full Model Hierarchy from CSV and select the
 biotapestry CSV generated in the previous step. This will give you a visualization of the model, and from here select which connections to remove.
 Deleting the connections off the Biotapestry file will not work, as Biotapestry does not support this. As such, we have written our own code for
 removing/adding connections, found in change_biotapestry.py. I have written a helper file called break_model.py that includes instructions for 
-breaking the model. This will output a new CSV of the form model_name_broken.csv. I recommend this to be the file you give to the students.
+breaking the model. This will output a new CSV of the form model_name_broken.csv, and you can view it in the BiotapestryEditor if you like.
+I recommend this to be the file you give to the students.
+
 
 ### Ordering Experimental Data
-To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY/edit) which students should be given access to. Use run_experiments.py to run student experiments.
+To collect data orders from students, we have created a google form [BIOEN 498: Experiment Request Form](https://docs.google.com/forms/d/1OFsoRf8hEJw4d3bpdQHlR1wrq_fUVGD6PmKRf3d1TdY) which students should be given access to. Use run_experiments.py to run student experiments.
+Update the team names on the google form if necessary, and when creating the score file (step 3 below) make sure these team names match those in the score file.
 
 1. Download csv from google forms
 2. Unzip csv into the same directory as run_experiments.py
 	- You do not need to clear the old experiment orders from the CSV, the code does that automatically. Just make sure you overwrite the old CSV.
-3. Create a team_scores.csv if it doesn't already exist. team_score formatting: save as csv!
-	- Note: save as csv! This only needs to be done once as run_experiments will overwrite the file with new scores, but make sure the team names match those on the google form. See function comments for details.
-```
-team 1,team 2,team 3,team 4
-14000,14000,14000,14000
-```
-4. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently, it is set to 8)  
+3. Run get_data.py (make sure the num_genes parameter in this file is the correct number of genes in the network. Currently, it is set to 8)  
+	- NOTE: the first time you run this, it will generate
 
-
-
-
+The students will then be sent an email from bioen498@gmail.com containing the data they have ordered, and an update on
+how much money they have remaining. If a student tries to order experiments they do not have the money for, they will receive no results.
 
 
 # Function Descriptions
