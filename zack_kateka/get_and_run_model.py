@@ -18,7 +18,8 @@ biotap = data[1]
 #def run_model(antStr,noiseLevel,exportData=[ [0],'P',True,True,True],inputData=[1,40,1, [0],[0]],bioTap='',
 #              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=[False,'fdp'],runAttempts=5):
 
-run_model(ant_str, noiseLevel=8, exportData= [[1,2,3,4,5,6,7,8], 'M', True,True,True], inputData=[1,200,10, [3], ["UP",20,5]])
+run_model(ant_str, noiseLevel=8, exportData= [[1,2,3,4,5,6,7,8], 'M', True,True,True], inputData=[1,200,10, [3], ["UP",50,5]], 
+          showTimePlots=True)
 
 data_table2 = pd.read_csv('Random_GRNs/pathway/Results_Clean.csv') # RNASeq_HiRes has timepoints = [0,200,20]
 data_table2.set_index('time', inplace=True) 

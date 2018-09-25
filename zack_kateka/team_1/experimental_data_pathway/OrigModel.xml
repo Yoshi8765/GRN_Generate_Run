@@ -25,78 +25,78 @@
       <species id="mRNA8" compartment="default_compartment" initialConcentration="0" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="d_protein1" value="7.70128648294648" constant="true"/>
-      <parameter id="d_mRNA1" value="0.0251182285079064" constant="true"/>
-      <parameter id="L1" value="0.0176514453353918" constant="true"/>
-      <parameter id="Vm1" value="0.884160430982784" constant="true"/>
-      <parameter id="a_protein1" value="2.83503368287453" constant="true"/>
-      <parameter id="H1" value="2.5366229938475" constant="true"/>
-      <parameter id="K1_1" value="0.0142760939978404" constant="true"/>
-      <parameter id="K2_1" value="0.00985914795329911" constant="true"/>
-      <parameter id="K3_1" value="0.00734925112973515" constant="true"/>
-      <parameter id="d_protein2" value="5.44480407073833" constant="true"/>
-      <parameter id="d_mRNA2" value="0.011620098122525" constant="true"/>
-      <parameter id="L2" value="0.0228538339506314" constant="true"/>
-      <parameter id="Vm2" value="1.18525683051884" constant="true"/>
-      <parameter id="a_protein2" value="5.88947250919705" constant="true"/>
-      <parameter id="H2" value="3.22367066107987" constant="true"/>
-      <parameter id="K1_2" value="0.0111609283204897" constant="true"/>
-      <parameter id="K2_2" value="0.0102955540837065" constant="true"/>
-      <parameter id="K3_2" value="0.0148592446602631" constant="true"/>
-      <parameter id="d_protein3" value="16.0580182222326" constant="true"/>
-      <parameter id="d_mRNA3" value="0.0113945497128523" constant="true"/>
-      <parameter id="L3" value="0.0165571998613699" constant="true"/>
-      <parameter id="Vm3" value="0.518114507113669" constant="true"/>
-      <parameter id="a_protein3" value="5.70100277140146" constant="true"/>
-      <parameter id="H3" value="3.18497943713226" constant="true"/>
-      <parameter id="K1_3" value="0.00997143393919567" constant="true"/>
-      <parameter id="K2_3" value="0.00752199795722738" constant="true"/>
-      <parameter id="K3_3" value="0.00910954792607055" constant="true"/>
-      <parameter id="d_protein4" value="6.23219357766884" constant="true"/>
-      <parameter id="d_mRNA4" value="0.016144589460621" constant="true"/>
-      <parameter id="L4" value="0.0235394813392788" constant="true"/>
-      <parameter id="Vm4" value="0.837232139904304" constant="true"/>
-      <parameter id="a_protein4" value="6.11507755194163" constant="true"/>
-      <parameter id="H4" value="2.84719477264359" constant="true"/>
-      <parameter id="K1_4" value="0.00993082309283693" constant="true"/>
-      <parameter id="K2_4" value="0.0132102909867201" constant="true"/>
-      <parameter id="K3_4" value="0.00729969986817105" constant="true"/>
-      <parameter id="d_protein5" value="9.01757265315001" constant="true"/>
-      <parameter id="d_mRNA5" value="0.0192713498719385" constant="true"/>
-      <parameter id="L5" value="0.00956305352156365" constant="true"/>
-      <parameter id="Vm5" value="0.920443345334355" constant="true"/>
-      <parameter id="a_protein5" value="4.36462419438564" constant="true"/>
-      <parameter id="H5" value="3.55991863369479" constant="true"/>
-      <parameter id="K1_5" value="0.00674414214536209" constant="true"/>
-      <parameter id="K2_5" value="0.0103015076780844" constant="true"/>
-      <parameter id="K3_5" value="0.0117188674282019" constant="true"/>
-      <parameter id="d_protein6" value="9.18680451908044" constant="true"/>
-      <parameter id="d_mRNA6" value="0.0165675978870427" constant="true"/>
-      <parameter id="L6" value="0.0110949177375144" constant="true"/>
-      <parameter id="Vm6" value="1.0268383755082" constant="true"/>
-      <parameter id="a_protein6" value="3.1507160760594" constant="true"/>
-      <parameter id="H6" value="2.99290138747186" constant="true"/>
-      <parameter id="K1_6" value="0.010509571466478" constant="true"/>
-      <parameter id="K2_6" value="0.010186113145878" constant="true"/>
-      <parameter id="K3_6" value="0.00508861498770281" constant="true"/>
-      <parameter id="d_protein7" value="12.3607930846247" constant="true"/>
-      <parameter id="d_mRNA7" value="0.0133975870194249" constant="true"/>
-      <parameter id="L7" value="0.0167892394327092" constant="true"/>
-      <parameter id="Vm7" value="0.752982151879486" constant="true"/>
-      <parameter id="a_protein7" value="4.89417762530779" constant="true"/>
-      <parameter id="H7" value="3.09238439796504" constant="true"/>
-      <parameter id="K1_7" value="0.0124385591374086" constant="true"/>
-      <parameter id="K2_7" value="0.00905956509073785" constant="true"/>
-      <parameter id="K3_7" value="0.00804791215740631" constant="true"/>
-      <parameter id="d_protein8" value="13.8545896511069" constant="true"/>
-      <parameter id="d_mRNA8" value="0.0141950062499968" constant="true"/>
-      <parameter id="L8" value="0.0111241679456959" constant="true"/>
-      <parameter id="Vm8" value="1.52029332086581" constant="true"/>
-      <parameter id="a_protein8" value="7.25486031284848" constant="true"/>
-      <parameter id="H8" value="2.71501212918269" constant="true"/>
-      <parameter id="K1_8" value="0.0117177537139079" constant="true"/>
-      <parameter id="K2_8" value="0.00836372963282133" constant="true"/>
-      <parameter id="K3_8" value="0.0132539431570617" constant="true"/>
+      <parameter id="d_protein1" value="0.016677229596751" constant="true"/>
+      <parameter id="d_mRNA1" value="1.00071960582844" constant="true"/>
+      <parameter id="L1" value="0.0165070503785166" constant="true"/>
+      <parameter id="Vm1" value="1.1262837511736" constant="true"/>
+      <parameter id="a_protein1" value="0.0943883648085383" constant="true"/>
+      <parameter id="H1" value="5.71024497831628" constant="true"/>
+      <parameter id="K1_1" value="0.0201659854039909" constant="true"/>
+      <parameter id="K2_1" value="0.0191243182187322" constant="true"/>
+      <parameter id="K3_1" value="0.0219868010122523" constant="true"/>
+      <parameter id="d_protein2" value="0.0200996258029425" constant="true"/>
+      <parameter id="d_mRNA2" value="1.14593070996716" constant="true"/>
+      <parameter id="L2" value="0.00534651798232991" constant="true"/>
+      <parameter id="Vm2" value="1.19459529036546" constant="true"/>
+      <parameter id="a_protein2" value="0.0841828851467103" constant="true"/>
+      <parameter id="H2" value="3.91799552622218" constant="true"/>
+      <parameter id="K1_2" value="0.0224119983674391" constant="true"/>
+      <parameter id="K2_2" value="0.00428910670745565" constant="true"/>
+      <parameter id="K3_2" value="0.0173356946844467" constant="true"/>
+      <parameter id="d_protein3" value="0.019731502804371" constant="true"/>
+      <parameter id="d_mRNA3" value="1.05132524355369" constant="true"/>
+      <parameter id="L3" value="0.0211375324017059" constant="true"/>
+      <parameter id="Vm3" value="0.746089546498616" constant="true"/>
+      <parameter id="a_protein3" value="0.0587384361895384" constant="true"/>
+      <parameter id="H3" value="6.71737878748462" constant="true"/>
+      <parameter id="K1_3" value="0.0200762619998409" constant="true"/>
+      <parameter id="K2_3" value="0.0166640799236892" constant="true"/>
+      <parameter id="K3_3" value="0.0135032441872195" constant="true"/>
+      <parameter id="d_protein4" value="0.0148107094372237" constant="true"/>
+      <parameter id="d_mRNA4" value="0.934779162333796" constant="true"/>
+      <parameter id="L4" value="0.0170932220481709" constant="true"/>
+      <parameter id="Vm4" value="1.16695507793395" constant="true"/>
+      <parameter id="a_protein4" value="0.0798301403375377" constant="true"/>
+      <parameter id="H4" value="4.52378619824327" constant="true"/>
+      <parameter id="K1_4" value="0.0190193445564004" constant="true"/>
+      <parameter id="K2_4" value="0.0181921549708985" constant="true"/>
+      <parameter id="K3_4" value="0.0190138337981441" constant="true"/>
+      <parameter id="d_protein5" value="0.0209950151449631" constant="true"/>
+      <parameter id="d_mRNA5" value="0.781196892986855" constant="true"/>
+      <parameter id="L5" value="0.0149836225254153" constant="true"/>
+      <parameter id="Vm5" value="0.793753036693354" constant="true"/>
+      <parameter id="a_protein5" value="0.104737888007358" constant="true"/>
+      <parameter id="H5" value="6.27625095746682" constant="true"/>
+      <parameter id="K1_5" value="0.0169208741652994" constant="true"/>
+      <parameter id="K2_5" value="0.0181975841700288" constant="true"/>
+      <parameter id="K3_5" value="0.0189555186515891" constant="true"/>
+      <parameter id="d_protein6" value="0.0162437529619204" constant="true"/>
+      <parameter id="d_mRNA6" value="0.828832283349535" constant="true"/>
+      <parameter id="L6" value="0.020218431172333" constant="true"/>
+      <parameter id="Vm6" value="1.26686121860523" constant="true"/>
+      <parameter id="a_protein6" value="0.0617490163126085" constant="true"/>
+      <parameter id="H6" value="4.21147137730163" constant="true"/>
+      <parameter id="K1_6" value="0.0161855011411742" constant="true"/>
+      <parameter id="K2_6" value="0.00995458655425888" constant="true"/>
+      <parameter id="K3_6" value="0.0233478456711536" constant="true"/>
+      <parameter id="d_protein7" value="0.0223063870535981" constant="true"/>
+      <parameter id="d_mRNA7" value="1.08404048710343" constant="true"/>
+      <parameter id="L7" value="0.0162662054771251" constant="true"/>
+      <parameter id="Vm7" value="0.877760936850187" constant="true"/>
+      <parameter id="a_protein7" value="0.0510754957799643" constant="true"/>
+      <parameter id="H7" value="4.94202531225804" constant="true"/>
+      <parameter id="K1_7" value="0.011171061188632" constant="true"/>
+      <parameter id="K2_7" value="0.0103461444679968" constant="true"/>
+      <parameter id="K3_7" value="0.0088988028048726" constant="true"/>
+      <parameter id="d_protein8" value="0.0160552449514514" constant="true"/>
+      <parameter id="d_mRNA8" value="1.33144130110205" constant="true"/>
+      <parameter id="L8" value="0.0101779283407065" constant="true"/>
+      <parameter id="Vm8" value="0.674898351360794" constant="true"/>
+      <parameter id="a_protein8" value="0.0789526374623067" constant="true"/>
+      <parameter id="H8" value="5.41250457099327" constant="true"/>
+      <parameter id="K1_8" value="0.0169980133094478" constant="true"/>
+      <parameter id="K2_8" value="0.0230785064223207" constant="true"/>
+      <parameter id="K3_8" value="0.0133459543587166" constant="true"/>
     </listOfParameters>
     <listOfReactions>
       <reaction id="J1" reversible="false" fast="false">
@@ -104,8 +104,8 @@
           <speciesReference species="mRNA1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P2"/>
-          <modifierSpeciesReference species="P8"/>
+          <modifierSpeciesReference species="P5"/>
+          <modifierSpeciesReference species="P7"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -119,15 +119,7 @@
                   <ci> Vm1 </ci>
                   <apply>
                     <divide/>
-                    <apply>
-                      <times/>
-                      <ci> K1_1 </ci>
-                      <apply>
-                        <power/>
-                        <ci> P8 </ci>
-                        <ci> H1 </ci>
-                      </apply>
-                    </apply>
+                    <cn type="integer"> 1 </cn>
                     <apply>
                       <plus/>
                       <cn type="integer"> 1 </cn>
@@ -136,7 +128,7 @@
                         <ci> K1_1 </ci>
                         <apply>
                           <power/>
-                          <ci> P8 </ci>
+                          <ci> P5 </ci>
                           <ci> H1 </ci>
                         </apply>
                       </apply>
@@ -145,22 +137,22 @@
                         <ci> K2_1 </ci>
                         <apply>
                           <power/>
-                          <ci> P2 </ci>
+                          <ci> P7 </ci>
                           <ci> H1 </ci>
                         </apply>
                       </apply>
                       <apply>
                         <times/>
                         <ci> K1_1 </ci>
-                        <ci> K2_1 </ci>
+                        <ci> K3_1 </ci>
                         <apply>
                           <power/>
-                          <ci> P8 </ci>
+                          <ci> P5 </ci>
                           <ci> H1 </ci>
                         </apply>
                         <apply>
                           <power/>
-                          <ci> P2 </ci>
+                          <ci> P7 </ci>
                           <ci> H1 </ci>
                         </apply>
                       </apply>
@@ -208,6 +200,7 @@
         </listOfProducts>
         <listOfModifiers>
           <modifierSpeciesReference species="P1"/>
+          <modifierSpeciesReference species="P4"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -221,13 +214,45 @@
                   <ci> Vm2 </ci>
                   <apply>
                     <divide/>
-                    <cn type="integer"> 1 </cn>
+                    <apply>
+                      <times/>
+                      <ci> K1_2 </ci>
+                      <apply>
+                        <power/>
+                        <ci> P4 </ci>
+                        <ci> H2 </ci>
+                      </apply>
+                    </apply>
                     <apply>
                       <plus/>
                       <cn type="integer"> 1 </cn>
                       <apply>
                         <times/>
                         <ci> K1_2 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P4 </ci>
+                          <ci> H2 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K2_2 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P1 </ci>
+                          <ci> H2 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K1_2 </ci>
+                        <ci> K2_2 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P4 </ci>
+                          <ci> H2 </ci>
+                        </apply>
                         <apply>
                           <power/>
                           <ci> P1 </ci>
@@ -277,6 +302,7 @@
           <speciesReference species="mRNA3" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
+          <modifierSpeciesReference species="P6"/>
           <modifierSpeciesReference species="P7"/>
         </listOfModifiers>
         <kineticLaw>
@@ -291,13 +317,72 @@
                   <ci> Vm3 </ci>
                   <apply>
                     <divide/>
-                    <cn type="integer"> 1 </cn>
+                    <apply>
+                      <plus/>
+                      <apply>
+                        <times/>
+                        <ci> K1_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K2_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P7 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K1_3 </ci>
+                        <ci> K3_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> P7 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                      </apply>
+                    </apply>
                     <apply>
                       <plus/>
                       <cn type="integer"> 1 </cn>
                       <apply>
                         <times/>
                         <ci> K1_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K2_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P7 </ci>
+                          <ci> H3 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K1_3 </ci>
+                        <ci> K3_3 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H3 </ci>
+                        </apply>
                         <apply>
                           <power/>
                           <ci> P7 </ci>
@@ -347,8 +432,7 @@
           <speciesReference species="mRNA4" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
-          <modifierSpeciesReference species="P3"/>
+          <modifierSpeciesReference species="INPUT"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -363,39 +447,12 @@
                   <apply>
                     <divide/>
                     <apply>
-                      <plus/>
+                      <times/>
+                      <ci> K1_4 </ci>
                       <apply>
-                        <times/>
-                        <ci> K1_4 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P1 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K2_4 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P3 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K1_4 </ci>
-                        <ci> K3_4 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P1 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                        <apply>
-                          <power/>
-                          <ci> P3 </ci>
-                          <ci> H4 </ci>
-                        </apply>
+                        <power/>
+                        <ci> INPUT </ci>
+                        <ci> H4 </ci>
                       </apply>
                     </apply>
                     <apply>
@@ -406,31 +463,7 @@
                         <ci> K1_4 </ci>
                         <apply>
                           <power/>
-                          <ci> P1 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K2_4 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P3 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K1_4 </ci>
-                        <ci> K3_4 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P1 </ci>
-                          <ci> H4 </ci>
-                        </apply>
-                        <apply>
-                          <power/>
-                          <ci> P3 </ci>
+                          <ci> INPUT </ci>
                           <ci> H4 </ci>
                         </apply>
                       </apply>
@@ -477,7 +510,6 @@
           <speciesReference species="mRNA5" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P4"/>
           <modifierSpeciesReference species="P8"/>
         </listOfModifiers>
         <kineticLaw>
@@ -497,7 +529,7 @@
                       <ci> K1_5 </ci>
                       <apply>
                         <power/>
-                        <ci> P4 </ci>
+                        <ci> P8 </ci>
                         <ci> H5 </ci>
                       </apply>
                     </apply>
@@ -507,30 +539,6 @@
                       <apply>
                         <times/>
                         <ci> K1_5 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P4 </ci>
-                          <ci> H5 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K2_5 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P8 </ci>
-                          <ci> H5 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K1_5 </ci>
-                        <ci> K2_5 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P4 </ci>
-                          <ci> H5 </ci>
-                        </apply>
                         <apply>
                           <power/>
                           <ci> P8 </ci>
@@ -580,8 +588,8 @@
           <speciesReference species="mRNA6" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P5"/>
-          <modifierSpeciesReference species="P6"/>
+          <modifierSpeciesReference species="P3"/>
+          <modifierSpeciesReference species="P2"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -596,39 +604,12 @@
                   <apply>
                     <divide/>
                     <apply>
-                      <plus/>
+                      <times/>
+                      <ci> K1_6 </ci>
                       <apply>
-                        <times/>
-                        <ci> K1_6 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P6 </ci>
-                          <ci> H6 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K2_6 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P5 </ci>
-                          <ci> H6 </ci>
-                        </apply>
-                      </apply>
-                      <apply>
-                        <times/>
-                        <ci> K1_6 </ci>
-                        <ci> K3_6 </ci>
-                        <apply>
-                          <power/>
-                          <ci> P6 </ci>
-                          <ci> H6 </ci>
-                        </apply>
-                        <apply>
-                          <power/>
-                          <ci> P5 </ci>
-                          <ci> H6 </ci>
-                        </apply>
+                        <power/>
+                        <ci> P3 </ci>
+                        <ci> H6 </ci>
                       </apply>
                     </apply>
                     <apply>
@@ -639,7 +620,7 @@
                         <ci> K1_6 </ci>
                         <apply>
                           <power/>
-                          <ci> P6 </ci>
+                          <ci> P3 </ci>
                           <ci> H6 </ci>
                         </apply>
                       </apply>
@@ -648,22 +629,22 @@
                         <ci> K2_6 </ci>
                         <apply>
                           <power/>
-                          <ci> P5 </ci>
+                          <ci> P2 </ci>
                           <ci> H6 </ci>
                         </apply>
                       </apply>
                       <apply>
                         <times/>
                         <ci> K1_6 </ci>
-                        <ci> K3_6 </ci>
+                        <ci> K2_6 </ci>
                         <apply>
                           <power/>
-                          <ci> P6 </ci>
+                          <ci> P3 </ci>
                           <ci> H6 </ci>
                         </apply>
                         <apply>
                           <power/>
-                          <ci> P5 </ci>
+                          <ci> P2 </ci>
                           <ci> H6 </ci>
                         </apply>
                       </apply>
@@ -710,8 +691,8 @@
           <speciesReference species="mRNA7" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
-          <modifierSpeciesReference species="INPUT"/>
+          <modifierSpeciesReference species="P5"/>
+          <modifierSpeciesReference species="P4"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -725,7 +706,15 @@
                   <ci> Vm7 </ci>
                   <apply>
                     <divide/>
-                    <cn type="integer"> 1 </cn>
+                    <apply>
+                      <times/>
+                      <ci> K1_7 </ci>
+                      <apply>
+                        <power/>
+                        <ci> P4 </ci>
+                        <ci> H7 </ci>
+                      </apply>
+                    </apply>
                     <apply>
                       <plus/>
                       <cn type="integer"> 1 </cn>
@@ -734,7 +723,7 @@
                         <ci> K1_7 </ci>
                         <apply>
                           <power/>
-                          <ci> INPUT </ci>
+                          <ci> P4 </ci>
                           <ci> H7 </ci>
                         </apply>
                       </apply>
@@ -743,22 +732,22 @@
                         <ci> K2_7 </ci>
                         <apply>
                           <power/>
-                          <ci> P1 </ci>
+                          <ci> P5 </ci>
                           <ci> H7 </ci>
                         </apply>
                       </apply>
                       <apply>
                         <times/>
                         <ci> K1_7 </ci>
-                        <ci> K3_7 </ci>
+                        <ci> K2_7 </ci>
                         <apply>
                           <power/>
-                          <ci> INPUT </ci>
+                          <ci> P4 </ci>
                           <ci> H7 </ci>
                         </apply>
                         <apply>
                           <power/>
-                          <ci> P1 </ci>
+                          <ci> P5 </ci>
                           <ci> H7 </ci>
                         </apply>
                       </apply>
@@ -805,8 +794,8 @@
           <speciesReference species="mRNA8" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference species="P1"/>
           <modifierSpeciesReference species="P6"/>
+          <modifierSpeciesReference species="P8"/>
         </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -821,12 +810,39 @@
                   <apply>
                     <divide/>
                     <apply>
-                      <times/>
-                      <ci> K1_8 </ci>
+                      <plus/>
                       <apply>
-                        <power/>
-                        <ci> P1 </ci>
-                        <ci> H8 </ci>
+                        <times/>
+                        <ci> K1_8 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H8 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K2_8 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P8 </ci>
+                          <ci> H8 </ci>
+                        </apply>
+                      </apply>
+                      <apply>
+                        <times/>
+                        <ci> K1_8 </ci>
+                        <ci> K3_8 </ci>
+                        <apply>
+                          <power/>
+                          <ci> P6 </ci>
+                          <ci> H8 </ci>
+                        </apply>
+                        <apply>
+                          <power/>
+                          <ci> P8 </ci>
+                          <ci> H8 </ci>
+                        </apply>
                       </apply>
                     </apply>
                     <apply>
@@ -837,7 +853,7 @@
                         <ci> K1_8 </ci>
                         <apply>
                           <power/>
-                          <ci> P1 </ci>
+                          <ci> P6 </ci>
                           <ci> H8 </ci>
                         </apply>
                       </apply>
@@ -846,22 +862,22 @@
                         <ci> K2_8 </ci>
                         <apply>
                           <power/>
-                          <ci> P6 </ci>
+                          <ci> P8 </ci>
                           <ci> H8 </ci>
                         </apply>
                       </apply>
                       <apply>
                         <times/>
                         <ci> K1_8 </ci>
-                        <ci> K2_8 </ci>
+                        <ci> K3_8 </ci>
                         <apply>
                           <power/>
-                          <ci> P1 </ci>
+                          <ci> P6 </ci>
                           <ci> H8 </ci>
                         </apply>
                         <apply>
                           <power/>
-                          <ci> P6 </ci>
+                          <ci> P8 </ci>
                           <ci> H8 </ci>
                         </apply>
                       </apply>
