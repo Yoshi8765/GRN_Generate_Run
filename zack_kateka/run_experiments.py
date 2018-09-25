@@ -273,7 +273,3 @@ def list_to_ints(genes):
         genes[i] = int(genes[i])
     return genes
 ##############################################
-
-
-# testing code
-export_experiments(8, sendEmail=False, updateMoney=True)
