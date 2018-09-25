@@ -10,11 +10,11 @@ Created on Mon Sep 17 09:38:56 2018
 Given a biotapestry csv file, removes connections specified by remove. Prints
 a new csv file to given location.
 
-:param remove: A list containing int tuples of connections to be remove. The tuple
-            should be formatted as (source,target). Ex: (1,3) to remove connection
-           starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
-:param csv_filename: Location with name of the original csv file.
-:param csv_newfile: Location with name of new file name. Input as `file_name.csv`.
+remove: A list containing int tuples of connections to be remove. The tuple
+        should be formatted as (source,target). Ex: (1,3) to remove connection
+        starting at Gene 1 going to Gene 3. Use "INPUT" for "INPUT" box.
+csv_filename: Location with name of the original csv file.
+csv_newfile: Location with name of new file. Ex: `file_name.csv`.
 """
 def remove_biotapestry(remove, csv_filename, csv_newfile):
 
