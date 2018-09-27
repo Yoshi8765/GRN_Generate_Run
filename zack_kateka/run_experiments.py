@@ -5,13 +5,13 @@ Created on Mon Sep 24 12:13:40 2018
 @author: Kateka Seth
 """
 import os
-from RunModel_2 import run_model2
+#from RunModel_2 import run_model2
 #from RunModel import run_model
-import smtplib 
-from email.mime.multipart import MIMEMultipart 
-from email.mime.text import MIMEText 
-from email.mime.base import MIMEBase 
-from email import encoders 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 
 
 """
@@ -19,14 +19,14 @@ Given the csv from google forms, will parse through and run the correct experime
 for each entry. Will update the team's money and send email with the csv of the experiment
 results to the student who filled the form.
 
-This function will generate a file called "run_experiments_data.txt" which keeps 
+This function will generate a file called "run_experiments_data.txt" which keeps
 tracks of the last timestamp in the csv so that it does not run experiments twice.
 
-csv_file: File location of the google forms csv. Default is the name downloaded 
+csv_file: File location of the google forms csv. Default is the name downloaded
           off of google in current directory.
 ant_file: File location of a txt that contains the antimony string of the pathway.
           Default is the file given by GetModel with model name "pathway"
-team_file: File location of the csv file containing the team scores. 
+team_file: File location of the csv file containing the team scores.
 sendEmail: Set to true to turn on email sending functionalities.
 updateMoney: Set to true to update team money by overwritting team_file.
 """
@@ -44,7 +44,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
         raise ValueError("sendEmail should be a boolean")
     if type(updateMoney) != bool:
         raise ValueError("updateMoney should be a boolean")
-        
+
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
     i = 0
@@ -67,7 +67,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
             elif "Deletion" in words[3]:
                 pert = "KO"
                 money = 800
-            else: 
+            else:
                 pert = "Wild"
                 money = 0
             if pert != "Wild":
@@ -75,7 +75,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
                 money *= len(pert_gene)
             else:
                 pert_gene = [0]
-                
+
             # process experiment
             if "Mass Spectrometry" in words[5]:
                 name = "MassSpec"
@@ -93,19 +93,19 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
                 species_type = "P"
                 money += 300 * len(selections)
                 if len(selections) == 3:
-                    money += 50         
-            
+                    money += 50
+
             # select time course points
             if name == "MassSpec" or name == "RNASeq":
                 if "Low" in words[5]:
                     resolution = 20
                 else:
                     resolution = 10
-                    money += 1500 
+                    money += 1500
             else: # flourescence
                 resolution = 10
-             
-            canBuy = update_money(team_file, team, money, updateMoney)    
+
+            canBuy = update_money(team_file, team, money, updateMoney)
             money_left = canBuy[1]
             if canBuy[0]: # comment out line to run experiment regardless of money (i.e. for testing)
                 savePath = team
@@ -119,25 +119,25 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
                 saveName = saveName.replace(" ", "_")
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
-                
+
 #                def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
 #                             savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
 #                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
-    
-                run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
+
+                run_model(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
                            timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
                            save_path=savePath, filename=saveName)
-                
+
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
                 if sendEmail:
-                    body = ("Here is your experiment results. You have spent " + str(money) + 
+                    body = ("Here is your experiment results. You have spent " + str(money) +
                            ". Your team has " + str(money_left) + " credits left.")
                     send_email(email, body, saveName, path, True)
                     print("Success! Emailed " + email)
             else:
                 if sendEmail:
-                    body = ("Lacking funds -- experiment has not been run. You have " 
+                    body = ("Lacking funds -- experiment has not been run. You have "
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
@@ -151,10 +151,10 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
     f = open("run_experiments_data.txt", "w")
     f.write(timestamp)
     f.close()
-        
-    
+
+
 """
-Will update the given csv of team credits by subtracting the experiment cost. 
+Will update the given csv of team credits by subtracting the experiment cost.
 Overwrites the given file with the new updated money.
 
 team_file: File location of the csv file containing the team scores.
@@ -183,7 +183,7 @@ def update_money(team_file, team, money, updateMoney):
             money_left = team_money
             if team_money - money < 0:
                 canBuy=False
-                print("Team " + str(team) + " only has " + str(team_money) + 
+                print("Team " + str(team) + " only has " + str(team_money) +
                       ". Cannot buy experiment that costs " + str(money) + ".")
             else:
                 words[teamNum] = team_money - money
@@ -202,7 +202,7 @@ def update_money(team_file, team, money, updateMoney):
 
 
 """
-Sends an email to students with data for their requested experiment using 
+Sends an email to students with data for their requested experiment using
 bioen498@gmail.com as the sender. Will tell students how much money they spent
 and how much they have left.
 
@@ -214,42 +214,42 @@ attachment: set to true to send email with attachments.
 """
 def send_email(toaddr, body, filename=None, path=None, attachment=False):
     fromaddr = "bioen498@gmail.com"
-    # instance of MIMEMultipart 
-    msg = MIMEMultipart() 
-    
-    msg['From'] = fromaddr 
-    msg['To'] = toaddr 
-    msg['Subject'] = "BIOEN 498 Experiment Data"
-    msg.attach(MIMEText(body, 'plain')) 
-    
-    if attachment:  
-        # open the file to be sent  
-        filename = filename
-        attachment = open(path, "r") 
-        # instance of MIMEBase and named as p 
-        p = MIMEBase('application', 'octet-stream') 
-        # To change the payload into encoded form 
-        p.set_payload((attachment).read())   
-        # encode into base64 
-        encoders.encode_base64(p) 
-        p.add_header('Content-Disposition', "attachment; filename= %s" % filename) 
-        # attach the instance 'p' to instance 'msg' 
-        msg.attach(p) 
-    
-    # creates SMTP session 
-    s = smtplib.SMTP('smtp.gmail.com', 587) 
-    # start TLS for security 
-    s.starttls() 
-    # Authentication 
-    s.login(fromaddr, "uwbioenrules!") 
-    # Converts the Multipart msg into a string 
-    text = msg.as_string() 
-    # sending the mail 
-    s.sendmail(fromaddr, toaddr, text) 
-    # terminating the session 
-    s.quit() 
+    # instance of MIMEMultipart
+    msg = MIMEMultipart()
 
- 
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "BIOEN 498 Experiment Data"
+    msg.attach(MIMEText(body, 'plain'))
+
+    if attachment:
+        # open the file to be sent
+        filename = filename
+        attachment = open(path, "r")
+        # instance of MIMEBase and named as p
+        p = MIMEBase('application', 'octet-stream')
+        # To change the payload into encoded form
+        p.set_payload((attachment).read())
+        # encode into base64
+        encoders.encode_base64(p)
+        p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+        # attach the instance 'p' to instance 'msg'
+        msg.attach(p)
+
+    # creates SMTP session
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    # start TLS for security
+    s.starttls()
+    # Authentication
+    s.login(fromaddr, "uwbioenrules!")
+    # Converts the Multipart msg into a string
+    text = msg.as_string()
+    # sending the mail
+    s.sendmail(fromaddr, toaddr, text)
+    # terminating the session
+    s.quit()
+
+
 """
 Returns the previous time stamp or "" if the timestamp file doesn't exist.
 """
@@ -260,9 +260,9 @@ def getPrevTime():
         f.close()
         return time
     else:
-        return "" 
-    
-    
+        return ""
+
+
 ############## Helper functions ##############
 def convert_list(genes):
     result = ""

@@ -10,9 +10,20 @@ import imp
 import pandas as pd
 
 # TODO: Make a table of appropriate ranges for parameters.
+'''
+def run_model2(antStr, noiseLevel, species_type, species_nums, timepoints,
+        exportData=False,input_conc=1, perturbs = [], perbParam=[.20,.50], bioTap='',
+              save_path = os.getcwd(), filename = "results", showTimePlots=False,seed=0,runAttempts=5):
+'''
+'''
+run_model2(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
+                           timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
+                           save_path=savePath, filename=saveName)
+'''
+
 
 def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
-              savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None):
+              savePath='\\results\\',showTimePlots=False,seed=0,drawModel=None):
     """
     Checks if Antimony models will reach steady-state, generates visualizations, and exports data.
 
@@ -44,7 +55,7 @@ def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
             - If this is not empty, a csv file to use for BioTapestry will be exported. Default: ''
 
         savePath (str):
-            - All output files will be saved to `current_working_directory\savePath\modelName\` . Default: '\\model_output\\'
+            - All output files will be saved to `current_working_directory\savePath\modelName\` . Default: '\\results\\'
 
         showTimePlots (bool):
             - Flag for if you want plots to be generated and saved. Default: False

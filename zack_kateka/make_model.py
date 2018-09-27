@@ -17,26 +17,21 @@ from Biotapestry import convert_biotapestry_to_antimony
 
 
 """
-This code will generate an antimony model for an unbroken network, and output this as a .txt file. There are 
-a few settings you can mess with to generate a suitable network, and I describe them below. When you have set them,
-run this script and a model will be generated in your working directory. It also plots the timecourse data for the model,
-so you will have a chance to see if you like the behavior it exhibits.
+This code will generate an antimony model for an unbroken network, and output this as a .txt file. There are a few settings you can mess with to generate a suitable network, and I describe them below. When you have set them, run this script and a model will be generated in your working directory. It also plots the timecourse data for the model, so you will have a chance to see if you like the behavior it exhibits.
 
 options:
 
-seednum will be the seed for the random processes involved in generating the model. Some models are not
-as interesting as others, so you may want to play with the seednum until you get something you want.
-You may want to save the seed you use for reproducibility.
+seednum will be the seed for the random processes involved in generating the model. Some models are not as interesting as others, so you may want to play with the seednum until you get something you want.
+
+**You may want to save the seed you use for reproducibility.**
 
 num_genes will be the number of genes in the model
 
-reachability defines the proportion of  genes in the network you want to be connected to the INPUT, directly or indirectly. This
-is really only important if the INPUT is high relative to the other protein concentrations. 
+reachability defines the proportion of  genes in the network you want to be connected to the INPUT, directly or indirectly. This is really only important if the INPUT is high relative to the other protein concentrations.
 
-self_feedback_min is the  min number of self feedback loops that the model will have. If you want self feedback, increasing this number
-will do the trick.
+self_feedback_min is the  min number of self feedback loops that the model will have. If you want self feedback, increasing this number will do the trick.
 
-Do NOT change the model name from the default of pathway; the other code requires the name to be pathway
+Do NOT change the model name from the default of `pathway`; the other code requires the name to be `pathway`.
 """
 
 seednum = 12345
