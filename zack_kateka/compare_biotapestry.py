@@ -10,18 +10,18 @@ import os
 
 """
 given:
-student's connections
-broken csv file
-name of new student's file
-true csv file
+* student's connections
+* broken csv file
+* name of new student's file
+* true csv file
 """
 def compare_biotapestry(add, csv_broken, csv_network, csv_student):
     add_biotapestry(add, csv_broken, csv_student)
     network = set()
-    
+
     #strip useless stuff, add to set
     f = open(csv_network)
-    for line in f: 
+    for line in f:
         line = line.replace("\"", "")
         line = line.replace(" ","")
         line = line.strip()
@@ -41,11 +41,10 @@ def compare_biotapestry(add, csv_broken, csv_network, csv_student):
             if words[0] == "general":
                 print("wrong connection: " + words[3] + " to " + words[5])
             elif words[0] == "nodeOnly":
-                print("wrong connection: " + words[3] + " not a node only")
+                print("wrong connection: " + words[3] + " not a node only.")
     f.close()
-    #os.remove(csv_student)
 
-
+#debug code, ignore below
 #add=[(6,8,1),(3,5,-1),(6,7,-1),(7,7,-1)]
 #csv_broken="Biotapestry/8gene_broken.csv"
 #csv_network="Biotapestry/8gene_network.csv"

@@ -13,17 +13,18 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
               param_std = 0.25, seed = 0, reachability=0.9, self_feedback_min = 0, max_builds = 1000, export = False):
     """
     Generates and returns an antimony string for a random biological pathway involving num_genes genes.
-    The pathway is fully connected, and contains no orphans. Also generates a CSV format compatible with
-    the Biotapestry program. Both are returned in a tuple (antimony, biotapestry).
+    The pathway is fully connected, and contains no orphans.
+    Also generates a CSV format compatible with the Biotapestry program.
+    Both are returned in a tuple `(antimony, biotapestry)`.
 
 
     num_genes = number of genes included in the network (an INPUT is also included, but not counted as part of num_genes)
     reg_probs = probability a gene is  each regulation type -> [prob(SA), prob(SR), prob(DA), prob(SA+SR), prob(DR)]
-        SA/SR = single activator/repressor, DA/DR = doubel activator/repressor, SA+SR = one repressor one activator
+        * SA/SR = single activator/repressor, DA/DR = doubel activator/repressor, SA+SR = one repressor one activator
     model_name = what the antimony model will be named;file with antimony string will be created with name "model_name_antimony.txt" in working directory (if export == True)
     init_params = mean values used to randomly generate parameter values for our reactions ['d_protein', 'd_mRNA' , 'L' , 'Vm' , 'a_protein' , 'H', 'K']
-        d_protein/d_mRNA = degradation rate of protein/mRNA, L = leak rate (of transcription), Vm = maximum rate of gene expression (transcription rate),
-        a_protein = translation rate, H = Hill coefficient, K = rate constant
+        * d_protein/d_mRNA = degradation rate of protein/mRNA, L = leak rate (of transcription), Vm = maximum rate of gene expression (transcription rate),
+        * a_protein = translation rate, H = Hill coefficient, K = rate constant
     param_std = controls std used to randomly generate parameter values from normal dist;
                 proportion of mean that standard deviation should be
                 parameters will be generated using distribution ~N(mean in init_params, param_std * mean)
@@ -33,7 +34,8 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     max_builds = maximum number of attempts to build model that matches desired specifications
     export = if True, files model_name_antimony.txt and model_name_biotapestry.csv will be made in working directory
     """
-    # Invalid parameter handling
+
+    ### Invalid parameter handling
 
     #catch for illegal file names
     forbiddenChar = ['<','>',':','"','/','\'','|','?','*']
@@ -80,17 +82,20 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     if not type(export) == bool:
         raise ValueError("export option must be True/False")
 
-    # Algorithm: look through each gene. Based on its type, assign other proteins/genes
-    # to act as its activators/repressors. Before assigning however, check if this process
-    # will create an orphan (within each disjoint set, keep track of how many inputs are
-    # left between all genes within the set; if the previous action connects two genes within
-    # a set AND the # inputs remaining in whole set is only 1, do not connect the two). The INPUT messes with
-    # this algorithm because it acts as a gene with no in-connections. Thus, if it initially connects
-    # to a single-regulation type (SA or SR) it may create an orphan, as there is no guarantee
-    # this SA/SR will connect to other genes, and since it used up its only in connection with
-    # INPUT, it might not be connected at all. This is likely only an issue if the proportion of
-    # the double input genes (DA, DR, SA+SR) is significantly low. To avoid orphans, we
-    # regenerate any models that contain orphans or that do not satisfy reachability/feedback conditions
+    '''
+     Algorithm: look through each gene. Based on its type, assign other proteins/genes
+     to act as its activators/repressors. Before assigning however, check if this process
+     will create an orphan (within each disjoint set, keep track of how many inputs are
+     left between all genes within the set; if the previous action connects two genes within
+     a set AND the # inputs remaining in whole set is only 1, do not connect the two). The INPUT messes with
+     this algorithm because it acts as a gene with no in-connections. Thus, if it initially connects
+     to a single-regulation type (SA or SR) it may create an orphan, as there is no guarantee
+     this SA/SR will connect to other genes, and since it used up its only in connection with
+     INPUT, it might not be connected at all. This is likely only an issue if the proportion of
+     the double input genes (DA, DR, SA+SR) is significantly low. To avoid orphans, we
+     regenerate any models that contain orphans or that do not satisfy reachability/feedback conditions
+    '''
+
     current_build = 1
     while current_build <= max_builds:
         gene_types = ["SA", "SR", "DA", "SA+SR", "DR"]
@@ -140,16 +145,17 @@ def get_model(num_genes, reg_probs = [0.2, 0.2, 0.2, 0.2, 0.2], model_name="path
     raise TimeoutError("A model could not be generated with the desired specifications in the allotted number of builds." +
             "Try increasing max_builds, or lowering the constraints on the model (such as the reachability or self_feedback_min)")
 
-
-# Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
-# params
-#   all_genes = a list of all the genes in the network
-#   gene_sets = a collection of disjoint sets, keeping track of which genes are already connected
-
-# Assumptions:
-#   * a protein cannot be connected to same gene more than once
-#   * connections should not be formed if they result in the formation of an orphan
 def assign_connections(all_genes, gene_sets):
+    '''
+    Assigns all in connections for each gene (i.e. assigns proteins which act as regulators for each gene)
+    params
+      all_genes = a list of all the genes in the network
+      gene_sets = a collection of disjoint sets, keeping track of which genes are already connected
+
+    Assumptions:
+      * a protein cannot be connected to same gene more than once
+      * connections should not be formed if they result in the formation of an orphan
+    '''
 
     # randomly choose a gene to have INPUT as one of its regulators
     input_gene = np.random.choice(all_genes)
@@ -188,7 +194,7 @@ def assign_connections(all_genes, gene_sets):
                 total_connections_left -= 1
 
             # else genes are part of same set (already connected), but there may
-            # still be  enough connections remaining to form another without creating an orphan.
+            # still be enough connections remaining to form another without creating an orphan.
 
             # Second condition handles edge case where final connection is trying to be made.
             # In this case, the situation is similar to when an orphan is being formed. You are
@@ -346,7 +352,7 @@ def convert_to_biotapestry(all_genes):
     and returns this as a string.
     To load into Biotapestry, from the program choose:  File > Import > Import Full Model Hierarchy from CSV
     """
-    
+
     biotap = ""
     biotap += "model,root,,,,\n"
     reg_patterns = {"SR": ["Repressor"], "SA": ["Activator"], "SA+SR": ["Activator","Repressor"],

@@ -7,22 +7,21 @@ from GetModel import Gene
 # From Biotapestry: Export > Export to SBML
 def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_name = "pathway"):
     """
-    converts a biotapestry CSV format to an antimony string
+    converts a biotapestry CSV format to an antimony string.
+    Uses GetModel as a dependency.
 
     init_params = parameter values (i.e. rate constants) to be used in the system.
     csv_filename = must be a gene network in the csv format specified by Biotapestry
 
     """
-    
-    
-    
+
     f = open(csv_filename)
 
     # name : [(P1, positive)(P2, negative)]
     all_in_connects = {}
     for i in range(num_genes):
         all_in_connects["P"+ str(i+1)] = []
-   
+
     all_genes = []
     converter = {"INPUT":Gene("INPUT")} # protein_name : Gene()
     for line in f:
@@ -38,11 +37,11 @@ def convert_biotapestry_to_antimony(csv_filename, num_genes, init_params, model_
 
             gene_target = words[5].strip()
             target_name = "P" + gene_target[5:].strip()
-            
+
             reg_type = words[6].strip()
 
             all_in_connects[target_name].append((source_name, reg_type))
-    
+
     #print (all_in_connects)
 
     for protein_name in all_in_connects.keys():

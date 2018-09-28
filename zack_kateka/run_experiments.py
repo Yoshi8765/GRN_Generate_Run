@@ -6,7 +6,7 @@ Created on Mon Sep 24 12:13:40 2018
 """
 import os
 #from RunModel_2 import run_model2
-#from RunModel import run_model
+from RunModel import run_model
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -15,12 +15,11 @@ from email import encoders
 
 
 """
-Given the csv from google forms, will parse through and run the correct experiments
-for each entry. Will update the team's money and send email with the csv of the experiment
-results to the student who filled the form.
+Requires run_model!
+Given the csv from google forms, will parse through and run the correct experiments for each entry.
+Will update the team's money and send email with the csv of the experiment results to the student who filled the form.
 
-This function will generate a file called "run_experiments_data.txt" which keeps
-tracks of the last timestamp in the csv so that it does not run experiments twice.
+This function will generate a file called "run_experiments_data.txt" which keeps tracks of the last timestamp in the csv so that it does not run experiments twice.
 
 csv_file: File location of the google forms csv. Default is the name downloaded
           off of google in current directory.
@@ -120,13 +119,9 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
 
-#                def run_model(antStr,noiseLevel,inputData=None,exportData=None,bioTap='',
-#                             savePath='\\model_output\\',showTimePlots=False,seed=0,drawModel=None,runAttempts=5):
-#                run_model(ant_str, noiseLevel=0.05, inputData=inputData, exportData=exportData, savePath=savePath)
-
-                run_model(ant_str, noiseLevel=0.05, species_type=species_type, species_nums=selections,
-                           timepoints=[200, resolution], exportData=True, perturbs=[(pert, pert_gene)],
-                           save_path=savePath, filename=saveName)
+                run_model(ant_str, 0.05, inputData=[1,200,resolution],genesToExport=[selections,species_type],
+                           exportData=[True,True], perturb=[pert_gene,pert],
+                           savepath=savePath,fileName = saveName)
 
                 path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
                 saveName = saveName + ".csv"
@@ -202,9 +197,8 @@ def update_money(team_file, team, money, updateMoney):
 
 
 """
-Sends an email to students with data for their requested experiment using
-bioen498@gmail.com as the sender. Will tell students how much money they spent
-and how much they have left.
+Sends an email to students with data for their requested experiment using bioen498@gmail.com as the sender.
+Will tell students how much money they spent and how much they have left.
 
 toaddr: student's email
 body: a string of the message to be sent in the email

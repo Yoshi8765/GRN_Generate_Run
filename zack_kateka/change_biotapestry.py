@@ -123,7 +123,7 @@ def add_biotapestry(add, csv_filename, csv_newfile):
             else:
                 connections[next_target] += 1
 
-    #print (connections) 
+    #print (connections)
     if any(x > 2 for x in list(connections.values())):
             #os.remove(csv_newfile)
             raise ValueError("You have added too many connections to one of the genes.\n A gene can have at most 2 connections.")
@@ -132,8 +132,7 @@ def add_biotapestry(add, csv_filename, csv_newfile):
 
 
 """
-Writes the given words array to the given file with a comma between each array
-element.
+Writes the given words array to the given file with a comma between each array element.
 """
 def write_fencepost(f_new, words):
     f_new.write(words[0].strip())
