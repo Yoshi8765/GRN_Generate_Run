@@ -33,8 +33,8 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
             - The following are parameters needed for perturbation of species. They are **optional** inputs.
               You can just supply pertSpecies, or pertSpecies and pertType, and the rest will use default parameters.
             - **pertType** (str) : either `UP` or `DOWN` or `KO` used as a flag for upregulation, repression, or knockout, respectively. Default: 'UP'
-            - **mean** (float) : The mean value used in `np.random.normal` to generate a random perturbation. The default is recommended for a perturbation of 20-60%. Default: 35
-            - **stdev** (float) : The stdev value used in `np.random.normal` to generate a random pertrubation. The default is recommended for a perturbation of 20-60%. Default: 4
+            - **mean** (int list) [mean,accuracy]: The mean value used in `np.random.normal` to generate a random perturbation, along with an accuracy value (in ##%) Default: [35,15]
+            - **stdev** (float) : The stdev value used in `np.random.normal` to generate a random pertrubation. Default: 4
 
         genesToExport (list: [genesToExport,speciesType]) :
             - **genesToExport** (int list): Which genes you want to export. Pass in [0] to export all proteins or mRNA. Default: [0]
@@ -83,11 +83,11 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
         genesToExport = [[0],'P']
 
     if perturb is None:
-        perturb = 0
+        perturb = [0]
     if len(perturb) == 1:
-        perturb = [perturb,'UP',35,4]
+        perturb = [perturb,'UP',[0,0],0]
     if len(perturb) == 2:
-        perturb = [perturb, 35, 4]
+        perturb = [perturb, [35,15], 4]
 
     #error catching
     if genesToExport[1] not in ['P','M']:
@@ -131,21 +131,30 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
         stdev = perturb[3]
         for species in pertSpecies:
             if pertType == 'KO':
-                exec('model.Vm' + str(species)  + ' = 0') in globals()
-                exec('model.d_mRNA' + str(species)  + ' = 0') in globals()
-                exec('model.d_protein' + str(species)  + ' = 0') in globals()
-                exec('model.mRNA' + str(species)  + ' = 1E-9') in globals()
-                exec('model.P' + str(species)  + ' = 1E-9') in globals()
+                exec('model.Vm' + str(species)  + ' = 0') in locals(), globals()
+                exec('model.d_mRNA' + str(species)  + ' = 0') in locals(), globals()
+                exec('model.d_protein' + str(species)  + ' = 0') in locals(), globals()
+                exec('model.mRNA' + str(species)  + ' = 1E-9') in locals(), globals()
+                exec('model.P' + str(species)  + ' = 1E-9') in locals(), globals()
                 #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
 
             currVm = eval('model.Vm' + str(species))
 
+            randPert = 0
+            if mean[1]==0:
+                randPert = mean[0]/100
+            else:
+                while randPert < 0:
+                    while mean[0] - mean[1] < randPert < mean[0] + mean[1]:
+                        randPert = np.random.normal(mean[0],stdev)
+                randPert /= 100
+
             if pertType == 'UP':
-                newVal = currVm + np.random.normal(mean,stdev)/100
-                exec('model.Vm' + str(species) +  ' = ' + str(newVal)) in globals()
+                newVal = currVm + randPert
+                exec('model.Vm' + str(species) +  ' = ' + str(newVal)) in locals(), globals()
             if pertType == 'DOWN':
-                newVal = currVm - np.random.normal(mean,stdev)/100
-                exec('model.Vm' + str(species)  +  ' = ' + str(newVal)) in globals()
+                newVal = currVm - randPert
+                exec('model.Vm' + str(species)  +  ' = ' + str(newVal)) in locals(), globals()
 
     # Construct the selection arguments for simulation
     exportSpecies = genesToExport[0]
@@ -177,7 +186,7 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
     if os.path.exists(folderPath) == False:
         os.mkdir(folderPath)
     print('\nFolder created: ' + folderPath)
-    fileName = ''.join(fileName,'_')
+    #fileName = fileName + '_'
 
     # Create results with artificial noise
     if noiseLevel != '0':
@@ -242,7 +251,7 @@ def Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy,folder
         data = {next_name:resultNoisy[:,i] for i, next_name in enumerate(selections)}
         df = pd.DataFrame.from_dict(data)
         df.set_index('time', inplace=True)
-        df.to_csv(folderPath + fileName + "Noisy_Result.csv")
+        df.to_csv(folderPath + fileName + ".csv")
 #     export csv file for importing into Biotapestry
     if bioTap != '':
         f2 = open(folderPath + fileName + "biotapestry.csv", 'w')
@@ -251,7 +260,7 @@ def Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy,folder
     # export Antimony model text
     if exportData[0] == True:
         if np.DataSource().exists(folderPath + fileName + 'Antimony.txt'):
-            print('Warning: ' + folderPath + fileName + 'Antimony.txt already exists! Preventing overwrite.' )
+            print('\nWarning: ' + folderPath + fileName + 'Antimony.txt already exists! Preventing overwrite.' )
             exportData[1] == False
         else:
             fh = open(folderPath + fileName + 'Antimony.txt', 'w')

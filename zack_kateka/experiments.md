@@ -1,14 +1,22 @@
-# Pertubations
+# Perturbations
 
 #### Gene Partial Knockout:
 ###### Price: 350
-A partial knockout of the given gene. Will knock out an arbitrary 20-50% of gene function.
+A partial knockout of the given gene. Will knock out desired percentage (With a ± 15% error) of gene activity.
 #### Gene upregulation:
 ###### Price: 350
-Upregulate the choosen gene. Will upregulate an arbitrary 20-50% of gene function.
-#### Gene deletion:
+Upregulate the chosen gene. Will upregulate a desired percentage (With a ± 15% error) of gene activity.
+#### Gene deletion (100% knockout):
 ###### Price: 800
 Completely delete the chosen gene.
+
+# Perturbation specifications
+
+#### Increase perturbation accuracy:
+###### Price: 100 (± 5% error)
+###### Price: 250 (completely accurate)
+#### Set Input Value
+###### Price: 100
 
 # Experiments
 

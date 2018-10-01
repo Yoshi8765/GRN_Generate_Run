@@ -5,9 +5,9 @@ Created on Mon Sep 24 12:13:40 2018
 @author: Kateka Seth
 """
 import os
-#from RunModel_2 import run_model2
 from RunModel import run_model
 import smtplib
+import numbers
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -31,6 +31,8 @@ updateMoney: Set to true to update team money by overwritting team_file.
 """
 def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
+
+    #error checking
     if os.path.isfile(csv_file) == False:
         raise ValueError(csv_file + " does not exist")
     if os.path.isfile(team_file) == False:
@@ -56,39 +58,67 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
             team = words[2]
             email = words[1]
             timestamp = words[0]
+
             # process pertubations
+
+            # optional perturbation amount
+            if isinstance(words[4], numbers.Number):
+                mean = [words[4],15]
+            else:
+                mean = [20,15] # Default perturbation is set to 20% with a 15% error
+
+            # perturbation type
             if "Up" in words[3]:
                 pert = "UP"
                 money = 350
             elif "Down" in words[3]:
                 pert = "DOWN"
                 money = 350
-            elif "Deletion" in words[3]:
+            elif "Knockout" in words[3]:
                 pert = "KO"
                 money = 800
             else:
                 pert = "Wild"
                 money = 0
             if pert != "Wild":
-                pert_gene = list_to_ints(words[4].split(";"))
+                pert_gene = list_to_ints(words[5].split(";"))
                 money *= len(pert_gene)
             else:
                 pert_gene = [0]
 
+            # perturbation specifics
+            if "Increase" in words[6]:
+                mean[1] = 10 # decreased error of +/- 10%
+                stdev = 3 # Have a distribution that matches range.
+                money += 100
+            if "Exact" in words[6]:
+                mean[1] = 0 # Exact accuracy (no error)
+                stdev = 0
+                money += 250
+            else:
+                stdev = 4 # Default accuracy of +/- 15%
+
+            # optional input value
+            if isinstance(words[7], numbers.Number):
+                inputVal  = words[7]
+                money += 100
+            else:
+                inputVal = 1 # Default input value of 1.
+
             # process experiment
-            if "Mass Spectrometry" in words[5]:
+            if "Mass Spectrometry" in words[8]:
                 name = "MassSpec"
                 selections = list(range(1,num_genes+1))
                 species_type = "M"
                 money += 1700
-            elif "RNA" in words[5]:
+            elif "RNA" in words[8]:
                 name = "RNASeq"
                 selections = list(range(1,num_genes+1))
                 species_type = "P"
                 money += 1500
-            else: #words[5] == "Fluorescence Tagging (up to 3 proteins)"
+            else: #words[8] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
-                selections = list_to_ints(words[6].split(";"))
+                selections = list_to_ints(words[9].split(";"))
                 species_type = "P"
                 money += 300 * len(selections)
                 if len(selections) == 3:
@@ -96,7 +126,7 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
 
             # select time course points
             if name == "MassSpec" or name == "RNASeq":
-                if "Low" in words[5]:
+                if "Low" in words[8]:
                     resolution = 20
                 else:
                     resolution = 10
@@ -119,11 +149,12 @@ def export_experiments(num_genes, csv_file="BIOEN 498_ Experiment Request Form.c
 #                inputData = [1, 200, resolution, pert_gene, [pert, 35, 4]]
 #                exportData = [selections, species_type, True, False, True]
 
-                run_model(ant_str, 0.05, inputData=[1,200,resolution],genesToExport=[selections,species_type],
-                           exportData=[True,True], perturb=[pert_gene,pert],
-                           savepath=savePath,fileName = saveName)
+                run_model(ant_str, 0.05, inputData=[inputVal,200,resolution],genesToExport=[selections,species_type],
+                           exportData=[True,True], perturb=[pert_gene,pert,mean,stdev],
+                           savePath=savePath,fileName = saveName)
 
-                path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
+                #path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
+                path = savePath + "/" + saveName + ".csv"
                 saveName = saveName + ".csv"
                 if sendEmail:
                     body = ("Here is your experiment results. You have spent " + str(money) +

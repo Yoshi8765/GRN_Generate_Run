@@ -11,7 +11,7 @@ import numpy as np
 
 from GetModel import get_model
 from GetModel import convert_to_biotapestry
-from Biotapestry import convert_biotapestry_to_antimony
+from Biotap2Ant import convert_biotapestry_to_antimony
 
 """
 This code will generate an antimony model for an unbroken network, and output this as a .txt file.

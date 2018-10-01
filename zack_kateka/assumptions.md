@@ -12,6 +12,7 @@
 * Your experimental data will have some error/noise
 * All of the currently provided connections are correct
 * INPUT is constant at 1 unit
+* Concerning perturbations: Perturbations have a minimum of 0% perturbation (exclusive), for obvious reasons. There is no upper limit, meaning that perturbations can be over 100%. In studies, scientists have upregulated genes by over thousand-fold.
 
 
 ### ADVICE
