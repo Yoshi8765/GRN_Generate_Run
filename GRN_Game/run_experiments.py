@@ -184,7 +184,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498_ Exper
                 i = 1
     f.close()
     f = open("run_experiments_data.txt", "w")
-    f.write(timestamp)
+    f.write(str(timestamp))
     f.close()
 
 
