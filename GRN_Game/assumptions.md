@@ -14,6 +14,7 @@
 * INPUT is constant at 1 unit
 * Concerning perturbations: Perturbations have a minimum of 0% perturbation (exclusive), for obvious reasons. There is no upper limit, meaning that perturbations can be over 100%. In studies, scientists have upregulated genes by over thousand-fold.
 * The following are parameter ranges that you can expect the parameters of the model to be in.
+
 | Parameter | Value      |
 |-----------|------------|
 | d_p       | 0.01-0.03  |
