@@ -26,8 +26,8 @@ Time course data of concentration of tagged protein. Choose between 1, 2, or 3 p
 
 #### RNA-Seq:
 ###### Price: 1500/3000
-Time course data over 4 hours of concentration of all mRNA species. Lower resolution will give a point every 20 minutes. Higher resolution (and more expensive) will give a point every 5 minutes. 
+Time course data of all mRNA species. Lower resolution will give a point every 20 minutes. Higher resolution (and more expensive) will give a point every 10 minutes. 
 
 #### Mass Spec:
 ###### Price: 1700/3200
-Time course data over 4 hours of concentration of all protein species. Lower resolution will give a point every 20 minutes. Higher resolution (and more expensive) will give a point every 5 minutes. 
+Time course data of all protein species. Lower resolution will give a point every 20 minutes. Higher resolution (and more expensive) will give a point every 10 minutes. 
