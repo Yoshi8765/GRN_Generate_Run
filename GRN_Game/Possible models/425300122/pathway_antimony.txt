@@ -13,7 +13,7 @@ model *pathway()
 	// transcription7(SA : in connections = [SA (P8): ]) uses production rate := Vm7*((K1_7*P8^H7)/(1 +K1_7*P8^H7));
 	// transcription8(SA : in connections = [SR (P4): ]) uses production rate := Vm8*((K1_8*P4^H8)/(1 +K1_8*P4^H8));
 
-	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8;
+	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, K2_1, K3_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, H2, K1_2, K2_2, K3_2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, K2_3, K3_3, d_protein4, d_mRNA4, L4, Vm4, a_protein4, H4, K1_4, K2_4, K3_4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, K2_7, K3_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8, H8, K1_8, K2_8, K3_8;
 
 	// Reactions:
 	//transcription1
@@ -75,6 +75,7 @@ model *pathway()
 	H1 = 7.27158373921;
 	K1_1 = 0.0247445378849;
 	K2_1 = 0.0207656769372;
+	K3_1 = 0.0137347139085;
 	d_protein2 = 0.0137625658529;
 	d_mRNA2 = 1.11380571858;
 	L2 = 0.0229524016698;
@@ -82,6 +83,8 @@ model *pathway()
 	a_protein2 = 0.0975056078065;
 	H2 = 6.05670976903;
 	K1_2 = 0.0154429065276;
+	K2_2 = 0.0191377414475;
+	K3_2 = 0.0214126687301;
 	d_protein3 = 0.0202297015282;
 	d_mRNA3 = 1.156360539;
 	L3 = 0.0211370313545;
@@ -89,6 +92,8 @@ model *pathway()
 	a_protein3 = 0.103776335423;
 	H3 = 2.87054652554;
 	K1_3 = 0.0256632329676;
+	K2_3 = 0.0166265859665;
+	K3_3 = 0.0103343726861;
 	d_protein4 = 0.0212055654091;
 	d_mRNA4 = 0.816497700494;
 	L4 = 0.012200485038;
@@ -96,6 +101,8 @@ model *pathway()
 	a_protein4 = 0.0831045172153;
 	H4 = 2.88763201874;
 	K1_4 = 0.0126384065144;
+	K2_4 = 0.0193955294427;
+	K3_4 = 0.0185154573141;
 	d_protein5 = 0.0173688171794;
 	d_mRNA5 = 1.38403669145;
 	L5 = 0.0141708688572;
@@ -121,6 +128,8 @@ model *pathway()
 	a_protein7 = 0.0738252603305;
 	H7 = 5.20892321177;
 	K1_7 = 0.0152094838281;
+	K2_7 = 0.027716262285;
+	K3_7 = 0.0196442885353;
 	d_protein8 = 0.01371482796;
 	d_mRNA8 = 0.744209549195;
 	L8 = 0.0166582947466;
@@ -128,6 +137,8 @@ model *pathway()
 	a_protein8 = 0.0964347706184;
 	H8 = 4.26078069853;
 	K1_8 = 0.0167737624854;
+	K2_8 = 0.0199052723477;
+	K3_8 = 0.0155378518142;
 
 
 end

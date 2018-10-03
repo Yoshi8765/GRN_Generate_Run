@@ -11,7 +11,7 @@ Run this script when you set remove_connections.
 """
 
 #CHANGE ME
-remove_connections = [(2,3),(3,2),(1,5),(8,8)]
+remove_connections = [(7,2),(3,1),(4,8),(6,4)]
 
 #do NOT change this
 model_name = "pathway"

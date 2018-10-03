@@ -42,29 +42,42 @@ Do NOT change the model name from the default of `pathway`; the other code requi
 """
 
 #seednum = np.random.randint(1,999999999) # You can use this line when trying to generate new networks
-seednum = 7555392
+seednum = 425300122
 num_genes = 8
 reachability = 0.9
 self_feedback_min = 0
-maxSimTime = 200
+maxSimTime = 1200
 
 ant_str, biotap_str = get_model(num_genes, seed = seednum, model_name ="pathway" , reachability=reachability, self_feedback_min=self_feedback_min, export=True)
 
 r = te.loada(ant_str)
 result = r.simulate(0,maxSimTime,maxSimTime*5)
+#r.plot()
 
 ### Plotting
 
-#create indexes for each species
-genes = map(str, range(1,num_genes+1))
-selections = ['P' + s for s in genes]
+df = pd.DataFrame.from_dict(result)
+selections = r.getFloatingSpeciesIds()
 selections.insert(0,'time')
-data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
-df = pd.DataFrame.from_dict(data)
-df.set_index('time', inplace=True)
-df.plot()
-plt.xlabel("time")
+df.columns = selections
+
+genes = map(str, range(1,num_genes+1))
+protein = ['P' + s for s in genes]
+protein.insert(0,'time')
+df1 = df[df.columns.intersection(protein)]
+df1.set_index('time', inplace=True)
+df1.plot()
 plt.ylabel("Protein count")
+plt.xlabel("time")
+plt.show()
+
+mRNA = ['mRNA' + s for s in genes]
+mRNA.insert(0,'time')
+df1 = df[df.columns.intersection(mRNA)]
+df1.set_index('time', inplace=True)
+df1.plot()
+plt.ylabel("mRNA count")
+plt.xlabel("time")
 plt.show()
 
 # Saving text
