@@ -1,13 +1,9 @@
 model *pathway()
 
-//TODO: Write that 0.1 is a place holder.
-// If anything with 2 inputs and 1 input is missing, turned to modified mass action.
-//Explain how the assignments rules work.
-
 	// Compartments and Species:
 	species INPUT, P1, mRNA1, P2, mRNA2, P3, mRNA3, P4, mRNA4, P5, mRNA5, P6, mRNA6, P7, mRNA7, P8, mRNA8;
 
-	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, K1_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, d_protein4, d_mRNA4, a_protein4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8;
+	const d_protein1, d_mRNA1, L1, Vm1, a_protein1, H1, K1_1, d_protein2, d_mRNA2, L2, Vm2, a_protein2, d_protein3, d_mRNA3, L3, Vm3, a_protein3, H3, K1_3, d_protein4, d_mRNA4, a_protein4, d_protein5, d_mRNA5, L5, Vm5, a_protein5, H5, K1_5, K2_5, K3_5, d_protein6, d_mRNA6, L6, Vm6, a_protein6, H6, K1_6, K2_6, K3_6, d_protein7, d_mRNA7, L7, Vm7, a_protein7, H7, K1_7, d_protein8, d_mRNA8, L8, Vm8, a_protein8;
 
 	// Reactions:
 	//transcription1
@@ -66,6 +62,7 @@ model *pathway()
 	L1 = 0.0208550953202;
 	Vm1 = 0.886651850367;
 	a_protein1 = 0.0557704471195;
+	H1 = 7.27158373921;	
 	K1_1 = 0.0247445378849;
 	d_protein2 = 0.0137625658529;
 	d_mRNA2 = 1.11380571858;
