@@ -32,7 +32,7 @@ updateMoney: Set to true to update team money by overwritting team_file.
 
 The only constant set for generating data is the noise level (set to 5%).
 """
-def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498_ Experiment Request Form.csv", ant_file="pathway_antimony.txt",
+def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experiment Request Form.csv", ant_file="pathway_antimony.txt",
                        team_file="team_scores.csv", sendEmail=False, updateMoney=False):
 
     #error checking
