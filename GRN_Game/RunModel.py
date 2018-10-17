@@ -186,7 +186,9 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
         fileName = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
 
     # Specify (and make if necessary) a folder to save outputs to
-    folderPath = os.getcwd() + '/' + savePath + '/'
+    
+    # use / instead of \\ for mac compatibility
+    folderPath = os.getcwd() + '\\' + savePath + '\\'
     if os.path.exists(folderPath) == False:
         os.mkdir(folderPath)
     print('\nFolder created: ' + folderPath)
