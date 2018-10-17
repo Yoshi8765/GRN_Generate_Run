@@ -124,37 +124,41 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
     model.INPUT = inputData[0];
 
     # specify perturbations
-    if perturb != 0:
+    if perturb != 0 and not 0 in perturb[0]: #i.e. not wild-type
         pertSpecies = perturb[0]
+
         pertType = perturb[1]
         mean = perturb[2]
         stdev = perturb[3]
         for species in pertSpecies:
+
             if pertType == 'KO':
                 exec('model.Vm' + str(species)  + ' = 0') in locals(), globals()
                 exec('model.d_mRNA' + str(species)  + ' = 0') in locals(), globals()
                 exec('model.d_protein' + str(species)  + ' = 0') in locals(), globals()
                 exec('model.mRNA' + str(species)  + ' = 1E-9') in locals(), globals()
                 exec('model.P' + str(species)  + ' = 1E-9') in locals(), globals()
+                exec('model.L' + str(species)  + ' = 0') in locals(), globals()
                 #change initVals to 1E-9 instead of 0 to prevent possible solver hanging bug
-
-            currVm = eval('model.Vm' + str(species))
-
-            randPert = 0
-            if mean[1]==0:
-                randPert = mean[0]/100
+            
             else:
-                while randPert < 0:
-                    while mean[0] - mean[1] < randPert < mean[0] + mean[1]:
-                        randPert = np.random.normal(mean[0],stdev)
-                randPert /= 100
+                currVm = eval('model.Vm' + str(species))
 
-            if pertType == 'UP':
-                newVal = currVm + randPert
-                exec('model.Vm' + str(species) +  ' = ' + str(newVal)) in locals(), globals()
-            if pertType == 'DOWN':
-                newVal = currVm - randPert
-                exec('model.Vm' + str(species)  +  ' = ' + str(newVal)) in locals(), globals()
+                randPert = 0
+                if mean[1]==0:
+                    randPert = mean[0]/100
+                else:
+                    while randPert < 0:
+                        while mean[0] - mean[1] < randPert < mean[0] + mean[1]:
+                            randPert = np.random.normal(mean[0],stdev)
+                    randPert /= 100
+
+                if pertType == 'UP':
+                    newVal = currVm * (1+randPert)
+                    exec('model.Vm' + str(species) +  ' = ' + str(newVal)) in locals(), globals()
+                if pertType == 'DOWN':
+                    newVal = currVm * (1 - randPert)
+                    exec('model.Vm' + str(species)  +  ' = ' + str(newVal)) in locals(), globals()
 
     # Construct the selection arguments for simulation
     exportSpecies = genesToExport[0]
@@ -182,7 +186,7 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
         fileName = model.getInfo().split("'modelName' : ")[1].split("\n")[0]
 
     # Specify (and make if necessary) a folder to save outputs to
-    folderPath = os.getcwd() + '\\' + savePath + '\\'
+    folderPath = os.getcwd() + '/' + savePath + '/'
     if os.path.exists(folderPath) == False:
         os.mkdir(folderPath)
     print('\nFolder created: ' + folderPath)
@@ -224,8 +228,8 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
         plt.title("Noisy Data")
         plt.xlabel("time")
         plt.savefig(folderPath + fileName + 'Simulation_Noisy_Plot.png', dpi=400)
-        manager = plt.get_current_fig_manager()
-        manager.window.showMaximized()
+#        manager = plt.get_current_fig_manager()
+#        manager.window.showMaximized()
         plt.show()
 
     # Draw the model (requires pygraphviz module)

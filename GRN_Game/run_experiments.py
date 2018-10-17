@@ -118,12 +118,12 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498_ Exper
             if "Mass Spectrometry" in words[8]:
                 name = "MassSpec"
                 selections = list(range(1,num_genes+1))
-                species_type = "M"
+                species_type = "P"
                 money += 1700
             elif "RNA" in words[8]:
                 name = "RNASeq"
                 selections = list(range(1,num_genes+1))
-                species_type = "P"
+                species_type = "M"
                 money += 1500
             else: #words[8] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"

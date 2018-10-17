@@ -13,7 +13,7 @@ maxcredits = 14000
 
 if os.path.isfile("team_scores.csv") == False:
     # change team names here. Make sure it matches the google form team names
-    team_names = np.array(["team 1", "team 2", "team 3", "team 4", "team 5", "team 6"])
+    team_names = np.array(["Quintus", "Marcus", "Gaius", "Claudius", "Lucius", "Scipio"])
     money = np.array([str(maxcredits)]*len(team_names))
     result = np.vstack((team_names, money))
     np.savetxt("team_scores.csv", result, fmt="%s",delimiter=",")
