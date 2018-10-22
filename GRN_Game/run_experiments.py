@@ -182,10 +182,12 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
             time = words[0]
             if prevTime == time:
                 i = 1
-    f.close()
-    f = open("run_experiments_data.txt", "w")
-    f.write(str(timestamp))
-    f.close()
+
+    if timestamp != 0:
+        f.close()
+        f = open("run_experiments_data.txt", "w")
+        f.write(str(timestamp))
+        f.close()
 
 
 """
