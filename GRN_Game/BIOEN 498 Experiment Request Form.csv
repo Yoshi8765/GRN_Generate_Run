@@ -1,3 +1,3 @@
 Timestamp,Username,Team Name,Perturbation Type (includes ±15% error),Perturbation amount (enter a percentage),Perturbation Target(s) (Gene Number),Perturbation Specifics (Costs more!),Set Input Value to the Network,Data Collection Type,Protein Target of Data Collection (Protein Id)
-2018/10/29 12:48:35 AM MDT,kittyyli@uw.edu,Scipio,Gene Downregulation,70,8,Exact perturbation (0% error),,Fluorescence Tagging (up to 3 proteins - high resolution time course) - every 10 mins,2;7;8
-2018/10/29 12:48:35 AM MDT,kittyyli@uw.edu,Scipio,Wild-type (no perturbation),,0 (None: use for wild-type),,,Fluorescence Tagging (up to 3 proteins - high resolution time course) - every 10 mins,2;7;8
+2018/10/31 5:57:15 PM MDT,rileys53@uw.edu,Lucius,Gene Downregulation,75,3,,,Fluorescence Tagging (up to 3 proteins - high resolution time course) - every 10 mins,1;2;3
+2018/10/29 12:48:35 AM MDT,kittyyli@uw.edu,Lucius,Wild-type (no perturbation),,0 (None: use for wild-type),,,Fluorescence Tagging (up to 3 proteins - high resolution time course) - every 10 mins,1;2;3

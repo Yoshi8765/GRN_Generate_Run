@@ -144,14 +144,14 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
             else:
                 currVm = eval('model.Vm' + str(species))
 
-                randPert = 0
-                if mean[1]==0:
-                    randPert = mean[0]/100
-                else:
-                    while randPert < 0:
-                        while mean[0] - mean[1] < randPert < mean[0] + mean[1]:
+                randPert = mean[0]
+                if mean[1]!=0:
+                    randPert = np.random.normal(mean[0],stdev)
+                    while mean[0] - mean[1] > randPert or randPert > mean[0] + mean[1]:
+                        randPert = np.random.normal(mean[0],stdev)
+                        while randPert >= 0:
                             randPert = np.random.normal(mean[0],stdev)
-                    randPert /= 100
+                randPert /= 100
 
                 if pertType == 'UP':
                     newVal = currVm * (1+randPert)

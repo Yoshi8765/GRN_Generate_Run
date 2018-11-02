@@ -29,4 +29,4 @@ Simply ensure that num_genes is the number of genes in the network, and run the 
 """
 num_genes = 8
 
-export_experiments(num_genes, sendEmail=True, updateMoney=True)
+export_experiments(num_genes, sendEmail=False, updateMoney=False)
