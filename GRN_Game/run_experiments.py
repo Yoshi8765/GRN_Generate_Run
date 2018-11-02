@@ -71,9 +71,9 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
             # process pertubations
 
             # optional perturbation amount
-            if isinstance(words[4], numbers.Number):
-                mean = [words[4],15]
-            else:
+            try:
+                mean = [int(words[4]),15]
+            except ValueError:
                 mean = [20,15] # Default perturbation is set to 20% with a 15% error
 
             # perturbation type
@@ -108,10 +108,10 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 stdev = 4 # Default accuracy of +/- 15%
 
             # optional input value
-            if isinstance(words[7], numbers.Number):
-                inputVal  = words[7]
+            try:
+                inputVal  = int(words[7])
                 money += 100
-            else:
+            except ValueError:
                 inputVal = 1 # Default input value of 1.
 
             # process experiment
