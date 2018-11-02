@@ -57,19 +57,18 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
     f.close()
 
     ant_str = open(ant_file, 'r').read()
-    f = open(csv_file)
-    prevTime = getPrevTime()
-    prevTimestampExist = 0
-    timestamp = 0
+    prevTime = getPrevTimes()
+    prevTime = [i.replace('\n','') for i in prevTime]
     csvdata = pd.read_csv(csv_file, delimiter=',')
     for idx,words in csvdata.iterrows():
-        if words['Timestamp'] == prevTime:
-            prevTimestampExist = 1
-            break
-        if prevTimestampExist != 1:
+        timestamp = words[0]
+        print('Running experiment: ' + str(timestamp))
+        if timestamp in prevTime:
+            print('Experiment has already been run (Matching timestamp found).')
+            continue
+        else:
             team = words[2]
             email = words[1]
-            timestamp = words[0]
 
             # process pertubations
 
@@ -132,7 +131,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 money += 1500
             else: #words[8] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
-                if isinstance(words[9],list):
+                if isinstance(words[9],str) or isinstance(words[9],list):
                     selections = list_to_ints(words[9].split(";"))
                 else:
                     selections= [words[9]]
@@ -184,14 +183,11 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
-
-    
-    f.close()
-    
-    if timestamp != 0:
-        f = open("run_experiments_data.txt", "w")
-        f.write(str(timestamp))
-        f.close()
+            
+            # saved used timestamp to data
+            f = open("run_experiments_data.txt", "a")
+            f.write(f'\n{timestamp}')
+            f.close()
 
 
 """
@@ -291,17 +287,14 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
 
 
 """
-Returns the previous time stamp or "" if the timestamp file doesn't exist.
+Returns the previous time stamps or "" if the timestamp file doesn't exist.
 """
-def getPrevTime():
+def getPrevTimes():
     if os.path.isfile("run_experiments_data.txt"):
-        f = open("run_experiments_data.txt", 'r')
-        time = f.read()
-        f.close()
-        return time
+        Timestamps = open("run_experiments_data.txt").readlines()
+        return Timestamps
     else:
         return ""
-
 
 ############## Helper functions ##############
 def convert_list(genes):
