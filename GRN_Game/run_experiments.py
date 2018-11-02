@@ -12,6 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import pandas as pd
 
 
 """
@@ -57,13 +58,15 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
 
     ant_str = open(ant_file, 'r').read()
     f = open(csv_file)
-    i = 0
     prevTime = getPrevTime()
+    prevTimestampExist = 0
     timestamp = 0
-    for line in f:
-        line = line.replace("\"", "")
-        words = line.split(",")
-        if i != 0:
+    csvdata = pd.read_csv(csv_file, delimiter=',')
+    for idx,words in csvdata.iterrows():
+        if words['Timestamp'] == prevTime:
+            prevTimestampExist = 1
+            break
+        if prevTimestampExist != 1:
             team = words[2]
             email = words[1]
             timestamp = words[0]
@@ -96,11 +99,13 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 pert_gene = [0]
 
             # perturbation specifics
-            if "Increase" in words[6]:
+            if isinstance(words[6],float):
+                stdev = 4
+            elif "Increase" in words[6]:
                 mean[1] = 10 # decreased error of +/- 10%
                 stdev = 3 # Have a distribution that matches range.
                 money += 100
-            if "Exact" in words[6]:
+            elif "Exact" in words[6]:
                 mean[1] = 0 # Exact accuracy (no error)
                 stdev = 0
                 money += 250
@@ -127,9 +132,12 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 money += 1500
             else: #words[8] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
-                selections = list_to_ints(words[9].split(";"))
-                species_type = "P"
+                if isinstance(words[9],list):
+                    selections = list_to_ints(words[9].split(";"))
+                else:
+                    selections= [words[9]]
                 money += 300 * len(selections)
+                species_type = "P"
                 if len(selections) == 3:
                     money += 50
 
@@ -176,12 +184,6 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
-        if prevTime == "":
-            i = 1
-        else:
-            time = words[0]
-            if prevTime == time:
-                i = 1
 
     
     f.close()

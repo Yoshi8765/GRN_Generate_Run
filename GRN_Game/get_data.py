@@ -22,6 +22,8 @@ if os.path.isfile("team_scores.csv") == False:
 """
 This file will send out the next batch of experimental data.
 Simply ensure that num_genes is the number of genes in the network, and run the script.
+
+!!Make sure sendEmail and updateMoney is set to False if debugging!!
 """
 num_genes = 8
 
