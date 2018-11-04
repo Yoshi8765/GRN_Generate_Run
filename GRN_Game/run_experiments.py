@@ -161,7 +161,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
 #                exportData = [selections, species_type, True, False, True]
 
                 run_model(ant_str, 0.05, inputData=[inputVal,maxtime,resolution],genesToExport=[selections,species_type],
-                           exportData=[True,True], showTimePlots=True,perturb=[pert_gene,pert,mean,stdev],
+                           exportData=[True,True], showTimePlots=False,perturb=[pert_gene,pert,mean,stdev],
                            savePath=savePath,fileName = saveName)
 
                 #path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
