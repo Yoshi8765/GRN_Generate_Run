@@ -2,7 +2,7 @@
 """
 Created on Mon Sep 24 12:13:40 2018
 
-@author: Kateka Seth
+@author: Kateka Seth and Zachary McNulty
 """
 import os
 from RunModel import run_model
@@ -12,7 +12,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import pandas as pd
 
 
 """
@@ -57,16 +56,17 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
     f.close()
 
     ant_str = open(ant_file, 'r').read()
-    prevTime = getPrevTimes()
-    prevTime = [i.replace('\n','') for i in prevTime]
-    csvdata = pd.read_csv(csv_file, delimiter=',')
-    for idx,words in csvdata.iterrows():
-        timestamp = words[0]
-        print('Running experiment: ' + str(timestamp))
-        if timestamp in prevTime:
-            print('Experiment has already been run (Matching timestamp found).')
-            continue
-        else:
+    f = open(csv_file)
+    prevTime = getPrevTime()
+    timestamp = 0
+    for lnum, line in enumerate(f):
+
+        timestamp = lnum
+
+        # second condition skips empty lines
+        if lnum > prevTime and line.strip():
+            line = line.replace("\"", "")
+            words = line.split(",")
             team = words[2]
             email = words[1]
 
@@ -98,13 +98,11 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 pert_gene = [0]
 
             # perturbation specifics
-            if isinstance(words[6],float):
-                stdev = 4
-            elif "Increase" in words[6]:
+            if "Increase" in words[6]:
                 mean[1] = 10 # decreased error of +/- 10%
                 stdev = 3 # Have a distribution that matches range.
                 money += 100
-            elif "Exact" in words[6]:
+            if "Exact" in words[6]:
                 mean[1] = 0 # Exact accuracy (no error)
                 stdev = 0
                 money += 250
@@ -131,12 +129,9 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 money += 1500
             else: #words[8] == "Fluorescence Tagging (up to 3 proteins)"
                 name = "Fl"
-                if isinstance(words[9],str) or isinstance(words[9],list):
-                    selections = list_to_ints(words[9].split(";"))
-                else:
-                    selections= [words[9]]
-                money += 300 * len(selections)
+                selections = list_to_ints(words[9].split(";"))
                 species_type = "P"
+                money += 300 * len(selections)
                 if len(selections) == 3:
                     money += 50
 
@@ -156,7 +151,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                 savePath = team
                 savePath = savePath.replace(" ", "_")
                 # make team dir if it doesn't exist
-                if os.path.exists(savePath + "/") == False:
+                if not os.path.exists(savePath + "/"):
                     os.mkdir(savePath)
                 saveName = team + "_" + pert + "_" + convert_list(pert_gene) + "_" + name
                 if name == "Fl":
@@ -166,7 +161,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
 #                exportData = [selections, species_type, True, False, True]
 
                 run_model(ant_str, 0.05, inputData=[inputVal,maxtime,resolution],genesToExport=[selections,species_type],
-                           exportData=[True,True], perturb=[pert_gene,pert,mean,stdev],
+                           exportData=[True,True], showTimePlots=True,perturb=[pert_gene,pert,mean,stdev],
                            savePath=savePath,fileName = saveName)
 
                 #path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
@@ -183,11 +178,13 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                            + str(money_left) + " credits leftover.")
                     send_email(email, body)
                     print("Emailed " + email)
-            
-            # saved used timestamp to data
-            f = open("run_experiments_data.txt", "a")
-            f.write(f'\n{timestamp}')
-            f.close()
+
+    
+    f.close()
+    
+    f = open("run_experiments_data.txt", "w")
+    f.write(str(timestamp))
+    f.close()
 
 
 """
@@ -287,14 +284,17 @@ def send_email(toaddr, body, filename=None, path=None, attachment=False):
 
 
 """
-Returns the previous time stamps or "" if the timestamp file doesn't exist.
+Returns the previous time stamp or "" if the timestamp file doesn't exist.
 """
-def getPrevTimes():
+def getPrevTime():
     if os.path.isfile("run_experiments_data.txt"):
-        Timestamps = open("run_experiments_data.txt").readlines()
-        return Timestamps
+        f = open("run_experiments_data.txt", 'r')
+        time = f.read()
+        f.close()
+        return int(time)
     else:
-        return ""
+        return 0 
+
 
 ############## Helper functions ##############
 def convert_list(genes):
