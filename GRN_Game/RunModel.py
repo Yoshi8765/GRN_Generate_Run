@@ -8,6 +8,7 @@ import math
 from matplotlib import pyplot as plt
 import imp
 import pandas as pd
+from pathlib import Path
 
 # TODO: Make a table of appropriate ranges for parameters.
 
@@ -151,10 +152,10 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
                         randPert = np.random.normal(mean[0],stdev)
                         while randPert >= 0:
                             randPert = np.random.normal(mean[0],stdev)
-                randPert /= 100
+                randPert /= 100.0
 
                 if pertType == 'UP':
-                    newVal = currVm * (1+randPert)
+                    newVal = currVm * (1 + randPert)
                     exec('model.Vm' + str(species) +  ' = ' + str(newVal)) in locals(), globals()
                 if pertType == 'DOWN':
                     newVal = currVm * (1 - randPert)
@@ -187,11 +188,10 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
 
     # Specify (and make if necessary) a folder to save outputs to
     
-    # use / instead of \\ for mac compatibility
-    folderPath = os.getcwd() + '\\' + savePath + '\\'
-    if os.path.exists(folderPath) == False:
+    folderPath = Path(os.getcwd()) / savePath 
+    if not os.path.exists(folderPath):
         os.mkdir(folderPath)
-    print('\nFolder created: ' + folderPath)
+    print('\nFolder created: ' + folderPath.name)
     #fileName = fileName + '_'
 
     # Create results with artificial noise
@@ -211,31 +211,25 @@ def run_model(antStr,noiseLevel,inputData=None,genesToExport=None,perturb=None,e
     Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy, folderPath, fileName, antStr,bioTap)
 
     # Create graphs
-        #### do not want to give students the clean data ####
-#        data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
-#        df = pd.DataFrame.from_dict(data)
-#        df.set_index('time', inplace=True)
-#        df.plot()
-#        plt.title("Clean Data")
-#        plt.xlabel("time")
-#        plt.savefig(filesPath + model_name + '_Simulation_Plot.png', dpi=400)
-#        manager = plt.get_current_fig_manager()
-#        manager.window.showMaximized()
-#        plt.show()
-    if showTimePlots==True:
+    if showTimePlots:
         data = {next_name:resultNoisy[:,i] for i,next_name in enumerate(selections)}
         df = pd.DataFrame.from_dict(data)
         df.set_index('time', inplace=True)
-        df.plot()
+        df.plot() 
         plt.title("Noisy Data")
         plt.xlabel("time")
-        plt.savefig(folderPath + fileName + 'Simulation_Noisy_Plot.png', dpi=400)
-#        manager = plt.get_current_fig_manager()
-#        manager.window.showMaximized()
-        plt.show()
+        plt.savefig(folderPath / (fileName +'_Simulation_Noisy_Plot.png'), dpi=400)
+
+        data = {next_name:result[:,i] for i,next_name in enumerate(selections)}
+        df = pd.DataFrame.from_dict(data)
+        df.set_index('time', inplace=True)
+        df.plot()
+        plt.title("Clean Data")
+        plt.xlabel("time")
+        plt.savefig(folderPath / (fileName +'_Simulation_Plot.png'), dpi=400)
 
     # Draw the model (requires pygraphviz module)
-    if drawModel[0]==True:
+    if drawModel[0]:
         try:
             imp.find_module('pygraphviz')
             model.draw(layout=str(drawModel[1]))
@@ -252,30 +246,31 @@ def Output(exportData,model,seed,selections,result,noiseLevel,resultNoisy,folder
     data = {next_name:result[:,i] for i, next_name in enumerate(selections)}
     df = pd.DataFrame.from_dict(data)
     df.set_index('time', inplace=True)
-    df.to_csv(folderPath + fileName + "Result_Clean.csv")
+
+    df.to_csv(folderPath / (fileName + "Result_Clean.csv"))
     if noiseLevel != 0:
         data = {next_name:resultNoisy[:,i] for i, next_name in enumerate(selections)}
         df = pd.DataFrame.from_dict(data)
         df.set_index('time', inplace=True)
-        df.to_csv(folderPath + fileName + ".csv")
+        df.to_csv(folderPath / (fileName + ".csv"))
 #     export csv file for importing into Biotapestry
     if bioTap != '':
-        f2 = open(folderPath + fileName + "biotapestry.csv", 'w')
+        f2 = open(folderPath / ("biotapestry.csv"), 'w')
         f2.write(bioTap)
         f2.close()
     # export Antimony model text
-    if exportData[0] == True:
-        if np.DataSource().exists(folderPath + fileName + 'Antimony.txt'):
-            print('\nWarning: ' + folderPath + fileName + 'Antimony.txt already exists! Preventing overwrite.' )
+    if exportData[0]:
+        if os.path.exists(folderPath / ("antimony.txt")):
+            print('\nWarning: antimony.txt already exists! Preventing overwrite.' )
             exportData[1] == False
         else:
-            fh = open(folderPath + fileName + 'Antimony.txt', 'w')
+            fh = open(folderPath / ("antimony.txt"), 'w')
             fh.write(str(antStr))
             fh.close()
     # export SBML model text
-    if exportData[1] == True:
+    if exportData[1]:
         sbmlStr = model.getSBML()
-        te.saveToFile (folderPath + fileName + 'SBML.xml', sbmlStr)
+        te.saveToFile (folderPath / ("SBML.xml"), sbmlStr)
     print('\nExport Data Saved!\n')
 
     # Attepts to print meaningful Errors

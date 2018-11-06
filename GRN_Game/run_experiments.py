@@ -12,7 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-
+from pathlib import Path
 
 """
 Requires run_model!
@@ -60,7 +60,6 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
     prevTime = getPrevTime()
     timestamp = 0
     for lnum, line in enumerate(f):
-
         timestamp = lnum
 
         # second condition skips empty lines
@@ -145,6 +144,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
             else: # flourescence
                 resolution = 10
 
+
             canBuy = update_money(team_file, team, money, updateMoney)
             money_left = canBuy[1]
             if canBuy[0]: # comment out line to run experiment regardless of money (i.e. for testing)
@@ -165,8 +165,9 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
                            savePath=savePath,fileName = saveName)
 
                 #path = savePath + "/experimental_data_pathway/" + saveName + ".csv"
-                path = savePath + "/" + saveName + ".csv"
+
                 saveName = saveName + ".csv"
+                path = Path(savePath) / saveName 
                 if sendEmail:
                     body = ("Here is your experiment results. You have spent " + str(money) +
                            ". Your team has " + str(money_left) + " credits left.")
