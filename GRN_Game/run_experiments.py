@@ -98,7 +98,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
 
             # perturbation specifics
             if "Increase" in words[6]:
-                mean[1] = 10 # decreased error of +/- 10%
+                mean[1] = 5 # decreased error of +/- 10%
                 stdev = 3 # Have a distribution that matches range.
                 money += 100
             if "Exact" in words[6]:
