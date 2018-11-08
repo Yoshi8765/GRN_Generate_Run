@@ -98,7 +98,7 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
 
             # perturbation specifics
             if "Increase" in words[6]:
-                mean[1] = 5 # decreased error of +/- 10%
+                mean[1] = 5 # decreased error of +/- 5%
                 stdev = 3 # Have a distribution that matches range.
                 money += 100
             if "Exact" in words[6]:
@@ -137,8 +137,10 @@ def export_experiments(num_genes, tmax = "tmax.txt" , csv_file="BIOEN 498 Experi
             # select time course points
             if name == "MassSpec" or name == "RNASeq":
                 if "Low" in words[8]:
+                    name += "LowRes"
                     resolution = 20
                 else:
+                    name += "HighRes"
                     resolution = 10
                     money += 1500
             else: # flourescence
